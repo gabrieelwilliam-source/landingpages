@@ -1,110 +1,237 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#173629">
-<meta name="description" content="Essência Estética e Saúde — beleza, saúde e autoestima em Joinville.">
-<title>Essência Estética e Saúde | Joinville</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1d3b2c">
+  <meta name="description" content="Essência Estética e Saúde — estética facial, corporal, depilação e nutrição em Joinville.">
+  <title>Essência Estética e Saúde | Joinville</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header id="header">
-<a class="brand" href="#inicio"><img src="assets/logo.jpg" alt="Essência Estética e Saúde"><span><strong>Essência</strong><small>Estética e Saúde</small></span></a>
-<nav><a href="#sobre">A clínica</a><a href="#tratamentos">Tratamentos</a><a href="#diferenciais">Diferenciais</a><a href="#localizacao">Localização</a></nav>
-<a class="btn desktop" target="_blank" href="https://wa.me/554791838301?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Essência.">Agendar avaliação</a>
-<button id="menuBtn" class="menu-btn"><span></span><span></span></button>
+  <a class="brand" href="#inicio">
+    <img src="assets/logo.jpg" alt="Essência Estética e Saúde">
+    <div><strong>Essência</strong><span>Estética e Saúde</span></div>
+  </a>
+
+  <nav>
+    <a href="#sobre">A clínica</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#experiencia">Experiência</a>
+    <a href="#localizacao">Localização</a>
+  </nav>
+
+  <a class="btn header-cta" href="https://wa.me/554791838301?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Essência." target="_blank">Agendar avaliação</a>
+
+  <button id="menuBtn" class="menu-btn" aria-label="Abrir menu">
+    <span></span><span></span>
+  </button>
 </header>
 
-<div id="mobileMenu" class="mobile-menu">
-<a href="#sobre">A clínica</a><a href="#tratamentos">Tratamentos</a><a href="#diferenciais">Diferenciais</a><a href="#localizacao">Localização</a>
-<a class="btn" target="_blank" href="https://wa.me/554791838301?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Essência.">Agendar avaliação</a>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre">A clínica</a>
+  <a href="#servicos">Serviços</a>
+  <a href="#experiencia">Experiência</a>
+  <a href="#localizacao">Localização</a>
+  <a class="btn" href="https://wa.me/554791838301?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Essência." target="_blank">Agendar avaliação</a>
 </div>
 
 <main>
-<section class="hero wrap" id="inicio">
-<div class="hero-copy reveal">
-<span class="eyebrow">Beleza • Saúde • Autoestima</span>
-<h1>Cuidado completo para revelar a sua <em>melhor essência.</em></h1>
-<p>Estética facial, corporal, depilação e nutrição em um só lugar. Protocolos pensados para cuidar de você por inteiro.</p>
-<div class="hero-actions">
-<a class="btn" target="_blank" href="https://wa.me/554791838301?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Essência.">Quero agendar uma avaliação</a>
-<a class="link" href="#tratamentos">Conhecer tratamentos ↘</a>
-</div>
-<div class="metrics">
-<div><strong>Facial</strong><span>Harmonização e rejuvenescimento</span></div>
-<div><strong>Corporal</strong><span>Contorno, firmeza e bem-estar</span></div>
-<div><strong>Nutrição</strong><span>Saúde de dentro para fora</span></div>
-</div>
-</div>
-<div class="hero-media reveal">
-<div class="arch"><img src="assets/clinica.jpg" alt="Clínica Essência"><div class="glass">✨ <span>Um espaço pensado para cuidar da sua beleza, saúde e autoestima.</span></div></div>
-<div class="ring r1"></div><div class="ring r2"></div>
-</div>
-</section>
+  <section class="hero" id="inicio">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Beleza • Saúde • Autoestima</span>
+      <h1>Cuidado estético com visão de <em>saúde e bem-estar.</em></h1>
+      <p>Na Essência, cada atendimento é pensado de forma individual. Estética facial, corporal, depilação e nutrição reunidas em um só espaço.</p>
 
-<div class="strip reveal">Estética com propósito. <strong>Resultados que respeitam você.</strong></div>
+      <div class="hero-actions">
+        <a class="btn" href="https://wa.me/554791838301?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avaliação." target="_blank">Agendar avaliação</a>
+        <a class="text-link" href="#servicos">Conhecer serviços <span>↘</span></a>
+      </div>
 
-<section class="section wrap" id="sobre">
-<span class="kicker reveal">01 — A clínica</span>
-<div class="two-col">
-<h2 class="reveal">Mais do que estética: <em>cuidado integral.</em></h2>
-<div class="copy reveal"><p>A Essência reúne diferentes áreas em um único espaço para oferecer uma experiência completa de cuidado. Cada atendimento começa pela escuta e pela compreensão dos seus objetivos.</p><p>A proposta é unir estética, saúde e acompanhamento profissional para resultados mais consistentes e naturais.</p><a class="link" target="_blank" href="https://www.instagram.com/essenciaesteticaesaude">Ver Instagram ↗</a></div>
-</div>
-</section>
+      <div class="hero-points">
+        <div><strong>Atendimento</strong><span>Personalizado</span></div>
+        <div><strong>Abordagem</strong><span>Multidisciplinar</span></div>
+        <div><strong>Local</strong><span>Joinville • SC</span></div>
+      </div>
+    </div>
 
-<section class="section wrap" id="tratamentos">
-<div class="section-head reveal"><div><span class="kicker">02 — Tratamentos</span><h2>Protocolos para cada fase da sua <em>jornada.</em></h2></div><p>Tratamentos faciais, corporais e acompanhamento em saúde.</p></div>
-<div class="cards">
-<article><span>01</span><h3>Preenchimento Labial</h3><p>Definição, hidratação e volume com planejamento individualizado.</p></article>
-<article><span>02</span><h3>Full Face</h3><p>Visão global do rosto para harmonizar proporções e preservar naturalidade.</p></article>
-<article><span>03</span><h3>Rinomodelação</h3><p>Correções estratégicas e equilíbrio do perfil sem cirurgia.</p></article>
-<article><span>04</span><h3>Botox</h3><p>Suavização de linhas de expressão com resultado leve e natural.</p></article>
-<article><span>05</span><h3>Colágeno</h3><p>Protocolos para firmeza, qualidade da pele e estímulo de colágeno.</p></article>
-<article class="featured"><span>06</span><h3>Emagrecimento & Nutrição</h3><p>Acompanhamento integrado para quem busca saúde, equilíbrio e transformação.</p></article>
-</div>
-</section>
+    <div class="hero-media reveal">
+      <div class="hero-shape"></div>
+      <div class="hero-photo">
+        <img src="assets/hero.jpg" alt="Atendimento facial na Essência Estética e Saúde">
+      </div>
+      <div class="hero-card">
+        <small>ESSÊNCIA</small>
+        <p>Um cuidado completo, pensado para você se sentir bem por dentro e por fora.</p>
+      </div>
+    </div>
+  </section>
 
-<section class="gallery wrap">
-<figure class="big reveal"><img src="assets/procedimento.jpg" alt="Procedimento facial"><figcaption><small>Estética facial</small><strong>Precisão e cuidado em cada detalhe.</strong></figcaption></figure>
-<figure class="reveal"><img src="assets/nutricao.jpg" alt="Nutrição"><figcaption><small>Nutrição</small><strong>Saúde de dentro para fora.</strong></figcaption></figure>
-<figure class="reveal"><img src="assets/corporal.jpg" alt="Tratamento corporal"><figcaption><small>Corporal</small><strong>Tecnologia aliada ao bem-estar.</strong></figcaption></figure>
-</section>
+  <section class="trust reveal">
+    <p><strong>Estética com propósito.</strong> Tratamentos que valorizam naturalidade, autoestima e qualidade de vida.</p>
+  </section>
 
-<section class="section wrap" id="diferenciais">
-<div class="diff">
-<div class="photo reveal"><img src="assets/equipe.jpg" alt="Equipe Essência"></div>
-<div class="reveal">
-<span class="kicker">03 — Diferenciais</span><h2>Um atendimento que olha para você por <em>inteiro.</em></h2>
-<div class="steps">
-<div><span>01</span><section><b>Avaliação individual</b><p>Cada plano começa entendendo seu objetivo, rotina e necessidades.</p></section></div>
-<div><span>02</span><section><b>Equipe multidisciplinar</b><p>Estética e saúde trabalhando juntas para um cuidado mais completo.</p></section></div>
-<div><span>03</span><section><b>Protocolos personalizados</b><p>Tratamentos definidos de acordo com o que realmente faz sentido para você.</p></section></div>
-<div><span>04</span><section><b>Acompanhamento</b><p>Orientação antes, durante e depois de cada etapa.</p></section></div>
-</div>
-</div>
-</div>
-</section>
+  <section class="section" id="sobre">
+    <div class="section-label reveal">01 — A clínica</div>
+    <div class="about-grid">
+      <div class="reveal">
+        <h2>Um espaço onde estética e saúde <em>se encontram.</em></h2>
+      </div>
+      <div class="about-copy reveal">
+        <p>A Essência Estética e Saúde reúne diferentes especialidades para oferecer uma experiência de cuidado mais completa.</p>
+        <p>O objetivo é olhar para cada pessoa de forma individual, entender suas necessidades e construir um plano coerente com seus objetivos.</p>
+        <div class="pill-row">
+          <span>Estética facial</span>
+          <span>Estética corporal</span>
+          <span>Depilação</span>
+          <span>Nutrição</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="section wrap" id="localizacao">
-<div class="location reveal">
-<span class="kicker">04 — Localização</span><h2>Seu momento de cuidado começa aqui.</h2>
-<div class="location-grid">
-<div><small>Endereço</small><p>Rua Germano Stein, 137<br>Joinville - SC</p></div>
-<div><small>Contato</small><p>(47) 9183-8301<br>@essenciaesteticaesaude</p></div>
-<div><small>Atendimento</small><p>Entre em contato para consultar horários disponíveis.</p></div>
-</div>
-<div class="location-actions"><a class="btn" target="_blank" href="https://wa.me/554791838301?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Essência.">Agendar pelo WhatsApp</a><a class="link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Rua+Germano+Stein+137+Joinville+SC">Abrir no mapa ↗</a></div>
-</div>
-</section>
+  <section class="section services" id="servicos">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-label">02 — Serviços</span>
+        <h2>Cuidados para diferentes <em>momentos e objetivos.</em></h2>
+      </div>
+      <p>A indicação ideal sempre parte de uma avaliação profissional.</p>
+    </div>
 
-<section class="cta"><div class="reveal"><span>Essência Estética e Saúde</span><h2>Cuide de você por completo.</h2><p>Agende uma avaliação e descubra quais tratamentos fazem sentido para o seu momento.</p><a class="btn light" target="_blank" href="https://wa.me/554791838301?text=Olá!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avaliação.">Falar com a equipe</a></div></section>
+    <div class="service-grid">
+      <article class="service-card reveal">
+        <span>01</span>
+        <h3>Harmonização Facial</h3>
+        <p>Planejamento individual para equilibrar proporções e preservar naturalidade.</p>
+      </article>
+      <article class="service-card reveal">
+        <span>02</span>
+        <h3>Preenchimento Labial</h3>
+        <p>Contorno, hidratação e volume com resultado leve e proporcional.</p>
+      </article>
+      <article class="service-card reveal">
+        <span>03</span>
+        <h3>Botox</h3>
+        <p>Suavização de linhas de expressão com foco em naturalidade.</p>
+      </article>
+      <article class="service-card reveal">
+        <span>04</span>
+        <h3>Bioestimulação</h3>
+        <p>Protocolos voltados à firmeza, textura e qualidade da pele.</p>
+      </article>
+      <article class="service-card reveal">
+        <span>05</span>
+        <h3>Estética Corporal</h3>
+        <p>Tratamentos para contorno corporal, firmeza e bem-estar.</p>
+      </article>
+      <article class="service-card featured reveal">
+        <span>06</span>
+        <h3>Nutrição</h3>
+        <p>Acompanhamento para quem busca emagrecimento, equilíbrio e saúde de forma integrada.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="showcase">
+    <div class="showcase-grid">
+      <figure class="showcase-main reveal">
+        <img src="assets/resultado.jpg" alt="Resultado estético">
+        <figcaption>
+          <small>Estética facial</small>
+          <strong>Resultados que respeitam sua identidade.</strong>
+        </figcaption>
+      </figure>
+
+      <figure class="showcase-side reveal">
+        <img src="assets/corporal.jpg" alt="Tratamento corporal">
+        <figcaption>
+          <small>Corporal</small>
+          <strong>Tecnologia e cuidado.</strong>
+        </figcaption>
+      </figure>
+
+      <figure class="showcase-side reveal">
+        <img src="assets/nutricao.jpg" alt="Atendimento nutricional">
+        <figcaption>
+          <small>Nutrição</small>
+          <strong>Saúde de dentro para fora.</strong>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="experiencia">
+    <div class="experience-grid">
+      <div class="experience-photo reveal">
+        <img src="assets/equipe.jpg" alt="Profissional da Essência Estética e Saúde">
+      </div>
+      <div class="experience-copy reveal">
+        <span class="section-label">03 — Experiência</span>
+        <h2>Atendimento humano, avaliação criteriosa e <em>acompanhamento.</em></h2>
+
+        <div class="steps">
+          <div class="step"><span>01</span><div><h3>Escuta</h3><p>Entendimento das suas queixas, expectativas e objetivos.</p></div></div>
+          <div class="step"><span>02</span><div><h3>Avaliação</h3><p>Análise profissional para definir quais possibilidades fazem sentido.</p></div></div>
+          <div class="step"><span>03</span><div><h3>Plano de cuidado</h3><p>Definição de um protocolo personalizado para o seu momento.</p></div></div>
+          <div class="step"><span>04</span><div><h3>Acompanhamento</h3><p>Orientação antes, durante e depois de cada etapa.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section location-section" id="localizacao">
+    <div class="location-card reveal">
+      <div class="location-title">
+        <span class="section-label">04 — Localização</span>
+        <h2>Essência Estética e Saúde, em Joinville.</h2>
+      </div>
+
+      <div class="location-info">
+        <div><small>Endereço</small><p>Rua Germano Stein, 137<br>Joinville - SC</p></div>
+        <div><small>Contato</small><p>(47) 9183-8301<br>@essenciaesteticaesaude</p></div>
+        <div><small>Atendimento</small><p>Consulte horários disponíveis pelo WhatsApp.</p></div>
+      </div>
+
+      <div class="location-actions">
+        <a class="btn" href="https://wa.me/554791838301?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Essência." target="_blank">Agendar pelo WhatsApp</a>
+        <a class="text-link" href="https://www.google.com/maps/search/?api=1&query=Rua+Germano+Stein+137+Joinville+SC" target="_blank">Abrir no mapa ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="reveal">
+      <span>Essência Estética e Saúde</span>
+      <h2>Seu cuidado começa com uma boa avaliação.</h2>
+      <p>Converse com a equipe e descubra quais possibilidades fazem sentido para você.</p>
+      <a class="btn light" href="https://wa.me/554791838301?text=Olá!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20avaliação." target="_blank">Falar com a equipe</a>
+    </div>
+  </section>
 </main>
 
-<footer class="wrap"><div class="footer-top"><a class="brand" href="#inicio"><img src="assets/logo.jpg" alt="Essência"><span><strong>Essência</strong><small>Estética e Saúde</small></span></a><div><a href="#sobre">A clínica</a><a href="#tratamentos">Tratamentos</a><a target="_blank" href="https://www.instagram.com/essenciaesteticaesaude">Instagram</a><a target="_blank" href="https://wa.me/554791838301">WhatsApp</a></div></div><p>© <span id="year"></span> Essência Estética e Saúde • Projeto demonstrativo</p></footer>
+<footer>
+  <div class="footer-top">
+    <a class="brand" href="#inicio">
+      <img src="assets/logo.jpg" alt="Essência Estética e Saúde">
+      <div><strong>Essência</strong><span>Estética e Saúde</span></div>
+    </a>
+    <div class="footer-links">
+      <a href="#sobre">A clínica</a>
+      <a href="#servicos">Serviços</a>
+      <a href="https://www.instagram.com/essenciaesteticaesaude" target="_blank">Instagram</a>
+      <a href="https://wa.me/554791838301" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+  <p>© <span id="year"></span> Essência Estética e Saúde • Projeto demonstrativo</p>
+</footer>
 
-<a class="whats" target="_blank" href="https://wa.me/554791838301?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações.">✆</a>
+<a class="whatsapp-float" href="https://wa.me/554791838301?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações." target="_blank">✆</a>
+
 <script src="script.js"></script>
-</body></html>
+</body>
+</html>

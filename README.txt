@@ -1,1 +1,1 @@
-Suba index.html, style.css, script.js e a pasta assets na raiz do repositório do GitHub Pages.
+Envie index.html, style.css, script.js e a pasta assets para a raiz do repositório no GitHub Pages.
