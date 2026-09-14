@@ -1,15 +1,18 @@
-FR Distribuidora - Landing Page
+FR Distribuidora — Landing Page / Catálogo Digital V4
 
-Arquivos principais:
+Arquivos para publicar no GitHub Pages:
 - index.html
 - style.css
 - script.js
-- assets/
+- pasta assets/
 
-Publicação no GitHub Pages:
-1. Envie todo o conteúdo desta pasta para a raiz do repositório.
-2. Em Settings > Pages, selecione a branch principal e a pasta /root.
-3. Aguarde a publicação.
+Basta enviar todos os arquivos mantendo a mesma estrutura de pastas.
 
-A página usa apenas HTML, CSS e JavaScript puro.
-O catálogo original está em assets/catalogo-fr.pdf.
+Destaques da versão:
+- Layout responsivo e otimizado para celular
+- Catálogo por categorias
+- Busca de produtos
+- Lista de interesse persistida no navegador
+- Envio da lista pronta pelo WhatsApp
+- PDF original disponível
+- Imagens extraídas do catálogo fornecido
