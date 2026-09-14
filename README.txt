@@ -1,18 +1,18 @@
-FR Distribuidora — Landing Page / Catálogo Digital V4
+FR Distribuidora — Landing Page V5 SHOWCASE
 
-Arquivos para publicar no GitHub Pages:
-- index.html
-- style.css
-- script.js
-- pasta assets/
+Objetivo desta versão:
+- apresentar o portfólio e valorizar os produtos;
+- NÃO possui carrinho, lista de interesse, cotação ou pedido pelo site;
+- preços, disponibilidade, condições e vendas ficam com os vendedores;
+- catálogo com busca e navegação por categorias;
+- WhatsApp apenas como canal para falar com um vendedor;
+- pronto para GitHub Pages.
 
-Basta enviar todos os arquivos mantendo a mesma estrutura de pastas.
+IMPORTANTE:
+Envie para o repositório TODOS os itens desta pasta:
+index.html
+style.css
+script.js
+assets/
 
-Destaques da versão:
-- Layout responsivo e otimizado para celular
-- Catálogo por categorias
-- Busca de produtos
-- Lista de interesse persistida no navegador
-- Envio da lista pronta pelo WhatsApp
-- PDF original disponível
-- Imagens extraídas do catálogo fornecido
+Se a pasta assets não for enviada, logotipo e imagens não aparecerão.

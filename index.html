@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="FR Distribuidora — catálogo digital de alimentos e bebidas. Explore linhas Mega, Pichau, Timbu, Belma e fale com o comercial pelo WhatsApp.">
+  <meta name="description" content="FR Distribuidora — vitrine digital de alimentos e bebidas. Explore as linhas e produtos do portfólio e fale com um vendedor para informações comerciais.">
   <meta name="theme-color" content="#102b7a">
   <meta property="og:title" content="FR Distribuidora | Catálogo Digital">
-  <meta property="og:description" content="Explore o portfólio da FR Distribuidora por categorias e monte sua lista de interesse para falar com o comercial.">
+  <meta property="og:description" content="Explore o portfólio da FR Distribuidora por categorias, conheça as linhas e fale com um vendedor para informações comerciais.">
   <meta property="og:image" content="assets/catalog/page-66.webp">
-  <title>FR Distribuidora | Catálogo Digital</title>
+  <title>FR Distribuidora | Portfólio de Produtos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -25,18 +25,14 @@
 
       <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
         <a href="#portfolio">Portfólio</a>
-        <a href="#catalogo">Catálogo digital</a>
+        <a href="#catalogo">Portfólio digital</a>
         <a href="#marcas">Marcas</a>
         <a href="#empresa">A FR</a>
       </nav>
 
       <div class="header-actions">
         <a class="text-link" href="assets/catalogo-fr.pdf" target="_blank" rel="noopener">Catálogo PDF <span>↗</span></a>
-        <button class="list-button" type="button" data-open-list>
-          <span>Minha lista</span>
-          <b data-list-count>0</b>
-        </button>
-        <a class="button button--navy button--small" href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora%20e%20gostaria%20de%20falar%20com%20o%20comercial." target="_blank" rel="noopener">Falar com o comercial</a>
+        <a class="button button--navy button--small" href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora%20e%20gostaria%20de%20falar%20com%20um%20vendedor." target="_blank" rel="noopener">Falar com um vendedor</a>
       </div>
 
       <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
@@ -55,20 +51,20 @@
         <div class="hero-copy reveal">
           <div class="hero-kicker">
             <span class="dot"></span>
-            <span>Catálogo digital FR Distribuidora</span>
+            <span>Portfólio FR Distribuidora</span>
           </div>
           <h1>Produtos que <em>merecem destaque</em> no seu ponto de venda.</h1>
-          <p>Explore o portfólio por categoria, encontre rapidamente o que procura e monte uma lista de interesse para conversar com o comercial.</p>
+          <p>Explore o portfólio por categoria, conheça as principais linhas e encontre com facilidade os produtos distribuídos pela FR.</p>
 
           <div class="hero-actions">
             <a class="button button--yellow" href="#catalogo">Explorar produtos</a>
             <a class="button button--glass" href="assets/catalogo-fr.pdf" target="_blank" rel="noopener">Abrir catálogo completo <span>↗</span></a>
           </div>
 
-          <div class="hero-proof" aria-label="Recursos do catálogo digital">
+          <div class="hero-proof" aria-label="Recursos do portfólio digital">
             <div><strong>8</strong><span>linhas principais organizadas</span></div>
-            <div><strong>1</strong><span>lista rápida para cotação</span></div>
-            <div><strong>100%</strong><span>pensado para celular</span></div>
+            <div><strong>+60</strong><span>produtos apresentados no catálogo</span></div>
+            <div><strong>Direto</strong><span>atendimento feito pelos vendedores</span></div>
           </div>
         </div>
 
@@ -104,7 +100,7 @@
             <span class="eyebrow">PORTFÓLIO EM DESTAQUE</span>
             <h2>Uma vitrine visual para <span>valorizar cada linha.</span></h2>
           </div>
-          <p>O catálogo original tem dezenas de páginas. Aqui, as principais famílias ficam organizadas como uma vitrine comercial: rápida de entender, agradável de navegar e pronta para levar o cliente até o contato.</p>
+          <p>O catálogo original tem dezenas de páginas. Aqui, as principais famílias ficam organizadas como uma vitrine comercial: rápida de entender, agradável de navegar e pensada para valorizar o mix de produtos.</p>
         </div>
 
         <div class="showcase-grid">
@@ -147,7 +143,7 @@
         <div class="catalog-heading reveal">
           <div>
             <span class="eyebrow eyebrow--light">CATÁLOGO DIGITAL</span>
-            <h2>Encontre. Selecione. <span>Envie ao comercial.</span></h2>
+            <h2>Explore cada linha. <span>Conheça os produtos.</span></h2>
           </div>
           <div class="catalog-search-wrap">
             <label class="catalog-search" for="global-search">
@@ -191,18 +187,18 @@
 
           <div class="catalog-products">
             <div class="products-head">
-              <div><strong>Produtos da linha</strong><small id="product-count">12 itens</small></div>
-              <button class="select-all" id="select-all" type="button">Adicionar todos</button>
+              <div><strong>Produtos desta linha</strong><small id="product-count">12 itens</small></div>
+              <span class="portfolio-only">PORTFÓLIO</span>
             </div>
             <div class="products-list" id="products-list" aria-live="polite"></div>
             <div class="catalog-empty" id="catalog-empty" hidden>
               <strong>Nenhum produto encontrado.</strong>
               <span>Tente outro termo ou navegue pelas categorias.</span>
             </div>
-            <button class="list-cta" type="button" data-open-list>
-              <span><small>Minha lista de interesse</small><strong><b data-list-count>0</b> produto(s) selecionado(s)</strong></span>
-              <em>Revisar lista →</em>
-            </button>
+            <div class="catalog-note">
+              <span>Informações comerciais, disponibilidade e condições são tratadas diretamente pelos vendedores.</span>
+              <a href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora%20e%20gostaria%20de%20falar%20com%20um%20vendedor." target="_blank" rel="noopener">Falar com um vendedor →</a>
+            </div>
           </div>
         </div>
       </div>
@@ -213,7 +209,7 @@
         <div class="brands-copy reveal">
           <span class="eyebrow">MARCAS DO PORTFÓLIO</span>
           <h2>Um catálogo com <span>linhas para diferentes momentos de compra.</span></h2>
-          <p>O catálogo reúne marcas e categorias distintas em uma mesma operação comercial, facilitando a consulta do mix antes do contato com a equipe.</p>
+          <p>O catálogo reúne marcas e categorias distintas em uma mesma operação comercial, facilitando a apresentação do mix para clientes e parceiros.</p>
           <div class="brand-pills" aria-label="Marcas presentes no catálogo">
             <span>Mega</span><span>Mega Gourmet</span><span>Mega Chopp</span><span>Pichau</span><span>Timbu</span><span>Mega Refri</span><span>Belma</span>
           </div>
@@ -222,8 +218,8 @@
         <div class="brands-visual reveal">
           <img src="assets/catalog/page-66.webp" alt="Marcas presentes no catálogo da FR Distribuidora" loading="lazy">
           <div class="brands-floating-card">
-            <span>Catálogo digital</span>
-            <strong>Mais fácil de explorar.<br>Mais fácil de pedir.</strong>
+            <span>Portfólio digital</span>
+            <strong>Mais fácil de explorar.<br>Mais fácil de conhecer.</strong>
           </div>
         </div>
       </div>
@@ -233,15 +229,15 @@
       <div class="shell">
         <div class="section-heading reveal">
           <div>
-            <span class="eyebrow">EXPERIÊNCIA DE COMPRA</span>
-            <h2>Do catálogo ao contato <span>em poucos passos.</span></h2>
+            <span class="eyebrow">EXPERIÊNCIA DIGITAL</span>
+            <h2>Um portfólio claro para <span>apoiar o trabalho dos vendedores.</span></h2>
           </div>
-          <p>Sem formulário longo e sem transformar o site em um e-commerce. O visitante navega, separa os itens de interesse e envia tudo diretamente para a equipe comercial.</p>
+          <p>O site funciona como vitrine institucional: apresenta as linhas, facilita a consulta e ajuda clientes a conhecerem o mix. Preços, disponibilidade, negociações e vendas continuam com a equipe comercial.</p>
         </div>
         <div class="steps-grid">
-          <article class="step-card reveal"><span>01</span><div><h3>Explore por categoria</h3><p>As linhas ficam organizadas para facilitar a descoberta do portfólio.</p></div></article>
-          <article class="step-card reveal"><span>02</span><div><h3>Monte sua lista</h3><p>Adicione apenas os produtos que deseja consultar, sem precisar anotar nomes.</p></div></article>
-          <article class="step-card reveal"><span>03</span><div><h3>Envie no WhatsApp</h3><p>A lista é transformada em uma mensagem pronta para iniciar o atendimento comercial.</p></div></article>
+          <article class="step-card reveal"><span>01</span><div><h3>Explore por categoria</h3><p>As principais linhas ficam organizadas para uma navegação rápida e visual.</p></div></article>
+          <article class="step-card reveal"><span>02</span><div><h3>Conheça o portfólio</h3><p>Veja os produtos de cada linha e use a busca para encontrar itens específicos.</p></div></article>
+          <article class="step-card reveal"><span>03</span><div><h3>Fale com seu vendedor</h3><p>Para preços, disponibilidade, condições e atendimento, o vendedor continua conduzindo a negociação.</p></div></article>
         </div>
       </div>
     </section>
@@ -259,11 +255,10 @@
           </div>
         </div>
         <aside class="contact-panel reveal">
-          <span class="contact-panel-label">ATENDIMENTO COMERCIAL</span>
-          <h3>Quer consultar disponibilidade, condições ou montar um pedido?</h3>
-          <p>Use o catálogo para selecionar seus produtos ou fale diretamente com a equipe.</p>
-          <a class="button button--yellow button--full" href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora%20e%20gostaria%20de%20falar%20com%20o%20comercial." target="_blank" rel="noopener">Falar pelo WhatsApp</a>
-          <button class="contact-secondary" type="button" data-open-list>Revisar minha lista <span data-list-count>0</span></button>
+          <span class="contact-panel-label">ATENDIMENTO COM VENDEDORES</span>
+          <h3>Precisa de informações comerciais sobre o portfólio?</h3>
+          <p>Preços, disponibilidade, condições e vendas são tratados diretamente pelos vendedores da FR.</p>
+          <a class="button button--yellow button--full" href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora%20e%20gostaria%20de%20falar%20com%20um%20vendedor." target="_blank" rel="noopener">Falar com um vendedor</a>
         </aside>
       </div>
     </section>
@@ -272,7 +267,7 @@
       <div class="shell final-cta-inner reveal">
         <div>
           <span>PORTFÓLIO FR</span>
-          <h2>Encontre os produtos.<br><em>O comercial continua a conversa.</em></h2>
+          <h2>Conheça o portfólio.<br><em>Seu vendedor cuida do atendimento.</em></h2>
         </div>
         <a class="button button--yellow" href="#catalogo">Começar pelo catálogo</a>
       </div>
@@ -285,45 +280,21 @@
         <img src="assets/fr-logo.png" alt="FR Distribuidora">
         <p>FR Indústria de Pães e Distribuidora de Alimentos.</p>
       </div>
-      <div><strong>Navegação</strong><a href="#portfolio">Portfólio</a><a href="#catalogo">Catálogo digital</a><a href="#empresa">A FR</a></div>
-      <div><strong>Catálogo</strong><a href="assets/catalogo-fr.pdf" target="_blank" rel="noopener">Abrir PDF</a><button type="button" data-open-list>Minha lista</button></div>
+      <div><strong>Navegação</strong><a href="#portfolio">Portfólio</a><a href="#catalogo">Portfólio digital</a><a href="#empresa">A FR</a></div>
+      <div><strong>Catálogo</strong><a href="assets/catalogo-fr.pdf" target="_blank" rel="noopener">Abrir PDF</a><a href="#catalogo">Explorar produtos</a></div>
       <div><strong>Contato</strong><a href="https://wa.me/5547996800115" target="_blank" rel="noopener">WhatsApp</a><span>@frdistribuidora_</span></div>
     </div>
-    <div class="shell footer-bottom"><span>© <b id="year"></b> FR Distribuidora.</span><span>Catálogo digital demonstrativo.</span></div>
+    <div class="shell footer-bottom"><span>© <b id="year"></b> FR Distribuidora.</span><span>Portfólio digital demonstrativo.</span></div>
   </footer>
-
-  <button class="floating-list" type="button" data-open-list aria-label="Abrir lista de interesse">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15M6 12h15M6 18h15M3 6h.01M3 12h.01M3 18h.01"/></svg>
-    <span>Minha lista</span><b data-list-count>0</b>
-  </button>
 
   <a class="whatsapp-float" href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora." target="_blank" rel="noopener" aria-label="Falar com a FR pelo WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M19.11 17.33c-.27-.14-1.62-.8-1.87-.89-.25-.09-.43-.14-.61.14-.18.27-.7.89-.86 1.07-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.19-1.35-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.46.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.98 2.65 1.12 2.84c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.65.21 1.25.18 1.72.11.52-.08 1.62-.66 1.85-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32zM16.05 3.2c-7.09 0-12.85 5.76-12.85 12.85 0 2.26.59 4.47 1.7 6.42L3.09 29l6.68-1.75a12.8 12.8 0 0 0 6.28 1.6h.01c7.09 0 12.85-5.76 12.85-12.85 0-3.43-1.34-6.66-3.77-9.08A12.77 12.77 0 0 0 16.05 3.2zm0 23.49h-.01a10.63 10.63 0 0 1-5.42-1.48l-.39-.23-3.96 1.04 1.06-3.86-.25-.4a10.67 10.67 0 1 1 8.97 4.93z"/></svg>
   </a>
 
   <div class="mobile-actions" aria-label="Ações rápidas">
-    <button type="button" data-open-list><span>Minha lista</span><b data-list-count>0</b></button>
-    <a href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora." target="_blank" rel="noopener">WhatsApp</a>
+    <a href="#catalogo">Ver produtos</a>
+    <a href="https://wa.me/5547996800115?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20FR%20Distribuidora%20e%20gostaria%20de%20falar%20com%20um%20vendedor." target="_blank" rel="noopener">Falar com vendedor</a>
   </div>
-
-  <aside class="list-drawer" id="list-drawer" aria-hidden="true" aria-label="Lista de interesse">
-    <div class="drawer-backdrop" data-close-list></div>
-    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
-      <div class="drawer-head">
-        <div><span>MINHA LISTA</span><h2 id="drawer-title">Produtos de interesse</h2></div>
-        <button type="button" class="drawer-close" data-close-list aria-label="Fechar lista">×</button>
-      </div>
-      <p class="drawer-intro">Selecione produtos no catálogo. Depois, envie a relação pronta para o comercial pelo WhatsApp.</p>
-      <div class="drawer-items" id="drawer-items"></div>
-      <div class="drawer-empty" id="drawer-empty"><strong>Sua lista está vazia.</strong><span>Adicione produtos no catálogo para começar.</span></div>
-      <div class="drawer-footer">
-        <button class="clear-list" id="clear-list" type="button">Limpar lista</button>
-        <a class="button button--yellow button--full" id="send-list" href="https://wa.me/5547996800115" target="_blank" rel="noopener">Enviar lista no WhatsApp</a>
-      </div>
-    </div>
-  </aside>
-
-  <div class="toast" id="toast" role="status" aria-live="polite">Produto adicionado à sua lista.</div>
 
   <script src="script.js"></script>
 </body>

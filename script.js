@@ -87,70 +87,28 @@ const catalogData = {
 
 const state = {
   activeCategory: 'panificacao',
-  query: '',
-  selected: new Map()
+  query: ''
 };
 
 function normalize(text) {
-  return String(text).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-}
-
-function productId(category, name) {
-  return `${category}::${name}`;
-}
-
-function loadStoredList() {
-  try {
-    const raw = JSON.parse(localStorage.getItem('fr-list') || '[]');
-    raw.forEach(item => {
-      if (item?.category && item?.name && catalogData[item.category]) {
-        state.selected.set(productId(item.category, item.name), item);
-      }
-    });
-  } catch (_) {}
-}
-
-function storeList() {
-  localStorage.setItem('fr-list', JSON.stringify([...state.selected.values()]));
-}
-
-function updateCounters() {
-  $$('[data-list-count]').forEach(el => { el.textContent = state.selected.size; });
-}
-
-function showToast(message) {
-  const toast = $('#toast');
-  if (!toast) return;
-  toast.textContent = message;
-  toast.classList.add('is-visible');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => toast.classList.remove('is-visible'), 1800);
-}
-
-function toggleProduct(category, name, { silent = false } = {}) {
-  const id = productId(category, name);
-  if (state.selected.has(id)) {
-    state.selected.delete(id);
-    if (!silent) showToast('Produto removido da sua lista.');
-  } else {
-    state.selected.set(id, { category, name });
-    if (!silent) showToast('Produto adicionado à sua lista.');
-  }
-  storeList();
-  updateCounters();
-  renderProductList();
-  renderDrawer();
+  return String(text)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
 }
 
 function matchesQuery(categoryKey, productName, query) {
   if (!query) return true;
-  const haystack = normalize(`${productName} ${catalogData[categoryKey].title} ${catalogData[categoryKey].brand} ${categoryKey}`);
+  const data = catalogData[categoryKey];
+  const haystack = normalize(`${productName} ${data.title} ${data.brand} ${data.kicker} ${categoryKey}`);
   return haystack.includes(normalize(query));
 }
 
 function findBestCategoryForQuery(query) {
   if (!query.trim()) return null;
-  return Object.keys(catalogData).find(key => catalogData[key].products.some(product => matchesQuery(key, product, query))) || null;
+  return Object.keys(catalogData).find(key =>
+    catalogData[key].products.some(product => matchesQuery(key, product, query))
+  ) || null;
 }
 
 function renderProductList() {
@@ -160,160 +118,81 @@ function renderProductList() {
   if (!list || !empty || !count) return;
 
   const data = catalogData[state.activeCategory];
-  const products = data.products.filter(product => matchesQuery(state.activeCategory, product, state.query));
+  const products = data.products.filter(product =>
+    matchesQuery(state.activeCategory, product, state.query)
+  );
+
   count.textContent = `${products.length} ${products.length === 1 ? 'item' : 'itens'}`;
   empty.hidden = products.length !== 0;
 
-  list.innerHTML = products.map((product, index) => {
-    const id = productId(state.activeCategory, product);
-    const selected = state.selected.has(id);
-    return `
-      <div class="product-row${selected ? ' is-selected' : ''}">
-        <span class="product-row-index">${String(index + 1).padStart(2, '0')}</span>
-        <div class="product-row-info">
-          <strong>${product}</strong>
-          <small>${data.brand}</small>
-        </div>
-        <button class="product-add" type="button" data-product="${encodeURIComponent(product)}" data-category="${state.activeCategory}" aria-label="${selected ? 'Remover' : 'Adicionar'} ${product} ${selected ? 'da' : 'à'} lista">${selected ? '✓' : '+'}</button>
-      </div>`;
-  }).join('');
-
-  $$('.product-add', list).forEach(button => {
-    button.addEventListener('click', () => toggleProduct(button.dataset.category, decodeURIComponent(button.dataset.product)));
-  });
+  list.innerHTML = products.map((product, index) => `
+    <article class="product-row">
+      <span class="product-row-index">${String(index + 1).padStart(2, '0')}</span>
+      <div class="product-row-info">
+        <strong>${product}</strong>
+        <small>${data.brand}</small>
+      </div>
+      <span class="product-view-label">Produto</span>
+    </article>
+  `).join('');
 }
 
 function renderCategory(category, { keepQuery = false } = {}) {
   if (!catalogData[category]) return;
+
   state.activeCategory = category;
+
   if (!keepQuery) {
     state.query = '';
     const search = $('#global-search');
     if (search) search.value = '';
   }
+
   const data = catalogData[category];
 
-  $$('.category-tab').forEach(tab => tab.classList.toggle('is-active', tab.dataset.category === category));
+  $$('.category-tab').forEach(tab =>
+    tab.classList.toggle('is-active', tab.dataset.category === category)
+  );
 
   const frame = $('.catalog-image-frame');
   frame?.classList.add('is-switching');
+
   window.setTimeout(() => {
     const image = $('#category-image');
-    image.src = data.image;
-    image.alt = data.alt;
+    if (image) {
+      image.src = data.image;
+      image.alt = data.alt;
+    }
+
     $('#category-brand').textContent = data.brand;
     $('#category-kicker').textContent = data.kicker;
     $('#category-title').textContent = data.title;
     $('#category-description').textContent = data.description;
+
     const pageLink = $('#catalog-page-link');
-    pageLink.href = `assets/catalogo-fr.pdf#page=${data.page}`;
+    if (pageLink) pageLink.href = `assets/catalogo-fr.pdf#page=${data.page}`;
+
     frame?.classList.remove('is-switching');
   }, 120);
 
   renderProductList();
 }
 
-function selectAllVisible() {
-  const data = catalogData[state.activeCategory];
-  const visible = data.products.filter(product => matchesQuery(state.activeCategory, product, state.query));
-  if (!visible.length) return;
-  const everySelected = visible.every(name => state.selected.has(productId(state.activeCategory, name)));
-  visible.forEach(name => {
-    const id = productId(state.activeCategory, name);
-    if (everySelected) state.selected.delete(id);
-    else state.selected.set(id, { category: state.activeCategory, name });
-  });
-  storeList();
-  updateCounters();
-  renderProductList();
-  renderDrawer();
-  showToast(everySelected ? 'Produtos removidos da lista.' : 'Produtos adicionados à lista.');
-}
-
-function buildWhatsAppMessage() {
-  const items = [...state.selected.values()];
-  if (!items.length) return 'Olá, vim pelo site da FR Distribuidora e gostaria de falar com o comercial.';
-  const grouped = items.reduce((acc, item) => {
-    (acc[item.category] ||= []).push(item.name);
-    return acc;
-  }, {});
-  const lines = ['Olá! Vim pelo site da FR Distribuidora e tenho interesse nestes produtos:', ''];
-  Object.entries(grouped).forEach(([category, products]) => {
-    lines.push(`*${catalogData[category].title}*`);
-    products.forEach(product => lines.push(`• ${product}`));
-    lines.push('');
-  });
-  lines.push('Pode me passar mais informações comerciais?');
-  return lines.join('\n');
-}
-
-function renderDrawer() {
-  const container = $('#drawer-items');
-  const empty = $('#drawer-empty');
-  const send = $('#send-list');
-  const clear = $('#clear-list');
-  if (!container || !empty || !send || !clear) return;
-
-  const items = [...state.selected.values()];
-  empty.hidden = items.length !== 0;
-  container.hidden = items.length === 0;
-  clear.disabled = items.length === 0;
-  clear.style.opacity = items.length ? '1' : '.45';
-
-  container.innerHTML = items.map(item => {
-    const data = catalogData[item.category];
-    return `
-      <div class="drawer-item">
-        <span class="drawer-item-icon">${data.brand.split(' ')[0].slice(0, 3)}</span>
-        <div class="drawer-item-copy"><strong>${item.name}</strong><small>${data.title}</small></div>
-        <button class="drawer-remove" type="button" data-remove-id="${encodeURIComponent(productId(item.category, item.name))}" aria-label="Remover ${item.name}">×</button>
-      </div>`;
-  }).join('');
-
-  $$('.drawer-remove', container).forEach(button => {
-    button.addEventListener('click', () => {
-      const id = decodeURIComponent(button.dataset.removeId);
-      state.selected.delete(id);
-      storeList();
-      updateCounters();
-      renderProductList();
-      renderDrawer();
-    });
-  });
-
-  send.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(buildWhatsAppMessage())}`;
-}
-
-function openDrawer() {
-  const drawer = $('#list-drawer');
-  drawer?.classList.add('is-open');
-  drawer?.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('drawer-open');
-  renderDrawer();
-  setTimeout(() => $('.drawer-close')?.focus(), 180);
-}
-
-function closeDrawer() {
-  const drawer = $('#list-drawer');
-  drawer?.classList.remove('is-open');
-  drawer?.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('drawer-open');
-}
-
-loadStoredList();
-updateCounters();
 renderCategory('panificacao');
-renderDrawer();
 
 const header = $('.site-header');
-window.addEventListener('scroll', () => header?.classList.toggle('is-scrolled', window.scrollY > 12), { passive: true });
+window.addEventListener('scroll', () => {
+  header?.classList.toggle('is-scrolled', window.scrollY > 12);
+}, { passive: true });
 
 const menuToggle = $('.menu-toggle');
 const nav = $('#main-nav');
+
 menuToggle?.addEventListener('click', () => {
   const open = nav.classList.toggle('is-open');
   menuToggle.setAttribute('aria-expanded', String(open));
 });
+
 $$('.main-nav a').forEach(link => link.addEventListener('click', () => {
   nav?.classList.remove('is-open');
   menuToggle?.setAttribute('aria-expanded', 'false');
@@ -327,40 +206,41 @@ const revealObserver = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.08 });
+
 $$('.reveal').forEach(el => revealObserver.observe(el));
 
-$$('.category-tab').forEach(tab => tab.addEventListener('click', () => renderCategory(tab.dataset.category)));
-$('#select-all')?.addEventListener('click', selectAllVisible);
+$$('.category-tab').forEach(tab => {
+  tab.addEventListener('click', () => renderCategory(tab.dataset.category));
+});
 
 $('#global-search')?.addEventListener('input', event => {
   state.query = event.target.value.trim();
+
   if (state.query) {
     const bestCategory = findBestCategoryForQuery(state.query);
-    if (bestCategory && bestCategory !== state.activeCategory) renderCategory(bestCategory, { keepQuery: true });
-    else renderProductList();
+    if (bestCategory && bestCategory !== state.activeCategory) {
+      renderCategory(bestCategory, { keepQuery: true });
+    } else {
+      renderProductList();
+    }
   } else {
     renderProductList();
   }
 });
 
-$$('[data-jump-category]').forEach(button => button.addEventListener('click', () => {
-  renderCategory(button.dataset.jumpCategory);
-  $('#catalogo')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}));
-
-$$('[data-open-list]').forEach(button => button.addEventListener('click', openDrawer));
-$$('[data-close-list]').forEach(button => button.addEventListener('click', closeDrawer));
-$('#clear-list')?.addEventListener('click', () => {
-  state.selected.clear();
-  storeList();
-  updateCounters();
-  renderProductList();
-  renderDrawer();
-  showToast('Lista limpa.');
+$$('[data-jump-category]').forEach(button => {
+  button.addEventListener('click', () => {
+    renderCategory(button.dataset.jumpCategory);
+    $('#catalogo')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 });
 
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape') closeDrawer();
+// Friendly image fallback: avoids broken-image icons if an asset was not uploaded.
+$$('img').forEach(img => {
+  img.addEventListener('error', () => {
+    img.classList.add('image-missing');
+    img.alt = '';
+  }, { once: true });
 });
 
 $('#year').textContent = new Date().getFullYear();
