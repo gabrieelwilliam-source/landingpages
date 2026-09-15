@@ -1,11 +1,13 @@
-FR Distribuidora — V12 Refined
+FR Distribuidora — V13 Mobile UX
 
-Base visual retomada da V9, com refinamento de hierarquia, espaçamento e densidade.
-- Sem seção de apresentação 01/02/03
-- Sem linguagem de demonstração
-- Produtos e categorias continuam interativos
-- Sem carrinho ou pedido no site
-- Vendas continuam via equipe/vendedores
-- Responsivo para desktop e celular
+Principais melhorias desta versão:
+- no celular, o visitante pode deslizar a imagem para a esquerda/direita para trocar de produto;
+- setas anterior/próximo sobre a imagem;
+- contador do produto atual;
+- carrossel horizontal de produtos imediatamente abaixo da imagem;
+- ao selecionar um produto, o carrossel acompanha automaticamente;
+- a lista vertical de produtos foi removida no mobile para evitar descer e voltar ao topo;
+- desktop permanece com a estrutura da V12 Refined;
+- catálogo PDF e demais assets preservados.
 
-Para GitHub Pages, envie todos os arquivos desta pasta mantendo a pasta assets.
+Publique index.html + pasta assets no GitHub Pages.
