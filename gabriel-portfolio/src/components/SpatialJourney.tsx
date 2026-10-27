@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { environments, spatialExhibits, services, projects } from "@/data/site";
 import NavigationModes from "./ui/NavigationModes";
+import ContactForm from "./ContactForm";
 import {
   normalizeWheel,
   areaAt,
@@ -493,7 +494,7 @@ export default function SpatialJourney({
               >
                 <button
                   className="primary"
-                  onClick={() => onClassic("contato")}
+                  onClick={() => openExhibit("contato")}
                 >
                   Preparar resumo local
                 </button>
@@ -736,6 +737,7 @@ export default function SpatialJourney({
           )}
           <h2 id="exhibit-title">{active.title}</h2>
           <p>{active.body}</p>
+          {active.id === "contato" && <ContactForm />}
           {active.id === "servicos" && (
             <div className="exhibit-services">
               {services.map((s) => (

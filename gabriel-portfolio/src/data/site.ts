@@ -213,7 +213,7 @@ export const environments = [
     number: "06",
     title: "Vamos construir algo?",
     description:
-      "Uma presença digital que faça sentido para seu negócio. Os canais oficiais aguardam confirmação; você pode preparar um resumo no modo clássico.",
+      "Uma presença digital que faça sentido para seu negócio. Os canais oficiais aguardam confirmação; você pode preparar um resumo local neste painel ou no modo clássico.",
     accent: "#a88a55",
   },
 ];

@@ -5,6 +5,7 @@ import { areaAt, destinations } from "@/lib/spatial-motion.mjs";
 import ClassicPortfolio from "./ClassicPortfolio";
 import SpatialJourney from "./SpatialJourney";
 import type { NavigationMode } from "@/lib/spatial-engine";
+import { ContactDraftProvider } from "./ContactDraftContext";
 
 export default function Experience() {
   // Server-render the complete classic content; enhance into 3D only with JavaScript.
@@ -51,7 +52,7 @@ export default function Experience() {
       target?.focus({ preventScroll: true });
     });
   }
-  return mode === "spatial" ? (
+  return <ContactDraftProvider>{mode === "spatial" ? (
     <SpatialJourney
       initialDistance={entry}
       navigationMode={navigationMode}
@@ -64,5 +65,5 @@ export default function Experience() {
     />
   ) : (
     <ClassicPortfolio onExplore={explore} onSection={rememberSection} />
-  );
+  )}</ContactDraftProvider>;
 }

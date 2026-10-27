@@ -1,0 +1,72 @@
+[
+  {
+    "file": "02_PROGRAMA_ESPACIAL.md",
+    "bytes": 2217,
+    "sha256": "97ae2c450a1473fc8958a870dd9d359040a0685a1c885a54749230b579ba19cf"
+  },
+  {
+    "file": "07_DIRECAO_VISUAL.md",
+    "bytes": 1694,
+    "sha256": "307aef897a438b6f31c490db4fc98f6847cef95c91451a96a640e9e23761e66b"
+  },
+  {
+    "file": "05_TESTES_E_ENTREGA.md",
+    "bytes": 2101,
+    "sha256": "20ba232172772a4636ee8f7879806e5fa013cb58ffd6bc0e547fb1c01ed02b30"
+  },
+  {
+    "file": "04_CONTEUDO_E_DADOS.md",
+    "bytes": 1708,
+    "sha256": "1f0a995feb49cfa4f9b1652f2f5c16c3b36e8fc4a87fd7851cb1376a0b9b39d7"
+  },
+  {
+    "file": "01_PROMPT_MESTRE_CODEX.md",
+    "bytes": 11256,
+    "sha256": "fff36db891e751085d9c9d4ec1e67a4e55e56884dfa2bee0e11bcb4f6e8b58f9"
+  },
+  {
+    "file": "EXEMPLO_CONFIG.json",
+    "bytes": 777,
+    "sha256": "28428d00f71b6c340132a95b2db3bf3eadb77220aa1e9ceefac3f2736b4000d6"
+  },
+  {
+    "file": "06_LIMITES_E_DECISOES.md",
+    "bytes": 1505,
+    "sha256": "c63477d01848d2c77309537a91ecc1dcaa8583bc7ff3db294087d0c25498a0ab"
+  },
+  {
+    "file": "03_INTERACOES_E_NPCS.md",
+    "bytes": 2205,
+    "sha256": "074a455ce81db585c42d18194e16443f0451a319f37c88c8071d74cef40b2a47"
+  },
+  {
+    "file": "00_COMECE_AQUI.md",
+    "bytes": 1968,
+    "sha256": "e0fb98ed64b8006bc0cd128cc0e0a4cdf49e858c16b167da862bd09c1c7b6126"
+  },
+  {
+    "file": "REFERENCIAS/02_PERCURSO_E_ATELIE.png",
+    "bytes": 2130653,
+    "sha256": "e8fbe7fd7d084cc31f1774f44637288adaf9d3520f2ba83e78ac0c348ac96232"
+  },
+  {
+    "file": "REFERENCIAS/03_PANORAMA_AMBIENTES.png",
+    "bytes": 2181128,
+    "sha256": "91688d08e4b17d3d1aabb11c18cffa5018223216c261648ffe741132b430f188"
+  },
+  {
+    "file": "REFERENCIAS/01_CONCEITO_GERAL.png",
+    "bytes": 2106417,
+    "sha256": "388e0a9c36bc61c1ae935f7b0f4385f2c74fee43c1662e5ab0621656137bfe3e"
+  },
+  {
+    "file": "ASSETS/04_GABRIEL_FOTO.jpg",
+    "bytes": 195426,
+    "sha256": "6e6e0ddce519fcc5a3c9b015b2014bb653a8051f6859f1f69afd8e54540477f7"
+  },
+  {
+    "file": "ASSETS/05_LOGO_ZAION_ORIGINAL.png",
+    "bytes": 1004338,
+    "sha256": "fb2edb7999b9c5c35d54ec16a25661650905683a231abbe8d261f04e398b99cc"
+  }
+]

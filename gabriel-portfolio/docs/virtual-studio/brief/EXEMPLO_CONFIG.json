@@ -1,0 +1,32 @@
+{
+  "brand": {
+    "name": "zAIon Automações",
+    "relationship": "Gabriel | Web & Digital — by zAIon",
+    "logo": "ASSETS/05_LOGO_ZAION_ORIGINAL.png"
+  },
+  "contacts": {
+    "whatsapp": null,
+    "email": null,
+    "github": null,
+    "linkedin": null
+  },
+  "projects": [
+    {
+      "id": "example-concept",
+      "title": "Demonstração conceitual",
+      "type": "concept",
+      "verified": false,
+      "status": "em demonstração",
+      "description": "Substituir por case validado antes da divulgação.",
+      "demoUrl": null,
+      "screenshots": [],
+      "clientName": null
+    }
+  ],
+  "modes": [
+    "guided_scroll",
+    "free_roam",
+    "classic"
+  ],
+  "npcDisclosure": "Personagens virtuais ilustrativos — não representam funcionários reais."
+}

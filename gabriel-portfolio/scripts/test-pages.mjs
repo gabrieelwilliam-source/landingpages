@@ -125,6 +125,20 @@ try {
       "Possibilidades",
     );
     await page.getByRole("button", { name: "Modo clássico" }).click();
+    await page.getByLabel("Seu nome", { exact: true }).fill("Teste da exportação");
+    await page.getByLabel("E-mail", { exact: true }).fill("export@example.invalid");
+    await page.getByLabel("O que você quer construir?").fill("Validar o resumo local na exportação estática.");
+    await page.locator("#contato").getByRole("button", { name: "Preparar resumo local", exact: true }).click();
+    await expect(page.getByLabel("Resumo do projeto")).toHaveValue(/Teste da exportação/);
+    await page.getByRole("button", { name: "Voltar à jornada 3D" }).click();
+    await expect(page.locator(".spatial-loading")).toHaveCount(0, { timeout: 15000 });
+    await page.getByRole("navigation", { name: "Atalhos para ambientes" }).getByRole("button").nth(5).click();
+    await expect(page.locator(".world-stage")).toHaveAttribute("data-area", "contato");
+    await page.getByRole("button", { name: "Preparar um projeto", exact: true }).click();
+    await expect(page.getByLabel("Seu nome", { exact: true })).toHaveValue("Teste da exportação");
+    await page.screenshot({ path: `test-results/pages-contact-${width}.png` });
+    await page.keyboard.press("Escape");
+    await page.getByRole("button", { name: "Modo clássico" }).click();
     await page
       .locator("#projetos")
       .getByRole("link", { name: "Ver conceito" })
