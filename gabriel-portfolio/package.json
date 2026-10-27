@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/physics.test.mjs",
+    "test": "node --test tests/spatial-motion.test.mjs",
     "test:e2e": "playwright test",
     "build:pages": "GITHUB_PAGES=true NEXT_PUBLIC_BASE_PATH=/landingpages/gabriel next build",
     "test:pages": "node scripts/test-pages.mjs"
@@ -15,7 +15,8 @@
   "dependencies": {
     "next": "^15.5.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
@@ -23,6 +24,7 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "@types/three": "^0.186.0",
     "typescript": "^5.9.0"
   }
 }

@@ -71,3 +71,7 @@ URL pública: https://gabrieelwilliam-source.github.io/landingpages/gabriel/
 Verificação HTTPS com TLS ativo: todos os 30 arquivos publicados (HTML, páginas de casos, scripts, CSS, dados estáticos e favicon) retornaram HTTP 200 e bytes idênticos aos artefatos testados localmente nas três larguras. A landing page FR na raiz também retornou HTTP 200 e manteve seu conteúdo. A tentativa de navegador contra o domínio público encontrou a CA do proxy não reconhecida pelo Chromium; não foi ignorada a validação do certificado. Portanto, interação foi validada no navegador local com os mesmos arquivos, e disponibilidade/integridade pública foi validada por HTTPS com a cadeia de confiança do ambiente, sem alegar teste de interação no navegador remoto.
 
 Foto pessoal não versionada nem incluída no site. O formulário continua preparando apenas um resumo local, sem envio. A versão pública de teste mantém `noindex`; não há contatos inventados ou serviços de produção conectados.
+
+## Nova etapa: demonstração espacial 3D
+
+A revisão posterior criou dois ambientes 3D locais e substituiu o percurso lateral. Esta demonstração **não foi publicada**; a publicação descrita acima continua sendo a versão anterior. Ver `RELATORIO_DEMO_3D.md` para o estado, testes e limites atuais.
