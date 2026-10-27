@@ -161,7 +161,7 @@ export const environments = [
     name: "Portal",
     label: "Abertura",
     number: "01",
-    title: "Ideias bem construídas.",
+    title: "Sites e experiências digitais.",
     description:
       "Sites, landing pages e experiências web pensadas para comunicar melhor e funcionar de verdade.",
     accent: "#a88a55",
@@ -248,7 +248,7 @@ export const spatialExhibits = [
     label: "Explorar serviços",
     title: "Do conceito à interface.",
     body: environments[2].description,
-    position: [-3.7, 2.2, 51],
+    position: [-4.5, 1.2, 50],
   },
   ...projects.map((p, i) => ({
     id: p.slug,
@@ -257,7 +257,7 @@ export const spatialExhibits = [
     title: p.title,
     body:
       p.description + " Projeto conceitual; não representa um cliente real.",
-    position: [i % 2 ? -3.7 : 3.7, 2.2, 80 + i * 5],
+    position: [i % 2 ? 5 : -5, 2.2, 77 + i * 5],
   })),
   {
     id: "processo",

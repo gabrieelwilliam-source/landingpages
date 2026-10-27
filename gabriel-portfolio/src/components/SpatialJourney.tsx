@@ -36,6 +36,8 @@ export default function SpatialJourney({
     stage = useRef<HTMLDivElement>(null),
     engine = useRef<SpatialEngine | null>(null);
   const [snapshot, setSnapshot] = useState<SpatialSnapshot>({
+    rigBones: 0,
+    animation: "Idle",
     avatarZ: -initialDistance,
     worldZ: 0,
     progress: initialDistance / JOURNEY_END,
@@ -59,6 +61,7 @@ export default function SpatialJourney({
     [started, setStarted] = useState(false);
   const [exhibit, setExhibit] = useState<string | null>(null);
   const dialog = useRef<HTMLDialogElement>(null),
+    returnFocus = useRef<HTMLElement | null>(null),
     pauseBeforeDialog = useRef(false),
     keys = useRef(new Set<string>());
   const pausedRef = useRef(paused);
@@ -288,6 +291,10 @@ export default function SpatialJourney({
     stage.current?.focus();
   }
   function openExhibit(id: string) {
+    returnFocus.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
     pauseBeforeDialog.current = paused;
     clearInput();
     setPaused(true);
@@ -296,7 +303,12 @@ export default function SpatialJourney({
   function closeExhibit() {
     setExhibit(null);
     setPaused(pauseBeforeDialog.current);
-    stage.current?.focus();
+    requestAnimationFrame(() => {
+      const target = returnFocus.current;
+      (target?.isConnected ? target : stage.current)?.focus({
+        preventScroll: true,
+      });
+    });
   }
   function touch(
     e: React.PointerEvent<HTMLButtonElement>,
@@ -407,6 +419,8 @@ export default function SpatialJourney({
         onLostPointerCapture={() => {
           drag.current = null;
         }}
+        data-rig-bones={snapshot.rigBones}
+        data-animation={snapshot.animation}
         data-avatar-z={snapshot.avatarZ.toFixed(3)}
         data-world-z={snapshot.worldZ.toFixed(3)}
         data-progress={snapshot.progress.toFixed(5)}
@@ -424,7 +438,7 @@ export default function SpatialJourney({
         {!error && !ready && (
           <div className="spatial-loading" role="status">
             <span className="loading-rule" />
-            <p>Preparando o átrio.</p>
+            <p>Preparando a jornada.</p>
             <small>A jornada carrega em etapas.</small>
           </div>
         )}
@@ -462,6 +476,32 @@ export default function SpatialJourney({
               {spatialExhibits.find((e) => e.area === snapshot.area)!.label}{" "}
               <span aria-hidden="true">→</span>
             </button>
+            {snapshot.area === 0 && (
+              <div className="portal-actions" data-spatial-blocker>
+                <button className="primary" onClick={() => goTo(1)}>
+                  Explorar a jornada →
+                </button>
+                <button className="spatial-button" onClick={() => goTo(3)}>
+                  Ver projetos
+                </button>
+              </div>
+            )}
+            {snapshot.area === 5 && (
+              <div
+                className="portal-actions destination-actions"
+                data-spatial-blocker
+              >
+                <button
+                  className="primary"
+                  onClick={() => onClassic("contato")}
+                >
+                  Preparar resumo local
+                </button>
+                <button className="spatial-button" onClick={() => goTo(3)}>
+                  Visitar galeria
+                </button>
+              </div>
+            )}
           </aside>
           {ready &&
             snapshot.hotspots.map((h) => {
@@ -501,29 +541,6 @@ export default function SpatialJourney({
               Próximo →
             </button>
           </nav>
-          {snapshot.area === 0 && (
-            <div className="portal-actions" data-spatial-blocker>
-              <button className="primary" onClick={() => goTo(1)}>
-                Explorar a jornada →
-              </button>
-              <button className="spatial-button" onClick={() => goTo(3)}>
-                Ver projetos
-              </button>
-            </div>
-          )}
-          {snapshot.area === 5 && (
-            <div className="portal-actions" data-spatial-blocker>
-              <button className="primary" onClick={() => onClassic("contato")}>
-                Preparar resumo local
-              </button>
-              <button className="spatial-button" onClick={() => goTo(0)}>
-                Reiniciar jornada
-              </button>
-              <button className="spatial-button" onClick={() => goTo(3)}>
-                Visitar galeria
-              </button>
-            </div>
-          )}
           <div className="spatial-compass" aria-hidden="true">
             <span>N</span>
             <i />
@@ -708,6 +725,13 @@ export default function SpatialJourney({
               className="concept-preview"
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/concepts/${active.id}.png`}
               alt={`Demonstração autoral de ${active.title}; projeto conceitual`}
+            />
+          )}
+          {active.area === 4 && (
+            <img
+              className="brand-mark"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/brand/zaion-original.png`}
+              alt="zAIon Automações — logo original"
             />
           )}
           <h2 id="exhibit-title">{active.title}</h2>

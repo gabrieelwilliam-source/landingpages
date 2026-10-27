@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "viewport": [
+    1440,
+    900
+  ],
+  "test": "Renderer info extension unavailable; PBR/probe/textured GLB scene loads without JS errors",
+  "renderer": "Headless Chromium software WebGL; NOT a physical GPU measurement",
+  "image": "pbr-portal-software.png"
+}

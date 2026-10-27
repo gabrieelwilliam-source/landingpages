@@ -10,11 +10,16 @@ test.beforeEach(async ({ page }) => {
     throw e;
   });
 });
-for (const width of [360, 390, 768, 1440])
+for (const width of [360, 390, 1280, 1440])
   test(`six chapters, layout and accessibility ${width}`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 900 });
+    await page.setViewportSize({ width, height: width < 700 ? 844 : 900 });
     await page.goto("/");
     await ready(page);
+    await expect
+      .poll(async () =>
+        Number(await world(page).getAttribute("data-rig-bones")),
+      )
+      .toBeGreaterThan(10);
     expect(
       await page
         .getByRole("navigation", { name: "Atalhos para ambientes" })
@@ -57,6 +62,7 @@ test("scroll moves world while avatar and camera stay anchored; guided walking m
   await expect
     .poll(async () => Number(await world(page).getAttribute("data-avatar-z")))
     .toBeLessThan(-1);
+  await expect(world(page)).toHaveAttribute("data-animation", "Walk");
   await page.keyboard.up("w");
 });
 test("all six architectural destinations, panels, concepts, navigation history and pause", async ({
@@ -75,6 +81,9 @@ test("all six architectural destinations, panels, concepts, navigation history a
       "Em travessia",
       { timeout: 10000 },
     );
+    await expect
+      .poll(async () => Number(await world(page).getAttribute("data-loaded")))
+      .toBeGreaterThanOrEqual(i + 1);
     await page.screenshot({ path: `test-results/final-room-${i + 1}.png` });
   }
   await page
@@ -181,15 +190,13 @@ test("record measured animation performance during active scene scrolling", asyn
     const start = last;
     const ticker = setInterval(
       () =>
-        document
-          .querySelector(".world-stage")
-          ?.dispatchEvent(
-            new WheelEvent("wheel", {
-              deltaY: 100,
-              bubbles: true,
-              cancelable: true,
-            }),
-          ),
+        document.querySelector(".world-stage")?.dispatchEvent(
+          new WheelEvent("wheel", {
+            deltaY: 100,
+            bubbles: true,
+            cancelable: true,
+          }),
+        ),
       180,
     );
     await new Promise<void>((resolve) => {
@@ -210,10 +217,19 @@ test("record measured animation performance during active scene scrolling", asyn
       averageFps: (frames.length / (last - start)) * 1000,
       p95FrameMs: sorted[Math.floor(sorted.length * 0.95)],
       userAgent: navigator.userAgent,
-      jsHeapBytes:(performance as any).memory?.usedJSHeapSize??null,
-      encodedResourceBytes:performance.getEntriesByType('resource').reduce((n,r)=>n+(r as PerformanceResourceTiming).encodedBodySize,0),
-      drawCalls:document.querySelector('.world-stage')?.getAttribute('data-draw-calls'),
-      triangles:document.querySelector('.world-stage')?.getAttribute('data-triangles'),
+      jsHeapBytes: (performance as any).memory?.usedJSHeapSize ?? null,
+      encodedResourceBytes: performance
+        .getEntriesByType("resource")
+        .reduce(
+          (n, r) => n + (r as PerformanceResourceTiming).encodedBodySize,
+          0,
+        ),
+      drawCalls: document
+        .querySelector(".world-stage")
+        ?.getAttribute("data-draw-calls"),
+      triangles: document
+        .querySelector(".world-stage")
+        ?.getAttribute("data-triangles"),
     };
   });
   await import("node:fs/promises").then((fs) =>
@@ -223,4 +239,71 @@ test("record measured animation performance during active scene scrolling", asyn
     ),
   );
   expect(sample.frames).toBeGreaterThan(0);
+});
+
+test("portrait dialogs scroll independently and landscape keeps controls and original logo usable", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/?chapter=servicos");
+  await ready(page);
+  await page
+    .getByRole("button", { name: "Explorar serviços", exact: true })
+    .click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  const distance = await world(page).getAttribute("data-distance");
+  await dialog.hover();
+  await page.mouse.wheel(0, 500);
+  await expect
+    .poll(() => dialog.evaluate((el) => el.scrollTop))
+    .toBeGreaterThan(0);
+  expect(await world(page).getAttribute("data-distance")).toBe(distance);
+  await page.keyboard.press("Escape");
+  await expect(
+    page.getByRole("button", { name: "Explorar serviços", exact: true }),
+  ).toBeFocused();
+  await page.setViewportSize({ width: 844, height: 390 });
+  await page
+    .getByRole("navigation", { name: "Atalhos para ambientes" })
+    .getByRole("button")
+    .nth(4)
+    .click();
+  await expect(world(page)).toHaveAttribute("data-area", "processo");
+  for (const name of [
+    "Modo clássico",
+    "Pausar exploração",
+    "Scroll",
+    "Caminhar",
+    "Conhecer o processo",
+  ]) {
+    await expect(
+      page.getByRole("button", { name: new RegExp(`^${name}`) }),
+    ).toBeInViewport();
+  }
+  await page
+    .getByRole("button", { name: "Conhecer o processo", exact: true })
+    .click();
+  const logo = page.getByRole("img", {
+    name: "zAIon Automações — logo original",
+  });
+  await expect(logo).toBeVisible();
+  await expect
+    .poll(() => logo.evaluate((img) => (img as HTMLImageElement).naturalWidth))
+    .toBeGreaterThan(0);
+  await page.screenshot({ path: "test-results/final-landscape-dialog.png" });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.getByRole("button", { name: "Fechar painel" }).click();
+  await page.getByRole("navigation", { name: "Atalhos para ambientes" }).getByRole("button").nth(5).click();
+  await expect(page.getByRole("button", { name: "Preparar resumo local", exact: true })).toBeInViewport();
+  await expect(page.getByRole("button", { name: "Visitar galeria", exact: true })).toBeInViewport();
+  const actions = await page.locator(".destination-actions").boundingBox();
+  const footer = await page.locator(".journey-bottom").boundingBox();
+  expect(actions!.y + actions!.height).toBeLessThan(footer!.y);
+  await page.screenshot({ path: "test-results/final-landscape-contact.png" });
 });

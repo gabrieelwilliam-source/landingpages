@@ -1845,4 +1845,687 @@ footer strong {
     max-width: 270px;
   }
 }
-.navigation-scroll .spatial-scroll-hint{display:flex;left:38px;right:auto;top:103px;bottom:auto;padding:0 6px;gap:6px;font-size:10px;background:#f3f1ea}.spatial-scroll-hint>span{font-size:12px}.spatial-scroll-hint small{display:none}@media(max-width:600px){.navigation-scroll .spatial-scroll-hint{left:18px;top:126px}.chapter-step{left:auto;right:12px;top:145px;bottom:auto;flex-direction:column;gap:0;padding:3px 6px;font-size:9px}.chapter-step button{min-height:36px}}
+.navigation-scroll .spatial-scroll-hint {
+  display: flex;
+  left: 38px;
+  right: auto;
+  top: 103px;
+  bottom: auto;
+  padding: 0 6px;
+  gap: 6px;
+  font-size: 10px;
+  background: #f3f1ea;
+}
+.spatial-scroll-hint > span {
+  font-size: 12px;
+}
+.spatial-scroll-hint small {
+  display: none;
+}
+@media (max-width: 600px) {
+  .navigation-scroll .spatial-scroll-hint {
+    left: 18px;
+    top: 126px;
+  }
+  .chapter-step {
+    left: auto;
+    right: 12px;
+    top: 145px;
+    bottom: auto;
+    flex-direction: column;
+    gap: 0;
+    padding: 3px 6px;
+    font-size: 9px;
+  }
+  .chapter-step button {
+    min-height: 36px;
+  }
+}
+/* Redesign reference system: dark editorial composition, scene-first viewport. */
+.spatial-shell {
+  background: #09131d;
+  color: #f3f1ea;
+}
+.spatial-header {
+  height: 82px;
+  padding: 20px 32px;
+  background: linear-gradient(#061019ef, #06101944);
+  color: #f3f1ea;
+}
+.spatial-header .signature small {
+  color: #d3c5af;
+}
+.spatial-header .dot {
+  color: #d4ad70;
+}
+.spatial-header-actions {
+  gap: 14px;
+}
+.navigation-modes {
+  background: #09131da8;
+  border: 1px solid #8d795b;
+  border-radius: 24px;
+  padding: 3px;
+}
+.navigation-modes button {
+  min-height: 36px;
+  border-radius: 20px;
+  color: #f3f1ea;
+  min-width: 86px;
+}
+.navigation-modes button[aria-pressed="true"] {
+  background: #cfad77;
+  color: #101b23;
+  border-color: #cfad77;
+}
+.spatial-button {
+  background: #0b1622ad;
+  border: 1px solid #7e7869;
+  color: #f3f1ea;
+  border-radius: 22px;
+}
+.spatial-editorial {
+  left: 32px;
+  top: 160px;
+  padding: 0;
+  max-width: 330px;
+  background: none;
+  border: 0;
+  color: #f3f1ea;
+  z-index: 2;
+}
+.spatial-shell:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #061019ee 0%, #061019a8 20%, transparent 44%),
+    linear-gradient(0deg, #061019ba, transparent 23%);
+}
+.spatial-editorial h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 4.2vw, 64px);
+  line-height: 1.08;
+  max-width: 330px;
+  letter-spacing: -0.045em;
+  margin-bottom: 22px;
+}
+.spatial-editorial > p {
+  color: #e2dfd7;
+  max-width: 290px;
+  font-size: 14px;
+}
+.spatial-kicker {
+  color: #d8bf97 !important;
+  font-size: 10px !important;
+  letter-spacing: 3px !important;
+  margin-bottom: 24px !important;
+}
+.spatial-editorial .spatial-text-link {
+  color: #e7c58d;
+  border-color: #a78c62;
+  font-size: 13px;
+}
+.world-hotspot {
+  z-index: 3;
+  border: 1px solid #8c7b63;
+  background: #0c1721ed;
+  color: #f3f1ea;
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 10px;
+  padding: 5px 12px 5px 5px;
+}
+.world-hotspot > span:first-child {
+  background: #23303a;
+  color: #e8c28b;
+  width: 27px;
+  height: 27px;
+}
+.world-hotspot:hover {
+  background: #22313e;
+}
+.chapter-step {
+  z-index: 3;
+  top: 150px;
+  right: 28px;
+  background: #08131cbd;
+  color: #e0d8ca;
+  border: 1px solid #6e6657;
+  border-radius: 22px;
+  padding: 2px 12px;
+}
+.chapter-step button {
+  color: #eee5d5;
+  font-size: 11px;
+}
+.portal-actions {
+  left: 32px;
+  right: auto;
+  top: 455px;
+  bottom: auto;
+  z-index: 3;
+  max-width: 330px;
+}
+.portal-actions .primary {
+  background: #c9a46e;
+  color: #0d1720;
+  border-color: #c9a46e;
+  border-radius: 3px;
+}
+.portal-actions button {
+  font-size: 12px;
+}
+.journey-console {
+  z-index: 4;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 9px 24px 12px;
+  border: 0;
+  border-top: 1px solid #6b5b42;
+  background: #071019ed;
+  box-shadow: none;
+  color: #e1d9cb;
+}
+.journey-status {
+  position: fixed;
+  right: 28px;
+  top: 94px;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+}
+.journey-status > p {
+  position: fixed;
+  left: 32px;
+  bottom: 87px;
+  margin: 0;
+  background: #08131bad;
+  padding: 6px 10px;
+  font-size: 10px;
+  max-width: 470px;
+  color: #eee5d5;
+}
+.journey-status strong {
+  color: #f5d7a9;
+}
+.motion-toggle {
+  font-size: 10px;
+  color: #f0e8da;
+}
+.motion-toggle input {
+  accent-color: #c9a46e;
+}
+.pause-button {
+  font-size: 10px;
+  min-height: 38px;
+}
+.journey-bottom {
+  padding: 0;
+  gap: 20px;
+}
+.environment-shortcuts {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 3px;
+}
+.environment-shortcuts button {
+  border: 0;
+  border-right: 1px solid #48505a;
+  background: transparent;
+  color: #e6e0d5;
+  border-radius: 0;
+  flex: 1 1 0;
+  min-height: 43px;
+  max-width: none;
+  padding: 8px 12px;
+  gap: 12px;
+  font-size: 10px;
+}
+.environment-shortcuts button[aria-current] {
+  background: #202a31;
+  color: #f4d8ad;
+  box-shadow: inset 0 -2px #d1ae77;
+}
+.environment-shortcuts small {
+  color: #d9bd91;
+}
+.spatial-progress {
+  width: 125px;
+  min-width: 125px;
+}
+.spatial-progress label,
+.spatial-progress small {
+  color: #e1d8c9;
+  font-size: 10px;
+}
+.spatial-progress small {
+  display: none;
+}
+.spatial-progress progress::-webkit-progress-bar {
+  background: #39434a;
+}
+.spatial-progress progress::-webkit-progress-value {
+  background: #d1ae77;
+}
+.navigation-scroll .spatial-scroll-hint {
+  left: 32px;
+  top: auto;
+  bottom: 88px;
+  background: #0b1721ca;
+  color: #edcf9e;
+  font-size: 11px;
+  padding: 6px 10px;
+  z-index: 3;
+}
+.spatial-touch {
+  bottom: 100px;
+  left: 32px;
+  z-index: 3;
+  opacity: 0.8;
+}
+.spatial-touch button {
+  background: #0b1721dc;
+  border-color: #8e7a59;
+  color: #f5dfba;
+  border-radius: 5px;
+}
+.spatial-loading,
+.spatial-fallback {
+  background: #0b1721;
+  color: #f3f1ea;
+}
+.spatial-loading small {
+  color: #d2c4ad;
+}
+.loading-rule {
+  background: #d0ad77;
+}
+.brand-mark {
+  display: block;
+  max-width: 230px;
+  width: 100%;
+  height: auto;
+  margin-top: 18px;
+}
+.spatial-dialog {
+  background: #111d28;
+  color: #f3f1ea;
+  border-color: #71634d;
+}
+.spatial-dialog > p,
+.exhibit-services p,
+.case-facts dd {
+  color: #ded6c8;
+}
+.exhibit-heading .overline {
+  color: #e0c08f;
+}
+.exhibit-heading button {
+  color: #f3f1ea;
+  border-color: #857458;
+}
+.spatial-dialog > .spatial-text-link {
+  color: #e6c392;
+}
+.exhibit-services article {
+  border-color: #58616a;
+}
+.spatial-dialog::backdrop {
+  background: #020811b8;
+}
+.spatial-header {
+  z-index: 5;
+}
+.classic-return {
+  background: #c9a46e;
+  color: #0d1720;
+}
+.case-page .brand-mark {
+  max-width: 160px;
+}
+@media (max-width: 900px) {
+  .spatial-header {
+    padding: 18px 22px;
+  }
+  .spatial-editorial {
+    left: 22px;
+    top: 160px;
+    max-width: 270px;
+  }
+  .spatial-editorial h1 {
+    font-size: 44px;
+  }
+  .spatial-editorial > p {
+    max-width: 230px;
+  }
+  .portal-actions {
+    left: 22px;
+    top: 440px;
+  }
+  .environment-shortcuts button {
+    padding: 6px;
+    font-size: 9px;
+    gap: 6px;
+  }
+  .spatial-progress {
+    min-width: 86px;
+    width: 86px;
+  }
+  .journey-console {
+    padding-inline: 16px;
+  }
+  .journey-status > p {
+    max-width: 365px;
+  }
+}
+@media (max-width: 600px) {
+  .spatial-header {
+    height: 70px;
+    padding: 14px 18px;
+  }
+  .spatial-header .signature {
+    font-size: 26px;
+  }
+  .spatial-header .signature small {
+    color: #d7c8b0;
+    font-size: 7px;
+  }
+  .spatial-header-actions {
+    display: flex;
+  }
+  .navigation-modes {
+    position: absolute;
+    left: auto;
+    right: 18px;
+    top: 79px;
+    width: 174px;
+    justify-content: normal;
+  }
+  .navigation-modes button {
+    flex: 1;
+    min-width: 0;
+    min-height: 32px;
+    font-size: 10px;
+  }
+  .spatial-header .spatial-button {
+    font-size: 9px;
+    min-height: 36px;
+    padding: 8px 11px;
+  }
+  .spatial-editorial {
+    left: 18px;
+    top: 137px;
+    max-width: 230px;
+  }
+  .spatial-editorial h1 {
+    font-size: 35px;
+    max-width: 230px;
+    margin-bottom: 14px;
+  }
+  .spatial-editorial > p {
+    display: block;
+    font-size: 11px;
+    line-height: 1.6;
+    max-width: 210px;
+    margin-bottom: 6px;
+  }
+  .spatial-kicker {
+    font-size: 8px !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 15px !important;
+  }
+  .spatial-editorial .spatial-text-link {
+    font-size: 11px;
+    min-height: 36px;
+    padding: 6px 0;
+  }
+  .spatial-shell:before {
+    background:
+      linear-gradient(90deg, #061019f0, #061019a8 47%, transparent 80%),
+      linear-gradient(0deg, #061019b8, transparent 23%);
+  }
+  .portal-actions {
+    left: 18px;
+    right: auto;
+    top: 382px;
+    bottom: auto;
+    max-width: 230px;
+    gap: 6px;
+  }
+  .portal-actions button {
+    font-size: 10px;
+    min-height: 36px;
+    padding: 9px 10px;
+  }
+  .chapter-step {
+    left: auto;
+    right: 14px;
+    top: auto;
+    bottom: 85px;
+    flex-direction: row;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 9px;
+  }
+  .chapter-step button {
+    min-height: 32px;
+    font-size: 9px;
+  }
+  .journey-console {
+    padding: 8px 12px 10px;
+    bottom: 0;
+  }
+  .journey-bottom {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .environment-shortcuts {
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+  .environment-shortcuts button {
+    flex: 0 0 108px;
+    font-size: 9px;
+    min-height: 42px;
+    padding: 6px 9px;
+    gap: 7px;
+  }
+  .environment-shortcuts small {
+    font-size: 8px;
+  }
+  .environment-shortcuts button > span:last-child {
+    display: none;
+  }
+  .spatial-progress {
+    min-width: 42px;
+    width: 42px;
+  }
+  .spatial-progress label {
+    font-size: 8px;
+  }
+  .spatial-progress label span {
+    font-size: 10px;
+  }
+  .journey-status {
+    right: auto;
+    left: 18px;
+    top: 82px;
+    gap: 7px;
+    max-width: 170px;
+    flex-wrap: wrap;
+  }
+  .motion-toggle {
+    font-size: 8px;
+    gap: 4px;
+  }
+  .motion-toggle input {
+    width: 13px;
+    height: 13px;
+  }
+  .pause-button {
+    font-size: 8px;
+    min-height: 27px;
+    padding: 3px 7px;
+    gap: 6px;
+  }
+  .journey-status > p {
+    display: none;
+  }
+  .navigation-scroll .spatial-scroll-hint {
+    left: 18px;
+    top: auto;
+    bottom: 92px;
+    font-size: 9px;
+    padding: 5px 7px;
+  }
+  .spatial-touch {
+    left: 18px;
+    right: auto;
+    bottom: 80px;
+    grid-template-columns: repeat(3, 40px);
+    grid-template-rows: repeat(2, 38px);
+  }
+  .spatial-touch button {
+    min-width: 40px;
+    min-height: 38px;
+    font-size: 18px;
+  }
+  .world-hotspot {
+    font-size: 9px;
+    max-width: 170px;
+  }
+  .brand-mark {
+    max-width: 150px;
+  }
+  .pause-notice {
+    top: 116px;
+    font-size: 9px;
+  }
+  .spatial-dialog {
+    padding: 20px;
+  }
+  .spatial-dialog h2 {
+    font-size: 29px;
+  }
+}
+@media (max-height: 600px) {
+  .spatial-editorial {
+    top: 95px;
+    max-width: 260px;
+  }
+  .spatial-editorial h1 {
+    font-size: 30px;
+  }
+  .spatial-editorial > p {
+    display: none;
+  }
+  .portal-actions {
+    left: 22px;
+    right: auto;
+    top: 245px;
+    bottom: auto;
+    max-width: 290px;
+  }
+  .journey-status {
+    top: 80px;
+    right: 22px;
+    left: auto;
+  }
+  .chapter-step {
+    top: 130px;
+    bottom: auto;
+    right: 22px;
+  }
+  .journey-console {
+    padding: 6px 14px;
+  }
+  .environment-shortcuts button {
+    min-height: 32px;
+  }
+  .spatial-touch {
+    bottom: 62px;
+    right: 22px;
+    left: auto;
+  }
+  .navigation-scroll .spatial-scroll-hint {
+    bottom: 62px;
+  }
+}
+.portal-actions {
+  top: 565px;
+}
+.destination-actions {
+  top: 520px;
+  max-width: 400px;
+}
+@media (max-width: 900px) {
+  .portal-actions {
+    top: 530px;
+  }
+}
+@media (max-width: 600px) {
+  .spatial-shell:before {
+    background:
+      linear-gradient(90deg, #061019df, #0610195c 48%, transparent 85%),
+      linear-gradient(0deg, #061019a8, transparent 22%);
+  }
+  .portal-actions {
+    top: 392px;
+  }
+  .spatial-progress label {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+}
+@media (max-height: 600px) {
+  .portal-actions {
+    top: 245px;
+  }
+}
+/* Actions follow the editorial copy instead of depending on fixed screen offsets. */
+.spatial-editorial .portal-actions {
+  position: static;
+  margin-top: 16px;
+  max-width: 100%;
+}
+@media (max-width: 600px) {
+  .spatial-editorial > p {
+    font-size: 12px;
+  }
+  .spatial-editorial .spatial-text-link {
+    font-size: 12px;
+  }
+  .portal-actions button,
+  .environment-shortcuts button {
+    font-size: 11px;
+  }
+  .environment-shortcuts small,
+  .motion-toggle,
+  .pause-button {
+    font-size: 10px;
+  }
+  .chapter-step,
+  .chapter-step button {
+    font-size: 11px;
+  }
+}
+@media (max-height: 600px) {
+  .spatial-editorial .portal-actions {
+    margin-top: 10px;
+  }
+  .portal-actions button {
+    font-size: 10px;
+    min-height: 32px;
+    padding: 8px;
+  }
+}

@@ -12,10 +12,10 @@ import {
 const start = () => ({ x: 0, distance: 0, vx: 0, vz: 0 });
 test("forward and back traverse both environments with bounded depth", () => {
   let p = start();
-  for (let i = 0; i < 2500; i++) p = advance(p, { x: 0, forward: 1 }, 0.016);
+  for (let i = 0; i < 6000; i++) p = advance(p, { x: 0, forward: 1 }, 0.016);
   assert.equal(p.distance, JOURNEY_END);
   assert.equal(areaAt(p.distance), 5);
-  for (let i = 0; i < 2500; i++) p = advance(p, { x: 0, forward: -1 }, 0.016);
+  for (let i = 0; i < 6000; i++) p = advance(p, { x: 0, forward: -1 }, 0.016);
   assert.equal(p.distance, 0);
   assert.equal(areaAt(p.distance), 0);
 });
@@ -28,13 +28,14 @@ test("diagonal input does not increase speed", () => {
   }
   assert.ok(Math.abs(Math.hypot(b.x, b.distance) - a.distance) < 0.0001);
 });
-test("bridge and plinth collisions keep avatar on the navigable floor", () => {
-  let p = { ...start(), x: 4, distance: 23 };
+test("causeway boundaries and workstation collisions match the rebuilt spaces", () => {
+  let p = { ...start(), x: 4, distance: 12 };
   p = advance(p, { x: 1, forward: 0 }, 0.016);
-  assert.equal(p.x, 1.65);
-  p = { ...start(), x: -3.7, distance: 10.8 };
+  assert.equal(p.x, 2.1);
+  p = { ...start(), x: 4.5, distance: 42.95 };
   for (let i = 0; i < 100; i++) p = advance(p, { x: 0, forward: 1 }, 0.016);
-  assert.ok(p.distance < 10.86);
+  assert.ok(p.distance <= 43.05);
+  assert.ok(p.distance > 42.95);
 });
 test("release decelerates and delta cap prevents tab-resume jumps", () => {
   let p = start();
@@ -49,13 +50,12 @@ test("cinematic easing has stable endpoints and a symmetric midpoint", () => {
   assert.equal(easeJourney(2), 1);
   assert.equal(easeJourney(0.5), 0.5);
 });
-test("bridge entrance blocks off-centre travel without snapping sideways", () => {
-  let p = { ...start(), x: 4, distance: 21.95, vz: 7 };
+test("entry into a narrow connector blocks an off-centre walker without teleporting", () => {
+  const p = { ...start(), x: 4, distance: 10.25, vz: 7 };
   const next = advance(p, { x: 0, forward: 1 }, 0.016);
   assert.equal(next.distance, p.distance);
   assert.equal(next.x, 4);
 });
-
 test("wheel normalization treats pixel, line and page devices consistently", () => {
   assert.equal(normalizeWheel(16, 0), normalizeWheel(1, 1));
   assert.equal(normalizeWheel(1, 2, 500), 500);
@@ -69,22 +69,21 @@ test("scroll converges, reverses and honours the endpoints without overshoot", (
   for (let i = 0; i < 700; i++) p = advanceScroll(p, 49, 0.016);
   assert.equal(p.distance, 49);
   assert.equal(p.vz, 0);
-  for (let i = 0; i < 2500; i++) p = advanceScroll(p, -100, 0.016);
+  for (let i = 0; i < 6000; i++) p = advanceScroll(p, -100, 0.016);
   assert.equal(p.distance, 0);
-  for (let i = 0; i < 2500; i++) p = advanceScroll(p, 999, 0.016);
+  for (let i = 0; i < 6000; i++) p = advanceScroll(p, 999, 0.016);
   assert.equal(p.distance, 158);
 });
-test("scroll joins the centre lane from a plinth edge without crossing solid objects", () => {
-  for (const x of [-4.9, 4.9]) {
-    let p = { ...start(), x, distance: x < 0 ? 12 : 16 };
-    for (let i = 0; i < 1400; i++) p = advanceScroll(p, 49, 0.016);
-    assert.equal(p.distance, 49);
-    assert.equal(p.x, 0);
-  }
+test("scroll progress preserves lateral stance and does not simulate a walking avatar", () => {
+  let p = { ...start(), x: 4.9, distance: 12 };
+  for (let i = 0; i < 1400; i++) p = advanceScroll(p, 49, 0.016);
+  assert.equal(p.distance, 49);
+  assert.equal(p.x, 4.9);
+  assert.equal(p.vx, 0);
 });
 test("reduced-motion scroll goes directly to the selected point", () => {
   assert.deepEqual(advanceScroll({ ...start(), x: 1 }, 49, 0.016, true), {
-    x: 0,
+    x: 1,
     distance: 49,
     vx: 0,
     vz: 0,

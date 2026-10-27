@@ -52,6 +52,36 @@ try {
       timeout: 15000,
     });
     await expect(page.locator("canvas")).toHaveCount(1);
+    await expect
+      .poll(async () =>
+        Number(
+          await page.locator(".world-stage").getAttribute("data-rig-bones"),
+        ),
+      )
+      .toBeGreaterThanOrEqual(16);
+    if (width === 360) {
+      for (const name of [
+        "gabriel-rigged",
+        ...Array.from({ length: 6 }, (_, i) => `environment-${i}`),
+      ]) {
+        const asset = await page.request.get(
+          `${origin}${prefix}/models/${name}.glb`,
+        );
+        assert.equal(asset.status(), 200);
+        assert.equal((await asset.body()).toString("ascii", 0, 4), "glTF");
+      }
+      const logo = await page.request.get(
+        `${origin}${prefix}/brand/zaion-original.png`,
+      );
+      assert.equal(logo.status(), 200);
+      const { createHash } = await import("node:crypto");
+      assert.equal(
+        createHash("sha256")
+          .update(await logo.body())
+          .digest("hex"),
+        "fb2edb7999b9c5c35d54ec16a25661650905683a231abbe8d261f04e398b99cc",
+      );
+    }
     await page.getByRole("checkbox", { name: "Movimento reduzido" }).check();
     await page.getByRole("button", { name: "Scroll", exact: true }).click();
     await expect(page.locator(".world-stage")).toHaveAttribute(
@@ -82,9 +112,18 @@ try {
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     );
-    await page.getByRole('navigation',{name:'Atalhos para ambientes'}).getByRole('button').nth(3).click();
-    await expect(page.locator('.world-stage')).toHaveAttribute('data-area','projetos');
-    await expect(page.locator('.spatial-editorial h1')).toContainText('Possibilidades');
+    await page
+      .getByRole("navigation", { name: "Atalhos para ambientes" })
+      .getByRole("button")
+      .nth(3)
+      .click();
+    await expect(page.locator(".world-stage")).toHaveAttribute(
+      "data-area",
+      "projetos",
+    );
+    await expect(page.locator(".spatial-editorial h1")).toContainText(
+      "Possibilidades",
+    );
     await page.getByRole("button", { name: "Modo clássico" }).click();
     await page
       .locator("#projetos")

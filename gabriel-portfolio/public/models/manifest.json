@@ -1,0 +1,91 @@
+{
+  "generator": "Blender 4.3.2; glTF-Transform + Meshopt",
+  "originalLogo": {
+    "filename": "brand/zaion-original.png",
+    "bytes": 1004338,
+    "sha256": "fb2edb7999b9c5c35d54ec16a25661650905683a231abbe8d261f04e398b99cc"
+  },
+  "assets": [
+    {
+      "name": "environment-0.glb",
+      "bytes": 176532,
+      "sha256": "f830cfcb38da4e17cfea0dd29a41284d4f3690574a288b861b51b9375b5cfb8a",
+      "meshes": 1,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
+      "name": "environment-1.glb",
+      "bytes": 241336,
+      "sha256": "1dd0c8565eab7a73569156120f92960a12f87ed18935d52c381a1a0f9b9f0985",
+      "meshes": 1,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
+      "name": "environment-2.glb",
+      "bytes": 239340,
+      "sha256": "be1307fe69f8e3dae8b89f12a83381d3be3dfaa0a48781995da54d9c414339b6",
+      "meshes": 1,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
+      "name": "environment-3.glb",
+      "bytes": 170972,
+      "sha256": "88249c7b69b0c08bfe238707f7d1f491baa74b7eb66cb18235dbc726322c7862",
+      "meshes": 1,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
+      "name": "environment-4.glb",
+      "bytes": 169376,
+      "sha256": "d8067416380cb12c93aa88a55e1cd6815bc195a1a63d238a3e269b1e770af7df",
+      "meshes": 1,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
+      "name": "environment-5.glb",
+      "bytes": 174752,
+      "sha256": "f40414cd8a838f477cb283f685a3b6b62716dcc213e6aaef8cab472d502f9a8a",
+      "meshes": 1,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
+      "name": "gabriel-rigged.glb",
+      "bytes": 121652,
+      "sha256": "3de16f326e6286589ccde992a93af042709aa6584c204eb4ba3f391b2b17b08f",
+      "meshes": 1,
+      "skins": 1,
+      "animations": [
+        "Idle",
+        "Turn",
+        "Walk"
+      ],
+      "textureFormats": [],
+      "bones": 16
+    }
+  ],
+  "totalBytes": 1293960
+}

@@ -14,3 +14,6 @@ Aproveite o checkout existente. Cada tarefa da nuvem já é isolada; não crie w
 - Aguarde o build do GitHub Pages e confirme a versão pública por HTTPS. Um push sozinho não confirma a publicação. Informe o link de teste e o estado real.
 
 A foto de referência está fora de `public/` e ignorada pelo Git. O formulário apenas prepara um resumo local, sem envio. Não invente contatos, clientes ou resultados profissionais. Não desative verificações TLS ou de integridade para instalar ou validar.
+
+## Revisão atual de redesign
+O pedido posterior do usuário para o pacote Gabriel_3D_Redesign_Pacote_CodeX determina não publicar sem nova autorização. Para esta revisão, não fazer push nem substituir os artefatos publicados de gabriel/. Preparar e testar localmente. Essa restrição atual prevalece sobre a autorização contínua anterior.

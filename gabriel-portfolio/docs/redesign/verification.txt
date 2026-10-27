@@ -1,0 +1,146 @@
+=== BUILD ===
+> gabriel-web-portfolio@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.28
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.6s
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/9) ...
+   Generating static pages (2/9)
+   Generating static pages (4/9)
+   Generating static pages (6/9)
+ ✓ Generating static pages (9/9)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                     9.3 kB         116 kB
+├ ○ /_not-found                            995 B         104 kB
+├ ● /projetos/[slug]                       162 B         106 kB
+├   ├ /projetos/conceito-landing
+├   ├ /projetos/conceito-portfolio
+├   └ /projetos/conceito-site
+├ ○ /robots.txt                            127 B         103 kB
+└ ○ /sitemap.xml                           127 B         103 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/255-b1e2483a7e02feee.js       46.6 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          2.05 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+=== LINT ===
+> gabriel-web-portfolio@0.1.0 lint
+> eslint src tests scripts
+
+=== TYPECHECK ===
+> gabriel-web-portfolio@0.1.0 typecheck
+> tsc --noEmit
+
+=== UNIT ===
+> gabriel-web-portfolio@0.1.0 test
+> node --test tests/spatial-motion.test.mjs
+
+✔ forward and back traverse both environments with bounded depth (32.11168ms)
+✔ diagonal input does not increase speed (1.10257ms)
+✔ causeway boundaries and workstation collisions match the rebuilt spaces (1.110431ms)
+✔ release decelerates and delta cap prevents tab-resume jumps (0.689738ms)
+✔ cinematic easing has stable endpoints and a symmetric midpoint (0.194913ms)
+✔ entry into a narrow connector blocks an off-centre walker without teleporting (0.2122ms)
+✔ wheel normalization treats pixel, line and page devices consistently (0.194813ms)
+✔ scroll converges, reverses and honours the endpoints without overshoot (2.460555ms)
+✔ scroll progress preserves lateral stance and does not simulate a walking avatar (0.862158ms)
+✔ reduced-motion scroll goes directly to the selected point (1.033106ms)
+✔ scroll transforms all chapters around an anchored avatar; walking translates the avatar (2.045689ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 107.943253
+
+=== E2E ===
+> gabriel-web-portfolio@0.1.0 test:e2e
+> playwright test
+
+[WebServer] (node:43876) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:43889) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:43936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/portfolio.spec.ts:14:7 › six chapters, layout and accessibility 360 (3.3s)
+  ✓   2 tests/portfolio.spec.ts:14:7 › six chapters, layout and accessibility 390 (3.0s)
+  ✓   3 tests/portfolio.spec.ts:14:7 › six chapters, layout and accessibility 1280 (4.8s)
+  ✓   4 tests/portfolio.spec.ts:14:7 › six chapters, layout and accessibility 1440 (5.4s)
+  ✓   5 tests/portfolio.spec.ts:40:5 › scroll moves world while avatar and camera stay anchored; guided walking moves avatar (7.4s)
+  ✓   6 tests/portfolio.spec.ts:68:5 › all six architectural destinations, panels, concepts, navigation history and pause (28.4s)
+  ✓   7 tests/portfolio.spec.ts:118:5 › reduced motion defaults to classic and WebGL failure recovers (632ms)
+  ✓   8 tests/portfolio.spec.ts:144:5 › mobile touch moves the world, native contact and reading without JS remain available (1.8s)
+  ✓   9 tests/portfolio.spec.ts:181:5 › record measured animation performance during active scene scrolling (4.3s)
+  ✓  10 tests/portfolio.spec.ts:244:5 › portrait dialogs scroll independently and landscape keeps controls and original logo usable (6.1s)
+
+  10 passed (1.1m)
+
+=== PBR PATH ===
+PASS: PBR path loads with renderer-info extension unavailable. Actual software capture saved; no hardware-performance claim.
+
+=== STATIC EXPORT BUILD ===
+> gabriel-web-portfolio@0.1.0 build:pages
+> GITHUB_PAGES=true NEXT_PUBLIC_BASE_PATH=/landingpages/gabriel next build
+
+   ▲ Next.js 15.5.28
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.7s
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/9) ...
+   Generating static pages (2/9)
+   Generating static pages (4/9)
+   Generating static pages (6/9)
+ ✓ Generating static pages (9/9)
+   Finalizing page optimization ...
+   Collecting build traces ...
+   Exporting (0/2) ...
+ ✓ Exporting (2/2)
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    9.26 kB         116 kB
+├ ○ /_not-found                            995 B         104 kB
+├ ● /projetos/[slug]                       162 B         107 kB
+├   ├ /projetos/conceito-landing
+├   ├ /projetos/conceito-portfolio
+├   └ /projetos/conceito-site
+├ ○ /robots.txt                            127 B         103 kB
+└ ○ /sitemap.xml                           127 B         103 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/255-b2b900d6c8a8a243.js       46.8 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          2.07 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+=== STATIC PAGES ===
+> gabriel-web-portfolio@0.1.0 test:pages
+> node scripts/test-pages.mjs
+
+PASS: static Pages, 360px; navigation, assets, both input modes, 3D rooms, classic mode, favicon, no runtime errors
+PASS: static Pages, 768px; navigation, assets, both input modes, 3D rooms, classic mode, favicon, no runtime errors
+PASS: static Pages, 1440px; navigation, assets, both input modes, 3D rooms, classic mode, favicon, no runtime errors

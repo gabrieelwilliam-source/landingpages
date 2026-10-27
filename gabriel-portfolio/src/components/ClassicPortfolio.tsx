@@ -132,6 +132,14 @@ export default function ClassicPortfolio({
                   ))}
                 </div>
               )}
+              {c.id === "zaion" && (
+                <img
+                  className="brand-mark"
+                  loading="lazy"
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/brand/zaion-original.png`}
+                  alt="zAIon Automações — logo original"
+                />
+              )}
               {c.id === "contato" && <ContactForm />}
             </div>
           </section>

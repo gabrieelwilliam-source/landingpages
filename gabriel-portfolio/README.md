@@ -47,22 +47,34 @@ O Chromium do sistema está disponível nesta máquina. Em outra, use a instala�
 - `src/data/site.ts`: textos confiáveis, ambientes, serviços, projetos e pontos de interação.
 - `src/lib/JourneyController.mjs`: transformação normalizada entre progresso, mundo, avatar e câmera.
 - `src/lib/spatial-motion.mjs`: limites, zonas, destinos, suavização e controles testáveis.
-- `src/lib/spatial-engine.ts`: materiais, rig articulado, arquiteturas procedurais, renderização e descarte.
+- `src/lib/spatial-engine.ts`: carregamento GLB/Meshopt, AnimationMixer, câmeras, renderização e descarte.
 - `src/components/SpatialJourney.tsx`: interface HTML, painéis, controles, histórico e acessibilidade.
 - `src/components/ClassicPortfolio.tsx`: leitura convencional pré-renderizada, sem depender de WebGL/JS.
 - `src/config/visual.ts`: tokens visuais; `public/concepts/`: capturas reais dos próprios conceitos.
 
-Há carregamento dinâmico do motor e construção das áreas seguintes durante aproximação/atalho. Geometrias e materiais são compartilhados; sombras e materiais completos são mantidos enquanto o dispositivo sustenta a renderização. Frames lentos reduzem pixel ratio e substituem materiais por iluminação mais simples, sem remover conteúdo. A preferência de movimento reduzido e o fallback clássico continuam disponíveis. Não há pós-processamento pesado, sons ou analytics.
+Há carregamento dinâmico do motor e dos GLBs da área atual e próximas. Cenas distantes ficam invisíveis. Em GPU compatível, materiais PBR usam iluminação ambiente por PMREM, luz de fim de tarde e sombras suaves; renderizadores de software usam materiais Lambert sem mapas de superfície e resolução menor. Frames lentos reduzem resolução. Isso preserva o conteúdo, mas reduz a qualidade de materiais e não garante 60 FPS em equipamentos modestos. Não há pós-processamento pesado, som ou analytics.
 
-## Publicação autorizada
+## Assets editáveis
 
-O usuário autorizou continuamente publicar as alterações validadas no mesmo GitHub Pages público de testes:
-https://gabrieelwilliam-source.github.io/landingpages/gabriel/
+Blender 4.3.2 e Node 22/24:
 
-`npm run build:pages` produz `.next-pages/` com o prefixo correto. Após validar, arquive `../gabriel/` fora do checkout, substitua somente seus artefatos, revise, faça commit/push para `main`, aguarde Pages `built` e verifique os arquivos por HTTPS. O site FR da raiz e `.nojekyll` devem ser preservados. O comando de build sozinho não publica.
+```bash
+npm run assets:build
+node tools/verify-assets.mjs
+```
 
-SEO inclui idioma, metadata/OpenGraph, favicon e sitemap com o domínio de testes real. Indexação permanece bloqueada nesta versão de revisão, por decisão editorial existente.
+O primeiro comando regenera os GLBs brutos e depois os comprime com Meshopt. Não execute somente o otimizador sobre os GLBs já comprimidos. `tools/build_assets.py` contém modelagem, texturas, skin e animações originais; `public/models/manifest.json` registra peso, ossos, clips e SHA-256. Os sete modelos totalizam 1,29 MB. As texturas de superfície usam WebP embutido. O avatar tem 16 ossos e clips Idle, Walk e Turn; é estilizado, sem escaneamento facial ou mocap externo.
 
-## Referências e limitações
+## Estado de publicação
 
-A foto original permanece fora de `public/` e ignorada pelo Git. Avatar estilizado procedural: não é um modelo facial fotorrealista nem usa captura de movimento. Não há assets externos pagos ou APIs de produção. Consulte `ASSETS_AND_LICENSES.md`, `CONTENT_TO_CONFIRM.md` e `RELATORIO_FINAL.md` para fontes, dados pendentes, evidências e limitações medidas. Relatórios anteriores descrevem versões históricas.
+**Esta revisão não está publicada.** O pedido mais recente suspende a autorização contínua anterior. Não substituir `../gabriel/`, não fazer push e não acionar deploy até nova autorização. `npm run build:pages` e `npm run test:pages` apenas geram e validam a exportação local com o prefixo `/landingpages/gabriel`.
+
+A versão pública anterior continua independente desta revisão. Preserve a landing page FR, `.nojekyll` e a configuração existente do Pages. O build sozinho não publica.
+
+SEO mantém HTML pré-renderizado, idioma, metadata/OpenGraph e sitemap. O conteúdo é legível sem JavaScript; indexação permanece bloqueada enquanto esta é uma revisão, conforme configuração anterior.
+
+## Evidências e limites
+
+Consulte `RELATORIO_REDESIGN.md`, `LICENSE_ASSETS.md`, `CHANGELOG.md` e `docs/redesign/` para a matriz de aceite, fontes, capturas reais, dados medidos e comparação visual. `CONTENT_TO_CONFIRM.md` registra contatos pendentes. Os demais relatórios são históricos.
+
+A foto original permanece fora de `public/` e ignorada pelo Git. O personagem atual é humano articulado, mas sua aparência é estilizada e a semelhança facial não equivale à foto. Não há assets pagos, APIs de produção ou envio real de formulário. O visual fotorrealista das concept arts não foi atingido integralmente; o relatório explicita os desvios e a validação de GPU/dispositivos físicos ainda necessária.

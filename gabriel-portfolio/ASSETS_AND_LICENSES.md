@@ -1,3 +1,5 @@
+> Documento histórico da versão anterior. Para os GLBs, texturas, rig e logo da reconstrução atual, consulte [LICENSE_ASSETS.md](LICENSE_ASSETS.md).
+
 # Assets e licenças
 Arquitetura, avatar, esculturas, superfícies gráficas e favicon: geometrias/CSS/SVG procedurais autorais deste projeto. Nenhum modelo de terceiro, textura baixada, imagem IA ou fotografia de cliente é usado. Three.js é distribuído sob MIT; React/Next.js e demais bibliotecas conservam suas licenças no gerenciador de dependências. Fontes de sistema (Arial/Georgia e alternativas) sem arquivos redistribuídos.
 
