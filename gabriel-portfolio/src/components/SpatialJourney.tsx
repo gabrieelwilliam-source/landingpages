@@ -1,9 +1,14 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { environments, spatialExhibits, services } from "@/data/site";
+import { environments, spatialExhibits, services, projects } from "@/data/site";
 import NavigationModes from "./ui/NavigationModes";
-import { normalizeWheel, JOURNEY_END } from "@/lib/spatial-motion.mjs";
+import {
+  normalizeWheel,
+  areaAt,
+  destinations,
+  JOURNEY_END,
+} from "@/lib/spatial-motion.mjs";
 import type {
   NavigationMode,
   SpatialEngine,
@@ -31,11 +36,14 @@ export default function SpatialJourney({
     stage = useRef<HTMLDivElement>(null),
     engine = useRef<SpatialEngine | null>(null);
   const [snapshot, setSnapshot] = useState<SpatialSnapshot>({
+    avatarZ: -initialDistance,
+    worldZ: 0,
+    progress: initialDistance / JOURNEY_END,
     distance: initialDistance,
     navigationMode,
     paused: false,
     x: 0,
-    area: initialDistance < 35 ? 0 : 1,
+    area: areaAt(initialDistance),
     moving: false,
     transitioning: false,
     loaded: [false, false],
@@ -57,6 +65,7 @@ export default function SpatialJourney({
   pausedRef.current = paused;
   const reducedRef = useRef(reduced);
   reducedRef.current = reduced;
+  const lastArea = useRef(-1);
   const positionCallback = useRef(onPosition);
   positionCallback.current = onPosition;
   const current = environments[snapshot.area],
@@ -116,6 +125,12 @@ export default function SpatialJourney({
               });
               setSnapshot({ ...next, hotspots });
               positionCallback.current(next.distance);
+              if (lastArea.current !== next.area) {
+                lastArea.current = next.area;
+                const url = new URL(location.href);
+                url.searchParams.set("chapter", environments[next.area].id);
+                history.replaceState(null, "", url);
+              }
             }
           },
         });
@@ -248,7 +263,23 @@ export default function SpatialJourney({
       setPaused((v) => !v);
     }
   }
+  useEffect(() => {
+    const navigate = () => {
+      const id = new URL(location.href).searchParams.get("chapter");
+      const index = environments.findIndex((e) => e.id === id);
+      if (index >= 0) {
+        engine.current?.setPaused(false);
+        setPaused(false);
+        engine.current?.goTo(index);
+      }
+    };
+    window.addEventListener("popstate", navigate);
+    return () => window.removeEventListener("popstate", navigate);
+  }, []);
   function goTo(index: number) {
+    const url = new URL(location.href);
+    url.searchParams.set("chapter", environments[index].id);
+    history.pushState(null, "", url);
     clearInput();
     setStarted(true);
     setPaused(false);
@@ -286,6 +317,16 @@ export default function SpatialJourney({
       ref={shell}
       className={`spatial-shell ${reduced ? "motion-reduced" : ""} navigation-${navigationMode}`}
     >
+      <a
+        className="skip-link"
+        href="#classic-access"
+        onClick={(e) => {
+          e.preventDefault();
+          onClassic("sobre");
+        }}
+      >
+        Pular para o modo clássico
+      </a>
       <header className="spatial-header" data-spatial-blocker>
         <a
           href="#sobre"
@@ -307,6 +348,7 @@ export default function SpatialJourney({
             }}
           />
           <button
+            id="classic-access"
             className="spatial-button"
             onClick={() => onClassic(current.id)}
           >
@@ -365,6 +407,9 @@ export default function SpatialJourney({
         onLostPointerCapture={() => {
           drag.current = null;
         }}
+        data-avatar-z={snapshot.avatarZ.toFixed(3)}
+        data-world-z={snapshot.worldZ.toFixed(3)}
+        data-progress={snapshot.progress.toFixed(5)}
         data-navigation={snapshot.navigationMode}
         data-distance={snapshot.distance.toFixed(3)}
         data-paused={snapshot.paused}
@@ -409,10 +454,12 @@ export default function SpatialJourney({
               className="spatial-text-link"
               disabled={!ready}
               onClick={() =>
-                openExhibit(snapshot.area === 0 ? "perfil" : "servicos")
+                openExhibit(
+                  spatialExhibits.find((e) => e.area === snapshot.area)!.id,
+                )
               }
             >
-              {snapshot.area === 0 ? "Conhecer Gabriel" : "Explorar serviços"}{" "}
+              {spatialExhibits.find((e) => e.area === snapshot.area)!.label}{" "}
               <span aria-hidden="true">→</span>
             </button>
           </aside>
@@ -435,6 +482,48 @@ export default function SpatialJourney({
                 </button>
               );
             })}
+          <nav
+            className="chapter-step"
+            aria-label="Percorrer capítulos"
+            data-spatial-blocker
+          >
+            <button
+              disabled={!ready || snapshot.area === 0}
+              onClick={() => goTo(snapshot.area - 1)}
+            >
+              ← Anterior
+            </button>
+            <span>{snapshot.area + 1} / 6</span>
+            <button
+              disabled={!ready || snapshot.area === 5}
+              onClick={() => goTo(snapshot.area + 1)}
+            >
+              Próximo →
+            </button>
+          </nav>
+          {snapshot.area === 0 && (
+            <div className="portal-actions" data-spatial-blocker>
+              <button className="primary" onClick={() => goTo(1)}>
+                Explorar a jornada →
+              </button>
+              <button className="spatial-button" onClick={() => goTo(3)}>
+                Ver projetos
+              </button>
+            </div>
+          )}
+          {snapshot.area === 5 && (
+            <div className="portal-actions" data-spatial-blocker>
+              <button className="primary" onClick={() => onClassic("contato")}>
+                Preparar resumo local
+              </button>
+              <button className="spatial-button" onClick={() => goTo(0)}>
+                Reiniciar jornada
+              </button>
+              <button className="spatial-button" onClick={() => goTo(3)}>
+                Visitar galeria
+              </button>
+            </div>
+          )}
           <div className="spatial-compass" aria-hidden="true">
             <span>N</span>
             <i />
@@ -510,11 +599,11 @@ export default function SpatialJourney({
                 <small>
                   {snapshot.transitioning
                     ? "Em travessia"
-                    : snapshot.distance > 66
-                      ? "Fim da demonstração · retorne ou explore os painéis"
+                    : snapshot.distance > 155
+                      ? "Você chegou · reinicie ou visite a galeria"
                       : snapshot.distance > 22 && snapshot.distance < 37
                         ? "Passagem entre ambientes"
-                        : "Dois espaços. Um caminho."}
+                        : "Seis momentos. Uma jornada."}
                 </small>
               </div>
             </div>
@@ -570,7 +659,7 @@ export default function SpatialJourney({
             <div className="spatial-scroll-hint" data-spatial-blocker>
               <span aria-hidden="true">↕</span>
               <p>
-                Role para percorrer<small>Para cima, você retorna.</small>
+                Role para explorar<small>Para cima, você retorna.</small>
               </p>
             </div>
           )}
@@ -614,6 +703,13 @@ export default function SpatialJourney({
               ×
             </button>
           </div>
+          {active.id.startsWith("conceito-") && (
+            <img
+              className="concept-preview"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/concepts/${active.id}.png`}
+              alt={`Demonstração autoral de ${active.title}; projeto conceitual`}
+            />
+          )}
           <h2 id="exhibit-title">{active.title}</h2>
           <p>{active.body}</p>
           {active.id === "servicos" && (
@@ -626,10 +722,36 @@ export default function SpatialJourney({
               ))}
             </div>
           )}
-          {active.id === "conceito" && (
-            <Link className="primary" href="/projetos/conceito-landing">
+          {(active.id.startsWith("conceito-") || active.id === "conceito") && (
+            <Link
+              className="primary"
+              href={`/projetos/${active.id === "conceito" ? "conceito-landing" : active.id}`}
+            >
               Ver projeto conceitual →
             </Link>
+          )}
+          {active.id.startsWith("conceito-") && (
+            <dl className="case-facts">
+              <dt>Papel</dt>
+              <dd>Estudo de interface autoral; sem cliente real.</dd>
+              <dt>Problema / solução</dt>
+              <dd>{projects.find((p) => p.slug === active.id)?.description}</dd>
+              <dt>Stack</dt>
+              <dd>Next.js, TypeScript, CSS autoral</dd>
+            </dl>
+          )}
+          {active.id === "processo" && (
+            <ol>
+              {[
+                "Entender",
+                "Planejar",
+                "Desenhar",
+                "Desenvolver",
+                "Testar e entregar",
+              ].map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ol>
           )}
           <button
             className="spatial-text-link"

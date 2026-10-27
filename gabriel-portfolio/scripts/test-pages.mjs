@@ -69,19 +69,22 @@ try {
       "data-navigation",
       "walk",
     );
-    await page.getByRole("button", { name: "02 Atelier digital" }).click();
+    await page.getByRole("button", { name: "03 Atelier digital" }).click();
     await expect(page.locator(".world-stage")).toHaveAttribute(
       "data-area",
       "servicos",
     );
     await expect(page.locator(".spatial-editorial h1")).toContainText(
-      "Ideias em construção",
+      "Do conceito à interface",
     );
     assert.ok(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     );
+    await page.getByRole('navigation',{name:'Atalhos para ambientes'}).getByRole('button').nth(3).click();
+    await expect(page.locator('.world-stage')).toHaveAttribute('data-area','projetos');
+    await expect(page.locator('.spatial-editorial h1')).toContainText('Possibilidades');
     await page.getByRole("button", { name: "Modo clássico" }).click();
     await page
       .locator("#projetos")

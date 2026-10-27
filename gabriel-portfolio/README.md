@@ -1,14 +1,12 @@
-# Gabriel · jornada espacial 3D
+# Gabriel — Web & Digital | by zAIon
 
-> **Revisão com dois controles:** a cena oferece **Caminhar / Scroll**. O usuário autorizou publicação contínua no mesmo GitHub Pages para testar. Consulte `RELATORIO_NAVEGACAO.md` e `AGENTS.md` para a revisão e o fluxo de publicação.
+Jornada arquitetônica 3D com seis momentos: Portal, Átrio de Ideias, Ateliê Digital, Galeria de Projetos, Laboratório/Processo + zAIon e Destino/Contato. Aproveita a base existente Next.js/TypeScript/Three.js e mantém o modo clássico completo.
 
-Demonstração local de **dois ambientes conectados**: Átrio de ideias (Sobre Gabriel) e Atelier digital (Serviços). O personagem percorre o eixo de profundidade, com câmera em terceira pessoa. A expansão para os outros ambientes fica suspensa até a validação desta experiência.
+**Regra principal:** no modo Scroll, Gabriel fica parado na posição em que está. O mundo se desloca em profundidade; não se trata de um zoom ou uma imagem estática. Somente no modo Caminhar ele se move fisicamente. O Scroll é o padrão; movimento reduzido do sistema abre o modo clássico por padrão.
 
-**Demonstração publicada após autorização explícita do usuário para usar o link público do GitHub Pages.** Acesse https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . `../gabriel/` contém os 33 artefatos dessa publicação, verificados por HTTPS contra o build testado. A autorização atual cobre a publicação contínua das próximas alterações deste portfólio no mesmo destino de testes, até orientação contrária.
+## Executar
 
-## Rodar e revisar
-
-Node 22/24 e npm. Nesta máquina: Node 24.19.0, npm 11.9.0, Next 15.5.28 e Three.js 0.186.1.
+Node 22/24 e npm. Validado neste ambiente com Node 24.19.0 e Next 15.5.28.
 
 ```bash
 cd /workspace/landingpages/gabriel-portfolio
@@ -16,69 +14,55 @@ npm ci --cache /tmp/gabriel-npm-cache --no-audit --no-fund
 npm run dev -- --hostname 0.0.0.0
 ```
 
-Use o checkout existente: cada tarefa da nuvem já é isolada; não criar worktree sem solicitação. A landing page FR da raiz deve permanecer preservada.
+Use o checkout atual, sem criar worktree: cada tarefa na nuvem já é isolada. Nenhuma credencial é necessária. Preserve a landing page FR na raiz.
 
-## Controles
+## Controles e conteúdo
 
-No cabeçalho, selecione a forma de explorar:
-
-- **Caminhar** (padrão): WASD, setas e botões direcionais. A roda do mouse não movimenta a cena neste modo.
-- **Scroll**: rode o mouse/trackpad para avançar ou retornar no mesmo mundo 3D. Em telas de toque, deslize verticalmente sobre o cenário (para cima avança). Com foco no cenário, ↑/↓ e Page Up/Page Down também percorrem o espaço.
-
-A troca conserva a posição, centraliza gradualmente o personagem quando o percurso guiado começa e mantém câmera/progresso compartilhados. Modo clássico e retorno conservam o controle escolhido. Pausar cancela o destino pendente, evitando movimento ao retomar. O scroll dos diálogos e o gesto de zoom não são capturados pela navegação. O movimento reduzido faz o modo Scroll ir diretamente ao ponto solicitado.
-
-
-- Clique/foco no cenário, depois **W/S** ou ↑/↓ para avançar/retornar em profundidade e **A/D** ou ←/→ para deslocar lateralmente.
-- Botões de toque permitem caminhar sem teclado; capturam o ponteiro e param ao soltar/cancelar, mesmo fora do botão.
-- **P/Esc** ou Pausar exploração congelam a jornada, inclusive a transição. Perda de foco da janela/aba pausa a exploração; retome pelo botão.
-- Atalhos 01/02 fazem uma travessia de aproximadamente 1,65 s, centrando o personagem antes da passagem. A câmera acompanha com amortecimento exponencial; não depende do scroll.
-- Os marcadores junto aos objetos abrem painéis HTML. O painel prende foco de forma nativa, pausa o mundo e fecha com Escape, retornando o foco ao cenário.
-- **Movimento reduzido** respeita o sistema e pode ser alternado: remove balanço dos membros, interpolação da câmera e travessia animada; a navegação continua utilizável.
-- **Modo clássico** recupera o capítulo atual e mantém todo o conteúdo original, incluindo os conceitos e o formulário local. Voltar à jornada mantém a posição, ou leva ao ambiente correspondente se a seção de leitura mudou.
-
-O percurso termina no segundo ambiente, em 100%. É possível voltar a pé, por atalho ou acessar o modo clássico. Não há portas falsas para ambientes ainda não construídos.
+- Scroll/trackpad para frente e para trás, ou deslizar verticalmente sobre o cenário no touch. O avatar permanece ancorado; posição do mundo, progresso e área ativa são compartilhados.
+- Caminhar: focar o cenário e usar WASD/setas ou controles de toque. O personagem se move e a câmera acompanha.
+- Setas ↑/↓ e Page Up/Page Down controlam o percurso com Scroll selecionado. P/Escape pausam; perda de foco também pausa. Diálogos congelam o mundo e conservam sua rolagem nativa.
+- Seis atalhos e Anterior/Próximo permitem acessar conteúdo sem usar gestos. Links `?chapter=inicio`, `sobre`, `servicos`, `projetos`, `processo` ou `contato` abrem capítulos; histórico do navegador funciona entre atalhos.
+- Modo clássico mantém os serviços, projetos conceituais, processo, vínculo zAIon e contato. A alternância conserva seção e controle quando possível.
+- Galeria usa capturas reais das três demonstrações conceituais existentes; abre painéis com contexto, papel, stack e link para a respectiva demonstração. Nenhum cliente ou resultado comercial é alegado.
+- Contatos oficiais ainda não definidos: não há links falsos. O botão de contato prepara resumo local no modo clássico; não envia nem armazena dados em servidor.
 
 ## Verificar
 
-Pare o servidor dev antes do build. Os fluxos usam `.next` e não podem executar simultaneamente.
+Pare qualquer servidor dev/produção antes de build e testes. Eles usam `.next`; a suíte recusa reaproveitar servidor preexistente.
 
 ```bash
-npm run build
+npm run lint
 npm run typecheck
 npm test
+npm run build
 CHROMIUM_PATH=/usr/bin/chromium npm run test:e2e
-```
-
-A suíte funcional inicia o servidor de produção quando a porta está livre. O navegador Chromium do sistema está disponível; em outra máquina, instalar o navegador oficial com `npx playwright install chromium`, mantendo TLS e verificações ativos.
-
-Para revisar o build: `npm run start -- --hostname 0.0.0.0`. Os processos não são preservados em futuras tarefas.
-
-A exportação para GitHub Pages pode ser **validada localmente**, sem publicação:
-
-```bash
 npm run build:pages
 CHROMIUM_PATH=/usr/bin/chromium npm run test:pages
 ```
 
-A saída estática fica em `.next-pages/` (ignorada pelo Git), com prefixo `/landingpages/gabriel`. O exportador também usa `.next` internamente; não rodar em paralelo com outro fluxo Next. Não copiar para `../gabriel/` nem enviar ao remoto sem autorização.
+O Chromium do sistema está disponível nesta máquina. Em outra, use a instalação oficial de Playwright, sem desativar TLS. A suíte funcional inicia e encerra seu servidor; para revisão de produção local, execute `npm run build` e `npm run start -- --hostname 0.0.0.0`. A exportação também usa `.next` internamente.
 
-## Arquitetura e desempenho
+## Organização
 
-- `src/components/Experience.tsx`: seleção de modo e contexto. O HTML clássico é pré-renderizado e funciona sem JavaScript.
-- `src/components/SpatialJourney.tsx`: controles acessíveis, progresso, atalhos, painéis e fallback.
-- `src/lib/spatial-engine.ts`: Three.js carregado por importação dinâmica somente na exploração; câmera, rig original de Gabriel, dois cenários e descarte de recursos.
-- `src/lib/spatial-motion.mjs`: aceleração/desaceleração, limites, normalização diagonal e colisões simples de passagem/plintos.
-- `src/components/ClassicPortfolio.tsx`: leitura convencional responsiva. As seções existentes continuam disponíveis, sem se tornarem novos ambientes 3D.
-- `src/data/site.ts`: conteúdo editável, ambientes e pontos de interação.
+- `src/data/site.ts`: textos confiáveis, ambientes, serviços, projetos e pontos de interação.
+- `src/lib/JourneyController.mjs`: transformação normalizada entre progresso, mundo, avatar e câmera.
+- `src/lib/spatial-motion.mjs`: limites, zonas, destinos, suavização e controles testáveis.
+- `src/lib/spatial-engine.ts`: materiais, rig articulado, arquiteturas procedurais, renderização e descarte.
+- `src/components/SpatialJourney.tsx`: interface HTML, painéis, controles, histórico e acessibilidade.
+- `src/components/ClassicPortfolio.tsx`: leitura convencional pré-renderizada, sem depender de WebGL/JS.
+- `src/config/visual.ts`: tokens visuais; `public/concepts/`: capturas reais dos próprios conceitos.
 
-Geometria procedural com poucos polígonos, materiais compartilhados, sem modelos externos, imagens IA, pós-processamento ou sombras em tempo real. O atelier completo é construído ao aproximar-se da passagem ou selecionar o atalho; inicialmente há apenas sua silhueta. Pixel ratio limitado a 1,25 em telas pequenas e 1,5 nas demais. Desenhos param em repouso após a câmera assentar; atualizações de HUD são limitadas e publicadas somente quando há mudanças. Recursos GPU e listeners são liberados ao sair do modo 3D. Falta de WebGL e perda de contexto apresentam acesso ao modo clássico.
+Há carregamento dinâmico do motor e construção das áreas seguintes durante aproximação/atalho. Geometrias e materiais são compartilhados; sombras e materiais completos são mantidos enquanto o dispositivo sustenta a renderização. Frames lentos reduzem pixel ratio e substituem materiais por iluminação mais simples, sem remover conteúdo. A preferência de movimento reduzido e o fallback clássico continuam disponíveis. Não há pós-processamento pesado, sons ou analytics.
 
-## Dados e limites
+## Publicação autorizada
 
-A foto de referência permanece fora de `public/`, ignorada pelo Git e ausente da cena. O avatar 3D é uma representação low-poly autoral, sem modelo fotográfico. Não há serviços de produção ou n8n conectados. Contato prepara somente um resumo local: não transmite nem armazena dados em servidor. Projetos existentes continuam rotulados como conceitos.
+O usuário autorizou continuamente publicar as alterações validadas no mesmo GitHub Pages público de testes:
+https://gabrieelwilliam-source.github.io/landingpages/gabriel/
 
-Bio, serviços, contatos e domínio final ainda dependem de validação editorial. A demonstração mantém indexação bloqueada. Performance e compatibilidade em celulares físicos/Safari e validação com leitor de tela devem ser revisadas antes de expandir. Consulte `RELATORIO_DEMO_3D.md` para evidências e pendências desta versão; `RELATORIO_EXECUCAO.md` registra a entrega e publicação anteriores.
+`npm run build:pages` produz `.next-pages/` com o prefixo correto. Após validar, arquive `../gabriel/` fora do checkout, substitua somente seus artefatos, revise, faça commit/push para `main`, aguarde Pages `built` e verifique os arquivos por HTTPS. O site FR da raiz e `.nojekyll` devem ser preservados. O comando de build sozinho não publica.
 
-## Atualização da autorização
+SEO inclui idioma, metadata/OpenGraph, favicon e sitemap com o domínio de testes real. Indexação permanece bloqueada nesta versão de revisão, por decisão editorial existente.
 
-Depois da revisão local, o usuário autorizou a publicação desta demo no endereço **público** do GitHub Pages. Os 33 artefatos de `.next-pages/` foram preparados para substituir a versão anterior em `../gabriel/`. O acesso não é exclusivo e `noindex` não é controle de acesso. A autorização vale para a demonstração de dois ambientes, sem a foto pessoal. Publicação confirmada: build do GitHub Pages concluído e 33 artefatos públicos verificados com conteúdo idêntico ao build testado.
+## Referências e limitações
+
+A foto original permanece fora de `public/` e ignorada pelo Git. Avatar estilizado procedural: não é um modelo facial fotorrealista nem usa captura de movimento. Não há assets externos pagos ou APIs de produção. Consulte `ASSETS_AND_LICENSES.md`, `CONTENT_TO_CONFIRM.md` e `RELATORIO_FINAL.md` para fontes, dados pendentes, evidências e limitações medidas. Relatórios anteriores descrevem versões históricas.

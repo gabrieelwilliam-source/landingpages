@@ -1,8 +1,6 @@
-export const JOURNEY_END = 68;
-export const destinations = [4, 49];
-export function areaAt(distance) {
-  return distance < 35 ? 0 : 1;
-}
+export const JOURNEY_END = 158;
+export const destinations = [0,24,49,82,112,145];
+export function areaAt(distance) {return distance<12?0:distance<37?1:distance<70?2:distance<100?3:distance<130?4:5;}
 export function advance(state, input, elapsed) {
   const dt = Math.min(Math.max(elapsed, 0), 0.05);
   const length = Math.hypot(input.x, input.forward);

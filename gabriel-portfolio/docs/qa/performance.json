@@ -1,0 +1,15 @@
+{
+  "viewport": [
+    1000,
+    760
+  ],
+  "frames": 49,
+  "elapsedMs": 3009.6000000003723,
+  "averageFps": 16.28123338649453,
+  "p95FrameMs": 166.69999999999982,
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "jsHeapBytes": 12077965,
+  "encodedResourceBytes": 268554,
+  "drawCalls": "59",
+  "triangles": "5914"
+}

@@ -6,7 +6,7 @@ Destino: https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . O usu�
 
 Aproveite o checkout existente. Cada tarefa da nuvem já é isolada; não crie worktree sem solicitação. Preserve a landing page FR da raiz.
 
-- Desenvolva em `gabriel-portfolio/`. O código é Next.js/TypeScript/Three.js; mantenha modo clássico, movimento reduzido, fallback e os dois ambientes existentes.
+- Desenvolva em `gabriel-portfolio/`. O código é Next.js/TypeScript/Three.js; mantenha modo clássico, movimento reduzido, fallback e os seis ambientes aprovados.
 - Valide as mudanças com os testes relevantes. Para mudanças de navegação: `npm run build`, `npm run typecheck`, `npm test` e `CHROMIUM_PATH=/usr/bin/chromium npm run test:e2e`.
 - Gere a exportação com `npm run build:pages` e valide com `CHROMIUM_PATH=/usr/bin/chromium npm run test:pages`. Não rode o servidor dev, builds e testes de produção simultaneamente: usam `.next` internamente.
 - A saída é `.next-pages/`. Preserve a versão anterior de `../gabriel/` em um arquivo recuperável fora do checkout antes de atualizá-la. Copie a exportação completa, removendo somente artefatos obsoletos desse destino.

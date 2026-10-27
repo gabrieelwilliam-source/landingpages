@@ -12,7 +12,7 @@ export const chapters: Chapter[] = [
     nav: "Sobre",
     headline: "Código com intenção.",
     description:
-      "Sou Gabriel. Trabalho com desenvolvimento web e exploro tecnologia, IA e automações para transformar ideias em experiências digitais úteis.",
+      "Uma abordagem que combina estrutura, clareza visual e tecnologia para desenvolver projetos digitais sob medida.",
   },
   {
     id: "servicos",
@@ -155,60 +155,124 @@ export const concepts: Record<
   },
 };
 
-// Only these two environments belong to the spatial prototype.
 export const environments = [
+  {
+    id: "inicio",
+    name: "Portal",
+    label: "Abertura",
+    number: "01",
+    title: "Ideias bem construídas.",
+    description:
+      "Sites, landing pages e experiências web pensadas para comunicar melhor e funcionar de verdade.",
+    accent: "#a88a55",
+  },
   {
     id: "sobre",
     name: "Átrio de ideias",
-    label: "Sobre Gabriel",
-    number: "01",
-    title: "Código em perspectiva.",
+    label: "Sobre",
+    number: "02",
+    title: "Clareza encontra estrutura.",
     description:
-      "Um espaço aberto para conhecer quem está por trás da interface.",
-    accent: "#c5a66b",
+      "Uma abordagem que combina estrutura, clareza visual e tecnologia para desenvolver projetos digitais sob medida.",
+    accent: "#a88a55",
   },
   {
     id: "servicos",
     name: "Atelier digital",
     label: "Serviços",
-    number: "02",
-    title: "Ideias em construção.",
+    number: "03",
+    title: "Do conceito à interface.",
     description:
-      "Entre estrutura, conteúdo e interação: diferentes formas de dar vida a um projeto.",
+      "Sites institucionais, landing pages, portfólios e experiências digitais sob medida.",
     accent: "#8ebbb1",
+  },
+  {
+    id: "projetos",
+    name: "Galeria de projetos",
+    label: "Projetos",
+    number: "04",
+    title: "Possibilidades em exposição.",
+    description:
+      "Estudos autorais de interface. Todos os trabalhos desta galeria são projetos conceituais, sem clientes ou resultados comerciais alegados.",
+    accent: "#a88a55",
+  },
+  {
+    id: "processo",
+    name: "Laboratório zAIon",
+    label: "Processo",
+    number: "05",
+    title: "Intenção em cada etapa.",
+    description:
+      "Entender, planejar, desenhar, desenvolver, testar e entregar. Desenvolvimento web conectado ao ecossistema zAIon.",
+    accent: "#8ebbb1",
+  },
+  {
+    id: "contato",
+    name: "Destino",
+    label: "Contato",
+    number: "06",
+    title: "Vamos construir algo?",
+    description:
+      "Uma presença digital que faça sentido para seu negócio. Os canais oficiais aguardam confirmação; você pode preparar um resumo no modo clássico.",
+    accent: "#a88a55",
   },
 ];
 export const spatialExhibits = [
   {
-    id: "perfil",
+    id: "portal",
     area: 0,
+    label: "Conhecer a proposta",
+    title: "Gabriel — Web & Digital",
+    body: environments[0].description,
+    position: [-3.7, 2.2, 8],
+  },
+  {
+    id: "perfil",
+    area: 1,
     label: "Conhecer Gabriel",
     title: "Código com intenção.",
-    body: "Sou Gabriel. Trabalho com desenvolvimento web e exploro tecnologia, IA e automações para transformar ideias em experiências digitais úteis. De Joinville/SC, com possibilidade de trabalho remoto.",
-    position: [-3.7, 2.2, 12],
+    body: environments[1].description,
+    position: [-3.7, 2.2, 25],
   },
   {
     id: "abordagem",
-    area: 0,
+    area: 1,
     label: "Uma forma de criar",
     title: "Clareza antes do efeito.",
-    body: "Conteúdo bem organizado, interfaces legíveis e movimento com propósito. A tecnologia entra para ajudar a experiência de quem usa.",
-    position: [3.7, 2.2, 16],
+    body: "Conteúdo bem organizado, interfaces legíveis e movimento com propósito.",
+    position: [3.7, 2.2, 29],
   },
   {
     id: "servicos",
-    area: 1,
+    area: 2,
     label: "Explorar serviços",
     title: "Do conceito à interface.",
-    body: "Sites institucionais, landing pages, portfólios e integrações digitais mediante definição de escopo.",
+    body: environments[2].description,
     position: [-3.7, 2.2, 51],
   },
+  ...projects.map((p, i) => ({
+    id: p.slug,
+    area: 3,
+    label: p.title,
+    title: p.title,
+    body:
+      p.description + " Projeto conceitual; não representa um cliente real.",
+    position: [i % 2 ? -3.7 : 3.7, 2.2, 80 + i * 5],
+  })),
   {
-    id: "conceito",
-    area: 1,
-    label: "Abrir estudo de interface",
-    title: "Um conceito, muitas possibilidades.",
-    body: "Um estudo autoral de landing page. Sem cliente real ou resultados comerciais alegados; uma demonstração de hierarquia, composição e navegação.",
-    position: [3.7, 2.2, 57],
+    id: "processo",
+    area: 4,
+    label: "Conhecer o processo",
+    title: "Da escuta à entrega.",
+    body: environments[4].description,
+    position: [-3.7, 2.2, 113],
+  },
+  {
+    id: "contato",
+    area: 5,
+    label: "Preparar um projeto",
+    title: environments[5].title,
+    body: environments[5].description,
+    position: [3.7, 2.2, 146],
   },
 ];

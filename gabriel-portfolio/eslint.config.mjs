@@ -1,0 +1,2 @@
+import ts from 'typescript-eslint';
+export default [{ignores:['.next/**','.next-pages/**','node_modules/**','test-results/**','next-env.d.ts']},{files:['src/**/*.{ts,tsx,js,mjs}','tests/**/*.{ts,mjs}','scripts/**/*.mjs'],languageOptions:{parser:ts.parser,parserOptions:{ecmaVersion:'latest',sourceType:'module',ecmaFeatures:{jsx:true}}},rules:{'no-debugger':'error','no-unreachable':'error','no-constant-condition':'error','no-dupe-args':'error','no-duplicate-case':'error'}}];
