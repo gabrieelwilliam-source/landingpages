@@ -12,3 +12,8 @@
 - Adicionados pipeline de assets, manifesto verificável, capturas reais, medição e relatório de comparação. Consulte RELATORIO_REDESIGN.md para resultados e limites.
 
 Versões anteriores permanecem no histórico Git e nos relatórios históricos. A revisão não substitui `../gabriel/` e não foi enviada ao remoto.
+
+## 2026-10-27 — Publicação de testes autorizada
+
+- Após revisar a entrega local, o usuário autorizou explicitamente a publicação no mesmo GitHub Pages.
+- Exportação validada, com backup da versão pública anterior fora do checkout. Permanecem as limitações visuais documentadas no relatório de revisão.

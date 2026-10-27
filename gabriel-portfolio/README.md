@@ -67,9 +67,12 @@ O primeiro comando regenera os GLBs brutos e depois os comprime com Meshopt. Nã
 
 ## Estado de publicação
 
-**Esta revisão não está publicada.** O pedido mais recente suspende a autorização contínua anterior. Não substituir `../gabriel/`, não fazer push e não acionar deploy até nova autorização. `npm run build:pages` e `npm run test:pages` apenas geram e validam a exportação local com o prefixo `/landingpages/gabriel`.
+O usuário autorizou publicar esta revisão após receber o pacote de revisão. Destino de testes:
+https://gabrieelwilliam-source.github.io/landingpages/gabriel/
 
-A versão pública anterior continua independente desta revisão. Preserve a landing page FR, `.nojekyll` e a configuração existente do Pages. O build sozinho não publica.
+`npm run build:pages` gera `.next-pages/` com prefixo `/landingpages/gabriel`; `npm run test:pages` valida a exportação. Antes de substituir `../gabriel/`, arquive a versão anterior fora do checkout. Publique somente esse destino, preservando a landing page FR, `.nojekyll` e a configuração existente do Pages. Confirme o build e os arquivos públicos por HTTPS; um push sozinho não comprova deploy.
+
+A revisão mantém as limitações artísticas e de desempenho documentadas. `RELATORIO_REDESIGN.md` registra a etapa de revisão anterior à autorização; suas menções a “não publicado” descrevem aquele momento.
 
 SEO mantém HTML pré-renderizado, idioma, metadata/OpenGraph e sitemap. O conteúdo é legível sem JavaScript; indexação permanece bloqueada enquanto esta é uma revisão, conforme configuração anterior.
 

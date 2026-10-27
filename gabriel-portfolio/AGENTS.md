@@ -16,4 +16,4 @@ Aproveite o checkout existente. Cada tarefa da nuvem já é isolada; não crie w
 A foto de referência está fora de `public/` e ignorada pelo Git. O formulário apenas prepara um resumo local, sem envio. Não invente contatos, clientes ou resultados profissionais. Não desative verificações TLS ou de integridade para instalar ou validar.
 
 ## Revisão atual de redesign
-O pedido posterior do usuário para o pacote Gabriel_3D_Redesign_Pacote_CodeX determina não publicar sem nova autorização. Para esta revisão, não fazer push nem substituir os artefatos publicados de gabriel/. Preparar e testar localmente. Essa restrição atual prevalece sobre a autorização contínua anterior.
+A etapa inicial do pacote Gabriel_3D_Redesign_Pacote_CodeX foi entregue sem publicação. Depois de receber a revisão, o usuário autorizou explicitamente: “pode publicar”. A publicação desta revisão no mesmo GitHub Pages de testes está autorizada. Preserve o backup, valide a exportação e confirme o deploy público. Não publicar a foto pessoal nem alterar outros projetos.
