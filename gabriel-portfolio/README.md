@@ -69,3 +69,5 @@ CHROMIUM_PATH=/usr/bin/chromium npm run test:pages
 Os arquivos exportados são copiados para `../gabriel/` e versionados para hospedagem sem CI. A raiz do repositório contém `.nojekyll` para disponibilizar os assets `_next`. No GitHub, Settings → Pages deve usar **Deploy from a branch → main → / (root)**. Se já estiver assim, o push inicia a atualização automaticamente; não substituir a raiz pelo código do portfólio.
 
 Endereço previsto após ativação bem-sucedida: `https://gabrieelwilliam-source.github.io/landingpages/gabriel/`. A verificação pública depende do acesso de rede a esse domínio. Autorizar publicação não autoriza exibir a foto pessoal: ela continua excluída.
+
+Publicação inicial confirmada: https://gabrieelwilliam-source.github.io/landingpages/gabriel/ — GitHub Pages concluiu o build e os 30 artefatos públicos foram conferidos por HTTPS contra a saída testada localmente. A raiz continua exibindo a FR Distribuidora.

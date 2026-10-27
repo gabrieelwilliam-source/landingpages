@@ -61,3 +61,13 @@ Código funcional para revisão local; nenhuma pendência impede desenvolver, co
 Após a entrega inicial, o usuário autorizou publicar para testar e escolheu GitHub. Preparada exportação estática com prefixo `/landingpages/gabriel`, sem substituir a landing page na raiz. O build `npm run build:pages` passou após declarar a rota de robots como estática, exigência do exportador. `CHROMIUM_PATH=/usr/bin/chromium npm run test:pages` passou nas três resoluções (360, 768, 1440 px), cobrindo assets, navegação de casos/retorno, exploração e favicon, sem erros de execução ou respostas HTTP de erro. Saída copiada para `gabriel/` na raiz, com `.nojekyll` para servir `_next`.
 
 O acesso Git de leitura e a simulação de push funcionaram. API do GitHub e endereço público do Pages permanecem bloqueados pela política de rede desta instância. Requisitos de domínio adicionados ao rascunho: `api.github.com` e `gabrieelwilliam-source.github.io`, preservando os presets existentes. O salvamento desse rascunho não aplica a rede à instância. Confirmar ativação e resposta pública requer liberação desses destinos ou ação do usuário em Settings → Pages. Não considerar a disponibilidade pública comprovada apenas pelo push.
+
+### Publicação confirmada
+
+Push concluído em `main`: `dbfec9d74a3c181797f0bdf6a3b91e06460fc0e2`. Após a atualização da política de rede propagar, a API do GitHub passou a responder. Confirmado Pages existente com `build_type: legacy`, origem `main`, caminho `/`; build desse commit terminou com status `built`, sem erro.
+
+URL pública: https://gabrieelwilliam-source.github.io/landingpages/gabriel/
+
+Verificação HTTPS com TLS ativo: todos os 30 arquivos publicados (HTML, páginas de casos, scripts, CSS, dados estáticos e favicon) retornaram HTTP 200 e bytes idênticos aos artefatos testados localmente nas três larguras. A landing page FR na raiz também retornou HTTP 200 e manteve seu conteúdo. A tentativa de navegador contra o domínio público encontrou a CA do proxy não reconhecida pelo Chromium; não foi ignorada a validação do certificado. Portanto, interação foi validada no navegador local com os mesmos arquivos, e disponibilidade/integridade pública foi validada por HTTPS com a cadeia de confiança do ambiente, sem alegar teste de interação no navegador remoto.
+
+Foto pessoal não versionada nem incluída no site. O formulário continua preparando apenas um resumo local, sem envio. A versão pública de teste mantém `noindex`; não há contatos inventados ou serviços de produção conectados.
