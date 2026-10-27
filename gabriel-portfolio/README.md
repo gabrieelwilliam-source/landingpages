@@ -2,7 +2,7 @@
 
 Demonstração local de **dois ambientes conectados**: Átrio de ideias (Sobre Gabriel) e Atelier digital (Serviços). O personagem percorre o eixo de profundidade, com câmera em terceira pessoa. A expansão para os outros ambientes fica suspensa até a validação desta experiência.
 
-**Esta demonstração não foi publicada.** O site público continua na versão anterior; `../gabriel/` contém os artefatos dessa publicação e não foi alterado. Não fazer push, copiar a nova exportação para essa pasta nem realizar deploy sem nova autorização.
+**Demonstração publicada após autorização explícita do usuário para usar o link público do GitHub Pages.** Acesse https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . `../gabriel/` contém os 33 artefatos dessa publicação, verificados por HTTPS contra o build testado. Alterações futuras de publicação exigem autorização conforme o escopo da tarefa.
 
 ## Rodar e revisar
 
@@ -71,4 +71,4 @@ Bio, serviços, contatos e domínio final ainda dependem de validação editoria
 
 ## Atualização da autorização
 
-Depois da revisão local, o usuário autorizou a publicação desta demo no endereço **público** do GitHub Pages. Os 33 artefatos de `.next-pages/` foram preparados para substituir a versão anterior em `../gabriel/`. O acesso não é exclusivo e `noindex` não é controle de acesso. A autorização vale para a demonstração de dois ambientes, sem a foto pessoal. A confirmação da publicação será registrada no relatório após a verificação externa.
+Depois da revisão local, o usuário autorizou a publicação desta demo no endereço **público** do GitHub Pages. Os 33 artefatos de `.next-pages/` foram preparados para substituir a versão anterior em `../gabriel/`. O acesso não é exclusivo e `noindex` não é controle de acesso. A autorização vale para a demonstração de dois ambientes, sem a foto pessoal. Publicação confirmada: build do GitHub Pages concluído e 33 artefatos públicos verificados com conteúdo idêntico ao build testado.

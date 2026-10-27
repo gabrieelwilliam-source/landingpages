@@ -74,4 +74,4 @@ Foto pessoal não versionada nem incluída no site. O formulário continua prepa
 
 ## Nova etapa: demonstração espacial 3D
 
-A revisão posterior criou dois ambientes 3D locais e substituiu o percurso lateral. Esta demonstração **não foi publicada**; a publicação descrita acima continua sendo a versão anterior. Ver `RELATORIO_DEMO_3D.md` para o estado, testes e limites atuais.
+A revisão posterior criou dois ambientes 3D locais e substituiu o percurso lateral. A demo foi desenvolvida localmente e depois publicada mediante autorização explícita posterior para o link público do Pages. Ver `RELATORIO_DEMO_3D.md` para a confirmação e os testes atuais.

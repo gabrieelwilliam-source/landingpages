@@ -1,6 +1,6 @@
 # Demonstração espacial 3D — 27/10/2026
 
-## Estado entregue
+## Estado entregue antes da autorização de publicação
 
 Demonstração funcional local com **exatamente dois ambientes conectados**. Não houve commit, push, deploy ou atualização dos artefatos publicados em `../gabriel/`. O site público continua com a versão anterior. A ampliação para os outros ambientes aguarda validação desta demonstração.
 
@@ -68,3 +68,11 @@ Após a entrega local, o usuário autorizou publicar e confirmou expressamente q
 Os 33 artefatos da exportação estática validada foram preparados em `../gabriel/`. A versão anterior foi preservada em `/tmp/gabriel-pages-before-3d.tar.gz`. A landing page FR na raiz permanece inalterada. Nenhuma foto pessoal é incluída. O formulário permanece local, sem envio. A expansão permanece limitada aos dois ambientes.
 
 Destino autorizado: https://gabrieelwilliam-source.github.io/landingpages/gabriel/
+
+### Confirmação externa
+
+Push da demo: `eca55048f7e7cca15b3929d2956ac6d765190022` em `main`. A API do GitHub Pages confirmou build `built`, sem erro. Os 33 artefatos públicos retornaram HTTP 200 e bytes idênticos à exportação validada localmente, incluindo chunks do motor 3D, HTML, CSS e páginas de conceitos, com validação TLS ativa. A landing page FR na raiz também retornou HTTP 200 com seu conteúdo preservado. Não se alega novo teste de interação do navegador contra o domínio público: a interação foi validada localmente nos mesmos artefatos.
+
+Link publicado: https://gabrieelwilliam-source.github.io/landingpages/gabriel/
+
+O endereço é público conforme confirmação expressa do usuário. O escopo continua sendo os dois ambientes; nenhum ambiente adicional foi desenvolvido ou publicado. A foto pessoal continua excluída.
