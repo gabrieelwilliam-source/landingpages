@@ -2,23 +2,37 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { environments, spatialExhibits, services } from "@/data/site";
-import { JOURNEY_END } from "@/lib/spatial-motion.mjs";
-import type { SpatialEngine, SpatialSnapshot } from "@/lib/spatial-engine";
+import NavigationModes from "./ui/NavigationModes";
+import { normalizeWheel, JOURNEY_END } from "@/lib/spatial-motion.mjs";
+import type {
+  NavigationMode,
+  SpatialEngine,
+  SpatialSnapshot,
+} from "@/lib/spatial-engine";
 
 export default function SpatialJourney({
   initialDistance,
+  navigationMode,
+  onNavigationChange,
   onPosition,
   onClassic,
 }: {
   initialDistance: number;
+  navigationMode: NavigationMode;
+  onNavigationChange: (mode: NavigationMode) => void;
   onPosition: (distance: number) => void;
   onClassic: (id: string) => void;
 }) {
+  const shell = useRef<HTMLElement>(null);
+  const drag = useRef<{ id: number; y: number } | null>(null);
+  const navigationRef = useRef(navigationMode);
+  navigationRef.current = navigationMode;
   const host = useRef<HTMLDivElement>(null),
     stage = useRef<HTMLDivElement>(null),
     engine = useRef<SpatialEngine | null>(null);
   const [snapshot, setSnapshot] = useState<SpatialSnapshot>({
     distance: initialDistance,
+    navigationMode,
     paused: false,
     x: 0,
     area: initialDistance < 35 ? 0 : 1,
@@ -66,6 +80,7 @@ export default function SpatialJourney({
         if (cancelled || !host.current) return;
         instance = createSpatialWorld(host.current, {
           initialDistance,
+          navigationMode: navigationRef.current,
           reduced: reducedRef.current,
           paused: pausedRef.current,
           onReady: () => {
@@ -119,6 +134,42 @@ export default function SpatialJourney({
     };
   }, [initialDistance]);
   useEffect(() => {
+    clearInput();
+    drag.current = null;
+    engine.current?.setNavigationMode(navigationMode);
+  }, [navigationMode, clearInput]);
+  useEffect(() => {
+    const element = shell.current;
+    if (!element || !ready || navigationMode !== "scroll") return;
+    const wheel = (event: WheelEvent) => {
+      if (
+        paused ||
+        exhibit ||
+        event.ctrlKey ||
+        event.metaKey ||
+        Math.abs(event.deltaX) > Math.abs(event.deltaY)
+      )
+        return;
+      const target = event.target;
+      if (
+        target instanceof Element &&
+        target.closest('dialog,input,textarea,select,[contenteditable="true"]')
+      )
+        return;
+      const pixels = normalizeWheel(
+        event.deltaY,
+        event.deltaMode,
+        element.clientHeight,
+      );
+      if (!pixels) return;
+      event.preventDefault();
+      setStarted(true);
+      engine.current?.scrollBy(pixels);
+    };
+    element.addEventListener("wheel", wheel, { passive: false });
+    return () => element.removeEventListener("wheel", wheel);
+  }, [navigationMode, ready, paused, exhibit]);
+  useEffect(() => {
     engine.current?.setPaused(paused);
     if (paused) clearInput();
   }, [paused, clearInput]);
@@ -152,7 +203,30 @@ export default function SpatialJourney({
     );
   }
   function keyboard(e: React.KeyboardEvent, down: boolean) {
-    if (e.target !== stage.current) return;
+    if (e.target !== stage.current || e.ctrlKey || e.metaKey || e.altKey)
+      return;
+    if (navigationMode === "scroll") {
+      const steps: Record<string, number> = {
+        ArrowDown: 100,
+        ArrowUp: -100,
+        PageDown: 600,
+        PageUp: -600,
+      };
+      if (e.key in steps) {
+        e.preventDefault();
+        if (down) {
+          setStarted(true);
+          engine.current?.scrollBy(steps[e.key]);
+        }
+        return;
+      }
+      if (
+        ["w", "a", "s", "d", "arrowleft", "arrowright"].includes(
+          e.key.toLowerCase(),
+        )
+      )
+        return;
+    }
     const aliases: Record<string, string> = {
       arrowup: "w",
       arrowdown: "s",
@@ -208,7 +282,10 @@ export default function SpatialJourney({
   }
   const percentage = Math.round((snapshot.distance / JOURNEY_END) * 100);
   return (
-    <main className={`spatial-shell ${reduced ? "motion-reduced" : ""}`}>
+    <main
+      ref={shell}
+      className={`spatial-shell ${reduced ? "motion-reduced" : ""} navigation-${navigationMode}`}
+    >
       <header className="spatial-header" data-spatial-blocker>
         <a
           href="#sobre"
@@ -222,7 +299,13 @@ export default function SpatialJourney({
           <small>WEB & DIGITAL / by zAIon</small>
         </a>
         <div className="spatial-header-actions">
-          <span className="prototype-label">ESTUDO ESPACIAL / 01—02</span>
+          <NavigationModes
+            value={navigationMode}
+            onChange={(next) => {
+              clearInput();
+              onNavigationChange(next);
+            }}
+          />
           <button
             className="spatial-button"
             onClick={() => onClassic(current.id)}
@@ -245,9 +328,44 @@ export default function SpatialJourney({
           if (
             e.target === host.current ||
             e.target instanceof HTMLCanvasElement
-          )
+          ) {
             stage.current?.focus();
+            if (
+              navigationMode === "scroll" &&
+              e.pointerType === "touch" &&
+              e.isPrimary &&
+              !paused
+            ) {
+              e.preventDefault();
+              drag.current = { id: e.pointerId, y: e.clientY };
+              e.currentTarget.setPointerCapture(e.pointerId);
+            }
+          }
         }}
+        onPointerMove={(e) => {
+          if (
+            !drag.current ||
+            e.pointerId !== drag.current.id ||
+            navigationMode !== "scroll" ||
+            paused
+          )
+            return;
+          const pixels = drag.current.y - e.clientY;
+          drag.current.y = e.clientY;
+          engine.current?.scrollBy(normalizeWheel(pixels));
+          setStarted(true);
+        }}
+        onPointerUp={() => {
+          drag.current = null;
+        }}
+        onPointerCancel={() => {
+          drag.current = null;
+          engine.current?.cancelScroll();
+        }}
+        onLostPointerCapture={() => {
+          drag.current = null;
+        }}
+        data-navigation={snapshot.navigationMode}
         data-distance={snapshot.distance.toFixed(3)}
         data-paused={snapshot.paused}
         data-x={snapshot.x.toFixed(3)}
@@ -329,9 +447,18 @@ export default function SpatialJourney({
           >
             <div className="journey-status">
               <p id="spatial-help">
-                {!started ? "Foque o cenário para começar. " : ""}
-                <strong>WASD / setas</strong> para caminhar · P ou Esc para
-                pausar
+                {navigationMode === "walk" ? (
+                  <>
+                    {!started ? "Foque o cenário para começar. " : ""}
+                    <strong>WASD / setas</strong> para caminhar
+                  </>
+                ) : (
+                  <>
+                    <strong>Rode o mouse ou deslize</strong> para avançar e
+                    voltar
+                  </>
+                )}{" "}
+                · P ou Esc para pausar
               </p>
               <label className="motion-toggle">
                 <input
@@ -392,52 +519,61 @@ export default function SpatialJourney({
               </div>
             </div>
           </section>
-          <div
-            className="spatial-touch"
-            data-spatial-blocker
-            role="group"
-            aria-label="Controles de toque"
-          >
-            {[
-              { key: "w", label: "Caminhar para frente", symbol: "↑" },
-              { key: "a", label: "Caminhar à esquerda", symbol: "←" },
-              { key: "s", label: "Caminhar para trás", symbol: "↓" },
-              { key: "d", label: "Caminhar à direita", symbol: "→" },
-            ].map((b) => (
-              <button
-                key={b.key}
-                className={`direction-${b.key}`}
-                aria-label={b.label}
-                disabled={paused || !ready}
-                onPointerDown={(e) => touch(e, b.key, true)}
-                onPointerUp={(e) => touch(e, b.key, false)}
-                onPointerCancel={(e) => touch(e, b.key, false)}
-                onLostPointerCapture={() => {
-                  keys.current.delete(b.key);
-                  sendInput();
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === " " || e.key === "Enter") {
-                    e.preventDefault();
-                    keys.current.add(b.key);
-                    sendInput();
-                  }
-                }}
-                onKeyUp={(e) => {
-                  if (e.key === " " || e.key === "Enter") {
+          {navigationMode === "walk" ? (
+            <div
+              className="spatial-touch"
+              data-spatial-blocker
+              role="group"
+              aria-label="Controles de toque"
+            >
+              {[
+                { key: "w", label: "Caminhar para frente", symbol: "↑" },
+                { key: "a", label: "Caminhar à esquerda", symbol: "←" },
+                { key: "s", label: "Caminhar para trás", symbol: "↓" },
+                { key: "d", label: "Caminhar à direita", symbol: "→" },
+              ].map((b) => (
+                <button
+                  key={b.key}
+                  className={`direction-${b.key}`}
+                  aria-label={b.label}
+                  disabled={paused || !ready}
+                  onPointerDown={(e) => touch(e, b.key, true)}
+                  onPointerUp={(e) => touch(e, b.key, false)}
+                  onPointerCancel={(e) => touch(e, b.key, false)}
+                  onLostPointerCapture={() => {
                     keys.current.delete(b.key);
                     sendInput();
-                  }
-                }}
-                onBlur={() => {
-                  keys.current.delete(b.key);
-                  sendInput();
-                }}
-              >
-                {b.symbol}
-              </button>
-            ))}
-          </div>
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === " " || e.key === "Enter") {
+                      e.preventDefault();
+                      keys.current.add(b.key);
+                      sendInput();
+                    }
+                  }}
+                  onKeyUp={(e) => {
+                    if (e.key === " " || e.key === "Enter") {
+                      keys.current.delete(b.key);
+                      sendInput();
+                    }
+                  }}
+                  onBlur={() => {
+                    keys.current.delete(b.key);
+                    sendInput();
+                  }}
+                >
+                  {b.symbol}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="spatial-scroll-hint" data-spatial-blocker>
+              <span aria-hidden="true">↕</span>
+              <p>
+                Role para percorrer<small>Para cima, você retorna.</small>
+              </p>
+            </div>
+          )}
           {paused && !exhibit && ready && (
             <div className="pause-notice" role="status">
               Exploração pausada.{" "}

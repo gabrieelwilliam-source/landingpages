@@ -1,8 +1,10 @@
 # Gabriel · jornada espacial 3D
 
+> **Revisão com dois controles:** a cena oferece **Caminhar / Scroll**. O usuário autorizou publicação contínua no mesmo GitHub Pages para testar. Consulte `RELATORIO_NAVEGACAO.md` e `AGENTS.md` para a revisão e o fluxo de publicação.
+
 Demonstração local de **dois ambientes conectados**: Átrio de ideias (Sobre Gabriel) e Atelier digital (Serviços). O personagem percorre o eixo de profundidade, com câmera em terceira pessoa. A expansão para os outros ambientes fica suspensa até a validação desta experiência.
 
-**Demonstração publicada após autorização explícita do usuário para usar o link público do GitHub Pages.** Acesse https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . `../gabriel/` contém os 33 artefatos dessa publicação, verificados por HTTPS contra o build testado. Alterações futuras de publicação exigem autorização conforme o escopo da tarefa.
+**Demonstração publicada após autorização explícita do usuário para usar o link público do GitHub Pages.** Acesse https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . `../gabriel/` contém os 33 artefatos dessa publicação, verificados por HTTPS contra o build testado. A autorização atual cobre a publicação contínua das próximas alterações deste portfólio no mesmo destino de testes, até orientação contrária.
 
 ## Rodar e revisar
 
@@ -17,6 +19,14 @@ npm run dev -- --hostname 0.0.0.0
 Use o checkout existente: cada tarefa da nuvem já é isolada; não criar worktree sem solicitação. A landing page FR da raiz deve permanecer preservada.
 
 ## Controles
+
+No cabeçalho, selecione a forma de explorar:
+
+- **Caminhar** (padrão): WASD, setas e botões direcionais. A roda do mouse não movimenta a cena neste modo.
+- **Scroll**: rode o mouse/trackpad para avançar ou retornar no mesmo mundo 3D. Em telas de toque, deslize verticalmente sobre o cenário (para cima avança). Com foco no cenário, ↑/↓ e Page Up/Page Down também percorrem o espaço.
+
+A troca conserva a posição, centraliza gradualmente o personagem quando o percurso guiado começa e mantém câmera/progresso compartilhados. Modo clássico e retorno conservam o controle escolhido. Pausar cancela o destino pendente, evitando movimento ao retomar. O scroll dos diálogos e o gesto de zoom não são capturados pela navegação. O movimento reduzido faz o modo Scroll ir diretamente ao ponto solicitado.
+
 
 - Clique/foco no cenário, depois **W/S** ou ↑/↓ para avançar/retornar em profundidade e **A/D** ou ←/→ para deslocar lateralmente.
 - Botões de toque permitem caminhar sem teclado; capturam o ponteiro e param ao soltar/cancelar, mesmo fora do botão.

@@ -1,6 +1,8 @@
 import * as T from "three";
 import {
   advance,
+  advanceScroll,
+  scrollDestination,
   areaAt,
   destinations,
   easeJourney,
@@ -8,7 +10,10 @@ import {
 } from "./spatial-motion.mjs";
 import { spatialExhibits } from "@/data/site";
 
+export type NavigationMode = "walk" | "scroll";
+
 export type SpatialSnapshot = {
+  navigationMode: NavigationMode;
   distance: number;
   paused: boolean;
   x: number;
@@ -23,6 +28,7 @@ export type SpatialSnapshot = {
 };
 export type SpatialOptions = {
   initialDistance: number;
+  navigationMode: NavigationMode;
   reduced: boolean;
   paused: boolean;
   onUpdate: (s: SpatialSnapshot) => void;
@@ -284,6 +290,9 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     to: number;
     elapsed: number;
   } = null;
+  let navigationMode = options.navigationMode,
+    scrollTarget = state.distance,
+    guidedActive = false;
   const input = { x: 0, forward: 0 };
   const look = new T.Vector3(),
     desired = new T.Vector3(),
@@ -337,7 +346,19 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
           vx: 0,
           vz: 0,
         };
-        if (t === 1) transition = null;
+        if (t === 1) {
+          transition = null;
+          scrollTarget = state.distance;
+          guidedActive = false;
+        }
+      } else if (navigationMode === "scroll" && guidedActive) {
+        state = advanceScroll(state, scrollTarget, dt, reduced);
+        if (
+          Math.abs(state.distance - scrollTarget) < 0.0001 &&
+          Math.abs(state.x) < 0.0001 &&
+          Math.abs(state.vx) + Math.abs(state.vz) < 0.01
+        )
+          guidedActive = false;
       } else state = advance(state, input, dt);
     }
     if (state.distance > 18) loadWorkshop();
@@ -419,6 +440,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         ];
       });
       options.onUpdate({
+        navigationMode,
         distance: state.distance,
         paused,
         x: state.x,
@@ -439,7 +461,42 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   }
   raf = requestAnimationFrame(update);
   return {
+    setNavigationMode(mode: NavigationMode) {
+      navigationMode = mode;
+      input.x = 0;
+      input.forward = 0;
+      state.vx = 0;
+      state.vz = 0;
+      transition = null;
+      guidedActive = false;
+      scrollTarget = state.distance;
+      pendingPublish = true;
+    },
+    scrollBy(pixels: number) {
+      if (
+        navigationMode !== "scroll" ||
+        paused ||
+        document.hidden ||
+        !Number.isFinite(pixels)
+      )
+        return;
+      if (transition) {
+        transition = null;
+        scrollTarget = state.distance;
+      }
+      scrollTarget = scrollDestination(scrollTarget, pixels);
+      guidedActive = true;
+      pendingPublish = true;
+    },
+    cancelScroll() {
+      scrollTarget = state.distance;
+      guidedActive = false;
+      state.vx = 0;
+      state.vz = 0;
+      pendingPublish = true;
+    },
     setInput(x: number, forward: number) {
+      if (navigationMode !== "walk") return;
       input.x = x;
       input.forward = forward;
       if (x || forward) transition = null;
@@ -448,6 +505,8 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       paused = value;
       pendingPublish = true;
       if (value) {
+        scrollTarget = state.distance;
+        guidedActive = false;
         input.x = 0;
         input.forward = 0;
         state.vx = 0;
@@ -458,6 +517,8 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       reduced = value;
     },
     goTo(index: number) {
+      guidedActive = false;
+      scrollTarget = state.distance;
       if (index === 1) loadWorkshop();
       transition = {
         from: state.distance,

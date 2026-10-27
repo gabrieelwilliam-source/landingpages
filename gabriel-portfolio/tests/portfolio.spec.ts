@@ -324,3 +324,142 @@ test("real mobile touch capture, cancellation and landscape layout", async ({
     await context.close();
   }
 });
+
+test("scroll wheel advances and returns through the 3D world without document scroll", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1000, height: 760 });
+  await page.goto("/");
+  await ready(page);
+  await page.getByRole("button", { name: "Scroll", exact: true }).click();
+  await expect(stage(page)).toHaveAttribute("data-navigation", "scroll");
+  await page.mouse.move(700, 380);
+  await page.mouse.wheel(0, 500);
+  await expect.poll(() => distance(page)).toBeGreaterThan(1);
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+  expect(Number(await stage(page).getAttribute("data-camera-z"))).toBeLessThan(
+    8.4,
+  );
+  await page.mouse.wheel(0, -640);
+  await expect.poll(() => distance(page), { timeout: 10000 }).toBe(0);
+  await page.screenshot({
+    path: "test-results/dual-navigation-scroll-1000.png",
+  });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+test("changing control retains position; pause cancels scroll momentum and classic retains the selected control", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await ready(page);
+  await stage(page).focus();
+  await page.keyboard.down("w");
+  await expect.poll(() => distance(page)).toBeGreaterThan(1);
+  await page.keyboard.up("w");
+  await page.getByRole("button", { name: "Scroll", exact: true }).click();
+  await expect(stage(page)).toHaveAttribute("data-navigation", "scroll");
+  const entry = await distance(page);
+  await page.waitForTimeout(250);
+  expect(await distance(page)).toBe(entry);
+  await page.mouse.move(800, 400);
+  await page.mouse.wheel(0, 600);
+  await expect.poll(() => distance(page)).toBeGreaterThan(entry + 0.5);
+  await page.getByRole("button", { name: "Pausar exploração" }).click();
+  await expect(stage(page)).toHaveAttribute("data-paused", "true");
+  const stopped = await distance(page);
+  await page.mouse.wheel(0, 600);
+  await page.waitForTimeout(250);
+  expect(await distance(page)).toBe(stopped);
+  await page.getByRole("button", { name: "Continuar exploração" }).click();
+  await page.waitForTimeout(500);
+  expect(await distance(page)).toBe(stopped);
+  await page.getByRole("button", { name: "Modo clássico" }).click();
+  await page.getByRole("button", { name: "Voltar à jornada 3D" }).click();
+  await ready(page);
+  await expect(
+    page.getByRole("button", { name: "Scroll", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  expect(Math.abs((await distance(page)) - stopped)).toBeLessThan(0.01);
+  await page.getByRole("button", { name: "Caminhar", exact: true }).click();
+  await expect(stage(page)).toHaveAttribute("data-navigation", "walk");
+  await stage(page).focus();
+  await page.keyboard.down("w");
+  await expect.poll(() => distance(page)).toBeGreaterThan(stopped + 0.3);
+  await page.keyboard.up("w");
+});
+test("scroll supports keyboard and reduced motion, and does not hijack dialog scrolling or zoom gestures", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await ready(page);
+  await page.getByRole("button", { name: "Scroll", exact: true }).click();
+  await stage(page).focus();
+  await page.keyboard.press("PageDown");
+  await expect.poll(() => distance(page)).toBeCloseTo(8.4, 2);
+  await page.keyboard.press("ArrowUp");
+  await expect.poll(() => distance(page)).toBeCloseTo(7, 2);
+  await page
+    .getByRole("button", { name: "Conhecer Gabriel", exact: true })
+    .click();
+  const before = await distance(page);
+  await page
+    .getByRole("dialog")
+    .dispatchEvent("wheel", { deltaY: 400, bubbles: true, cancelable: true });
+  expect(await distance(page)).toBe(before);
+  await page.keyboard.press("Escape");
+  const prevented = await page.locator(".world-stage").evaluate((e) => {
+    const event = new WheelEvent("wheel", {
+      deltaY: 100,
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    e.dispatchEvent(event);
+    return event.defaultPrevented;
+  });
+  expect(prevented).toBe(false);
+  expect(await distance(page)).toBe(before);
+});
+test("mobile scroll gesture drives depth and survives orientation without hiding mode controls", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    hasTouch: true,
+  });
+  const page = await context.newPage();
+  try {
+    await page.goto("http://127.0.0.1:3000/");
+    await ready(page);
+    await page.getByRole("button", { name: "Scroll", exact: true }).click();
+    const cdp = await context.newCDPSession(page);
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchStart",
+      touchPoints: [{ x: 300, y: 500 }],
+    });
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchMove",
+      touchPoints: [{ x: 300, y: 350 }],
+    });
+    await cdp.send("Input.dispatchTouchEvent", {
+      type: "touchEnd",
+      touchPoints: [],
+    });
+    await expect.poll(() => distance(page)).toBeGreaterThan(0.5);
+    await expect(
+      page.getByRole("button", { name: "Caminhar", exact: true }),
+    ).toBeInViewport();
+    await page.screenshot({
+      path: "test-results/dual-navigation-scroll-390.png",
+    });
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await page.setViewportSize({ width: 844, height: 390 });
+    await expect(
+      page.getByRole("button", { name: "Scroll", exact: true }),
+    ).toBeInViewport();
+  } finally {
+    await context.close();
+  }
+});

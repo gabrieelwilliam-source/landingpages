@@ -38,3 +38,50 @@ export function easeJourney(t) {
   const n = Math.max(0, Math.min(1, t));
   return n * n * (3 - 2 * n);
 }
+
+/** Normalize mouse wheels, trackpads and page/line devices to bounded CSS pixels. */
+export function normalizeWheel(delta, mode = 0, viewport = 800) {
+  if (!Number.isFinite(delta)) return 0;
+  const pixels = delta * (mode === 1 ? 16 : mode === 2 ? viewport : 1);
+  return Math.max(-640, Math.min(640, pixels));
+}
+export function scrollDestination(current, pixels) {
+  return Math.max(0, Math.min(JOURNEY_END, current + pixels * 0.014));
+}
+export function advanceScroll(state, target, elapsed, reduced = false) {
+  const bounded = Math.max(0, Math.min(JOURNEY_END, target));
+  if (reduced) return { x: 0, distance: bounded, vx: 0, vz: 0 };
+  const clamp = (value) => Math.max(-1, Math.min(1, value));
+  let forward = clamp((bounded - state.distance) * 2),
+    x = clamp(-state.x * 3);
+  if (Math.abs(state.x) > 0.04) {
+    // Before joining the clear centre lane, go around an adjacent solid plinth.
+    const plinth = [
+      { x: -3.7, d: 12 },
+      { x: 3.7, d: 16 },
+      { x: -3.7, d: 51 },
+      { x: 3.7, d: 57 },
+    ].find(
+      (b) =>
+        Math.sign(b.x) === Math.sign(state.x) &&
+        Math.abs(state.x) > Math.abs(b.x) &&
+        Math.abs(state.distance - b.d) < 1.3,
+    );
+    if (plinth) {
+      x = 0;
+      const clearance = plinth.d + (state.distance >= plinth.d ? 1.5 : -1.5);
+      forward = clamp((clearance - state.distance) * 3);
+    } else {
+      forward = 0;
+      x = clamp(-state.x * 3);
+    }
+  }
+  const next = advance(state, { x, forward }, elapsed);
+  if (
+    Math.abs(next.distance - bounded) < 0.004 &&
+    Math.abs(next.x) < 0.004 &&
+    Math.abs(next.vz) + Math.abs(next.vx) < 0.06
+  )
+    return { x: 0, distance: bounded, vx: 0, vz: 0 };
+  return next;
+}

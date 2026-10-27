@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import ClassicPortfolio from "./ClassicPortfolio";
 import SpatialJourney from "./SpatialJourney";
+import type { NavigationMode } from "@/lib/spatial-engine";
 
 export default function Experience() {
   // Server-render the complete classic content; enhance into 3D only with JavaScript.
@@ -9,6 +10,7 @@ export default function Experience() {
   const position = useRef(0),
     section = useRef("sobre");
   const [entry, setEntry] = useState(0);
+  const [navigationMode, setNavigationMode] = useState<NavigationMode>("walk");
   useEffect(() => {
     if (!location.hash) setMode("spatial");
     const anchor = () => setMode("classic");
@@ -43,6 +45,8 @@ export default function Experience() {
   return mode === "spatial" ? (
     <SpatialJourney
       initialDistance={entry}
+      navigationMode={navigationMode}
+      onNavigationChange={setNavigationMode}
       onPosition={(distance) => {
         position.current = distance;
         section.current = distance < 35 ? "sobre" : "servicos";

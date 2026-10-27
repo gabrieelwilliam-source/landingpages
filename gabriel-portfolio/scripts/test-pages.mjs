@@ -53,6 +53,22 @@ try {
     });
     await expect(page.locator("canvas")).toHaveCount(1);
     await page.getByRole("checkbox", { name: "Movimento reduzido" }).check();
+    await page.getByRole("button", { name: "Scroll", exact: true }).click();
+    await expect(page.locator(".world-stage")).toHaveAttribute(
+      "data-navigation",
+      "scroll",
+    );
+    await page.locator(".world-stage").focus();
+    await page.keyboard.press("PageDown");
+    await expect(page.locator(".world-stage")).toHaveAttribute(
+      "data-distance",
+      "8.400",
+    );
+    await page.getByRole("button", { name: "Caminhar", exact: true }).click();
+    await expect(page.locator(".world-stage")).toHaveAttribute(
+      "data-navigation",
+      "walk",
+    );
     await page.getByRole("button", { name: "02 Atelier digital" }).click();
     await expect(page.locator(".world-stage")).toHaveAttribute(
       "data-area",
@@ -89,7 +105,7 @@ try {
     await page.screenshot({ path: `test-results/pages-${width}.png` });
     assert.deepEqual(errors, []);
     console.log(
-      `PASS: static Pages, ${width}px; navigation, assets, 3D rooms, classic mode, favicon, no runtime errors`,
+      `PASS: static Pages, ${width}px; navigation, assets, both input modes, 3D rooms, classic mode, favicon, no runtime errors`,
     );
     await page.close();
   }

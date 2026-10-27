@@ -1573,3 +1573,98 @@ footer strong {
     padding: 6px 0;
   }
 }
+/* Both controls share one world position; only their input changes. */
+.navigation-modes {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  background: #e2e7dc;
+  border: 1px solid #a5b3a8;
+}
+.navigation-modes button {
+  font: inherit;
+  font-size: 12px;
+  min-height: 38px;
+  min-width: 90px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #2f4d4c;
+}
+.navigation-modes button[aria-pressed="true"] {
+  background: #244641;
+  color: #f3f1e8;
+  border-color: #244641;
+}
+.navigation-scroll .world-stage {
+  touch-action: pan-x pinch-zoom;
+}
+.spatial-scroll-hint {
+  position: absolute;
+  right: 38px;
+  bottom: 220px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: #edf0e5;
+  color: #2f4d4c;
+  padding: 12px 16px;
+  pointer-events: none;
+  font-size: 12px;
+}
+.spatial-scroll-hint > span {
+  font-size: 28px;
+}
+.spatial-scroll-hint p {
+  margin: 0;
+}
+.spatial-scroll-hint small {
+  display: block;
+  color: #405a54;
+  font-size: 10px;
+  margin-top: 3px;
+}
+@media (max-width: 600px) {
+  .spatial-header {
+    padding-bottom: 64px;
+  }
+  .spatial-header-actions {
+    display: block;
+  }
+  .navigation-modes {
+    position: absolute;
+    top: 76px;
+    left: 18px;
+    right: 18px;
+    justify-content: center;
+  }
+  .navigation-modes button {
+    flex: 1;
+    min-height: 38px;
+    font-size: 11px;
+  }
+  .spatial-editorial {
+    top: 145px;
+  }
+  .spatial-compass {
+    top: 150px;
+  }
+  .spatial-scroll-hint {
+    right: 18px;
+    bottom: 215px;
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+}
+@media (max-height: 600px) and (min-width: 601px) {
+  .spatial-header {
+    padding: 12px 22px;
+  }
+  .navigation-modes button {
+    min-width: 76px;
+  }
+  .spatial-scroll-hint {
+    right: 22px;
+    bottom: 170px;
+  }
+}

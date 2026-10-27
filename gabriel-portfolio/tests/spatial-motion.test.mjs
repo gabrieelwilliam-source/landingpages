@@ -2,6 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   advance,
+  advanceScroll,
+  normalizeWheel,
+  scrollDestination,
   areaAt,
   easeJourney,
   JOURNEY_END,
@@ -51,4 +54,39 @@ test("bridge entrance blocks off-centre travel without snapping sideways", () =>
   const next = advance(p, { x: 0, forward: 1 }, 0.016);
   assert.equal(next.distance, p.distance);
   assert.equal(next.x, 4);
+});
+
+test("wheel normalization treats pixel, line and page devices consistently", () => {
+  assert.equal(normalizeWheel(16, 0), normalizeWheel(1, 1));
+  assert.equal(normalizeWheel(1, 2, 500), 500);
+  assert.equal(normalizeWheel(99999), 640);
+  assert.equal(normalizeWheel(Infinity), 0);
+  assert.equal(scrollDestination(67, 640), 68);
+  assert.equal(scrollDestination(1, -640), 0);
+});
+test("scroll converges, reverses and honours the endpoints without overshoot", () => {
+  let p = start();
+  for (let i = 0; i < 700; i++) p = advanceScroll(p, 49, 0.016);
+  assert.equal(p.distance, 49);
+  assert.equal(p.vz, 0);
+  for (let i = 0; i < 1000; i++) p = advanceScroll(p, -100, 0.016);
+  assert.equal(p.distance, 0);
+  for (let i = 0; i < 1000; i++) p = advanceScroll(p, 999, 0.016);
+  assert.equal(p.distance, 68);
+});
+test("scroll joins the centre lane from a plinth edge without crossing solid objects", () => {
+  for (const x of [-4.9, 4.9]) {
+    let p = { ...start(), x, distance: x < 0 ? 12 : 16 };
+    for (let i = 0; i < 1400; i++) p = advanceScroll(p, 49, 0.016);
+    assert.equal(p.distance, 49);
+    assert.equal(p.x, 0);
+  }
+});
+test("reduced-motion scroll goes directly to the selected point", () => {
+  assert.deepEqual(advanceScroll({ ...start(), x: 1 }, 49, 0.016, true), {
+    x: 0,
+    distance: 49,
+    vx: 0,
+    vz: 0,
+  });
 });
