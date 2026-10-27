@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+*.tsbuildinfo
+/test-results/
+/playwright-report/
+
+# Referência pessoal: não incluir a foto no versionamento.
+/public_gabriel_foto_original.jpg
+
+.next-pages/
