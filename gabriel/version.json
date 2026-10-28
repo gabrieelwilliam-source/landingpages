@@ -1,6 +1,8 @@
 {
-  "version": "gabriel-graphics-refinement-20261028",
-  "sourceRevision": "6588a6310afb08a230ab12c39f76230ed8bb4344",
-  "preparedAt": "2026-10-28T14:58:43.016517+00:00",
-  "indexSha256": "bd6d0fba0decd9f67cba342557613933764853fd1072a1cf4c25a42a8e2d101e"
+  "version": "site-zaion-studio-completo-20261028",
+  "sourceRevision": "1f3472b48f7a922c3caa4102125060e19ea320cf",
+  "preparedAt": "2026-10-28T16:55:09.039608+00:00",
+  "indexSha256": "81bf82e93ba04d3316c9796d67002e02edbf08a69b49fbf935e8679d94169baf",
+  "siteName": "Site zAIon",
+  "repository": "gabrieelwilliam-source/Site-zAIon"
 }
