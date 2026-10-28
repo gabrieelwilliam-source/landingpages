@@ -150,6 +150,7 @@ test("mobile touch moves the world, native contact and reading without JS remain
   const p = await ctx.newPage();
   await p.goto("http://127.0.0.1:3000");
   await ready(p);
+  await p.getByRole("button", { name: "Scroll", exact: true }).click();
   const z = await world(p).getAttribute("data-avatar-z");
   const cdp = await ctx.newCDPSession(p);
   await cdp.send("Input.dispatchTouchEvent", {

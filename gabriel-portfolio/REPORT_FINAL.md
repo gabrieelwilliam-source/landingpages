@@ -2,6 +2,8 @@
 
 28/10/2026 · branch local `visual-polish` · sem publicação.
 
+**Atualização mais recente:** [analógico para celular e caminhada +30%](docs/virtual-studio/mobile-controls/README.md). Pacote atualizado: `/workspace/artifacts/zAIon-Controle-Mobile-Revisao-20261028.zip`. As medições gráficas abaixo pertencem ao polimento visual anterior; esta atualização mantém os mesmos assets.
+
 Esta revisão continua o projeto existente a partir de `cd9cdb5`. Não substitui o portfólio por outra aplicação. A versão pública e a landing page FR permanecem preservadas. A nova instrução do pacote suspende a preferência anterior de publicação automática nesta etapa.
 
 ## Implementação

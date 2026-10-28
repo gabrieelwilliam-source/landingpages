@@ -1,0 +1,65 @@
+> site-zaion@0.1.0 test:e2e
+> playwright test
+
+[WebServer] (node:37896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:37912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/camera-gallery.spec.ts:11:5 › orbit, camera-relative walking, pause, reset and accessible project filters (12.3s)
+  ✓   2 tests/camera-gallery.spec.ts:63:5 › touch orbits without moving the visitor and reset is available on mobile (3.6s)
+  ✓   3 tests/contact-draft.spec.ts:4:5 › contact draft survives panels and mode changes, clears explicitly and never sends (8.4s)
+  ✓   4 tests/full-studio.spec.ts:8:5 › fictional receptionist animates, pauses and opens a useful keyboard interaction (5.9s)
+  ✓   5 tests/full-studio.spec.ts:21:5 › all six sectors have a scripted interaction and render real inhabited interiors (22.5s)
+  ✓   6 tests/full-studio.spec.ts:35:5 › all four automation demos change local state and never send requests (3.8s)
+  ✓   7 tests/full-studio.spec.ts:46:5 › distance, shoulder and obstacle-aware reconnect preserve anchored reversible scroll (13.3s)
+  ✓   8 tests/full-studio.spec.ts:57:5 › briefing assistant preserves an existing draft and the classic mode exposes the same content (4.4s)
+  ✘   9 tests/full-studio.spec.ts:64:5 › close reception view and real touch interaction remain usable on mobile (1.5m)
+(node:38574) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  10 tests/full-studio.spec.ts:77:5 › quality swaps actual skinned LODs and preserves the active rig (7.3s)
+  ✓  11 tests/full-studio.spec.ts:86:5 › advanced options stay in a secondary menu on desktop and mobile (7.0s)
+  ✓  12 tests/full-studio.spec.ts:99:5 › a nearby development monitor opens the existing project demonstration (5.2s)
+  ✓  13 tests/full-studio.spec.ts:108:5 › detailed characters remain inspectable with the closer collision-aware camera (13.8s)
+  ✓  14 tests/full-studio.spec.ts:121:5 › supported furniture, adjustable FOV and menu scrolling preserve the scene position (3.0s)
+  ✓  15 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (portrait) (5.3s)
+  ✓  16 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (landscape) (8.1s)
+  ✓  17 tests/mobile-joystick.spec.ts:30:5 › two fingers steer and look independently; cancel, pause and mode changes release movement (6.4s)
+  ✓  18 tests/office-visual.spec.ts:5:5 › office graphic tiers change raster budget and all six interiors render (56.0s)
+  ✓  19 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 360 (4.3s)
+  ✓  20 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 390 (4.1s)
+  ✓  21 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 1280 (6.6s)
+  ✓  22 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 1440 (7.6s)
+  ✓  23 tests/portfolio.spec.ts:43:5 › scroll moves world while avatar and camera stay anchored; guided walking moves avatar (11.1s)
+  ✓  24 tests/portfolio.spec.ts:72:5 › all six architectural destinations, panels, concepts, navigation history and pause (34.4s)
+  ✓  25 tests/portfolio.spec.ts:116:5 › reduced motion defaults to classic and WebGL failure recovers (545ms)
+  ✓  26 tests/portfolio.spec.ts:142:5 › mobile touch moves the world, native contact and reading without JS remain available (3.4s)
+  ✓  27 tests/portfolio.spec.ts:180:5 › record measured animation performance during active scene scrolling (6.9s)
+  ✓  28 tests/portfolio.spec.ts:250:5 › portrait dialogs scroll independently and landscape keeps controls and original logo usable (7.9s)
+
+
+  1) tests/full-studio.spec.ts:64:5 › close reception view and real touch interaction remain usable on mobile
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.tap: Test ended.
+    Call log:
+      - waiting for getByRole('button', { name: /Conversar com Lia/ })
+
+
+      72 |  await mkdir('test-results/full-studio',{recursive:true});await page.screenshot({path:'test-results/full-studio/reception-close-1440.png'});
+      73 |  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+    > 74 |  try{const mobile=await context.newPage();await mobile.goto('http://127.0.0.1:3000/');await ready(mobile);await mobile.getByRole('button',{name:/Conversar com Lia/}).tap();await expect(mobile.getByRole('dialog')).toContainText('Lia');await mobile.screenshot({path:'test-results/full-studio/reception-touch-dialog.png'});await mobile.getByRole('button',{name:'Fechar painel'}).tap();await expect(mobile.getByRole('dialog')).toHaveCount(0);}finally{await context.close();}
+         |                                                                                                                                                                       ^
+      75 | });
+      76 |
+      77 | test('quality swaps actual skinned LODs and preserves the active rig',async({page})=>{
+        at /workspace/landingpages/gabriel-portfolio/tests/full-studio.spec.ts:74:167
+
+    Error Context: test-results/full-studio-close-receptio-67687-ion-remain-usable-on-mobile/error-context.md
+
+  1 failed
+    tests/full-studio.spec.ts:64:5 › close reception view and real touch interaction remain usable on mobile
+  27 passed (6.1m)

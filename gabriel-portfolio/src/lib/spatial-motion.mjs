@@ -5,7 +5,7 @@ export function areaAt(distance) {
  let index=0;while(index<destinations.length-1&&distance>=office.boundaries[index+1])index++;
  return index;
 }
-export function advance(state, input, elapsed, speed = 2) {
+export function advance(state, input, elapsed, speed = 2.6) {
   const dt = Math.min(Math.max(elapsed, 0), 0.05);
   const length = Math.hypot(input.x, input.forward);
   const scale = length > 1 ? 1 / length : 1;

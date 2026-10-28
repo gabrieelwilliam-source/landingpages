@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { environments, spatialExhibits, services, projects, automationConcepts } from "@/data/site";
 import NavigationModes from "./ui/NavigationModes";
+import VirtualJoystick from "./VirtualJoystick";
 import ContactForm from "./ContactForm";
 import ProjectGallery from "./ProjectGallery";
 import actors from "@/data/studio-actors.json";
@@ -81,6 +82,7 @@ export default function SpatialJourney({
     returnFocus = useRef<HTMLElement | null>(null),
     pauseBeforeDialog = useRef(false),
     keys = useRef(new Set<string>());
+  const analog = useRef({ x: 0, forward: 0 });
   const pausedRef = useRef(paused);
   pausedRef.current = paused;
   const reducedRef = useRef(reduced);
@@ -93,6 +95,7 @@ export default function SpatialJourney({
     active = spatialExhibits.find((e) => e.id === exhibit) || (activeActor?{id:'npc-'+activeActor.id,title:`${activeActor.name} · ${activeActor.role}`,label:activeActor.role,body:'',area:activeActor.area,position:[activeActor.x,1.4,activeActor.d]}:undefined);
   const clearInput = useCallback(() => {
     keys.current.clear();
+    analog.current = { x: 0, forward: 0 };
     orbitDrag.current = null;
     engine.current?.setInput(0, 0);
   }, []);
@@ -236,8 +239,8 @@ export default function SpatialJourney({
   function sendInput() {
     const k = keys.current;
     engine.current?.setInput(
-      Number(k.has("d")) - Number(k.has("a")),
-      Number(k.has("w")) - Number(k.has("s")),
+      Number(k.has("d")) - Number(k.has("a")) + analog.current.x,
+      Number(k.has("w")) - Number(k.has("s")) + analog.current.forward,
     );
   }
   function keyboard(e: React.KeyboardEvent, down: boolean) {
@@ -340,19 +343,6 @@ export default function SpatialJourney({
       });
     });
   }
-  function touch(
-    e: React.PointerEvent<HTMLButtonElement>,
-    key: string,
-    down: boolean,
-  ) {
-    if (down) {
-      e.preventDefault();
-      e.currentTarget.setPointerCapture(e.pointerId);
-      keys.current.add(key);
-      setStarted(true);
-    } else keys.current.delete(key);
-    sendInput();
-  }
   const percentage = Math.round((snapshot.distance / JOURNEY_END) * 100);
   return (
     <main
@@ -425,7 +415,7 @@ export default function SpatialJourney({
             e.target instanceof HTMLCanvasElement
           ) {
             stage.current?.focus();
-            if (navigationMode === "walk" && ready && !paused && e.isPrimary && e.button === 0) {
+            if (navigationMode === "walk" && ready && !paused && !orbitDrag.current && e.button === 0) {
               e.preventDefault();
               orbitDrag.current = {id: e.pointerId, x: e.clientX, y: e.clientY};
               e.currentTarget.setPointerCapture(e.pointerId);
@@ -664,7 +654,7 @@ export default function SpatialJourney({
                   </button>
                 ))}
               </nav>
-              <p>WASD/setas: caminhar. Arraste: olhar. I/J/K/L: orientar a câmera. E: interagir por proximidade. R: recentrar. P/Esc: pausa. No Scroll, role ou deslize para avançar e retornar.</p>
+              <p>No celular, use o analógico para andar e arraste a cena com o outro dedo para olhar. WASD/setas: caminhar. Arraste: olhar. I/J/K/L: orientar a câmera. E: interagir por proximidade. R: recentrar. P/Esc: pausa. No Scroll, role ou deslize para avançar e retornar.</p>
               <p><Link href="/creditos">Créditos dos modelos e licenças →</Link></p>
               <p>Equipe fictícia e simulações locais. Nenhuma conversa com IA ao vivo.</p>
             </section>}
@@ -727,52 +717,12 @@ export default function SpatialJourney({
           </section>
 
           {navigationMode === "walk" ? (
-            <div
-              className="spatial-touch"
-              data-spatial-blocker
-              role="group"
-              aria-label="Controles de toque"
-            >
-              {[
-                { key: "w", label: "Caminhar para frente", symbol: "↑" },
-                { key: "a", label: "Caminhar à esquerda", symbol: "←" },
-                { key: "s", label: "Caminhar para trás", symbol: "↓" },
-                { key: "d", label: "Caminhar à direita", symbol: "→" },
-              ].map((b) => (
-                <button
-                  key={b.key}
-                  className={`direction-${b.key}`}
-                  aria-label={b.label}
-                  disabled={paused || !ready}
-                  onPointerDown={(e) => touch(e, b.key, true)}
-                  onPointerUp={(e) => touch(e, b.key, false)}
-                  onPointerCancel={(e) => touch(e, b.key, false)}
-                  onLostPointerCapture={() => {
-                    keys.current.delete(b.key);
-                    sendInput();
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === " " || e.key === "Enter") {
-                      e.preventDefault();
-                      keys.current.add(b.key);
-                      sendInput();
-                    }
-                  }}
-                  onKeyUp={(e) => {
-                    if (e.key === " " || e.key === "Enter") {
-                      keys.current.delete(b.key);
-                      sendInput();
-                    }
-                  }}
-                  onBlur={() => {
-                    keys.current.delete(b.key);
-                    sendInput();
-                  }}
-                >
-                  {b.symbol}
-                </button>
-              ))}
-            </div>
+            <VirtualJoystick disabled={paused || !ready || Boolean(exhibit) || help}
+              onMove={(x, forward) => {
+                analog.current = { x, forward };
+                if (x || forward) setStarted(true);
+                sendInput();
+              }} />
           ) : (
             <div className="spatial-scroll-hint" data-spatial-blocker>
               <span aria-hidden="true">↕</span>

@@ -2638,3 +2638,15 @@ footer strong {
 .spatial-shell:not(.area-open) .spatial-editorial h1{margin:5px 0 0}
 .spatial-shell:not(.area-open) .spatial-editorial .spatial-kicker{margin:5px 0}
 .credits-page{max-width:840px;margin:auto;padding:80px 24px;color:#e7e9ef}.credits-page h1{font:48px/1.1 Georgia,serif}.credits-page h2{font:26px Georgia,serif;margin-top:36px;color:#d2b77d}.credits-page p{font:16px/1.8 Arial,sans-serif}.credits-page a{color:#d7ba80}.credits-page .primary{display:inline-block;margin-top:24px}
+
+/* One-handed mobile movement; the other finger can orbit the camera. */
+.spatial-joystick{display:none;position:absolute;z-index:5;left:max(18px,env(safe-area-inset-left));bottom:max(28px,calc(env(safe-area-inset-bottom) + 20px));width:120px;text-align:center;pointer-events:auto}
+.joystick-base{position:relative;display:block;width:120px;height:120px;padding:0;border:1px solid #bba16db3;border-radius:50%;background:radial-gradient(circle,#183459d9,#07152ad9);box-shadow:inset 0 0 0 15px #a4bfdf0d,0 5px 22px #0004;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;color:#d5bc88}
+.joystick-directions{position:absolute;inset:14px;font:18px/2.6 Arial,sans-serif;opacity:.45;pointer-events:none}
+.joystick-thumb{position:absolute;left:calc(50% - 25px);top:calc(50% - 25px);width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 35% 25%,#d7c399,#a68b57);border:1px solid #e5d7b5;box-shadow:0 3px 12px #0007;pointer-events:none}
+.joystick-base:disabled{opacity:.4}.joystick-base[data-active=false] .joystick-thumb{transition:transform .12s ease-out}
+.spatial-joystick>span{display:block;margin-top:8px;font:10px/1.4 Arial,sans-serif;color:#eef1f7;text-shadow:0 1px 4px #000}
+@media(pointer:coarse){.spatial-joystick{display:block}}
+@media(pointer:coarse) and (max-width:699px){.navigation-walk .spatial-editorial{bottom:200px}.navigation-walk .studio-nearby{max-width:175px;bottom:max(62px,calc(env(safe-area-inset-bottom) + 54px))}}
+@media(pointer:coarse) and (max-height:600px){.spatial-joystick{width:104px;bottom:max(14px,env(safe-area-inset-bottom))}.joystick-base{width:104px;height:104px}.spatial-joystick>span{font-size:9px}.navigation-walk .spatial-editorial{bottom:156px;max-width:215px}}
+@media(prefers-reduced-motion:reduce){.joystick-base .joystick-thumb{transition:none}}

@@ -137,3 +137,7 @@ Dados CC0 MakeHuman fornecem anatomia de cabeça/mãos; figurino, rig e ações 
 A interface mantém marca, modos, pausa, menu, ação próxima e progresso. “Sobre este ambiente” revela a apresentação. Destinos, gráficos, câmera/FOV e ajuda estão no menu. A tecla Escape fecha o menu e devolve o foco ao cenário; rolar o painel não desloca o mundo. Scroll dirige o ciclo de caminhada pela distância virtual, mantendo a raiz ancorada; o sentido inverso reverte o ciclo. Conteúdo, rascunho e modo clássico continuam disponíveis.
 
 Para auditar após build: `CHROMIUM_PATH=/usr/bin/chromium node scripts/audit-studio.mjs docs/virtual-studio/professional-polish/final`. A ferramenta usa servidor de produção próprio; execute sem outros builds/testes simultâneos. Memória de textura é estimativa por alocações WebGL, não VRAM física. LCP mede DOM, não conclusão do canvas. O perfil móvel na nuvem é emulação por viewport/toque, não benchmark de telefone real.
+
+### Controles no celular
+
+Em dispositivos com ponteiro de toque, a visita abre em Caminhar com analógico virtual à esquerda. Incline para escolher direção e velocidade; solte para parar. Arraste a cena com o outro dedo para orientar a câmera. Velocidade manual máxima: 2,6 m/s (+30%). Scroll, teclado e clássico continuam disponíveis. [Capturas e detalhes](docs/virtual-studio/mobile-controls/README.md).

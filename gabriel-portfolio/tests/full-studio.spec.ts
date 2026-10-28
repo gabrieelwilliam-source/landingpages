@@ -71,7 +71,15 @@ test('close reception view and real touch interaction remain usable on mobile',a
  for(let i=0;i<4;i++)await page.keyboard.press('j');await expect.poll(async()=>Number(await stage.getAttribute('data-camera-yaw'))).toBeGreaterThan(.7);
  await mkdir('test-results/full-studio',{recursive:true});await page.screenshot({path:'test-results/full-studio/reception-close-1440.png'});
  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
- try{const mobile=await context.newPage();await mobile.goto('http://127.0.0.1:3000/');await ready(mobile);await mobile.getByRole('button',{name:/Conversar com Lia/}).tap();await expect(mobile.getByRole('dialog')).toContainText('Lia');await mobile.screenshot({path:'test-results/full-studio/reception-touch-dialog.png'});await mobile.getByRole('button',{name:'Fechar painel'}).tap();await expect(mobile.getByRole('dialog')).toHaveCount(0);}finally{await context.close();}
+ try{const mobile=await context.newPage();await mobile.goto('http://127.0.0.1:3000/');await ready(mobile);
+ // Phones now start in free walking: approach the receptionist before the proximity action.
+ const analog=mobile.getByRole('button',{name:'Analógico de movimento'}),rect=(await analog.boundingBox())!;
+ const x=rect.x+rect.width/2,y=rect.y+rect.height/2,cdp=await context.newCDPSession(mobile);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x-28,y:y-28}]});
+ try{await expect(mobile.locator('.world-stage')).toHaveAttribute('data-nearby','npc-recepcao',{timeout:15000});}
+ finally{await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});}
+ await mobile.getByRole('button',{name:/Conversar com Lia/}).tap();await expect(mobile.getByRole('dialog')).toContainText('Lia');await mobile.screenshot({path:'test-results/full-studio/reception-touch-dialog.png'});await mobile.getByRole('button',{name:'Fechar painel'}).tap();await expect(mobile.getByRole('dialog')).toHaveCount(0);}finally{await context.close();}
 });
 
 test('quality swaps actual skinned LODs and preserves the active rig',async({page})=>{

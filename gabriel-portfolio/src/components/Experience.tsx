@@ -16,6 +16,8 @@ export default function Experience() {
   const [navigationMode, setNavigationMode] =
     useState<NavigationMode>("scroll");
   useEffect(() => {
+    if (matchMedia("(pointer: coarse)").matches)
+      setNavigationMode("walk");
     const chapter = new URL(location.href).searchParams.get("chapter");
     const index = environments.findIndex((e) => e.id === chapter);
     if (index >= 0) setEntry(destinations[index]);
