@@ -1,8 +1,10 @@
 {
   "version": "site-zaion-studio-completo-20261028",
-  "sourceRevision": "1f3472b48f7a922c3caa4102125060e19ea320cf",
-  "preparedAt": "2026-10-28T16:55:09.039608+00:00",
-  "indexSha256": "81bf82e93ba04d3316c9796d67002e02edbf08a69b49fbf935e8679d94169baf",
+  "sourceRevision": "4e2a9c67da8597fce49e9c3f280ac74008f5839b",
+  "preparedAt": "2026-10-28T17:02:06.372495+00:00",
+  "indexSha256": "256436d85faf6ffefb8a730e428bb2d97e665851ef457d2bf658df557064cc6d",
   "siteName": "Site zAIon",
-  "repository": "gabrieelwilliam-source/Site-zAIon"
+  "repository": "gabrieelwilliam-source/landingpages",
+  "requestedRepository": "gabrieelwilliam-source/Site-zAIon",
+  "renamePending": true
 }
