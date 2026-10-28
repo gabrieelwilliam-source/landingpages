@@ -2573,3 +2573,23 @@ footer strong {
 .spatial-shell.explored .spatial-editorial .portal-actions{margin-top:12px}
 @media(max-width:699px){.studio-tools{right:14px;top:190px;max-width:calc(100vw - 28px)}.studio-tools section{max-width:320px;max-height:43vh}.studio-nearby{right:14px;bottom:184px;max-width:210px;font-size:11px;padding:9px}.studio-area-assistant{font-size:10px}.spatial-shell.explored .spatial-editorial h1{font-size:29px}.studio-route-status{bottom:245px}.studio-load-note{bottom:280px}}
 @media(max-height:600px){.studio-tools{right:24px;top:134px}.studio-tools section{max-height:45vh}.studio-nearby{right:24px;bottom:120px}.studio-route-status{bottom:74px}.studio-tools>button{font-size:10px}}
+
+/* zAIon architectural refresh: options stay in their secondary panel. */
+.studio-tools section .graphic-quality{position:static;display:flex;font-size:13px}
+.studio-tools section .graphic-quality span{position:static;width:auto;height:auto;clip-path:none;overflow:visible}
+.studio-tools section .motion-toggle{display:flex;align-items:center;gap:10px;font-size:13px}
+.studio-tools section .motion-toggle input{position:static;opacity:1;width:18px;height:18px}
+.spatial-shell:before{pointer-events:none}
+.spatial-shell .world-hotspot{border-color:#5675ac;background:#0a1735ed}
+.spatial-shell.explored .spatial-editorial{max-width:290px}
+.spatial-shell.explored .spatial-editorial h1{font-size:clamp(24px,2.4vw,34px)}
+@media(min-width:700px){.studio-tools{top:208px}.spatial-shell:before{background:linear-gradient(90deg,#071126a8,transparent 32%),linear-gradient(0deg,#07112680,transparent 16%)}.spatial-editorial{max-width:340px}}
+@media(max-width:699px){.studio-tools{top:190px}.studio-tools section{max-height:60dvh}.spatial-shell.explored .spatial-editorial h1{font-size:25px}}
+/* Keep the reception brand wall readable above the descriptive overlay. */
+@media(min-width:1000px) and (min-height:650px){
+ .spatial-editorial{top:auto;bottom:124px;max-width:340px}
+ .navigation-walk .spatial-editorial{bottom:280px}
+ .navigation-walk .spatial-editorial .portal-actions{display:none}
+ .spatial-editorial>p:not(.spatial-kicker){display:none}
+}
+@media(max-height:600px){.studio-tools{top:134px}.studio-tools section{max-height:calc(100dvh - 196px)}}

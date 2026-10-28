@@ -1,0 +1,1 @@
+PASS: PBR character capture saved after honed-stone calibration.

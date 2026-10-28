@@ -1,3 +1,4 @@
+import {reduceMotion,graphics} from './studio-options';
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import {mkdir} from 'node:fs/promises';
@@ -18,7 +19,7 @@ test('fictional receptionist animates, pauses and opens a useful keyboard intera
 });
 test('all six sectors have a scripted interaction and render real inhabited interiors',async({page})=>{
  test.setTimeout(180000);await page.setViewportSize({width:1440,height:900});const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
- await page.goto('/');await ready(page);await page.getByRole('checkbox',{name:'Movimento reduzido'}).check();await page.getByLabel('Gráficos',{exact:true}).selectOption('high');
+ await page.goto('/');await ready(page);await reduceMotion(page);await graphics(page,'high');
  await mkdir('test-results/full-studio',{recursive:true});const zones=page.getByRole('navigation',{name:'Atalhos para ambientes'}).getByRole('button');
  for(let i=0;i<6;i++){
   await zones.nth(i).click();await expect(page.locator('.spatial-kicker')).toContainText(`0${i+1}`);await expect(page.locator('.spatial-progress')).not.toContainText('Em travessia');
@@ -42,7 +43,7 @@ test('all four automation demos change local state and never send requests',asyn
  expect(posts).toEqual([]);
 });
 test('distance, shoulder and obstacle-aware reconnect preserve anchored reversible scroll',async({page})=>{
- test.setTimeout(90000);await page.goto('/?chapter=servicos');await ready(page);await page.getByRole('checkbox',{name:'Movimento reduzido'}).check();await page.getByRole('button',{name:'Caminhar',exact:true}).click();
+ test.setTimeout(90000);await page.goto('/?chapter=servicos');await ready(page);await reduceMotion(page);await page.getByRole('button',{name:'Caminhar',exact:true}).click();
  const stage=page.locator('.world-stage');await page.getByRole('button',{name:'Câmera e ajuda'}).click();
  await page.getByLabel('Distância da câmera',{exact:true}).fill('8');await page.getByLabel('Ombro da câmera',{exact:true}).selectOption('1.2');await expect(stage).toHaveAttribute('data-camera-distance','8');await expect(stage).toHaveAttribute('data-camera-shoulder','1.2');
  await page.getByRole('button',{name:'Câmera e ajuda'}).click();await stage.focus();await page.keyboard.down('d');
@@ -61,7 +62,7 @@ test('briefing assistant preserves an existing draft and the classic mode expose
 });
 test('close reception view and real touch interaction remain usable on mobile',async({page,browser})=>{
  test.setTimeout(90000);await page.setViewportSize({width:1440,height:900});await page.goto('/');await ready(page);
- await page.getByRole('checkbox',{name:'Movimento reduzido'}).check();await page.getByLabel('Gráficos',{exact:true}).selectOption('high');await page.getByRole('button',{name:'Caminhar',exact:true}).click();
+ await reduceMotion(page);await graphics(page,'high');await page.getByRole('button',{name:'Caminhar',exact:true}).click();
  await page.getByRole('button',{name:'Câmera e ajuda'}).click();await page.getByLabel('Distância da câmera',{exact:true}).fill('3.8');await page.getByLabel('Ombro da câmera',{exact:true}).selectOption('0');await page.getByRole('button',{name:'Câmera e ajuda'}).click();
  const stage=page.locator('.world-stage');await stage.focus();await page.keyboard.down('a');try{await expect.poll(async()=>Number(await stage.getAttribute('data-x'))).toBeLessThan(-1.5);}finally{await page.keyboard.up('a');}
  await page.keyboard.down('w');try{await expect.poll(async()=>Number(await stage.getAttribute('data-distance'))).toBeGreaterThan(1.8);}finally{await page.keyboard.up('w');}
@@ -73,9 +74,44 @@ test('close reception view and real touch interaction remain usable on mobile',a
 
 test('quality swaps actual skinned LODs and preserves the active rig',async({page})=>{
  test.setTimeout(60000);await page.goto('/');await ready(page);const stage=page.locator('.world-stage');
- await page.getByRole('checkbox',{name:'Movimento reduzido'}).check();const quality=page.getByLabel('Gráficos',{exact:true});
- await quality.selectOption('low');await expect(stage).toHaveAttribute('data-avatar-lod','low',{timeout:20000});
- const light=Number(await stage.getAttribute('data-triangles'));await quality.selectOption('high');
+ await reduceMotion(page);
+ await graphics(page,'low');await expect(stage).toHaveAttribute('data-avatar-lod','low',{timeout:20000});
+ const light=Number(await stage.getAttribute('data-triangles'));await graphics(page,'high');
  await expect(stage).toHaveAttribute('data-avatar-lod','high');await expect.poll(async()=>Number(await stage.getAttribute('data-triangles'))).toBeGreaterThan(light+10000);
- await expect(stage).toHaveAttribute('data-rig-bones','16');await quality.selectOption('medium');await expect(stage).toHaveAttribute('data-avatar-lod','high');
+ await expect(stage).toHaveAttribute('data-rig-bones','16');await graphics(page,'medium');await expect(stage).toHaveAttribute('data-avatar-lod','high');
+});
+
+test('advanced options stay in a secondary menu on desktop and mobile',async({page})=>{
+ test.setTimeout(60000);
+ for(const width of [1440,390]){
+  await page.setViewportSize({width,height:900});await page.goto('/');await ready(page);
+  await expect(page.getByLabel('Gráficos',{exact:true})).toHaveCount(0);
+  await expect(page.getByRole('checkbox',{name:'Movimento reduzido'})).toHaveCount(0);
+  await page.getByRole('button',{name:'Câmera e ajuda'}).click();
+  await expect(page.getByLabel('Gráficos',{exact:true})).toBeInViewport();
+  await expect(page.getByRole('checkbox',{name:'Movimento reduzido'})).toBeInViewport();
+  await page.getByRole('button',{name:'Câmera e ajuda'}).click();
+  await expect(page.getByLabel('Gráficos',{exact:true})).toHaveCount(0);
+ }
+});
+test('a nearby development monitor opens the existing project demonstration',async({page})=>{
+ test.setTimeout(60000);await page.goto('/?chapter=servicos');await ready(page);await reduceMotion(page);
+ await page.getByRole('button',{name:'Caminhar',exact:true}).click();const stage=page.locator('.world-stage');await stage.focus();
+ await page.keyboard.down('d');try{await expect.poll(async()=>Number(await stage.getAttribute('data-x'))).toBeGreaterThan(2.25);}finally{await page.keyboard.up('d');}
+ await expect(stage).toHaveAttribute('data-nearby',/workstation-/);await stage.focus();await page.keyboard.press('e');
+ const link=page.getByRole('dialog').getByRole('link',{name:'Abrir demonstração do projeto'});await expect(link).toBeVisible();
+ await link.click();await expect(page).toHaveURL(/projetos\/conceito-portfolio/);await expect(page.locator('h1')).toContainText('Portfólio editorial');
+});
+
+test('detailed characters remain inspectable with the closer collision-aware camera',async({page})=>{
+ test.setTimeout(90000);await page.setViewportSize({width:1440,height:900});await page.goto('/');await ready(page);await reduceMotion(page);await graphics(page,'high');
+ await page.getByRole('button',{name:'Caminhar',exact:true}).click();await page.getByRole('button',{name:'Câmera e ajuda'}).click();
+ await page.getByLabel('Distância da câmera',{exact:true}).fill('2.2');await page.getByLabel('Ombro da câmera',{exact:true}).selectOption('0');await page.getByRole('button',{name:'Câmera e ajuda'}).click();
+ const stage=page.locator('.world-stage');await expect(stage).toHaveAttribute('data-camera-distance','2.2');
+ await page.mouse.move(1300,550);await page.mouse.down();await page.mouse.move(672,500,{steps:8});await page.mouse.up();
+ await expect.poll(async()=>Math.abs(Number(await stage.getAttribute('data-camera-yaw')))).toBeGreaterThan(3);
+ await page.getByRole('button',{name:'Pausar exploração'}).click();await page.waitForTimeout(400);
+ await page.screenshot({path:'test-results/full-studio/character-detail-high.png'});
+ await graphics(page,'low');await expect(stage).toHaveAttribute('data-avatar-lod','low');await page.screenshot({path:'test-results/full-studio/character-detail-low.png'});
+ await expect(stage).toHaveAttribute('data-rig-bones','16');
 });

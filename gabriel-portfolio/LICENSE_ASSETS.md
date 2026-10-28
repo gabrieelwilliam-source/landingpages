@@ -31,3 +31,9 @@ A biblioteca gratuita Universal Base Characters, por Quaternius, foi consultada 
 A vista `public/environment/city-dusk.webp` é a ilustração exterior gerada na etapa anterior. Nenhum moodboard foi convertido em fundo do interior, material de marca ou rosto. A foto original permanece fora de public, Git e ZIP. O logo do novo pacote foi comparado byte a byte ao existente e coincide; seu SHA-256 continua validado pelo verificador. As imagens de revisão são screenshots reais do navegador, identificadas separadamente dos concept arts.
 
 `public/models/low/*.glb`: nove variantes LOD derivadas unicamente dos personagens autorais, por `tools/build-character-lods.mjs`, usando glTF-Transform/Meshoptimizer. Mantêm rig, cores e ações; sem nova fonte externa ou mudança de licença.
+
+## Reformulação azul-marinho — 28/10/2026
+
+Vidros internos, acabamentos azul-marinho/azul-real, ajustes de pedra e latão, acessórios e desenhos de editor de código são originais deste projeto. Nenhum asset externo novo foi incorporado. Telas de código são ilustrações estáticas locais, sem dados de clientes. Logo na reunião e recepção usa o mesmo PNG original, sem redesenho. Gabriel recebeu cor de roupa e ajustes nas ações autorais; variantes dos funcionários preservadas. As mesmas permissões e restrições da tabela acima continuam aplicáveis.
+
+Refinamento adicional do elenco nesta etapa: planos faciais e mãos remesclados, mechas autorais de barba/cabelo, dobras esculpidas e atlas procedural de micro-normal/rugosidade 256×256, diferenciando regiões da pele, olhos, tecidos e acessórios. Tudo gerado por `tools/build_character.py`, sem amostragem da fotografia, texturas compradas ou biblioteca de personagens de terceiros. Uma primitiva skinned por personagem e LODs abaixo de 7 mil triângulos são verificados automaticamente.

@@ -29,10 +29,10 @@ def texture_material(name,color,kind):
     grain=math.sin(x*.32+math.sin(y*.03)*1.8)*.12+math.sin(x*1.5+y*.006)*.05+rng.uniform(-.025,.025)
    else:
     vein=abs(math.sin(x*.024+y*.036+math.sin(y*.057+x*.019)*1.2+math.sin(x*.05-y*.035)*.6+math.sin(x*.13+y*.11)*.12))
-    grain=(max(0,1-vein*16)*.5)+rng.uniform(-.04,.04)
+    grain=(max(0,1-vein*24)*.08)+rng.uniform(-.018,.018)
    rgb=[max(0,min(1,c*(1+grain))) for c in color]
    pixels.extend([12.92*c if c<=.0031308 else 1.055*c**(1/2.4)-.055 for c in rgb]+[1])
-   v=(.24+grain*.08) if kind=='stone' else (.92+grain*.1) if kind=='fabric' else .68+grain*.15
+   v=(.66+grain*.025) if kind=='stone' else (.92+grain*.1) if kind=='fabric' else .68+grain*.15
    rough.extend([v,v,v,1])
  for title,data,socket in [('surface',pixels,'Base Color'),('roughness',rough,'Roughness')]:
   image=bpy.data.images.new(name+' '+title,width=size,height=size);image.pixels=data;image.pack()
@@ -133,19 +133,21 @@ def pendant(x,y,length=2.6):
 
 for index in range(6):
  clean();random.seed(280+index)
- stone=texture_material('Honed graphite limestone',(.085,.10,.115),'stone')
+ stone=texture_material('Honed graphite limestone',(.075,.085,.105),'stone')
  wood=texture_material('Quarter sawn walnut',(.11,.055,.026),'wood')
- concrete=mat('Warm mineral plaster',(.32,.29,.25),rough=.9)
+ concrete=mat('Warm mineral plaster',(.22,.235,.26),rough=.9)
+ navy=mat('zAIon deep navy architectural lacquer',(.012,.027,.075),rough=.52)
+ royal=mat('zAIon royal blue accent',(.018,.075,.36),.15,.46)
  ceiling=mat('Graphite acoustic ceiling',(.055,.065,.075),rough=.95)
  skyline=mat('Distant blue stone',(.045,.065,.085),rough=.9)
  ivory=mat('Ivory ceramic',(.63,.59,.5),rough=.55)
  metal=mat('Blackened steel',(.028,.035,.043),.65,.35)
- brass=mat('Satin bronze',(.38,.24,.10),.68,.34)
+ brass=mat('Satin bronze',(.31,.205,.085),.65,.43)
  fabric=texture_material('Midnight woven upholstery',(.055,.085,.105),'fabric')
  linen=texture_material('Sand boucle upholstery',(.38,.32,.24),'fabric')
  keys=mat('Keyboard aluminium',(.18,.2,.22),.6,.45)
  glass=mat('Office clear glazing',(.18,.28,.32),.15,.2)
- glass.diffuse_color=(.18,.28,.32,.12);p=glass.node_tree.nodes.get('Principled BSDF');p.inputs['Alpha'].default_value=.12;glass.surface_render_method='DITHERED'
+ glass.diffuse_color=(.13,.22,.30,.09);p=glass.node_tree.nodes.get('Principled BSDF');p.inputs['Alpha'].default_value=.09;glass.surface_render_method='DITHERED'
  leaf=mat('Olive foliage',(.075,.12,.055),rough=.95);leaf.use_backface_culling=False
  soil=mat('Soil',(.025,.019,.012))
  glow=mat('Architectural warm diffuser',(.9,.62,.28),rough=.5)
@@ -155,10 +157,9 @@ for index in range(6):
  d=CENTRES[index];lo=EDGES[index]-d;hi=EDGES[index+1]-d;mid=(lo+hi)/2;length=hi-lo
  # One uninterrupted building envelope, aligned at exact sector boundaries.
  cube('Continuous floor slab',(0,mid,-.15),(17,length,.25),stone,.015,1)
- for x in range(-4,5):
-  for y in range(math.floor((lo+d)/2),math.ceil((hi+d)/2)):
-   lower=max(lo,y*2-d); upper=min(hi,y*2+2-d); cy=(lower+upper)/2; h=upper-lower
-   if h>.01:cube('Limestone floor joint',(x*1.85,cy,-.012),(1.835,h-.015,.025),stone,.002,1)
+ # Large quiet stone slabs; avoid the small repeated checker pattern.
+ for y in range(math.ceil(lo/4),math.floor(hi/4)+1):
+  cube('Flush floor expansion seam',(0,y*4,-.017),(16.4,.008,.008),metal,0)
  cube('Walnut wall backing',(-8.35,mid,2.8),(.18,length,5.6),wood,.015)
  cube('Floating ceiling',(0,mid,5.7),(17,length,.18),ceiling,.015)
  for side in [-1,1]:
@@ -175,7 +176,9 @@ for index in range(6):
  # Each functional area has its own side bay and visual threshold.
  if index in [1,2,3,4,5]:
   for side in [-1,1]:
-   cube('Side bay stone return',(side*5.2,lo+.05,2.15),(5.6,.18,4.3),stone,.025)
+   cube('Side bay clear glass return',(side*5.2,lo+.05,2.15),(5.6,.035,4.3),glass,0)
+   cube('Glazing lower safety band',(side*5.2,lo+.025,.95),(5.6,.018,.025),brass,0)
+   cube('Glazing top frame',(side*5.2,lo+.05,4.3),(5.6,.065,.055),metal,.005)
    cube('Side bay bronze vertical',(side*2.38,lo-.07,2.15),(.025,.025,4.15),brass,.004,1)
  if index in [2,4]:
   cube('Central acoustic ceiling cloud',(0,mid,5.37),(5.7,length-.6,.16),fabric,.045)
@@ -207,7 +210,10 @@ for index in range(6):
   cylinder('Reception monitor stand',(-6.12,3.28,1.13),.025,.18,metal)
   chair(-4.9,4.15)
   # Feature panel is offset: the long view through the office remains open.
-  cube('Brand stone feature',(-5.5,5.9,2.6),(4.5,.22,4.5),stone,.04)
+  cube('Brand navy feature',(-5.5,5.9,2.6),(4.5,.22,4.5),navy,.04)
+  for x in [-7.65,-3.35]:
+   cube('Reception indirect brand light',(x,5.76,2.6),(.035,.035,4.05),glow,.008)
+  cube('Reception navy fascia',(-4.9,2.335,.53),(3.45,.025,.55),navy,.035)
  elif index==1:
   sofa(-5,2);sofa(5,-3)
   for x,y in [(-5,0),(5,-5)]:
@@ -220,7 +226,10 @@ for index in range(6):
    for k in range(7):cube('Design reference book',(-7.45+k*.21,-5,z+.19),(.12,.35,.32),ivory if k%3 else brass,.007)
  elif index==2:
   for y in [-5,1,7]:
-   for x in [-4.5,4.5]:desk(x,y)
+   for x in [-4.5,4.5]:
+    desk(x,y)
+    if (y==1 and x>0) or (y==7 and x<0):
+     cube('Design tablet',(x+.8,y-.12,.91),(.45,.32,.035),royal,.02)
    pendant(0,y,3)
   plant(-6.9,10,3.4);plant(6.9,-8,3)
   cube('Studio pinboard',(-7.9,0,2.5),(.1,5,1.9),fabric,.02)
@@ -232,6 +241,9 @@ for index in range(6):
    cube('Gallery picture light',(x,y-.12,3.7),(3.1,.14,.05),glow,.012)
   sofa(5,8);plant(-6.8,-8,3.3);plant(6.9,11,3)
  elif index==4:
+  cube('AI lab blue feature',(-8.05,mid,2.5),(.12,length-.7,4.65),navy,.015)
+  for y in [-6,0,6]:
+   cube('AI royal blue architecture',(-7.96,y,2.5),(.05,.16,4.3),royal,.015)
   for x in [-4.8,4.8]:
    desk(x,-3);desk(x,5)
    pendant(x,0,3)
@@ -246,7 +258,7 @@ for index in range(6):
    chair(2.45,y,math.pi/2);chair(6.95,y,-math.pi/2)
   for y in [1.8,4.3]:pendant(4.7,y,2.6)
   sofa(-5.1,5);plant(-6.8,8,3.4);plant(6.9,-4,3.3)
-  cube('Meeting screen stone surround',(-4.5,9,2.4),(4.2,.23,3.8),stone,.04)
+  cube('Meeting screen stone surround',(-4.5,9,2.4),(4.2,.23,3.8),navy,.04)
   cube('Meeting screen',(-4.5,8.85,2.4),(3.5,.03,2),screen,.025)
  # Triplanar-style metre UV projection, baked to ordinary glTF UVs.
  for obj in bpy.context.scene.objects:
@@ -260,11 +272,11 @@ for index in range(6):
     uv.data[loop_index].uv=(u*.48,vv*.48)
  # Camera-only overhead obstacles have a bottom height, allowing movement underneath.
  for obj in bpy.context.scene.objects:
-  if obj.type=='MESH' and obj.name.startswith('Suspended luminaire'):
+  if obj.type=='MESH' and obj.name.startswith(('Suspended luminaire','Monitor frame','Reception workstation')):
    camera_obstacles.append({'name':obj.name,'x':round(obj.location.x,3),'d':round(d+obj.location.y,3),'w':round(obj.dimensions.x/2+.28,3),'h':round(obj.dimensions.y/2+.28,3),'bottom':round(obj.location.z-obj.dimensions.z/2,3),'top':round(obj.location.z+obj.dimensions.z/2,3)})
  # Export the same furniture footprints used by the movement engine.
  for o in bpy.context.scene.objects:
-  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand stone feature','Meeting screen stone surround','Side bay stone return')):
+  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand navy feature','Meeting screen stone surround','Side bay clear glass return')):
    colliders.append({'name':o.name,'x':round(o.location.x,3),'d':round(d+o.location.y,3),'w':round(max(.3,o.dimensions.x/2)+.28,3),'h':round(max(.3,o.dimensions.y/2)+.28,3),'top':round(o.location.z+o.dimensions.z/2,3)})
  if index==5:
   cube('End facade glazing',(0,hi,2.85),(16.5,.025,5.45),glass,0)

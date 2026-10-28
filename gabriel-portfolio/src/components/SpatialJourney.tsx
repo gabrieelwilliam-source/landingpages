@@ -602,8 +602,29 @@ export default function SpatialJourney({
             {help&&<section id="studio-options" aria-label="Ajustes da visita">
               <h2>Explorar o estúdio</h2>
               <p>WASD/setas: caminhar. Arraste: olhar. I/J/K/L: orientar a câmera. E: interagir por proximidade. R: recentrar. P/Esc: pausa. No Scroll, role ou deslize para avançar e retornar.</p>
-              <label>Distância da câmera<input aria-label="Distância da câmera" type="range" min="3.8" max="8.5" step=".1" value={cameraDistance} onChange={e=>{const value=Number(e.target.value);setCameraDistance(value);engine.current?.setCamera(value,cameraShoulder)}}/></label>
+              <label>Distância da câmera<input aria-label="Distância da câmera" type="range" min="2.2" max="8.5" step=".1" value={cameraDistance} onChange={e=>{const value=Number(e.target.value);setCameraDistance(value);engine.current?.setCamera(value,cameraShoulder)}}/></label>
               <label>Ombro da câmera<select aria-label="Ombro da câmera" value={cameraShoulder} onChange={e=>{const value=Number(e.target.value);setCameraShoulder(value);engine.current?.setCamera(cameraDistance,value)}}><option value={-1.2}>Esquerdo</option><option value={0}>Central</option><option value={1.2}>Direito</option></select></label>
+              <label className="graphic-quality">
+                <span>Gráficos</span>
+                <select aria-label="Gráficos" value={quality} disabled={!ready} onChange={e => {
+                  const next = e.target.value as GraphicQuality;
+                  setQuality(next); engine.current?.setQuality(next);
+                }}>
+                  <option value="auto">Automático</option>
+                  <option value="low">Baixa</option>
+                  <option value="medium">Média</option>
+                  <option value="high">Alto</option>
+                </select>
+              </label>
+              <label className="motion-toggle">
+                <input
+                  type="checkbox"
+                  checked={reduced}
+                  onChange={(e) => setReduced(e.target.checked)}
+                />
+                Movimento reduzido
+              </label>
+
               <p>Equipe fictícia e simulações locais. Nenhuma conversa com IA ao vivo.</p>
             </section>}
           </div>
@@ -636,26 +657,6 @@ export default function SpatialJourney({
                 )}{" "}
                 · P ou Esc para pausar
               </p>
-              <label className="graphic-quality">
-                <span>Gráficos</span>
-                <select aria-label="Gráficos" value={quality} disabled={!ready} onChange={e => {
-                  const next = e.target.value as GraphicQuality;
-                  setQuality(next); engine.current?.setQuality(next);
-                }}>
-                  <option value="auto">Automático</option>
-                  <option value="low">Baixa</option>
-                  <option value="medium">Média</option>
-                  <option value="high">Alto</option>
-                </select>
-              </label>
-              <label className="motion-toggle">
-                <input
-                  type="checkbox"
-                  checked={reduced}
-                  onChange={(e) => setReduced(e.target.checked)}
-                />
-                Movimento reduzido
-              </label>
               <button
                 className="spatial-button pause-button"
                 disabled={!ready}
@@ -822,6 +823,7 @@ export default function SpatialJourney({
           {active.id === "contato" && <><BriefingAssistant/><ContactForm /></>}
           {activeActor&&<StudioAssistant actor={activeActor} onGuided={()=>{dialog.current?.close();closeExhibit();onNavigationChange("scroll")}} onFree={()=>{dialog.current?.close();closeExhibit();onNavigationChange("walk")}} onClassic={()=>onClassic(current.id)} onProjects={()=>setExhibit("galeria")}/>}
           {active.id === "galeria" && <ProjectGallery />}
+          {active.id.startsWith("workstation-")&&<Link className="primary" href={`/projetos/${projects[Number(active.id.split('-')[1])].slug}`}>Abrir demonstração do projeto →</Link>}
           {active.id === "servicos" && (
             <div className="exhibit-services">
               {services.map((s) => (

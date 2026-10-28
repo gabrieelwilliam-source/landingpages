@@ -1,0 +1,5 @@
+{
+  "result": "PASS",
+  "test": "PBR path with renderer information hidden; still software WebGL, no physical GPU claim",
+  "errors": []
+}

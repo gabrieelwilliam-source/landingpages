@@ -52,11 +52,12 @@ for (const name of (await readdir(root))
         ),
       ),
     );
+    assert.ok(json.materials.some(m=>m.normalTexture&&m.pbrMetallicRoughness?.metallicRoughnessTexture), "human micro-normal and region-specific roughness atlas survive export");
     const characterPrimitives = json.meshes.flatMap(m => m.primitives);
     assert.equal(characterPrimitives.length, 1, "avatar must remain one skinned draw call");
     assert.ok(characterPrimitives.every(p => p.attributes.COLOR_0 !== undefined), "original colour palette must survive compression");
     entry.triangles = characterPrimitives.reduce((n,p) => n + json.accessors[p.indices].count / 3, 0);
-    assert.ok(entry.triangles < 35000, "avatar geometry budget");
+    assert.ok(entry.triangles < (name === "gabriel-rigged.glb" ? 65000 : 45000), "detailed human geometry budget");
     entry.bones = json.skins[0].joints.length;
     const doc = await io.read(new URL(name, root).pathname);
     const primitives = doc

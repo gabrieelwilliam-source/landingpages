@@ -1,3 +1,4 @@
+import {reduceMotion} from './studio-options';
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdir } from "node:fs/promises";
@@ -13,7 +14,7 @@ test("orbit, camera-relative walking, pause, reset and accessible project filter
   await page.setViewportSize({width:1440,height:900});
   await page.goto("/?chapter=servicos");
   await ready(page);
-  await page.getByRole("checkbox",{name:"Movimento reduzido"}).check();
+  await reduceMotion(page);
   await page.getByRole("button",{name:"Caminhar",exact:true}).click();
   const stage=page.locator(".world-stage");
   const distance=await stage.getAttribute("data-distance");

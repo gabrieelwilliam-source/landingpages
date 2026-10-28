@@ -6,8 +6,12 @@ export function npcRoutine(actor,time){
  const t=((Math.max(0,time)+actor.offset)%90+90)%90;
  const home={x:actor.x,d:actor.d,yaw:actor.yaw,clip:actor.action,seat:actor.seat,phase:t};
  if(!actor.route.length || t<38 || t>66)return home;
- if(t<40)return {...home,clip:actor.seat?'StandUp':'Idle',phase:t-38,seat:actor.seat};
- if(t>64)return {...home,clip:actor.seat?'SitDown':'Idle',phase:t-64,seat:actor.seat};
+ const exit=actor.route[0];
+ if(t<40 || t>64){
+  const phase=t<40?t-38:t-64;
+  let f=t<40?phase/2:1-phase/2;f=f*f*(3-2*f);
+  return {...home,x:actor.x+(exit[0]-actor.x)*f,d:actor.d+(exit[1]-actor.d)*f,clip:actor.seat?(t<40?'StandUp':'SitDown'):'Idle',phase,seat:actor.seat};
+ }
  const points=[...actor.route,actor.route[0]];
  const lengths=points.slice(1).map((p,i)=>Math.hypot(p[0]-points[i][0],p[1]-points[i][1]));
  const total=lengths.reduce((a,b)=>a+b,0);let travel=(t-40)/24*total;

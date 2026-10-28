@@ -251,6 +251,14 @@ export const spatialExhibits = [
     body: environments[2].description,
     position: [-4.5, 1.2, 27],
   },
+  ...projects.flatMap((p,i)=>[-1,1].map(side=>({
+    id:`workstation-${i}-${side<0?'left':'right'}`,
+    area:2,
+    label:`Explorar ${p.title.toLowerCase()}`,
+    title:p.title,
+    body:p.description+' Demonstração autoral local, sem cliente ou resultados comerciais alegados.',
+    position:[side*4.5,1.31,21+i*6],
+  }))),
   ...projects.map((p, i) => ({
     id: p.slug,
     area: 3,

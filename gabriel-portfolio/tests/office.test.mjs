@@ -75,11 +75,35 @@ test('overhead light bounds stop the camera while leaving the floor route open',
  const beam={x:0,d:3,w:1.8,h:.35,bottom:2.8,top:3.2};const scene={...office,colliders:[beam]};
  assert.equal(safeCamera({x:0,y:1.35,d:0},{x:0,y:1.8,d:5},scene).d,5);
  assert.ok(safeCamera({x:0,y:1.35,d:0},{x:0,y:4,d:5},scene).d<2.8);
- assert.ok(office.cameraObstacles.length>=10);assert.ok(office.cameraObstacles.every(b=>b.bottom>3&&b.top>b.bottom));
+ const lights=office.cameraObstacles.filter(b=>b.name.startsWith('Suspended luminaire'));
+ assert.ok(lights.length>=10);assert.ok(lights.every(b=>b.bottom>3&&b.top>b.bottom));
 });
 
 test('geometry LOD follows explicit quality and distance while high keeps the protagonist detailed',()=>{
  assert.equal(characterDetail('low',false,0),'low');assert.equal(characterDetail('auto',true,0),'low');
  assert.equal(characterDetail('high',true,0),'high');assert.equal(characterDetail('medium',false,0),'high');
  assert.equal(characterDetail('medium',false,20),'low');assert.equal(characterDetail('auto',false,20),'low');
+});
+
+test('transparent sector returns retain physical collisions and monitors clip the camera at screen height',()=>{
+ const returns=office.colliders.filter(b=>b.name.startsWith('Side bay clear glass return'));
+ assert.equal(returns.length,10);assert.ok(returns.every(b=>b.top>4));
+ const monitor=office.cameraObstacles.find(b=>b.name==='Monitor frame');assert.ok(monitor);
+ assert.ok(monitor.bottom>.8&&monitor.top>1.7);
+ const origin={x:monitor.x,y:1.3,d:monitor.d-2},wanted={...origin,d:monitor.d+2};
+ const clipped=safeCamera(origin,wanted,{...office,colliders:[monitor]});
+ assert.ok(clipped.d<monitor.d-.1,'camera stops before the display rather than crossing it');
+});
+
+test('every walking staff route clears the furniture and glass, with continuous chair exits',()=>{
+ for(const actor of actors.filter(a=>a.route.length)){
+  for(let phase=40;phase<=64;phase+=.05){
+   const value=npcRoutine(actor,(phase-actor.offset+90)%90);
+   assert.ok(freePoint(value.x,value.d,office),`${actor.id} crosses furniture at ${phase}: ${value.x}, ${value.d}`);
+  }
+  for(const boundary of [38,40,64,66]){
+   const before=npcRoutine(actor,(boundary-.001-actor.offset+90)%90),after=npcRoutine(actor,(boundary+.001-actor.offset+90)%90);
+   assert.ok(Math.hypot(after.x-before.x,after.d-before.d)<.01,`${actor.id} teleports at ${boundary}`);
+  }
+ }
 });

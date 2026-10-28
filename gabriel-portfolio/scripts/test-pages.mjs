@@ -93,7 +93,9 @@ try {
         "fb2edb7999b9c5c35d54ec16a25661650905683a231abbe8d261f04e398b99cc",
       );
     }
+    await page.getByRole("button", { name: "Câmera e ajuda" }).click();
     await page.getByRole("checkbox", { name: "Movimento reduzido" }).check();
+    await page.getByRole("button", { name: "Câmera e ajuda" }).click();
     await page.getByRole("button", { name: "Scroll", exact: true }).click();
     await expect(page.locator(".world-stage")).toHaveAttribute(
       "data-navigation",

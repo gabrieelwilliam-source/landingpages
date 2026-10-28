@@ -235,6 +235,11 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       if (o instanceof T.Mesh) {
         o.castShadow = !(o.material instanceof T.Material && o.material.transparent && o.material.opacity < 0.3);
         o.receiveShadow = true;
+        // Honed stone: keep the probe highlight broad and restrained at close range.
+        const surfaces=Array.isArray(o.material)?o.material:[o.material];
+        surfaces.forEach(material=>{
+          if(material instanceof T.MeshStandardMaterial&&material.name.includes('limestone'))material.roughness=Math.max(.66,material.roughness);
+        });
         if (softwareRenderer) {
           const convert = (material: T.Material) => {
             if (!(material instanceof T.MeshStandardMaterial)) return material;
@@ -319,6 +324,21 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   }
   let npcLoadError=false;
   function castBodies(){return [...cast.values()].filter(n=>n.active).map(n=>({id:n.definition.id,x:n.x,d:n.d}));}
+  // Original code-editor illustrations: local, static and free of customer data.
+  function codeScreen(index:number) {
+    const canvas=document.createElement('canvas');canvas.width=768;canvas.height=432;
+    const ctx=canvas.getContext('2d')!;
+    ctx.fillStyle='#09132c';ctx.fillRect(0,0,768,432);
+    ctx.fillStyle='#152653';ctx.fillRect(0,0,768,48);ctx.fillRect(0,48,48,384);
+    ctx.font='17px monospace';ctx.fillStyle='#d3bd87';ctx.fillText(['interface.tsx','automacao.ts','layout.css'][index],70,31);
+    const lines=[
+      ['export function Studio() {','  return (','    <main className="zaion">','      <Projects />','      <ContactDraft />','    </main>','  );','}'],
+      ['// Exemplo local · sem envio','const steps = [','  "Receber solicitação",','  "Organizar informações",','  "Preparar atendimento"','];','const simulation = steps.map(preview);'],
+      [':root {','  --navy: #0b1838;','  --royal: #225ce0;','  --gold: #c7a66c;','}','.studio {','  display: grid;','  gap: 2rem;','}']
+    ][index];
+    ctx.font='20px monospace';lines.forEach((line,j)=>{ctx.fillStyle='#667899';ctx.fillText(String(j+1),13,85+j*31);ctx.fillStyle=j%3===0?'#83aaff':'#c7d4e9';ctx.fillText(line,70,85+j*31)});
+    const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;resources.push(texture);return texture;
+  }
   function loadRoom(index: number) {
     if (loaded[index] || loading.has(index)) return;
     loading.add(index);
@@ -348,7 +368,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
               for (const x of [-4.5, 4.5]) {
                 const screen = new T.Mesh(
                   new T.PlaneGeometry(1.3, 0.7),
-                  new T.MeshBasicMaterial({ map: t }),
+                  new T.MeshBasicMaterial({ map: x<0?t:codeScreen(i) }),
                 );
                 screen.position.set(
                   x,
@@ -416,13 +436,13 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
               g.scene.add(monitor);
           });
         }
-        if (index === 0 || index === 4) {
+        if (index === 0 || index === 5) {
           const logo = new T.TextureLoader().load(
             `${base}/brand/zaion-original.png`,
             (t) => {
               const image = t.image as HTMLImageElement;
               const badge = new T.Mesh(
-                new T.PlaneGeometry(index === 0 ? 3.3 : 1.1, ((index === 0 ? 3.3 : 1.1) * image.height) / image.width),
+                new T.PlaneGeometry(index === 0 ? 3.3 : 2.1, ((index === 0 ? 3.3 : 2.1) * image.height) / image.width),
                 new T.MeshBasicMaterial({
                   map: t,
                   toneMapped: false,
@@ -430,7 +450,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                   side: T.DoubleSide,
                 }),
               );
-              badge.position.set(index === 0 ? -5.5 : -6, index === 0 ? 2.9 : 2.1, -(destinations[index] + (index === 0 ? 5.75 : 8.86)));
+              badge.position.set(index === 0 ? -5.5 : -4.5, index === 0 ? 2.9 : 2.4, -(destinations[index] + (index === 0 ? 5.75 : 8.80)));
               badge.position.z += destinations[index];
               g.scene.add(badge);
               assetDirty = true;
@@ -906,7 +926,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       }
     },
     setCamera(distance:number,shoulder:number){
-      cameraDistance=Math.max(3.8,Math.min(8.5,distance));cameraShoulder=Math.max(-1.3,Math.min(1.3,shoulder));assetDirty=true;pendingPublish=true;
+      cameraDistance=Math.max(2.2,Math.min(8.5,distance));cameraShoulder=Math.max(-1.3,Math.min(1.3,shoulder));assetDirty=true;pendingPublish=true;
     },
     interact(){if(!paused){gesture=.9;assetDirty=true;pendingPublish=true;}},
     setQuality(value: GraphicQuality) {

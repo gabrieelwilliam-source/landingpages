@@ -60,7 +60,7 @@
       "top": 0.53
     },
     {
-      "name": "Brand stone feature",
+      "name": "Brand navy feature",
       "x": -5.5,
       "d": 5.9,
       "w": 2.53,
@@ -68,7 +68,7 @@
       "top": 4.85
     },
     {
-      "name": "Side bay stone return",
+      "name": "Side bay clear glass return",
       "x": -5.2,
       "d": 7.05,
       "w": 3.08,
@@ -76,7 +76,7 @@
       "top": 4.3
     },
     {
-      "name": "Side bay stone return.001",
+      "name": "Side bay clear glass return.001",
       "x": 5.2,
       "d": 7.05,
       "w": 3.08,
@@ -124,7 +124,7 @@
       "top": 3.4
     },
     {
-      "name": "Side bay stone return",
+      "name": "Side bay clear glass return",
       "x": -5.2,
       "d": 19.05,
       "w": 3.08,
@@ -132,7 +132,7 @@
       "top": 4.3
     },
     {
-      "name": "Side bay stone return.001",
+      "name": "Side bay clear glass return.001",
       "x": 5.2,
       "d": 19.05,
       "w": 3.08,
@@ -252,7 +252,7 @@
       "top": 0.6
     },
     {
-      "name": "Side bay stone return",
+      "name": "Side bay clear glass return",
       "x": -5.2,
       "d": 36.05,
       "w": 3.08,
@@ -260,7 +260,7 @@
       "top": 4.3
     },
     {
-      "name": "Side bay stone return.001",
+      "name": "Side bay clear glass return.001",
       "x": 5.2,
       "d": 36.05,
       "w": 3.08,
@@ -316,7 +316,7 @@
       "top": 0.6
     },
     {
-      "name": "Side bay stone return",
+      "name": "Side bay clear glass return",
       "x": -5.2,
       "d": 54.05,
       "w": 3.08,
@@ -324,7 +324,7 @@
       "top": 4.3
     },
     {
-      "name": "Side bay stone return.001",
+      "name": "Side bay clear glass return.001",
       "x": 5.2,
       "d": 54.05,
       "w": 3.08,
@@ -420,7 +420,7 @@
       "top": 0.6
     },
     {
-      "name": "Side bay stone return",
+      "name": "Side bay clear glass return",
       "x": -5.2,
       "d": 72.05,
       "w": 3.08,
@@ -428,7 +428,7 @@
       "top": 4.3
     },
     {
-      "name": "Side bay stone return.001",
+      "name": "Side bay clear glass return.001",
       "x": 5.2,
       "d": 72.05,
       "w": 3.08,
@@ -545,6 +545,15 @@
       "top": 3.513
     },
     {
+      "name": "Reception workstation",
+      "x": -6.12,
+      "d": 3.28,
+      "w": 0.59,
+      "h": 0.31,
+      "bottom": 1.11,
+      "top": 1.49
+    },
+    {
       "name": "Suspended luminaire",
       "x": -5.0,
       "d": 12.0,
@@ -563,6 +572,24 @@
       "top": 3.513
     },
     {
+      "name": "Monitor frame",
+      "x": -4.5,
+      "d": 21.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
+      "name": "Monitor frame.001",
+      "x": 4.5,
+      "d": 21.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
       "name": "Suspended luminaire",
       "x": 0.0,
       "d": 21.0,
@@ -570,6 +597,24 @@
       "h": 0.32,
       "bottom": 3.448,
       "top": 3.513
+    },
+    {
+      "name": "Monitor frame.002",
+      "x": -4.5,
+      "d": 27.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
+      "name": "Monitor frame.003",
+      "x": 4.5,
+      "d": 27.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
     },
     {
       "name": "Suspended luminaire.001",
@@ -581,6 +626,24 @@
       "top": 3.513
     },
     {
+      "name": "Monitor frame.004",
+      "x": -4.5,
+      "d": 33.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
+      "name": "Monitor frame.005",
+      "x": 4.5,
+      "d": 33.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
       "name": "Suspended luminaire.002",
       "x": 0.0,
       "d": 33.0,
@@ -590,6 +653,24 @@
       "top": 3.513
     },
     {
+      "name": "Monitor frame",
+      "x": -4.8,
+      "d": 59.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
+      "name": "Monitor frame.001",
+      "x": -4.8,
+      "d": 67.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
       "name": "Suspended luminaire",
       "x": -4.8,
       "d": 62.0,
@@ -597,6 +678,24 @@
       "h": 0.32,
       "bottom": 3.448,
       "top": 3.513
+    },
+    {
+      "name": "Monitor frame.002",
+      "x": 4.8,
+      "d": 59.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
+      "name": "Monitor frame.003",
+      "x": 4.8,
+      "d": 67.22,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
     },
     {
       "name": "Suspended luminaire.001",

@@ -117,3 +117,11 @@ Veja `docs/virtual-studio/refinement-review/RELATORIO.md` e a galeria de captura
 As variantes leves de Gabriel e dos oito NPCs são geradas com `npm run assets:lod` e incorporadas por `assets:cast`/`assets:character`. Baixa e Automática por software usam geometria reduzida; Média/Alta mantêm o protagonista completo. NPCs podem reduzir detalhe à distância. Os arquivos completos continuam disponíveis; o manifesto da pasta low registra os hashes e os triângulos.
 
 A configuração pública de deploy é centralizada em `src/config/deployment.json`. O export injeta o basePath nos assets/clientes e o servidor local/testes usam a mesma configuração. Após a renomeação real pelo titular, atualizar repository/basePath nesse arquivo, o remote e publicar a exportação validada. Não usar credenciais nessa configuração.
+
+## Escritório azul-marinho e personagens detalhados
+
+Revisão e capturas atuais: [docs/virtual-studio/navy-review/index.html](docs/virtual-studio/navy-review/index.html). [Relatório completo](docs/virtual-studio/navy-review/RELATORIO.md), autoria/licenças em [LICENSE_ASSETS.md](LICENSE_ASSETS.md).
+
+As divisórias internas de vidro mantêm colisão; computadores do estúdio abrem demonstrações existentes. “Câmera e ajuda” reúne qualidade, movimento reduzido, distância de 2,2 a 8,5 m, ombro e instruções. O logo original aparece na recepção e reunião.
+
+O elenco completo usa atlas PBR procedural de micro-normal/rugosidade e malhas faciais/mãos refinadas; os LODs dispensam esses mapas e preservam cores/rig/animações com menos de 7 mil triângulos por personagem. Os personagens continuam estilizados. Rotas de funcionários são verificadas contra vidro e móveis, com saída lateral contínua das cadeiras. `CHROMIUM_PATH=/usr/bin/chromium node scripts/capture-studio-quality.mjs` registra quatro níveis gráficos e uma captura do caminho PBR, em servidor local próprio, depois de `npm run build` e sem outros builds/testes simultâneos. O teste na nuvem usa SwiftShader e não representa desempenho em GPU física.

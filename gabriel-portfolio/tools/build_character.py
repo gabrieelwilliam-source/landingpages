@@ -14,7 +14,7 @@ clean();random.seed(2810+(npc_index or 0))
 skin=mat('Skin warm neutral',(.40,.265,.205),rough=.82)
 skin_shadow=mat('Skin detail',(.30,.18,.135),rough=.86)
 lip=mat('Natural lip',(.32,.135,.12),rough=.82)
-cloth=mat('Technical charcoal hoodie',(.035,.046,.060),rough=.94)
+cloth=mat('Technical navy hoodie',(.018,.030,.065),rough=.94)
 seam=mat('Raised cloth seams',(.065,.078,.093),rough=.95)
 lining=mat('Hood lining',(.095,.11,.12),rough=.98)
 denim=mat('Graphite trousers',(.048,.059,.073),rough=.95)
@@ -90,6 +90,19 @@ for side in [-1,1]:
  detail('Natural eyebrow',[(side*.043-.029,-.096,1.726),(side*.043-.005,-.105,1.732),(side*.043+.026,-.095,1.726)],.004,hair,'head')
  # Receding hair around the sides and back, not a thick helmet cap.
  oval('Side hair',(side*.099,.018,1.745),(.015,.061,.054),hair,'head',12,8)
+# Sculpted facial planes blend into the head, rather than attaching visible primitives.
+for side in [-1,1]:
+ oval('Cheek plane',(side*.062,-.057,1.657),(.036,.023,.033),skin,'head',20,12)
+ oval('Brow ridge',(side*.044,-.066,1.724),(.034,.022,.011),skin,'head',20,10)
+ oval('Nose wing',(side*.019,-.119,1.648),(.012,.017,.012),skin,'head',16,10)
+ for j in range(14):
+  x=side*.043+(j-6.5)*.0035
+  detail('Individual eyebrow hair',[(x,-.108,1.728),(x+side*.002,-.110,1.734+math.sin(j*.22)*.002)],.0007,hair,'head')
+ detail('Eye socket crease',[(side*.043-.021,-.098,1.714),(side*.043,-.101,1.719),(side*.043+.023,-.095,1.713)],.0007,skin_shadow,'head')
+ detail('Under eye contour',[(side*.043-.017,-.098,1.682),(side*.043,-.099,1.679),(side*.043+.019,-.094,1.685)],.00065,skin_shadow,'head')
+oval('Chin plane',(0,-.057,1.562),(.065,.038,.031),skin,'head',20,12)
+for j in range(2):
+ detail('Subtle forehead crease',[(-.055,-.082,1.752+j*.014),(0,-.091,1.755+j*.014),(.055,-.082,1.752+j*.014)],.0005,skin_shadow,'head')
 shape('Nose bridge',[(0,-.118,1.637,.022,.011),(0,-.131,1.651,.021,.018),(0,-.117,1.676,.012,.012),(0,-.100,1.716,.009,.008)],skin,'head',16)
 for side in [-1,1]:oval('Nostril',(side*.013,-.14,1.641),(.005,.003,.003),skin_shadow,'head',8,6)
 oval('Lower lip',(0,-.113,1.603),(.029,.007,.005),lip,'head',16,8)
@@ -97,15 +110,20 @@ detail('Mouth line',[(-.026,-.118,1.608),(0,-.121,1.606),(.026,-.118,1.608)],.00
 shape('Long tapered beard',[(0,-.075,1.30,.022,.019),(0,-.081,1.345,.048,.038),(0,-.073,1.40,.070,.052),(0,-.062,1.47,.090,.067),(0,-.044,1.54,.105,.076),(0,-.026,1.59,.105,.074),(0,-.009,1.628,.100,.060)],beard,'head',24)
 for side in [-1,1]:
  detail('Moustache',[(side*.007,-.145,1.633),(side*.025,-.138,1.625),(side*.04,-.121,1.611)],.008,beard,'head')
-for j in range(240):
+for j in range(340):
  x=random.uniform(-.085,.085);top=random.uniform(1.49,1.59);bottom=random.uniform(1.32,1.44)
  # Thin, varied strands follow the volume rather than floating below the jaw.
  endx=x*.45+random.uniform(-.009,.009)
- detail('Beard strand',[(x,-.116-abs(x)*.08,top),(x*.78,-.135,1.455),(endx,-.102,bottom)],.00055,grey if j%9==0 else hair if j%3==0 else beard,'head')
+ detail('Beard strand',[(x,-.116-abs(x)*.08,top),(x*.88+math.sin(j)*.003,-.134-random.random()*.004,1.475),(x*.65,-.129,1.40),(endx,-.102,bottom)],.00055,grey if j%9==0 else hair if j%3==0 else beard,'head')
 oval('Short rear hair',(0,.069,1.76),(.092,.039,.061),hair,'head',20,10)
 for j in range(55):
  a=random.uniform(.1,math.pi-.1);x=math.cos(a)*.094;y=.01+math.sin(a)*.083;z=random.uniform(1.75,1.795)
  detail('Short hair strand',[(x,y,z),(x*.97,y*.98,z+.009)],.0007,grey if j%12==0 else hair,'head')
+for j in range(95):
+ a=random.uniform(0,math.tau);r=random.uniform(.28,1);x=math.cos(a)*.084*r;y=.02+math.sin(a)*.073*r
+ z=1.823-.050*r*r
+ if y<-.015 and abs(x)>.045:continue
+ detail('Scalp stubble',[(x,y,z),(x+.001,y+.001,z+.0035)],.00045,grey if j%8==0 else hair,'head')
 oval('Folded hood',(0,.065,1.445),(.13,.095,.07),cloth,'spine',20,12)
 # Soft hood, tailored seams, pockets and an original technical backpack.
 detail('Rolled hood rim',[(math.cos(a)*.115,.015+math.sin(a)*.10,1.49-math.sin(a)*.04) for a in [j*math.pi/16 for j in range(17)]],.025,lining,'spine')
@@ -153,7 +171,22 @@ def trouser_weights(v):
  return {'hips':1-leg,'thigh'+str(side):leg*(1-lower),'shin'+str(side):leg*lower}
 continuous_surface({'Hoodie body','Sleeve'},'Continuous tailored jacket',cloth,.012,.45,jacket_weights)
 continuous_surface({'Pelvis','Trousers'},'Continuous tailored trousers',denim,.011,.40,trouser_weights)
-continuous_surface({'Anatomical head','Neck','Nose bridge','Ear'},'Sculpted anatomical face',skin,.006,.32 if npc_index is None else .50,lambda v:{'head':1})
+continuous_surface({'Anatomical head','Neck','Nose bridge','Ear','Cheek plane','Brow ridge','Nose wing','Chin plane'},'Sculpted anatomical face',skin,.0038,.46 if npc_index is None else .32,lambda v:{'head':1})
+for side in [-1,1]:
+ # Different names per side let remeshing preserve two independently weighted hands.
+ for o in bpy.context.scene.objects:
+  if o.type=='MESH' and o.name.split('.')[0] in ['Palm','Finger','Thumb'] and o.location.x*side>0:o.name='Hand volume '+str(side)
+ continuous_surface({'Hand volume '+str(side)},'Anatomical hand '+str(side),skin,.0028,.34,lambda v,side=side:{'hand'+str(side):1})
+ for j in range(4):
+  x=side*.286+(j-1.5)*.014
+  oval('Fingernail',(x,-.032,.855+abs(j-1.5)*.007),(.0045,.0018,.008),skin_shadow,'hand'+str(side),8,6)
+# Gentle asymmetry and cloth folds sculpted into the actual surface.
+for o in bpy.context.scene.objects:
+ if o.name.startswith(('Continuous tailored jacket','Continuous tailored trousers')):
+  for v in o.data.vertices:
+   if v.co.y<-.045:
+    amplitude=.0022 if 'jacket' in o.name else .0015
+    v.co.y+=amplitude*math.sin(v.co.z*125+v.co.x*31)*math.sin(v.co.x*17)
 for o in bpy.context.scene.objects:
  if o.name.startswith('Long tapered beard'):
   for v in o.data.vertices:
@@ -166,7 +199,7 @@ if npc_index is not None:
  for material,color in [(skin,skin_color),(skin_shadow,tuple(c*.72 for c in skin_color)),(cloth,cloth_color),(seam,tuple(c*1.25 for c in cloth_color))]:
   material.diffuse_color=(*color,1);material.node_tree.nodes.get('Principled BSDF').inputs['Base Color'].default_value=(*color,1)
  for o in list(bpy.context.scene.objects):
-  if o.name.startswith(('Long tapered beard','Beard strand','Moustache','Backpack','Rolled hood','Folded hood','Short hair strand','Side hair','Short rear hair')):bpy.data.objects.remove(o,do_unlink=True)
+  if o.name.startswith(('Long tapered beard','Beard strand','Moustache','Backpack','Rolled hood','Folded hood','Short hair strand','Side hair','Short rear hair','Scalp stubble')):bpy.data.objects.remove(o,do_unlink=True)
  if npc_index in [0,1,3]:
   oval('Soft bob hair',(0,.055,1.69),(.124,.086,.145),hair,'head',20,12)
   oval('Hair crown',(0,.015,1.79),(.108,.095,.055),hair,'head',20,12)
@@ -174,6 +207,12 @@ if npc_index is not None:
  else:
   oval('Short hair cap',(0,.012,1.787),(.106,.094,.045),hair,'head',20,10)
   for side in [-1,1]:oval('Clipped side hair',(side*.102,.015,1.74),(.012,.057,.053),hair,'head',12,8)
+ for j in range(32):
+  a=j*math.tau/32
+  if npc_index in [0,1,3]:
+   detail('Styled hair flow',[(math.cos(a)*.103,.025+math.sin(a)*.077,1.80),(math.cos(a)*.124,.05+math.sin(a)*.08,1.73),(math.cos(a)*.113,.05+math.sin(a)*.071,1.60+math.sin(j)*.009)],.0013,hair,'head')
+  else:
+   detail('Styled hair flow',[(math.cos(a)*.04,.012+math.sin(a)*.035,1.825),(math.cos(a)*.101,.012+math.sin(a)*.09,1.795)],.0014,hair,'head')
  # A lapel collar distinguishes professional jackets from Gabriel's hoodie.
  for side in [-1,1]:detail('Tailored lapel',[(side*.045,-.085,1.48),(side*.09,-.124,1.34),(side*.025,-.133,1.23)],.009,lining,'spine')
 # Convert detailed curves and bind them to the appropriate deforming bone.
@@ -185,9 +224,37 @@ for o in list(bpy.context.scene.objects):
 surface=bpy.data.materials.new('Gabriel original vertex palette');surface.use_nodes=True
 p=surface.node_tree.nodes.get('Principled BSDF');p.inputs['Roughness'].default_value=.86
 vc=surface.node_tree.nodes.new('ShaderNodeVertexColor');vc.layer_name='SurfaceColor';surface.node_tree.links.new(vc.outputs['Color'],p.inputs['Base Color'])
+# Original procedural micro-surface atlas. No portrait image or downloaded skin is used.
+size=256;rough=[];normal=[];noise=random.Random(804)
+roughness=[.64,.90,.84,.28,.58,.40,.88,.76]
+for y in range(size):
+ for x in range(size):
+  tile=(x//64)+(y//128)*4
+  grain=noise.uniform(-1,1)
+  weave=math.sin(x*math.pi*.5)*math.sin(y*math.pi*.5)
+  value=roughness[tile]+grain*.018
+  rough.extend((value,value,value,1))
+  amount=.035 if tile in [1,2,6] else .014 if tile==0 else .004
+  normal.extend((.5+amount*(weave if tile in [1,2] else grain),.5+amount*noise.uniform(-1,1),1,1))
+for title,data in [('roughness',rough),('normal',normal)]:
+ image=bpy.data.images.new('Original human '+title+' atlas',width=size,height=size);image.colorspace_settings.name='Non-Color';image.pixels=data;image.pack()
+ tex=surface.node_tree.nodes.new('ShaderNodeTexImage');tex.image=image
+ if title=='roughness':surface.node_tree.links.new(tex.outputs['Color'],p.inputs['Roughness'])
+ else:
+  bump=surface.node_tree.nodes.new('ShaderNodeNormalMap');bump.inputs['Strength'].default_value=.45
+  surface.node_tree.links.new(tex.outputs['Color'],bump.inputs['Color']);surface.node_tree.links.new(bump.outputs['Normal'],p.inputs['Normal'])
 for o in list(bpy.context.scene.objects):
  if o.type!='MESH':continue
- color=o.data.materials[0].diffuse_color[:3]
+ original=o.data.materials[0]
+ color=original.diffuse_color[:3]
+ tile=0 if original in [skin,skin_shadow,lip] else 3 if original in [eye,white,black] else 4 if original in [hair,beard,grey] else 5 if original==trim else 2 if original==denim else 6 if original in [shoe,sole] else 1
+ uv=o.data.uv_layers.active or o.data.uv_layers.new(name='HumanMicroUV')
+ for polygon in o.data.polygons:
+  axis=max(range(3),key=lambda k:abs(polygon.normal[k]))
+  for li in polygon.loop_indices:
+   co=o.matrix_world@o.data.vertices[o.data.loops[li].vertex_index].co
+   u,v=((co.y,co.z) if axis==0 else (co.x,co.z) if axis==1 else (co.x,co.y))
+   uv.data[li].uv=((tile%4+.03+(u*18%1)*.94)/4,(tile//4+.03+(v*18%1)*.94)/2)
  if npc_index is not None and o.vertex_groups.get('head'):
   width=[.93,1.0,1.05,.95,1.03,1.0,1.08,.98][npc_index]
   o.location.x*=width
@@ -222,8 +289,11 @@ for name in ['Idle','Walk','Turn','Start','Stop','Interact','Sit','Type','Talk',
     if b.name.startswith('shin'):b.rotation_euler.x=max(0,math.sin(phase+side*math.pi/2))*.45
     if b.name.startswith('arm'):b.rotation_euler.x=-math.sin(phase+side*math.pi/2)*.25
     if b.name.startswith('forearm'):b.rotation_euler.x=-.12
+    if b.name.startswith('foot'):b.rotation_euler.x=math.sin(phase+side*math.pi/2)*.10
     if b.name=='hips':b.location.y=.012*(1-math.cos(phase*2))
-    if b.name=='spine':b.rotation_euler.z=math.sin(phase)*.008
+    if b.name=='spine':
+     b.rotation_euler.z=math.sin(phase)*.008
+     b.rotation_euler.y=math.sin(phase)*.035
    if name in ['Start','Stop']:
     amount=(frame-1)/31 if name=='Start' else 1-(frame-1)/31
     for axis in range(3):b.rotation_euler[axis]*=amount
@@ -232,7 +302,8 @@ for name in ['Idle','Walk','Turn','Start','Stop','Interact','Sit','Type','Talk',
    if seated:
     if b.name=='hips':
      b.location.y=-.25*amount
-     if name in ['StandUp','SitDown']:b.location.z=.32*(1-amount)
+     # Root follows the collision-checked lateral chair exit in npcRoutine.
+     if name in ['StandUp','SitDown']:b.location.z=0
     if b.name.startswith('thigh'):b.rotation_euler.x=-1.20*amount
     if b.name.startswith('shin'):b.rotation_euler.x=1.20*amount
     if b.name.startswith('arm'):b.rotation_euler.x=-.35*amount

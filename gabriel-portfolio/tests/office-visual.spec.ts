@@ -1,3 +1,4 @@
+import {reduceMotion,graphics,options} from './studio-options';
 import { test, expect } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 
@@ -12,13 +13,13 @@ test("office graphic tiers change raster budget and all six interiors render", a
   await expect(page.locator(".spatial-loading")).toHaveCount(0, { timeout: 30000 });
   await expect(page.locator(".world-stage")).toHaveAttribute("data-loaded", "6", { timeout: 30000 });
   const quality = page.getByLabel("Gráficos", { exact: true });
-  await quality.selectOption("low");
+  await graphics(page,"low");
   await expect(page.locator(".world-stage")).toHaveAttribute("data-quality", "low");
   const lowWidth = await page.locator("canvas").evaluate(c => (c as HTMLCanvasElement).width);
-  await quality.selectOption("high");
+  await graphics(page,"high");
   await expect(page.locator(".world-stage")).toHaveAttribute("data-quality", "high");
   await expect.poll(() => page.locator("canvas").evaluate(c => (c as HTMLCanvasElement).width), { timeout: 10000 }).toBeGreaterThan(lowWidth);
-  await page.getByRole("checkbox", { name: "Movimento reduzido" }).check();
+  await reduceMotion(page);
   const shots = "test-results/office-review";
   await mkdir(shots, { recursive: true });
   const zones = page.getByRole("navigation", { name: "Atalhos para ambientes" }).getByRole("button");
@@ -43,8 +44,8 @@ test("office graphic tiers change raster budget and all six interiors render", a
   await page.setViewportSize({width:1366,height:768});
   await page.screenshot({path:`${shots}/office-portal-1366.png`});
   await page.setViewportSize({width:390,height:844});
-  await expect(quality).toBeInViewport();
-  await quality.selectOption("low");
+  await options(page,true);await expect(quality).toBeInViewport();await options(page,false);
+  await graphics(page,"low");
   await page.screenshot({path:`${shots}/office-portal-390.png`});
   await zones.nth(2).click();
   await expect(page.locator(".spatial-kicker")).toContainText("03");

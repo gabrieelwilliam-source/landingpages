@@ -1,0 +1,173 @@
+{
+  "full": [
+    {
+      "file": "environment-0.glb",
+      "bytes": 254356,
+      "triangles": null,
+      "bones": null,
+      "sha256": "4833666e1d17c786af45abf4590a748e86a4d61afb6f59085728f8d3dfcc81dc"
+    },
+    {
+      "file": "environment-1.glb",
+      "bytes": 340756,
+      "triangles": null,
+      "bones": null,
+      "sha256": "acdcb9ca04e0a091a814e4bc4c245a537c494fe0d339daf9cbdfebbfcf86303d"
+    },
+    {
+      "file": "environment-2.glb",
+      "bytes": 464308,
+      "triangles": null,
+      "bones": null,
+      "sha256": "211f9dcb198e847c58e7cb91c469575d53ff628595c36afab3bd808eeb5e3c71"
+    },
+    {
+      "file": "environment-3.glb",
+      "bytes": 257020,
+      "triangles": null,
+      "bones": null,
+      "sha256": "c8505c065650f47699d9e357c536bbece385cc14f5be5d692cadc59c5e20583a"
+    },
+    {
+      "file": "environment-4.glb",
+      "bytes": 352900,
+      "triangles": null,
+      "bones": null,
+      "sha256": "7dda35dc0f21f6075b1bedd16c0dbc06b197c309f03ae0a5c8836460387cb254"
+    },
+    {
+      "file": "environment-5.glb",
+      "bytes": 345872,
+      "triangles": null,
+      "bones": null,
+      "sha256": "f39f97140307582ca12abced4b213ae909968b05fe2e1033036f6b8f6eaffc7f"
+    },
+    {
+      "file": "gabriel-rigged.glb",
+      "bytes": 587852,
+      "triangles": 60660,
+      "bones": 16,
+      "sha256": "b35f18747472bf64e79d29148bcfc2c308e25cd1a6eb841121dbdabef5dffa1b"
+    },
+    {
+      "file": "npc-0.glb",
+      "bytes": 334424,
+      "triangles": 28306,
+      "bones": 16,
+      "sha256": "e80bb0b4aae49844da417dc49ad771ad393558ea1b4bd2dfd31a363d6964e182"
+    },
+    {
+      "file": "npc-1.glb",
+      "bytes": 333268,
+      "triangles": 28306,
+      "bones": 16,
+      "sha256": "1724e02aae99491d45e6f59ac660bd03c325dde87a38c673c7dc40d56ea09023"
+    },
+    {
+      "file": "npc-2.glb",
+      "bytes": 329972,
+      "triangles": 27740,
+      "bones": 16,
+      "sha256": "6b49cfed3cacff4ca58789030947e495ac08c795068cbc8152bacfe8ac004526"
+    },
+    {
+      "file": "npc-3.glb",
+      "bytes": 336348,
+      "triangles": 28306,
+      "bones": 16,
+      "sha256": "1ff1234e3a22213c50425bdd4b805a4e8602ef519b0935aa9ca2fc449eb9664a"
+    },
+    {
+      "file": "npc-4.glb",
+      "bytes": 327264,
+      "triangles": 27740,
+      "bones": 16,
+      "sha256": "6e12fc074be834ceedbfc8b39330d6e09b54b2b6e01523e04c411187eaa071fb"
+    },
+    {
+      "file": "npc-5.glb",
+      "bytes": 330584,
+      "triangles": 27740,
+      "bones": 16,
+      "sha256": "752ba4ac20be77deb7525b67f2511291b80beba6ce3693c93d2c4e3298430fc5"
+    },
+    {
+      "file": "npc-6.glb",
+      "bytes": 332196,
+      "triangles": 27740,
+      "bones": 16,
+      "sha256": "d24c1ee21b456ee7835810e2c6de35acd23d242a4073c16adbe256a0bc789e52"
+    },
+    {
+      "file": "npc-7.glb",
+      "bytes": 327968,
+      "triangles": 27740,
+      "bones": 16,
+      "sha256": "c68a2d9aacf2e243d2b90826c499686e6f63e8d0ddaee76a609e46f5f353ff54"
+    }
+  ],
+  "low": [
+    {
+      "name": "gabriel-rigged.glb",
+      "bytes": 104804,
+      "sha256": "62bf7ada64a2977468ce9fbca6219b359d590bb383026eed9e9d786b2b3c5691",
+      "triangles": 4832
+    },
+    {
+      "name": "npc-0.glb",
+      "bytes": 97728,
+      "sha256": "5b8f6334b92190993db9a5ceea4f9ec76ac4ff9dd1dc813157a7010334204aed",
+      "triangles": 3962
+    },
+    {
+      "name": "npc-1.glb",
+      "bytes": 97676,
+      "sha256": "2d3d4c787538e4a67151e376f4ad32091b00d7a0546477f1a2e530d093d7f9c2",
+      "triangles": 3962
+    },
+    {
+      "name": "npc-2.glb",
+      "bytes": 98040,
+      "sha256": "d83bf1325eb3fdf6d7129929689ea0bb9e4e14039aad0995a5a23eb557001cb8",
+      "triangles": 3882
+    },
+    {
+      "name": "npc-3.glb",
+      "bytes": 98096,
+      "sha256": "7c2fdcc3e80be8df56a1f165d1fdc9931853066f5958d82c09dbf792bb60b3db",
+      "triangles": 3950
+    },
+    {
+      "name": "npc-4.glb",
+      "bytes": 97756,
+      "sha256": "a7a40ed12ab847e794591d7e1a47435606b7cec3c4061ef9ebcd10bf2492b8c6",
+      "triangles": 3865
+    },
+    {
+      "name": "npc-5.glb",
+      "bytes": 98324,
+      "sha256": "a41d670be0b0875f7f654bf5962dbfae92e6abafc55cf0f2ecc64cdf3cc39374",
+      "triangles": 3880
+    },
+    {
+      "name": "npc-6.glb",
+      "bytes": 98612,
+      "sha256": "592fca8f750b9d55318bd6a409cee2dd58c117b05637d36b801d40ffcbbd7833",
+      "triangles": 3882
+    },
+    {
+      "name": "npc-7.glb",
+      "bytes": 97976,
+      "sha256": "d2f11937c3c46b4879e30af62df4c111b5d8b126373f4e4d06674f0b857db485",
+      "triangles": 3871
+    }
+  ],
+  "fullTotalBytes": 5255088,
+  "lowTotalBytes": 889012,
+  "logo": {
+    "filename": "brand/zaion-original.png",
+    "bytes": 1004338,
+    "sha256": "fb2edb7999b9c5c35d54ec16a25661650905683a231abbe8d261f04e398b99cc"
+  },
+  "humanMaterials": "Original procedural micro-normal and regional roughness atlas on full models; vertex-colour material on low detail"
+}
