@@ -2633,7 +2633,7 @@ footer strong {
 }
 @media(max-height:600px){.studio-tools{top:80px}.studio-tools section{max-height:calc(100dvh - 100px)}.spatial-editorial,.navigation-walk .spatial-editorial{bottom:65px;max-width:240px;padding:7px 10px}.spatial-editorial h1,.spatial-shell.explored .spatial-editorial h1{font-size:19px}.area-disclosure{min-height:24px}.spatial-kicker{margin:4px 0}}
 
-.spatial-header .pause-button,.studio-menu-toggle{display:grid;place-items:center;line-height:1}
+.spatial-header .pause-button,.studio-menu-toggle{display:grid;place-items:center;justify-content:center;line-height:1}
 .spatial-header .pause-button span{position:static;margin:0;font-size:16px;line-height:1}
 .spatial-shell:not(.area-open) .spatial-editorial h1{margin:5px 0 0}
 .spatial-shell:not(.area-open) .spatial-editorial .spatial-kicker{margin:5px 0}

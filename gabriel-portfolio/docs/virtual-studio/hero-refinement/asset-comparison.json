@@ -1,0 +1,64 @@
+{
+  "beforeFull": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 552228,
+    "sha256": "a3336c82b2b59d4083145b054c986de695c567582390e2517c0d1919c7642557",
+    "meshes": 1,
+    "skins": 1,
+    "animations": [
+      "Idle",
+      "Interact",
+      "Sit",
+      "SitDown",
+      "StandUp",
+      "Start",
+      "Stop",
+      "Talk",
+      "Turn",
+      "Type",
+      "Walk"
+    ],
+    "textureFormats": [
+      "image/webp"
+    ],
+    "triangles": 58012,
+    "bones": 16
+  },
+  "afterFull": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 666028,
+    "sha256": "0f124722ac4b5e6e1ab70fe00b66c0a290839570655d7bef7094dffa69668b41",
+    "meshes": 1,
+    "skins": 1,
+    "animations": [
+      "Idle",
+      "Interact",
+      "Sit",
+      "SitDown",
+      "StandUp",
+      "Start",
+      "Stop",
+      "Talk",
+      "Turn",
+      "Type",
+      "Walk"
+    ],
+    "textureFormats": [
+      "image/webp"
+    ],
+    "triangles": 64464,
+    "bones": 16
+  },
+  "beforeLow": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 104488,
+    "sha256": "d3acdd6c79c931a3afa1921c1708a7bfd84cb87296c58efbcecde357c7abf7da",
+    "triangles": 4640
+  },
+  "afterLow": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 119652,
+    "sha256": "e219dda104f1431a2ce25b3a17386dbd1cf2822025959e2287ee82d29e2151c6",
+    "triangles": 6060
+  }
+}

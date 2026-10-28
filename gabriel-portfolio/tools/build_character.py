@@ -218,6 +218,11 @@ if npc_index is not None:
 sys.path.insert(0,os.path.join(ROOT,'tools'))
 from import_human import import_anatomical_surfaces
 import_anatomical_surfaces(ROOT,skin,hair,eye,white,black,npc_index)
+if npc_index is None:
+ from refine_hero import refine_hero,hero_color
+ for material,color in [(skin,(.46,.31,.245)),(cloth,(.032,.052,.086)),(seam,(.055,.078,.108)),(lining,(.09,.11,.14)),(beard,(.057,.038,.024)),(grey,(.25,.22,.175))]:
+  material.diffuse_color=(*color,1)
+ refine_hero((skin,hair,beard,grey,cloth,seam,lining,trim),detail,cube)
 # Convert detailed curves and bind them to the appropriate deforming bone.
 for o in list(bpy.context.scene.objects):
  if o.type=='CURVE':
@@ -229,7 +234,7 @@ p=surface.node_tree.nodes.get('Principled BSDF');p.inputs['Roughness'].default_v
 vc=surface.node_tree.nodes.new('ShaderNodeVertexColor');vc.layer_name='SurfaceColor';surface.node_tree.links.new(vc.outputs['Color'],p.inputs['Base Color'])
 # Original procedural micro-surface atlas. No portrait image or downloaded skin is used.
 size=256;rough=[];normal=[];noise=random.Random(804)
-roughness=[.64,.90,.84,.28,.58,.40,.88,.76]
+roughness=[.72,.92,.86,.28,.90,.48,.88,.76]
 for y in range(size):
  for x in range(size):
   tile=(x//64)+(y//128)*4
@@ -279,6 +284,7 @@ for o in list(bpy.context.scene.objects):
    hair_weight=min(1,max(side_hair,top_hair,brow*.9))
    hair_color=[(.026,.018,.014),(.065,.028,.012),(.012,.015,.019),(.10,.065,.024)][(npc_index or 0)%4]
    color=tuple(c*(1-hair_weight)+h*hair_weight for c,h in zip(color,hair_color))
+  if npc_index is None:color=hero_color(o.name,v,original.diffuse_color[:3] if o.name.startswith('MakeHuman CC0 anatomical head') else color)
   layer.data[loop.index].color=(*(max(0,min(1,c*variation)) for c in color),1)
  o.data.color_attributes.active_color=layer;o.data.color_attributes.render_color_index=0
  o.data.materials.clear();o.data.materials.append(surface)

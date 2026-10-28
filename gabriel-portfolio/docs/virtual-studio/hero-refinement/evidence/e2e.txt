@@ -1,0 +1,40 @@
+> site-zaion@0.1.0 test:e2e
+> playwright test
+
+[WebServer] (node:42761) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:42777) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/camera-gallery.spec.ts:11:5 › orbit, camera-relative walking, pause, reset and accessible project filters (15.3s)
+  ✓   2 tests/camera-gallery.spec.ts:63:5 › touch orbits without moving the visitor and reset is available on mobile (3.9s)
+  ✓   3 tests/contact-draft.spec.ts:4:5 › contact draft survives panels and mode changes, clears explicitly and never sends (8.3s)
+  ✓   4 tests/full-studio.spec.ts:8:5 › fictional receptionist animates, pauses and opens a useful keyboard interaction (6.3s)
+  ✓   5 tests/full-studio.spec.ts:21:5 › all six sectors have a scripted interaction and render real inhabited interiors (23.6s)
+  ✓   6 tests/full-studio.spec.ts:35:5 › all four automation demos change local state and never send requests (3.9s)
+  ✓   7 tests/full-studio.spec.ts:46:5 › distance, shoulder and obstacle-aware reconnect preserve anchored reversible scroll (13.5s)
+  ✓   8 tests/full-studio.spec.ts:57:5 › briefing assistant preserves an existing draft and the classic mode exposes the same content (4.4s)
+  ✓   9 tests/full-studio.spec.ts:64:5 › close reception view and real touch interaction remain usable on mobile (29.2s)
+  ✓  10 tests/full-studio.spec.ts:85:5 › quality swaps actual skinned LODs and preserves the active rig (7.1s)
+  ✓  11 tests/full-studio.spec.ts:94:5 › advanced options stay in a secondary menu on desktop and mobile (7.3s)
+  ✓  12 tests/full-studio.spec.ts:107:5 › a nearby development monitor opens the existing project demonstration (17.3s)
+  ✓  13 tests/full-studio.spec.ts:116:5 › detailed characters remain inspectable with the closer collision-aware camera (13.6s)
+  ✓  14 tests/full-studio.spec.ts:129:5 › supported furniture, adjustable FOV and menu scrolling preserve the scene position (3.1s)
+  ✓  15 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (portrait) (5.4s)
+  ✓  16 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (landscape) (8.1s)
+  ✓  17 tests/mobile-joystick.spec.ts:30:5 › two fingers steer and look independently; cancel, pause and mode changes release movement (6.4s)
+  ✓  18 tests/office-visual.spec.ts:5:5 › office graphic tiers change raster budget and all six interiors render (57.2s)
+  ✓  19 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 360 (4.0s)
+  ✓  20 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 390 (3.9s)
+  ✓  21 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 1280 (6.9s)
+  ✓  22 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 1440 (7.9s)
+  ✓  23 tests/portfolio.spec.ts:43:5 › scroll moves world while avatar and camera stay anchored; guided walking moves avatar (11.7s)
+  ✓  24 tests/portfolio.spec.ts:72:5 › all six architectural destinations, panels, concepts, navigation history and pause (36.2s)
+  ✓  25 tests/portfolio.spec.ts:116:5 › reduced motion defaults to classic and WebGL failure recovers (588ms)
+  ✓  26 tests/portfolio.spec.ts:142:5 › mobile touch moves the world, native contact and reading without JS remain available (3.5s)
+  ✓  27 tests/portfolio.spec.ts:180:5 › record measured animation performance during active scene scrolling (6.8s)
+  ✓  28 tests/portfolio.spec.ts:250:5 › portrait dialogs scroll independently and landscape keeps controls and original logo usable (8.1s)
+
+  28 passed (5.4m)

@@ -1,0 +1,22 @@
+HERO REFINEMENT: contoured open-mouth beard, cropped fibres, fitted clothing and flat webbing
+ERROR Draco mesh compression is not available because library could not be found at /usr/bin/4.3/python/lib/python3.13/site-packages/libextern_draco.so
+22:46:29 | INFO: Starting glTF 2.0 export
+22:46:29 | INFO: Extracting primitive: Hoodie body
+22:46:29 | INFO: Primitives created: 1
+22:46:30 | INFO: Finished glTF 2.0 export in 0.8477811813354492 s
+
+CHARACTER COMPLETE: original vertex palette, skinned mesh, 16 bones, Idle/Walk/Turn
+Blender 4.3.2
+
+Blender quit
+prune: Removed types... Accessor (1)
+prune: Removed types... Accessor (7)
+prune: Removed types... Skin (1), Accessor (5)
+gabriel-rigged.glb 4733728 -> 666028 skins 1 animations [
+  'Idle',    'Interact',
+  'Sit',     'SitDown',
+  'StandUp', 'Start',
+  'Stop',    'Talk',
+  'Turn',    'Type',
+  'Walk'
+]

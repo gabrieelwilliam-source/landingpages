@@ -1,0 +1,14 @@
+[WebServer] (node:45097) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:45113) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/full-studio.spec.ts:85:5 › quality swaps actual skinned LODs and preserves the active rig (19.3s)
+  ✓  2 tests/full-studio.spec.ts:116:5 › detailed characters remain inspectable with the closer collision-aware camera (14.8s)
+  ✓  3 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (portrait) (5.4s)
+  ✓  4 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (landscape) (8.0s)
+  ✓  5 tests/mobile-joystick.spec.ts:30:5 › two fingers steer and look independently; cancel, pause and mode changes release movement (6.1s)
+
+  5 passed (55.6s)

@@ -105,13 +105,13 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   }
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.90;
+  renderer.toneMappingExposure = 0.94;
   renderer.shadowMap.enabled = host.clientWidth > 700 && !softwareRenderer;
   renderer.shadowMap.type = softwareRenderer ? T.BasicShadowMap : T.PCFSoftShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
   const camera = new T.PerspectiveCamera(50, 1, 0.1, 500);
-  scene.add(new T.HemisphereLight("#cfdaeb", "#66513e", 0.72));
+  scene.add(new T.HemisphereLight("#dbe4ee", "#756352", softwareRenderer ? 1.05 : .9));
   const sun = new T.DirectionalLight("#ffd3a0", 1.8);
   sun.position.set(18, 9, -32);
   sun.castShadow = true;

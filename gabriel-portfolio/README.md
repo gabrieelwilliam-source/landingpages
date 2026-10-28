@@ -141,3 +141,7 @@ Para auditar após build: `CHROMIUM_PATH=/usr/bin/chromium node scripts/audit-st
 ### Controles no celular
 
 Em dispositivos com ponteiro de toque, a visita abre em Caminhar com analógico virtual à esquerda. Incline para escolher direção e velocidade; solte para parar. Arraste a cena com o outro dedo para orientar a câmera. Velocidade manual máxima: 2,6 m/s (+30%). Scroll, teclado e clássico continuam disponíveis. [Capturas e detalhes](docs/virtual-studio/mobile-controls/README.md).
+
+### Refinamento do personagem principal
+
+Grooming e roupa em `tools/refine_hero.py`, sobre a anatomia CC0 existente. Reconstrução: `npm run assets:character`. O LOD remove microfios desconectados e simplifica rosto/corpo separadamente antes de reunir em um draw call. Comparador e capturas em `docs/virtual-studio/hero-refinement/`. A versão continua local, sem publicação.

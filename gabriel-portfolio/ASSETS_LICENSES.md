@@ -19,3 +19,7 @@ Esta revisão usa dados gratuitos com permissão comercial e redistribuição ve
 - R3F/Drei não foram adicionados: a aplicação usa Three.js diretamente e não necessita reescrita. O probe de iluminação continua original (`RoomEnvironment`), com exposição e luz calibradas; não é path tracing nem HDRI fotográfico.
 
 As revisões e os hashes dos dados-fonte constam em `tools/vendor/sources-lock.json`. Dependências e licenças MIT/Apache continuam identificadas em `LICENSE_ASSETS.md` e no lockfile. Nenhum token, conta externa, recurso pago ou integração de produção é necessário para executar a exportação.
+
+## Refinamento do personagem principal — 28/10/2026
+
+O grooming, as pálpebras, a roupa/mochila, o ajuste de cor e o orçamento de simplificação facial desta revisão são código e geometria autorais em `tools/refine_hero.py` e `tools/strip-hero-microgeometry.mjs`. A cabeça e as mãos continuam derivadas dos dados CC0 já creditados acima. Não houve nova fonte externa, compra ou textura pessoal. A foto é apenas referência privada e não integra Git, public ou o pacote.

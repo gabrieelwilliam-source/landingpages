@@ -96,8 +96,8 @@
     },
     {
       "name": "gabriel-rigged.glb",
-      "bytes": 552228,
-      "sha256": "a3336c82b2b59d4083145b054c986de695c567582390e2517c0d1919c7642557",
+      "bytes": 666028,
+      "sha256": "0f124722ac4b5e6e1ab70fe00b66c0a290839570655d7bef7094dffa69668b41",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -116,7 +116,7 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 58012,
+      "triangles": 64464,
       "bones": 16
     },
     {
@@ -320,5 +320,5 @@
       "bones": 16
     }
   ],
-  "totalBytes": 5869040
+  "totalBytes": 5982840
 }
