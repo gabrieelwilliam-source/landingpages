@@ -43,6 +43,11 @@ try {
   for (const width of [360, 768, 1440]) {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
     const errors = [];
+    const modelRequests = [];
+    page.on("request", r => {
+      const url = new URL(r.url());
+      if (url.pathname.endsWith(".glb")) modelRequests.push(url);
+    });
     page.on("pageerror", (e) => errors.push(e.message));
     page.on("response", (r) => {
       if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`);
@@ -52,6 +57,8 @@ try {
       timeout: 15000,
     });
     await expect(page.locator("canvas")).toHaveCount(1);
+    assert.ok(modelRequests.length >= 2, "character and first room requested");
+    assert.ok(modelRequests.every(url => /^[a-f0-9]{12}$/.test(url.searchParams.get("v") || "")), "models use content versions to avoid stale cache");
     await expect
       .poll(async () =>
         Number(

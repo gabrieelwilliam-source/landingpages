@@ -63,7 +63,7 @@ npm run assets:build
 node tools/verify-assets.mjs
 ```
 
-O primeiro comando regenera os GLBs brutos e depois os comprime com Meshopt. Não execute somente o otimizador sobre os GLBs já comprimidos. `tools/build_assets.py` contém modelagem, texturas, skin e animações originais; `public/models/manifest.json` registra peso, ossos, clips e SHA-256. Os sete modelos totalizam 1,29 MB. As texturas de superfície usam WebP embutido. O avatar tem 16 ossos e clips Idle, Walk e Turn; é estilizado, sem escaneamento facial ou mocap externo.
+O primeiro comando regenera os GLBs brutos e depois os comprime com Meshopt. Não execute somente o otimizador sobre os GLBs já comprimidos. `tools/build_assets.py` contém as utilidades originais, `tools/build_office.py` reconstrói a arquitetura e `tools/build_character.py` reconstrói o personagem; `public/models/manifest.json` registra peso, ossos, clips e SHA-256. O peso atualizado dos sete modelos está no manifesto. As texturas de superfície usam WebP embutido. O avatar tem 16 ossos e clips Idle, Walk e Turn; é estilizado, sem escaneamento facial ou mocap externo.
 
 ## Estado de publicação
 
@@ -95,3 +95,7 @@ Relatório e capturas atuais: `docs/virtual-studio/office-review/`.
 No modo Caminhar, arraste para olhar, use WASD/setas (ou direcional por toque) para mover na direção da visão, I/J/K/L para câmera e R ou Recentrar câmera para voltar à orientação inicial. A câmera respeita o envelope do edifício e volumes de móveis altos. Pausa e modais bloqueiam a exploração.
 
 A galeria tem filtros por tipo, prévias e detalhes dos conceitos, no modo clássico e no painel Filtrar projetos do setor Galeria. O conteúdo continua explicitamente demonstrativo. Relatório e capturas: `docs/virtual-studio/camera-gallery/`.
+
+### Refinamento visual de 28/10/2026
+
+Para reconstruir somente o personagem: `npm run assets:character`. Mantém uma primitiva com cores por vértice, 16 ossos e Idle/Walk/Turn. Para os interiores: `npm run assets:build`. A vista ilustrativa `public/environment/city-dusk.webp` é um asset local gerado por IA, não uma foto privada; veja LICENSE_ASSETS.md. O modo por software preserva os mapas e cores, com Lambert; materiais PBR e sombras dinâmicas ficam disponíveis em hardware.

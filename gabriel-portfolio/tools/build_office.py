@@ -26,10 +26,10 @@ def texture_material(name,color,kind):
     grain=math.sin(x*.32+math.sin(y*.03)*1.8)*.12+math.sin(x*1.5+y*.006)*.05+rng.uniform(-.025,.025)
    else:
     vein=abs(math.sin(x*.024+y*.036+math.sin(y*.057)*.75+math.sin(x*.05)*.36))
-    grain=(max(0,1-vein*12)*.45)+rng.uniform(-.04,.04)
+    grain=(max(0,1-vein*12)*1.25)+rng.uniform(-.04,.04)
    rgb=[max(0,min(1,c*(1+grain))) for c in color]
    pixels.extend([12.92*c if c<=.0031308 else 1.055*c**(1/2.4)-.055 for c in rgb]+[1])
-   v=(.34+grain*.3) if kind=='stone' else .68+grain*.15
+   v=(.24+grain*.08) if kind=='stone' else .68+grain*.15
    rough.extend([v,v,v,1])
  for title,data,socket in [('surface',pixels,'Base Color'),('roughness',rough,'Roughness')]:
   image=bpy.data.images.new(name+' '+title,width=size,height=size);image.pixels=data;image.pack()
@@ -92,14 +92,15 @@ def plant(x,y,height=2.9):
  cylinder('Soil',(x,y,.61),.36,.02,soil)
  curve('Tree trunk',[(x,y,.5),(x+.07,y,1.4),(x-.08,y+.05,height-.3)],.036,wood)
  vertices=[]; faces=[]
- for j in range(220):
-  a=random.random()*math.tau; h=random.uniform(1.25,height); r=.25+(height-h)*.3
+ for j in range(420):
+  a=random.random()*math.tau; h=random.uniform(height-1.6,height); r=math.sqrt(random.random())*.95*math.sqrt(max(.05,1-((h-height+.8)/.85)**2))
   px=x+math.cos(a)*r;py=y+math.sin(a)*r
-  if j%12==0:curve('Tree branch',[(x,y,h-.35),(px,py,h)],.011,wood)
-  length=random.uniform(.15,.3); w=length*.4
+  if j%22==0:curve('Tree branch',[(x,y,h-.35),(px,py,h)],.011,wood)
+  length=random.uniform(.09,.18); w=length*.28
   start=len(vertices)
   vertices.extend([(px,py,h),(px+math.cos(a)*length*.5-math.sin(a)*w,py+math.sin(a)*length*.5+math.cos(a)*w,h+.04),(px+math.cos(a)*length,py+math.sin(a)*length,h+.07),(px+math.cos(a)*length*.5+math.sin(a)*w,py+math.sin(a)*length*.5-math.cos(a)*w,h+.04)])
-  faces.append(tuple(start+i for i in range(4)))
+  vertices.append((px+math.cos(a)*length*.5,py+math.sin(a)*length*.5,h+.095))
+  faces.extend([(start,start+1,start+4),(start+1,start+2,start+4),(start+2,start+3,start+4),(start+3,start,start+4)])
  mesh=bpy.data.meshes.new('Leaf clusters');mesh.from_pydata(vertices,[],faces);mesh.update()
  obj=bpy.data.objects.new('Olive foliage',mesh);bpy.context.collection.objects.link(obj);obj.data.materials.append(leaf)
 
@@ -134,7 +135,7 @@ for index in range(6):
  cube('Continuous floor slab',(0,mid,-.15),(17,length,.25),stone,.015,1)
  for x in range(-4,5):
   for y in range(math.floor((lo+d)/2),math.ceil((hi+d)/2)):
-   cy=max(lo,min(hi,y*2+1-d)); h=min(hi,y*2+2-d)-max(lo,y*2-d)
+   lower=max(lo,y*2-d); upper=min(hi,y*2+2-d); cy=(lower+upper)/2; h=upper-lower
    if h>.01:cube('Limestone floor joint',(x*1.85,cy,-.012),(1.835,h-.015,.025),stone,.002,1)
  cube('Walnut wall backing',(-8.35,mid,2.8),(.18,length,5.6),wood,.015)
  cube('Floating ceiling',(0,mid,5.7),(17,length,.18),ceiling,.015)
@@ -143,7 +144,7 @@ for index in range(6):
   cube('Skirting',(side*8.14,mid,.09),(.08,length,.18),metal,.01,1)
  # Full-height window facade, bronze mullions, no opaque panels in the view corridor.
  for y in range(math.floor(lo/3),math.ceil(hi/3)):
-  cy=max(lo,min(hi,y*3+1.5)); h=min(hi,y*3+3)-max(lo,y*3)
+  lower=max(lo,y*3); upper=min(hi,y*3+3); cy=(lower+upper)/2; h=upper-lower
   if h>.02:cube('Panoramic facade glass',(8.3,cy,2.85),(.025,h-.035,5.45),glass,0)
   if lo<y*3<hi:cube('Facade mullion',(8.24,y*3,2.85),(.10,.055,5.5),brass,.008,1)
  for y in [lo,hi]:
@@ -154,14 +155,21 @@ for index in range(6):
   cube('Walnut acoustic fin',(-8.19,lo+.16+j*.32,2.9),(.11,.065,4.9),wood,.008,1)
  for side in [-1,1]:
   curve('Floor wayfinding inlay',[(side*2.6,lo,.018),(side*2.6,hi,.018)],.008,brass)
- # Distant original silhouette through the facade, softly lit by the scene sky.
- for k in range(14):
-  x=random.uniform(38,60);y=random.uniform(lo-8,hi+8);height=random.uniform(3,11)
-  cube('Distant architectural silhouette',(x,y,height/2-2),(random.uniform(2,4),2.5,height),skyline,.02,1)
-  for z in range(1,int(height)-1,2):cube('Distant warm window',(x-2.01,y,z-2),(.025,1.3,.07),glow,0)
+ # Recessed ceiling coffers: restrained bronze lines and dark walnut baffles.
+ for x in [-5.8,-3.8,3.8,5.8]:
+  cube('Ceiling walnut baffle',(x,mid,5.54),(.075,length,.24),wood,.008,1)
+ for y in range(math.ceil(lo/3),math.floor(hi/3)+1):
+  cube('Recessed ceiling crossbar',(0,y*3,5.57),(14.9,.055,.10),brass,.006,1)
+ # Flush woven rugs anchor lounge areas without changing navigation footprints.
+ if index in [0,1,5]:
+  rx,ry=(5.2,3) if index==0 else ((-5,1) if index==1 else (-5.1,4))
+  cube('Woven lounge rug',(rx,ry,.007),(3.7,3.7,.018),fabric,.018,1)
+  for side in [-1,1]:
+   cube('Rug stitched border',(rx+side*1.75,ry,.018),(.025,3.45,.006),linen,0)
  if index==0:
   cube('Reception stone counter',(-4.9,3,.6),(3.8,1.3,1.2),stone,.12)
   cube('Reception walnut top',(-4.9,3,1.23),(3.95,1.4,.10),wood,.05)
+  cube('Reception recessed warm light',(-4.9,2.34,.12),(3.4,.025,.025),glow,.006,1)
   curve('Reception bronze reveal',[(-6.6,2.32,.75),(-3.2,2.32,.75)],.014,brass)
   sofa(5.2,4);plant(6.9,7,3.5);plant(-6.7,-1,3)
   cylinder('Coffee table',(5.2,2,.36),.66,.09,wood);cylinder('Coffee pedestal',(5.2,2,.19),.18,.3,metal)

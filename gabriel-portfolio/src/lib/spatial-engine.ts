@@ -17,6 +17,7 @@ import {
 } from "./spatial-motion.mjs";
 import { automationConcepts, spatialExhibits } from "@/data/site";
 import office from "@/data/office-layout.json";
+import modelManifest from "../../public/models/manifest.json";
 export type NavigationMode = "walk" | "scroll";
 export type GraphicQuality = "auto" | "low" | "high";
 
@@ -94,10 +95,10 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   renderer.shadowMap.type = softwareRenderer ? T.BasicShadowMap : T.PCFSoftShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
-  const camera = new T.PerspectiveCamera(50, 1, 0.1, 160);
+  const camera = new T.PerspectiveCamera(50, 1, 0.1, 500);
   scene.add(new T.HemisphereLight("#cfdaeb", "#66513e", 1.0));
   const sun = new T.DirectionalLight("#ffd3a0", 2.4);
-  sun.position.set(-18, 9, -32);
+  sun.position.set(18, 9, -32);
   sun.castShadow = true;
   sun.shadow.mapSize.set(softwareRenderer ? 512 : 1024, softwareRenderer ? 512 : 1024);
   sun.shadow.camera.left = -15;
@@ -184,6 +185,21 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     rigBones = 0;
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  // Content versions prevent browsers from reusing the previous character/rooms.
+  const modelUrl = (name: string) => {
+    const hash = modelManifest.assets.find(asset => asset.name === name)?.sha256;
+    return `${base}/models/${name}?v=${hash?.slice(0, 12) || "local"}`;
+  };
+  // Original generated vista; the photograph used for Gabriel is never loaded.
+  const city = new T.TextureLoader().load(`${base}/environment/city-dusk.webp`);
+  city.colorSpace = T.SRGBColorSpace;
+  resources.push(city);
+  const panorama = new T.Mesh(
+    new T.BoxGeometry(360, 180, 360),
+    new T.MeshBasicMaterial({ map: city, side: T.BackSide, fog: false, toneMapped: false }),
+  );
+  panorama.position.set(0, 10, -45);
+  world.add(panorama);
   function register(root: T.Object3D) {
     root.traverse((o) => {
       if (o instanceof T.Mesh) {
@@ -198,6 +214,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
               if (texture) resources.push(texture);
             const fallback = new T.MeshLambertMaterial({
               color: material.color,
+              vertexColors: material.vertexColors,
               map: material.map,
               emissive: material.emissive,
               emissiveMap: material.emissiveMap,
@@ -246,7 +263,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     if (loaded[index] || loading.has(index)) return;
     loading.add(index);
     loader.load(
-      `${base}/models/environment-${index}.glb`,
+      modelUrl(`environment-${index}.glb`),
       (g) => {
         if (disposed) return;
         g.scene.position.z = -destinations[index];
@@ -371,7 +388,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     );
   }
   loader.load(
-    `${base}/models/gabriel-rigged.glb`,
+    modelUrl("gabriel-rigged.glb"),
     (g) => {
       if (disposed) return;
       g.scene.scale.setScalar(1.08);

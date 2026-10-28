@@ -30,6 +30,16 @@ test("office graphic tiers change raster budget and all six interiors render", a
   }
   await zones.nth(0).click();
   await expect(page.locator(".spatial-kicker")).toContainText("01");
+  await page.getByRole("button", {name:"Caminhar",exact:true}).click();
+  const stage=page.locator(".world-stage");
+  await stage.focus();
+  // Actual browser capture of the face; a 628px drag turns the camera about pi.
+  await page.mouse.move(1300,550);await page.mouse.down();
+  await page.mouse.move(672,550,{steps:8});await page.mouse.up();
+  await expect.poll(async()=>Math.abs(Number(await stage.getAttribute("data-camera-yaw")))).toBeGreaterThan(3);
+  await page.screenshot({path:`${shots}/office-character-front.png`});
+  await page.getByRole("button",{name:"Recentrar câmera"}).click();
+  await page.getByRole("button", {name:"Scroll",exact:true}).click();
   await page.setViewportSize({width:1366,height:768});
   await page.screenshot({path:`${shots}/office-portal-1366.png`});
   await page.setViewportSize({width:390,height:844});

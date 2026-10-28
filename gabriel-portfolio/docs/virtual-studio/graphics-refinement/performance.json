@@ -1,0 +1,16 @@
+{
+  "viewport": [
+    1000,
+    760
+  ],
+  "frames": 9,
+  "elapsedMs": 3302.8000000001866,
+  "averageFps": 2.724960639457276,
+  "p95FrameMs": 750,
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "jsHeapBytes": 37743902,
+  "encodedResourceBytes": 2170955,
+  "drawCalls": "32",
+  "triangles": "90597"
+}
