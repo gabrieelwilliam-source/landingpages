@@ -1,5 +1,14 @@
 # Site zAIon — publicação autorizada e renomeação
 
+## Estado da renomeação
+A API do GitHub recusou o PATCH de renomeação com HTTP 403, `Resource not accessible by integration`. A conta tem acesso ao repositório e pode fazer push, mas a integração não possui a permissão necessária para alterar seus dados administrativos. O nome remoto continua `gabrieelwilliam-source/landingpages`; não foi criado outro repositório nem tentado contornar o controle de acesso.
+
+Para manter o site disponível, o nome exibido foi alterado para Site zAIon e a revisão completa será publicada no endereço existente: https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . A renomeação autorizada para Site-zAIon depende do titular em https://github.com/gabrieelwilliam-source/landingpages/settings (General → Repository name).
+
+`src/config/deployment.json` centraliza repositório, origem e prefixo. Next injeta o prefixo da configuração no cliente, e sitemap, teste estático e servidor de revisão usam a mesma fonte. A configuração poderá migrar para `/Site-zAIon/gabriel` depois da renomeação real; o novo prefixo também já foi compilado e validado localmente em três larguras nesta etapa.
+
+## Autorização e preparação
+
 O usuário instruiu “quero que você SEMPRE publique” e confirmou “Repositório e endereço: Site-zAIon”. Essa autorização substitui a pausa de publicação da entrega anterior. AGENTS.md e README registram a preferência persistente para as próximas alterações validadas, salvo nova instrução contrária.
 
 Repositório pretendido e confirmado pelo usuário: `gabrieelwilliam-source/Site-zAIon`. Endereço do estúdio: https://gabrieelwilliam-source.github.io/Site-zAIon/gabriel/ . Nome nos metadados: Site zAIon. O checkout pode continuar em /workspace/landingpages; isso não determina o nome público do repositório.

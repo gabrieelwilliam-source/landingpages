@@ -4,7 +4,8 @@ import { resolve, extname } from "node:path";
 import assert from "node:assert/strict";
 import { chromium, expect } from "@playwright/test";
 const root = resolve(".next-pages");
-const prefix = "/Site-zAIon/gabriel";
+const deployment=JSON.parse(await readFile(new URL("../src/config/deployment.json",import.meta.url),"utf8"));
+const prefix=process.env.NEXT_PUBLIC_BASE_PATH||deployment.basePath;
 const mime = {
   ".html": "text/html",
   ".js": "text/javascript",
@@ -55,7 +56,7 @@ try {
     await page.goto(origin + prefix + "/");
     await expect(page).toHaveTitle("Site zAIon | Virtual Studio do Gabriel");
     const sitemap=await page.request.get(origin+prefix+"/sitemap.xml");
-    assert.ok((await sitemap.text()).includes("https://gabrieelwilliam-source.github.io/Site-zAIon/gabriel/"));
+    assert.ok((await sitemap.text()).includes(deployment.origin+prefix+"/"));
     await expect(page.locator(".spatial-loading")).toHaveCount(0, {
       timeout: 15000,
     });

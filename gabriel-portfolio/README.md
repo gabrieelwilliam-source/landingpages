@@ -68,9 +68,9 @@ O primeiro comando regenera os GLBs brutos e depois os comprime com Meshopt. Nã
 ## Estado de publicação
 
 O usuário autorizou publicar esta revisão após receber o pacote de revisão. Destino de testes:
-https://gabrieelwilliam-source.github.io/Site-zAIon/gabriel/
+https://gabrieelwilliam-source.github.io/landingpages/gabriel/
 
-`npm run build:pages` gera `.next-pages/` com prefixo `/Site-zAIon/gabriel`; `npm run test:pages` valida a exportação. Antes de substituir `../gabriel/`, arquive a versão anterior fora do checkout. Publique somente esse destino, preservando a landing page FR, `.nojekyll` e a configuração existente do Pages. Confirme o build e os arquivos públicos por HTTPS; um push sozinho não comprova deploy.
+`npm run build:pages` gera `.next-pages/` com prefixo definido em `src/config/deployment.json`; `npm run test:pages` valida a exportação. Antes de substituir `../gabriel/`, arquive a versão anterior fora do checkout. Publique somente esse destino, preservando a landing page FR, `.nojekyll` e a configuração existente do Pages. Confirme o build e os arquivos públicos por HTTPS; um push sozinho não comprova deploy.
 
 A revisão mantém as limitações artísticas e de desempenho documentadas. `RELATORIO_REDESIGN.md` registra a etapa de revisão anterior à autorização; suas menções a “não publicado” descrevem aquele momento.
 
@@ -102,7 +102,7 @@ Para reconstruir somente o personagem: `npm run assets:character`. Mantém uma p
 
 ## Revisão completa do estúdio — publicação autorizada
 
-A entrega local foi revisada pelo usuário, que agora instruiu **SEMPRE publicar** após as alterações validadas. A revisão completa e as próximas alterações deste projeto devem ser publicadas no mesmo Pages sem nova confirmação, salvo instrução posterior contrária. Repositório: `gabrieelwilliam-source/Site-zAIon`; nome exibido: `Site zAIon`. A instrução anterior de não publicar permanece apenas como histórico nos relatórios daquele momento.
+A entrega local foi revisada pelo usuário, que agora instruiu **SEMPRE publicar** após as alterações validadas. A revisão completa e as próximas alterações deste projeto devem ser publicadas no mesmo Pages sem nova confirmação, salvo instrução posterior contrária. Nome de repositório autorizado: `Site-zAIon` (a renomeação foi recusada pela integração, HTTP 403, e ainda depende do titular no GitHub). Repositório real atual: `gabrieelwilliam-source/landingpages`; nome exibido: `Site zAIon`. A instrução anterior de não publicar permanece apenas como histórico nos relatórios daquele momento.
 
 - Dados e papéis do elenco fictício: `src/data/studio-actors.json`; orientações são roteiros locais, sem funcionários reais alegados.
 - Regenerar o elenco: `npm run assets:cast` (Blender 4.3.2 e Node). Regenerar interiores: `npm run assets:build`. Execute separadamente, pois o verificador exige todos os arquivos já comprimidos. Scripts abortam se Blender encontrar erro de Python.
@@ -115,3 +115,5 @@ A entrega local foi revisada pelo usuário, que agora instruiu **SEMPRE publicar
 Veja `docs/virtual-studio/refinement-review/RELATORIO.md` e a galeria de capturas reais desse diretório para evidências e limites.
 
 As variantes leves de Gabriel e dos oito NPCs são geradas com `npm run assets:lod` e incorporadas por `assets:cast`/`assets:character`. Baixa e Automática por software usam geometria reduzida; Média/Alta mantêm o protagonista completo. NPCs podem reduzir detalhe à distância. Os arquivos completos continuam disponíveis; o manifesto da pasta low registra os hashes e os triângulos.
+
+A configuração pública de deploy é centralizada em `src/config/deployment.json`. O export injeta o basePath nos assets/clientes e o servidor local/testes usam a mesma configuração. Após a renomeação real pelo titular, atualizar repository/basePath nesse arquivo, o remote e publicar a exportação validada. Não usar credenciais nessa configuração.
