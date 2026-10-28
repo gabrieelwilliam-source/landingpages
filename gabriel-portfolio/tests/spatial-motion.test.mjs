@@ -125,3 +125,33 @@ test("batching Meshopt quantized furniture preserves metre-scale placement and s
   assert.equal(baked.getAttribute('position').array.constructor,Float32Array);
   source.dispose();baked.dispose();
 });
+
+test("camera-relative movement rotates forward and strafe without increasing diagonal speed", async () => {
+  const {cameraInput} = await import('../src/lib/office-camera.mjs');
+  const forward=cameraInput({x:0,forward:1},Math.PI/2);
+  assert.ok(Math.abs(forward.x+1)<1e-10 && Math.abs(forward.forward)<1e-10);
+  const diagonal=cameraInput({x:1,forward:1},.7);
+  assert.ok(Math.abs(Math.hypot(diagonal.x,diagonal.forward)-Math.sqrt(2))<1e-10);
+  let state=start();
+  for(let i=0;i<600;i++)state=advance(state,forward,.016);
+  assert.equal(state.x,-7.65);
+  assert.ok(Math.abs(state.distance)<1e-8);
+});
+test("camera segment stops before a tall display but clears low furniture", async () => {
+  const {safeCamera} = await import('../src/lib/office-camera.mjs');
+  const office={halfWidth:7.65,boundaries:[-7,92],colliders:[{x:3,d:10,w:1,h:1,top:3.6}]};
+  const focus={x:0,y:1.35,d:10}, wanted={x:6,y:2.4,d:10};
+  const blocked=safeCamera(focus,wanted,office);
+  assert.ok(blocked.x>0 && blocked.x<2.16);
+  office.colliders[0].top=.6;
+  assert.deepEqual(safeCamera(focus,wanted,office),wanted);
+});
+test("camera remains inside the building envelope and every collision has a real height", async () => {
+  const {safeCamera} = await import('../src/lib/office-camera.mjs');
+  const {default: office} = await import('../src/data/office-layout.json',{with:{type:'json'}});
+  assert.ok(office.colliders.every(box=>Number.isFinite(box.top)&&box.top>0));
+  const safe=safeCamera({x:0,y:1.35,d:40},{x:100,y:100,d:100},{...office,colliders:[]});
+  assert.equal(safe.x,office.halfWidth);
+  assert.equal(safe.y,5.2);
+  assert.equal(safe.d,91.6);
+});

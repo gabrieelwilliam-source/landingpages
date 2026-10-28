@@ -275,6 +275,7 @@ export const spatialExhibits = [
     body: environments[5].description,
     position: [4.7, 1.4, 83],
   },
+  {id: "galeria", area: 3, label: "Filtrar projetos", title: "Galeria de conceitos", body: "Explore por tipo. Todos os itens são demonstrações autorais, sem clientes ou resultados comerciais alegados.", position: [3.8,1.3,47]},
 ];
 
 export const automationConcepts = [

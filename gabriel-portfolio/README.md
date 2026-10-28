@@ -89,3 +89,9 @@ O cenário atual tem seis setores conectados em `public/models/environment-*.glb
 Gráficos: Automático ajusta a resolução conforme os frames; Leve reduz resolução e sombras; Alto aumenta a resolução em relação a Leve. GPUs compatíveis usam PBR; renderizadores por software mantêm texturas e iluminação com Lambert e sombras de contato leves. Alto em software não ativa os efeitos de GPU. O modo clássico segue disponível. A visita mantém scroll reversível e atalhos; esta revisão não adiciona NPCs ou converte o percurso em spline.
 
 Relatório e capturas atuais: `docs/virtual-studio/office-review/`.
+
+
+### Câmera orientável e filtros
+No modo Caminhar, arraste para olhar, use WASD/setas (ou direcional por toque) para mover na direção da visão, I/J/K/L para câmera e R ou Recentrar câmera para voltar à orientação inicial. A câmera respeita o envelope do edifício e volumes de móveis altos. Pausa e modais bloqueiam a exploração.
+
+A galeria tem filtros por tipo, prévias e detalhes dos conceitos, no modo clássico e no painel Filtrar projetos do setor Galeria. O conteúdo continua explicitamente demonstrativo. Relatório e capturas: `docs/virtual-studio/camera-gallery/`.

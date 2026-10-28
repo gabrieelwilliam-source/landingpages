@@ -1,8 +1,8 @@
 "use client";
 import { useEffect } from "react";
-import Link from "next/link";
+import ProjectGallery from "./ProjectGallery";
 import ContactForm from "./ContactForm";
-import { chapters, services, projects, spatialExhibits, automationConcepts } from "@/data/site";
+import { chapters, services, spatialExhibits, automationConcepts } from "@/data/site";
 export default function ClassicPortfolio({
   onExplore,
   onSection,
@@ -103,20 +103,7 @@ export default function ClassicPortfolio({
                   ))}
                 </div>
               )}
-              {c.id === "projetos" && (
-                <div className="cards">
-                  {projects.map((p) => (
-                    <article className="mini-card" key={p.slug}>
-                      <small>{p.category}</small>
-                      <h3>{p.title}</h3>
-                      <p>{p.description}</p>
-                      <Link className="case-link" href={`/projetos/${p.slug}`}>
-                        Ver conceito →
-                      </Link>
-                    </article>
-                  ))}
-                </div>
-              )}
+              {c.id === "projetos" && <ProjectGallery />}
               {c.id === "processo" && (
                 <div className="steps">
                   {[

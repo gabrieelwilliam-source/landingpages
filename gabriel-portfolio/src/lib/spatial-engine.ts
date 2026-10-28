@@ -3,6 +3,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { cameraInput, safeCamera } from "./office-camera.mjs";
 import { furnitureGeometry } from "./office-rendering.mjs";
 import { journeyFrame } from "./JourneyController.mjs";
 import {
@@ -37,6 +38,9 @@ export type SpatialSnapshot = {
   drawCalls: number;
   triangles: number;
   cameraZ: number;
+  cameraX: number;
+  cameraYaw: number;
+  cameraPitch: number;
 };
 export type SpatialOptions = {
   initialDistance: number;
@@ -272,7 +276,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                 screen.position.set(
                   x,
                   1.31,
-                  -(destinations[2] + [-5, 1, 7][i]) + 0.19,
+                  -(destinations[2] + [-5, 1, 7][i]) - 0.16,
                 );
                 screen.position.z += destinations[index];
               g.scene.add(screen);
@@ -330,7 +334,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
             const texture = new T.CanvasTexture(board); texture.colorSpace = T.SRGBColorSpace;
             resources.push(texture);
             const monitor = new T.Mesh(new T.PlaneGeometry(1.3,.7),new T.MeshBasicMaterial({map:texture}));
-            monitor.position.set(i<2 ? -4.8 : 4.8,1.31,-(destinations[4]+(i%2 ? 5 : -3))+.19);
+            monitor.position.set(i<2 ? -4.8 : 4.8,1.31,-(destinations[4]+(i%2 ? 5 : -3))-.16);
             monitor.position.z += destinations[index];
               g.scene.add(monitor);
           });
@@ -348,7 +352,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                   side: T.DoubleSide,
                 }),
               );
-              badge.position.set(index === 0 ? -5.5 : -6, index === 0 ? 2.9 : 2.1, -(destinations[index] + (index === 0 ? 5.75 : 8.88)));
+              badge.position.set(index === 0 ? -5.5 : -6, index === 0 ? 2.9 : 2.1, -(destinations[index] + (index === 0 ? 5.75 : 8.86)));
               badge.position.z += destinations[index];
               g.scene.add(badge);
               assetDirty = true;
@@ -422,6 +426,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     scrollTarget = state.distance,
     guidedActive = false;
   let anchor = { x: state.x, d: state.distance };
+  let cameraYaw = 0, cameraPitch = 0;
   const input = { x: 0, forward: 0 };
   const look = new T.Vector3(),
     desired = new T.Vector3(),
@@ -514,7 +519,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
           guidedActive = false;
       } else {
         for (let time = elapsed; time > 0; time -= 0.04)
-          state = advance(state, input, Math.min(time, 0.04));
+          state = advance(state, cameraInput(input, cameraYaw), Math.min(time, 0.04));
       }
     }
     const area = areaAt(state.distance);
@@ -522,9 +527,11 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     if (state.distance > destinations[Math.min(5, area + 1)] - 24)
       loadRoom(Math.min(5, area + 1));
     roomNodes.forEach((node, i) => {
-      node.visible =
-        destinations[i] - state.distance > -18 &&
-        destinations[i] - state.distance < (softwareRenderer ? 34 : 70);
+      const range = softwareRenderer ? 34 : 70;
+      const front = navigationMode === "walk" ? Math.cos(cameraYaw) : 1;
+      const ahead = navigationMode === "walk" ? 18.5+(range-18.5)*Math.max(0,front) : range;
+      const behind = navigationMode === "walk" ? 18.5+(range-18.5)*Math.max(0,-front) : 18;
+      node.visible = destinations[i]-state.distance > -behind && destinations[i]-state.distance < ahead;
     });
     const scrollMode = navigationMode === "scroll";
     world.position.z = journeyFrame(
@@ -562,21 +569,29 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       avatar.rotation.y += diff * (reduced ? 1 : 1 - Math.exp(-9 * elapsed));
     }
     const shortView = host.clientHeight < 600;
+    const focusX = scrollMode ? anchor.x : state.x;
+    const focusD = scrollMode ? anchor.d : state.distance;
+    const yaw = scrollMode ? 0 : cameraYaw;
+    const offsetX = host.clientWidth < 700 ? -1.3 : -1.2;
+    const offsetZ = shortView ? 7.5 : host.clientWidth < 700 ? 6.5 : 5.4;
     desired.set(
-      (scrollMode ? anchor.x : state.x) * 0.6 +
-        (host.clientWidth < 700 ? -1.3 : -1.2),
-      shortView ? 2.7 : 2.4,
-      -(scrollMode ? anchor.d : state.distance) +
-        (shortView ? 7.5 : host.clientWidth < 700 ? 6.5 : 5.4),
+      focusX*.6 + offsetX*Math.cos(yaw) + offsetZ*Math.sin(yaw),
+      (shortView ? 2.7 : 2.4) + (scrollMode ? 0 : cameraPitch*3),
+      -focusD + offsetZ*Math.cos(yaw) - offsetX*Math.sin(yaw),
     );
+    const cameraFocus = {x: focusX, y: 1.35, d: focusD};
+    if (!scrollMode) {
+      const safe = safeCamera(cameraFocus, {x: desired.x, y: desired.y, d: -desired.z}, office);
+      desired.set(safe.x, safe.y, -safe.d);
+    }
     const cameraMoving = camera.position.distanceToSquared(desired) > 0.00005;
     if (!paused && !hidden) {
       camera.position.lerp(desired, reduced ? 1 : 1 - Math.exp(-5.4 * elapsed));
-      look.set(
-        (scrollMode ? anchor.x : state.x) * 0.5,
-        shortView ? 1.1 : 1.5,
-        -(scrollMode ? anchor.d : state.distance) - 8,
-      );
+      if (!scrollMode) {
+        const safe = safeCamera(cameraFocus, {x: camera.position.x, y: camera.position.y, d: -camera.position.z}, office);
+        camera.position.set(safe.x, safe.y, -safe.d);
+      }
+      look.set(focusX*.5 - 8*Math.sin(yaw), shortView ? 1.1 : 1.5, -focusD - 8*Math.cos(yaw));
       sun.position.set(20, 8, (scrollMode ? -anchor.d : -state.distance) - 4);
       ceilingLights.forEach((lamp, i) => {
         lamp.position.z = -destinations[area] + world.position.z - (i ? 3 : -3);
@@ -657,6 +672,9 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         drawCalls: renderer.info.render.calls,
         triangles: renderer.info.render.triangles,
         cameraZ: camera.position.z,
+        cameraX: camera.position.x,
+        cameraYaw,
+        cameraPitch,
       });
     }
     if (first) first = false;
@@ -670,7 +688,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   return {
     setNavigationMode(mode: NavigationMode) {
       if (mode === navigationMode) return;
-      if (mode === "scroll") anchor = { x: state.x, d: state.distance };
+      if (mode === "scroll") { anchor = { x: state.x, d: state.distance }; cameraYaw = 0; cameraPitch = 0; }
       else {
         camera.position.z -= world.position.z;
         world.position.z = 0;
@@ -737,10 +755,23 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       assetDirty = true;
       pendingPublish = true;
     },
+    orbitCamera(dx: number, dy: number) {
+      if (navigationMode !== "walk" || paused || document.hidden || !Number.isFinite(dx) || !Number.isFinite(dy)) return;
+      cameraYaw = Math.atan2(Math.sin(cameraYaw-dx*.005), Math.cos(cameraYaw-dx*.005));
+      cameraPitch = Math.max(-.15, Math.min(.7, cameraPitch+dy*.004));
+      assetDirty = true;
+      pendingPublish = true;
+    },
+    resetCamera() {
+      if (paused || document.hidden) return;
+      cameraYaw = 0; cameraPitch = 0;
+      assetDirty = true; pendingPublish = true;
+    },
     setReduced(value: boolean) {
       reduced = value;
     },
     goTo(index: number) {
+      cameraYaw = 0; cameraPitch = 0;
       guidedActive = false;
       scrollTarget = state.distance;
       loadRoom(index);

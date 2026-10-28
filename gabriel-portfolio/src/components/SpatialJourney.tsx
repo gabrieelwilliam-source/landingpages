@@ -4,6 +4,7 @@ import Link from "next/link";
 import { environments, spatialExhibits, services, projects, automationConcepts } from "@/data/site";
 import NavigationModes from "./ui/NavigationModes";
 import ContactForm from "./ContactForm";
+import ProjectGallery from "./ProjectGallery";
 import {
   normalizeWheel,
   areaAt,
@@ -32,6 +33,7 @@ export default function SpatialJourney({
 }) {
   const shell = useRef<HTMLElement>(null);
   const drag = useRef<{ id: number; y: number } | null>(null);
+  const orbitDrag = useRef<{id: number; x: number; y: number} | null>(null);
   const navigationRef = useRef(navigationMode);
   navigationRef.current = navigationMode;
   const host = useRef<HTMLDivElement>(null),
@@ -55,6 +57,9 @@ export default function SpatialJourney({
     drawCalls: 0,
     triangles: 0,
     cameraZ: 0,
+    cameraX: 0,
+    cameraYaw: 0,
+    cameraPitch: 0,
   });
   const [ready, setReady] = useState(false),
     [error, setError] = useState(""),
@@ -78,6 +83,7 @@ export default function SpatialJourney({
     active = spatialExhibits.find((e) => e.id === exhibit);
   const clearInput = useCallback(() => {
     keys.current.clear();
+    orbitDrag.current = null;
     engine.current?.setInput(0, 0);
   }, []);
   useEffect(() => {
@@ -264,6 +270,11 @@ export default function SpatialJourney({
       } else keys.current.delete(key);
       sendInput();
     }
+    if (navigationMode === "walk" && down && ["i","j","k","l","r"].includes(key)) {
+      e.preventDefault();
+      if (key === "r") engine.current?.resetCamera();
+      else engine.current?.orbitCamera(key === "j" ? -45 : key === "l" ? 45 : 0, key === "i" ? -35 : key === "k" ? 35 : 0);
+    }
     if (down && !e.repeat && (key === "p" || key === "escape")) {
       e.preventDefault();
       setPaused((v) => !v);
@@ -387,6 +398,11 @@ export default function SpatialJourney({
             e.target instanceof HTMLCanvasElement
           ) {
             stage.current?.focus();
+            if (navigationMode === "walk" && ready && !paused && e.isPrimary && e.button === 0) {
+              e.preventDefault();
+              orbitDrag.current = {id: e.pointerId, x: e.clientX, y: e.clientY};
+              e.currentTarget.setPointerCapture(e.pointerId);
+            }
             if (
               navigationMode === "scroll" &&
               e.pointerType === "touch" &&
@@ -400,6 +416,13 @@ export default function SpatialJourney({
           }
         }}
         onPointerMove={(e) => {
+          const orbit = orbitDrag.current;
+          if (orbit && e.pointerId === orbit.id && navigationMode === "walk" && !paused) {
+            e.preventDefault();
+            engine.current?.orbitCamera(e.clientX-orbit.x, e.clientY-orbit.y);
+            orbit.x = e.clientX; orbit.y = e.clientY;
+            return;
+          }
           if (
             !drag.current ||
             e.pointerId !== drag.current.id ||
@@ -413,13 +436,16 @@ export default function SpatialJourney({
           setStarted(true);
         }}
         onPointerUp={() => {
+          orbitDrag.current = null;
           drag.current = null;
         }}
         onPointerCancel={() => {
+          orbitDrag.current = null;
           drag.current = null;
           engine.current?.cancelScroll();
         }}
         onLostPointerCapture={() => {
+          orbitDrag.current = null;
           drag.current = null;
         }}
         data-rig-bones={snapshot.rigBones}
@@ -433,6 +459,9 @@ export default function SpatialJourney({
         data-paused={snapshot.paused}
         data-x={snapshot.x.toFixed(3)}
         data-camera-z={snapshot.cameraZ.toFixed(3)}
+        data-camera-x={snapshot.cameraX.toFixed(3)}
+        data-camera-yaw={snapshot.cameraYaw.toFixed(3)}
+        data-camera-pitch={snapshot.cameraPitch.toFixed(3)}
         data-area={current.id}
         data-loaded={snapshot.loaded.filter(Boolean).length}
         data-draw-calls={snapshot.drawCalls}
@@ -480,6 +509,7 @@ export default function SpatialJourney({
               {spatialExhibits.find((e) => e.area === snapshot.area)!.label}{" "}
               <span aria-hidden="true">→</span>
             </button>
+            {snapshot.area === 3 && <button className="spatial-text-link" disabled={!ready} onClick={() => openExhibit("galeria")}>Filtrar projetos →</button>}
             {snapshot.area === 0 && (
               <div className="portal-actions" data-spatial-blocker>
                 <button className="primary" onClick={() => goTo(1)}>
@@ -560,7 +590,7 @@ export default function SpatialJourney({
                 {navigationMode === "walk" ? (
                   <>
                     {!started ? "Foque o cenário para começar. " : ""}
-                    <strong>WASD / setas</strong> para caminhar
+                    <strong>WASD / setas</strong> para caminhar · arraste para olhar · I/J/K/L para câmera · R recentra
                   </>
                 ) : (
                   <>
@@ -640,6 +670,7 @@ export default function SpatialJourney({
               </div>
             </div>
           </section>
+          {navigationMode === "walk" && <button className="spatial-button camera-reset" data-spatial-blocker disabled={!ready || paused} onClick={() => engine.current?.resetCamera()}>Recentrar câmera</button>}
           {navigationMode === "walk" ? (
             <div
               className="spatial-touch"
@@ -752,6 +783,7 @@ export default function SpatialJourney({
           <h2 id="exhibit-title">{active.title}</h2>
           <p>{active.body}</p>
           {active.id === "contato" && <ContactForm />}
+          {active.id === "galeria" && <ProjectGallery />}
           {active.id === "servicos" && (
             <div className="exhibit-services">
               {services.map((s) => (

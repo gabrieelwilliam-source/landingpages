@@ -210,8 +210,8 @@ for index in range(6):
   cube('Meeting screen',(-4.5,8.85,2.4),(3.5,.03,2),screen,.025)
  # Export the same furniture footprints used by the movement engine.
  for o in bpy.context.scene.objects:
-  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical')):
-   colliders.append({'name':o.name,'x':round(o.location.x,3),'d':round(d+o.location.y,3),'w':round(max(.3,o.dimensions.x/2)+.28,3),'h':round(max(.3,o.dimensions.y/2)+.28,3)})
+  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand stone feature','Meeting screen stone surround')):
+   colliders.append({'name':o.name,'x':round(o.location.x,3),'d':round(d+o.location.y,3),'w':round(max(.3,o.dimensions.x/2)+.28,3),'h':round(max(.3,o.dimensions.y/2)+.28,3),'top':round(o.location.z+o.dimensions.z/2,3)})
  if index==5:
   cube('End facade glazing',(0,hi,2.85),(16.5,.025,5.45),glass,0)
   for x in range(-8,9,2):cube('End facade mullion',(x,hi-.03,2.85),(.055,.10,5.5),brass,.008,1)

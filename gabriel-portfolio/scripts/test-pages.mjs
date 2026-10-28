@@ -99,6 +99,11 @@ try {
       "data-navigation",
       "walk",
     );
+    await page.locator(".world-stage").focus();
+    await page.keyboard.press("j");
+    await expect(page.locator(".world-stage")).not.toHaveAttribute("data-camera-yaw", "0.000");
+    await page.keyboard.press("r");
+    await expect(page.locator(".world-stage")).toHaveAttribute("data-camera-yaw", "0.000");
     await page.getByRole("button", { name: "03 Atelier digital" }).click();
     await expect(page.locator(".world-stage")).toHaveAttribute(
       "data-area",
@@ -139,6 +144,10 @@ try {
     await page.screenshot({ path: `test-results/pages-contact-${width}.png` });
     await page.keyboard.press("Escape");
     await page.getByRole("button", { name: "Modo clássico" }).click();
+    await page.locator("#projetos").getByRole("button", {name:"Portfólios",exact:true}).click();
+    await expect(page.locator("#projetos .project-card")).toHaveCount(1);
+    await expect(page.locator("#projetos .project-card h3")).toHaveText("Portfólio editorial");
+    await page.locator("#projetos").getByRole("button", {name:"Todos",exact:true}).click();
     await page
       .locator("#projetos")
       .getByRole("link", { name: "Ver conceito" })
