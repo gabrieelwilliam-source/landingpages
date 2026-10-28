@@ -46,3 +46,6 @@ O fallback agrupa mobiliário estático e limita a distância de desenho. Em sof
 - 12 testes E2E passaram na rodada final, com seis setores, três perfis gráficos, contato, acessibilidade, navegação, toque, fallback WebGL e leitura sem JavaScript.
 - Medição: Chromium 154 / SwiftShader, 1000×760, 3.061 s, 5.88 FPS médios, p95 283.4 ms, 38 draw calls e 80263 triângulos. A amostra anterior ao ajuste teve ~3,3 FPS e ~100 draw calls. O fallback continua lento nesta máquina e não comprova fluidez em dispositivo real; modo clássico disponível. PBR em GPU não foi medido.
 - Avatar e logo oficial mantêm os hashes originais. Modelos otimizados somam 1.767.544 bytes, incluindo avatar; ver manifesto.
+
+## Exportação
+`npm run build:pages` passou. `CHROMIUM_PATH=/usr/bin/chromium npm run test:pages` passou em 360, 768 e 1440 px: assets GLB e logo, rotas, dois modos de navegação, contato compartilhado e favicon, sem erros HTTP/JavaScript. A publicação no mesmo Pages de testes foi autorizada pelo usuário. O backup do destino anterior é `/workspace/artifacts/gabriel-before-office-publish-20261027.tar.gz`. Acesso de confirmação ao domínio público retornou 403 pelo proxy; push e deploy devem ser informados separadamente.
