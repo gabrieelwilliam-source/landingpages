@@ -161,7 +161,7 @@ export const environments = [
     name: "Portal",
     label: "Abertura",
     number: "01",
-    title: "Sites e experiências digitais.",
+    title: "Ideias bem construídas.",
     description:
       "Sites, landing pages e experiências web pensadas para comunicar melhor e funcionar de verdade.",
     accent: "#a88a55",
@@ -224,7 +224,7 @@ export const spatialExhibits = [
     label: "Conhecer a proposta",
     title: "Gabriel — Web & Digital",
     body: environments[0].description,
-    position: [-3.7, 2.2, 8],
+    position: [-4.9, 1.4, 3],
   },
   {
     id: "perfil",
@@ -232,7 +232,7 @@ export const spatialExhibits = [
     label: "Conhecer Gabriel",
     title: "Código com intenção.",
     body: environments[1].description,
-    position: [-3.7, 2.2, 25],
+    position: [-4.8, 1.4, 14],
   },
   {
     id: "abordagem",
@@ -240,7 +240,7 @@ export const spatialExhibits = [
     label: "Uma forma de criar",
     title: "Clareza antes do efeito.",
     body: "Conteúdo bem organizado, interfaces legíveis e movimento com propósito.",
-    position: [3.7, 2.2, 29],
+    position: [4.8, 1.4, 14],
   },
   {
     id: "servicos",
@@ -248,7 +248,7 @@ export const spatialExhibits = [
     label: "Explorar serviços",
     title: "Do conceito à interface.",
     body: environments[2].description,
-    position: [-4.5, 1.2, 50],
+    position: [-4.5, 1.2, 27],
   },
   ...projects.map((p, i) => ({
     id: p.slug,
@@ -257,7 +257,7 @@ export const spatialExhibits = [
     title: p.title,
     body:
       p.description + " Projeto conceitual; não representa um cliente real.",
-    position: [i % 2 ? 5 : -5, 2.2, 77 + i * 5],
+    position: [i % 2 ? 5 : -5, 2.2, 39 + i * 5],
   })),
   {
     id: "processo",
@@ -265,7 +265,7 @@ export const spatialExhibits = [
     label: "Conhecer o processo",
     title: "Da escuta à entrega.",
     body: environments[4].description,
-    position: [-3.7, 2.2, 113],
+    position: [-4.8, 1.4, 63],
   },
   {
     id: "contato",
@@ -273,6 +273,13 @@ export const spatialExhibits = [
     label: "Preparar um projeto",
     title: environments[5].title,
     body: environments[5].description,
-    position: [3.7, 2.2, 146],
+    position: [4.7, 1.4, 83],
   },
+];
+
+export const automationConcepts = [
+  { title: "Clínica", steps: ["Solicitação", "Agenda", "Confirmação"] },
+  { title: "Imobiliária", steps: ["Interesse", "Preferências", "Visita"] },
+  { title: "Salão", steps: ["Serviço", "Horário", "Lembrete"] },
+  { title: "Marketing", steps: ["Briefing", "Conteúdo", "Revisão"] },
 ];

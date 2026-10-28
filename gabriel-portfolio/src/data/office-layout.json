@@ -1,0 +1,373 @@
+{
+  "halfWidth": 7.65,
+  "length": 90,
+  "centres": [
+    0,
+    12,
+    26,
+    44,
+    62,
+    80
+  ],
+  "boundaries": [
+    -7,
+    7,
+    19,
+    36,
+    54,
+    72,
+    92
+  ],
+  "colliders": [
+    {
+      "name": "Reception stone counter",
+      "x": -4.9,
+      "d": 3.0,
+      "w": 2.18,
+      "h": 0.93
+    },
+    {
+      "name": "Lounge plinth",
+      "x": 5.2,
+      "d": 4.0,
+      "w": 1.63,
+      "h": 0.79
+    },
+    {
+      "name": "Stone planter",
+      "x": 6.9,
+      "d": 7.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Stone planter.001",
+      "x": -6.7,
+      "d": -1.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Lounge plinth",
+      "x": -5.0,
+      "d": 14.0,
+      "w": 1.63,
+      "h": 0.79
+    },
+    {
+      "name": "Lounge plinth.001",
+      "x": 5.0,
+      "d": 9.0,
+      "w": 1.63,
+      "h": 0.79
+    },
+    {
+      "name": "Stone planter",
+      "x": -6.9,
+      "d": 20.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Stone planter.001",
+      "x": 6.7,
+      "d": 17.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Library shelving",
+      "x": -6.7,
+      "d": 7.0,
+      "w": 1.23,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk",
+      "x": -4.5,
+      "d": 21.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift",
+      "x": -4.5,
+      "d": 19.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.001",
+      "x": 4.5,
+      "d": 21.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.001",
+      "x": 4.5,
+      "d": 19.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.002",
+      "x": -4.5,
+      "d": 27.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.002",
+      "x": -4.5,
+      "d": 25.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.003",
+      "x": 4.5,
+      "d": 27.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.003",
+      "x": 4.5,
+      "d": 25.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.004",
+      "x": -4.5,
+      "d": 33.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.004",
+      "x": -4.5,
+      "d": 31.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.005",
+      "x": 4.5,
+      "d": 33.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.005",
+      "x": 4.5,
+      "d": 31.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Stone planter",
+      "x": -6.9,
+      "d": 36.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Stone planter.001",
+      "x": 6.9,
+      "d": 18.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Gallery freestanding stone display",
+      "x": -5.0,
+      "d": 39.0,
+      "w": 2.18,
+      "h": 0.58
+    },
+    {
+      "name": "Gallery freestanding stone display.001",
+      "x": 5.0,
+      "d": 44.0,
+      "w": 2.18,
+      "h": 0.58
+    },
+    {
+      "name": "Gallery freestanding stone display.002",
+      "x": -5.0,
+      "d": 49.0,
+      "w": 2.18,
+      "h": 0.58
+    },
+    {
+      "name": "Lounge plinth",
+      "x": 5.0,
+      "d": 52.0,
+      "w": 1.63,
+      "h": 0.79
+    },
+    {
+      "name": "Stone planter",
+      "x": -6.8,
+      "d": 36.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Stone planter.001",
+      "x": 6.9,
+      "d": 55.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Solid walnut desk",
+      "x": -4.8,
+      "d": 59.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift",
+      "x": -4.8,
+      "d": 57.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.001",
+      "x": -4.8,
+      "d": 67.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.001",
+      "x": -4.8,
+      "d": 65.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.002",
+      "x": 4.8,
+      "d": 59.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.002",
+      "x": 4.8,
+      "d": 57.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Solid walnut desk.003",
+      "x": 4.8,
+      "d": 67.0,
+      "w": 1.58,
+      "h": 0.905
+    },
+    {
+      "name": "Chair gas lift.003",
+      "x": 4.8,
+      "d": 65.97,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Lab vertical presentation panel",
+      "x": -6.0,
+      "d": 71.0,
+      "w": 0.955,
+      "h": 0.58
+    },
+    {
+      "name": "Lab vertical presentation panel.001",
+      "x": 6.0,
+      "d": 71.0,
+      "w": 0.955,
+      "h": 0.58
+    },
+    {
+      "name": "Stone planter",
+      "x": 6.9,
+      "d": 54.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Meeting table",
+      "x": 4.7,
+      "d": 83.0,
+      "w": 1.88,
+      "h": 2.63
+    },
+    {
+      "name": "Chair gas lift",
+      "x": 2.45,
+      "d": 81.4,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Chair gas lift.001",
+      "x": 6.95,
+      "d": 81.4,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Chair gas lift.002",
+      "x": 2.45,
+      "d": 83.0,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Chair gas lift.003",
+      "x": 6.95,
+      "d": 83.0,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Chair gas lift.004",
+      "x": 2.45,
+      "d": 84.6,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Chair gas lift.005",
+      "x": 6.95,
+      "d": 84.6,
+      "w": 0.58,
+      "h": 0.58
+    },
+    {
+      "name": "Lounge plinth",
+      "x": -5.1,
+      "d": 85.0,
+      "w": 1.63,
+      "h": 0.79
+    },
+    {
+      "name": "Stone planter",
+      "x": -6.8,
+      "d": 88.0,
+      "w": 0.68,
+      "h": 0.68
+    },
+    {
+      "name": "Stone planter.001",
+      "x": 6.9,
+      "d": 76.0,
+      "w": 0.68,
+      "h": 0.68
+    }
+  ]
+}

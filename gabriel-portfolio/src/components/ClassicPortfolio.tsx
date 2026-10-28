@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import ContactForm from "./ContactForm";
-import { chapters, services, projects, spatialExhibits } from "@/data/site";
+import { chapters, services, projects, spatialExhibits, automationConcepts } from "@/data/site";
 export default function ClassicPortfolio({
   onExplore,
   onSection,
@@ -133,12 +133,17 @@ export default function ClassicPortfolio({
                 </div>
               )}
               {c.id === "zaion" && (
+                <div>
                 <img
                   className="brand-mark"
                   loading="lazy"
                   src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/brand/zaion-original.png`}
                   alt="zAIon Automações — logo original"
                 />
+                <h3>Automações em demonstração</h3>
+                <p>Diagramas ilustrativos locais. Sem integração, envio ou operação real comprovada.</p>
+                {automationConcepts.map(concept => <article className="mini-card" key={concept.title}><h4>{concept.title}</h4><p>{concept.steps.join(" → ")}</p></article>)}
+                </div>
               )}
               {c.id === "contato" && <ContactForm />}
             </div>

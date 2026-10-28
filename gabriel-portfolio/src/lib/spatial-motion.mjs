@@ -1,15 +1,16 @@
-export const JOURNEY_END = 158;
-export const destinations = [0, 24, 49, 82, 112, 145];
+import office from "../data/office-layout.json" with { type: "json" };
+export const JOURNEY_END = 90;
+export const destinations = [0, 12, 26, 44, 62, 80];
 export function areaAt(distance) {
-  return distance < 12
+  return distance < 7
     ? 0
-    : distance < 37
+    : distance < 19
       ? 1
-      : distance < 70
+      : distance < 36
         ? 2
-        : distance < 100
+        : distance < 54
           ? 3
-          : distance < 130
+          : distance < 72
             ? 4
             : 5;
 }
@@ -21,38 +22,14 @@ export function advance(state, input, elapsed, speed = 2) {
   const vx = state.vx + (input.x * scale * speed - state.vx) * blend;
   const vz = state.vz + (input.forward * scale * speed - state.vz) * blend;
   let distance = Math.max(0, Math.min(JOURNEY_END, state.distance + vz * dt));
-  const width = destinations.some((d) => Math.abs(distance - d) <= 10.3)
-    ? 5.6
-    : 2.1;
-  let x = Math.max(-width, Math.min(width, state.x + vx * dt));
-  const priorWidth = destinations.some(
-    (d) => Math.abs(state.distance - d) <= 10.3,
-  )
-    ? 5.6
-    : 2.1;
-  if (width < priorWidth && Math.abs(state.x) > width) {
-    distance = state.distance;
-    x = Math.max(-priorWidth, Math.min(priorWidth, state.x + vx * dt));
-  }
-  const boxes = [
-    ...destinations.flatMap((d) => [
-      { x: -5, d: d - 6, w: 1.6, h: 1 },
-      { x: 5, d: d + 6, w: 1.6, h: 1 },
-    ]),
-    ...[-5, 1, 7].flatMap((y) =>
-      [-4.5, 4.5].map((x) => ({ x, d: 49 + y, w: 1.6, h: 0.95 })),
-    ),
-    ...[77, 82, 87].map((d, i) => ({ x: i % 2 ? 5 : -5, d, w: 2.2, h: 0.5 })),
-  ];
-  const hit = boxes.some(
-    (b) => Math.abs(x - b.x) < b.w && Math.abs(distance - b.d) < b.h,
-  );
-  return {
-    x: hit ? state.x : x,
-    distance: hit ? state.distance : distance,
-    vx: hit ? 0 : vx,
-    vz: hit ? 0 : vz,
-  };
+  // The continuous facade has no invisible narrow-causeway barriers.
+  const x = Math.max(-office.halfWidth, Math.min(office.halfWidth, state.x + vx * dt));
+  const boxes = office.colliders;
+  const hit = (px, pd) => boxes.some(b => Math.abs(px-b.x)<b.w && Math.abs(pd-b.d)<b.h);
+  const nextX = hit(x, state.distance) ? state.x : x;
+  const nextD = hit(nextX, distance) ? state.distance : distance;
+  return { x: nextX, distance: nextD, vx: nextX === state.x ? 0 : vx, vz: nextD === state.distance ? 0 : vz };
+
 }
 export function easeJourney(t) {
   const n = Math.max(0, Math.min(1, t));

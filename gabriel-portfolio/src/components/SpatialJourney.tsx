@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { environments, spatialExhibits, services, projects } from "@/data/site";
+import { environments, spatialExhibits, services, projects, automationConcepts } from "@/data/site";
 import NavigationModes from "./ui/NavigationModes";
 import ContactForm from "./ContactForm";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/lib/spatial-motion.mjs";
 import type {
   NavigationMode,
+  GraphicQuality,
   SpatialEngine,
   SpatialSnapshot,
 } from "@/lib/spatial-engine";
@@ -60,6 +61,7 @@ export default function SpatialJourney({
     [paused, setPaused] = useState(false),
     [reduced, setReduced] = useState(false),
     [started, setStarted] = useState(false);
+  const [quality, setQuality] = useState<GraphicQuality>("auto");
   const [exhibit, setExhibit] = useState<string | null>(null);
   const dialog = useRef<HTMLDialogElement>(null),
     returnFocus = useRef<HTMLElement | null>(null),
@@ -426,6 +428,7 @@ export default function SpatialJourney({
         data-world-z={snapshot.worldZ.toFixed(3)}
         data-progress={snapshot.progress.toFixed(5)}
         data-navigation={snapshot.navigationMode}
+        data-quality={quality}
         data-distance={snapshot.distance.toFixed(3)}
         data-paused={snapshot.paused}
         data-x={snapshot.x.toFixed(3)}
@@ -567,6 +570,17 @@ export default function SpatialJourney({
                 )}{" "}
                 · P ou Esc para pausar
               </p>
+              <label className="graphic-quality">
+                <span>Gráficos</span>
+                <select aria-label="Gráficos" value={quality} disabled={!ready} onChange={e => {
+                  const next = e.target.value as GraphicQuality;
+                  setQuality(next); engine.current?.setQuality(next);
+                }}>
+                  <option value="auto">Automático</option>
+                  <option value="low">Leve</option>
+                  <option value="high">Alto</option>
+                </select>
+              </label>
               <label className="motion-toggle">
                 <input
                   type="checkbox"
@@ -617,9 +631,9 @@ export default function SpatialJourney({
                 <small>
                   {snapshot.transitioning
                     ? "Em travessia"
-                    : snapshot.distance > 155
+                    : snapshot.distance > JOURNEY_END - 3
                       ? "Você chegou · reinicie ou visite a galeria"
-                      : snapshot.distance > 22 && snapshot.distance < 37
+                      : snapshot.transitioning
                         ? "Passagem entre ambientes"
                         : "Seis momentos. Uma jornada."}
                 </small>
@@ -766,6 +780,11 @@ export default function SpatialJourney({
               <dd>Next.js, TypeScript, CSS autoral</dd>
             </dl>
           )}
+          {active.id === "processo" && <section aria-label="Fluxos conceituais locais">
+            <h3>Automações em demonstração</h3>
+            <p>Diagramas ilustrativos locais. Sem integração, envio ou operação real comprovada.</p>
+            {automationConcepts.map(concept => <article key={concept.title}><h4>{concept.title}</h4><p>{concept.steps.join(" → ")}</p></article>)}
+          </section>}
           {active.id === "processo" && (
             <ol>
               {[

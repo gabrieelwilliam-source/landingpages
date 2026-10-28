@@ -2529,3 +2529,11 @@ footer strong {
     padding: 8px;
   }
 }
+
+/* Office review: compact controls, the architecture remains the primary image. */
+.graphic-quality { display:flex; align-items:center; gap:7px; color:#f0e8da; font-size:10px; }
+.graphic-quality select { color:#f0e8da; background:#101c25; border:1px solid #8d795b; border-radius:16px; padding:7px 8px; font:inherit; min-height:32px; }
+.graphic-quality select:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
+@media(min-width:1000px) { .spatial-shell:before { background:linear-gradient(90deg,#061019ed 0%,#061019a0 18%,transparent 38%),linear-gradient(0deg,#06101995,transparent 19%); } }
+@media(max-width:699px) { .graphic-quality { position:fixed; right:18px; top:150px; } .graphic-quality span { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); } .graphic-quality select { font-size:10px; padding:4px 8px; min-height:30px; } }
+@media(max-height:600px) { .graphic-quality { position:fixed; right:24px; top:90px; } .graphic-quality span { display:none; } .graphic-quality select { padding:4px 8px; } }

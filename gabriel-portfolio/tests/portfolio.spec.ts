@@ -217,6 +217,11 @@ test("record measured animation performance during active scene scrolling", asyn
       averageFps: (frames.length / (last - start)) * 1000,
       p95FrameMs: sorted[Math.floor(sorted.length * 0.95)],
       userAgent: navigator.userAgent,
+      renderer: (() => {
+        const gl = document.querySelector("canvas")?.getContext("webgl2");
+        const info = gl?.getExtension("WEBGL_debug_renderer_info");
+        return gl && info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "unknown";
+      })(),
       jsHeapBytes: (performance as any).memory?.usedJSHeapSize ?? null,
       encodedResourceBytes: performance
         .getEntriesByType("resource")
@@ -239,6 +244,8 @@ test("record measured animation performance during active scene scrolling", asyn
     ),
   );
   expect(sample.frames).toBeGreaterThan(0);
+  if (/swiftshader|llvmpipe|software/i.test(sample.renderer))
+    expect(Number(sample.drawCalls)).toBeLessThanOrEqual(55);
 });
 
 test("portrait dialogs scroll independently and landscape keeps controls and original logo usable", async ({

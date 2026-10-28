@@ -12,7 +12,7 @@
     "build:pages": "GITHUB_PAGES=true NEXT_PUBLIC_BASE_PATH=/landingpages/gabriel next build",
     "test:pages": "node scripts/test-pages.mjs",
     "lint": "eslint src tests scripts",
-    "assets:build": "blender -b --python tools/build_assets.py && node tools/optimize-assets.mjs"
+    "assets:build": "blender -b --python tools/build_office.py && OFFICE_ONLY=true node tools/optimize-assets.mjs && node tools/verify-assets.mjs"
   },
   "dependencies": {
     "next": "^15.5.0",

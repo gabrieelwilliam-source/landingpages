@@ -1,7 +1,9 @@
 import * as T from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { furnitureGeometry } from "./office-rendering.mjs";
 import { journeyFrame } from "./JourneyController.mjs";
 import {
   advance,
@@ -12,8 +14,10 @@ import {
   easeJourney,
   JOURNEY_END,
 } from "./spatial-motion.mjs";
-import { spatialExhibits } from "@/data/site";
+import { automationConcepts, spatialExhibits } from "@/data/site";
+import office from "@/data/office-layout.json";
 export type NavigationMode = "walk" | "scroll";
+export type GraphicQuality = "auto" | "low" | "high";
 
 export type SpatialSnapshot = {
   rigBones: number;
@@ -46,7 +50,7 @@ export type SpatialOptions = {
 
 export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   const scene = new T.Scene();
-  scene.fog = new T.Fog("#77634f", 55, 200);
+  scene.fog = new T.Fog("#3b4247", 42, 125);
   const sky = document.createElement("canvas");
   sky.width = 16;
   sky.height = 512;
@@ -75,33 +79,42 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     ? String(gl.getParameter(debug.UNMASKED_RENDERER_WEBGL))
     : "";
   const softwareRenderer = /swiftshader|llvmpipe|software/i.test(gpu);
-  if (softwareRenderer) renderer.setPixelRatio(0.85);
+  if (softwareRenderer) {
+    renderer.setPixelRatio(0.7);
+    scene.fog = new T.Fog("#283038", 20, 46);
+  }
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
+  renderer.toneMappingExposure = 0.95;
   renderer.shadowMap.enabled = host.clientWidth > 700 && !softwareRenderer;
-  renderer.shadowMap.type = T.PCFSoftShadowMap;
+  renderer.shadowMap.type = softwareRenderer ? T.BasicShadowMap : T.PCFSoftShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
-  const camera = new T.PerspectiveCamera(52, 1, 0.1, 300);
-  scene.add(new T.HemisphereLight("#c7d4ed", "#3c2f29", 1.4));
-  const sun = new T.DirectionalLight("#ffd09b", 3.2);
+  const camera = new T.PerspectiveCamera(50, 1, 0.1, 160);
+  scene.add(new T.HemisphereLight("#cfdaeb", "#66513e", 1.0));
+  const sun = new T.DirectionalLight("#ffd3a0", 2.4);
   sun.position.set(-18, 9, -32);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(1024, 1024);
+  sun.shadow.mapSize.set(softwareRenderer ? 512 : 1024, softwareRenderer ? 512 : 1024);
   sun.shadow.camera.left = -15;
   sun.shadow.camera.right = 15;
   sun.shadow.camera.top = 18;
   sun.shadow.camera.bottom = -18;
   sun.shadow.bias = -0.0005;
   scene.add(sun, sun.target);
+  const ceilingLights = [-4, 4].map(x => {
+    const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 24 : 32, 20, 2);
+    lamp.position.set(x, 4.2, -3);
+    scene.add(lamp);
+    return lamp;
+  });
   const resources: T.Texture[] = [skyTexture];
   if (!softwareRenderer) {
     const pmrem = new T.PMREMGenerator(renderer);
     const probe = new RoomEnvironment();
-    const env = pmrem.fromScene(probe, 0.04);
+    const env = pmrem.fromScene(probe, 0.04, 0.1, 100, {size: softwareRenderer ? 64 : 128});
     scene.environment = env.texture;
-    scene.environmentIntensity = 0.45;
+    scene.environmentIntensity = 0.4;
     probe.dispose();
     pmrem.dispose();
     resources.push(env.texture);
@@ -140,6 +153,21 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   contactShadow.rotation.x = -Math.PI / 2;
   contactShadow.position.y = 0.005;
   avatar.add(contactShadow);
+  // Low-cost, original contact occlusion survives the no-shadow mobile tier.
+  const floorOcclusion = new T.InstancedMesh(
+    new T.PlaneGeometry(1, 1),
+    new T.MeshBasicMaterial({ map: contactTexture, transparent: true, depthWrite: false, opacity: .43, color: "#201b16" }),
+    office.colliders.length,
+  );
+  const footprint = new T.Object3D();
+  office.colliders.forEach((box, i) => {
+    footprint.position.set(box.x, .025, -box.d);
+    footprint.rotation.x = -Math.PI / 2;
+    footprint.scale.set(box.w * 2.8, box.h * 2.8, 1);
+    footprint.updateMatrix();
+    floorOcclusion.setMatrixAt(i, footprint.matrix);
+  });
+  world.add(floorOcclusion);
   const loaded = Array(6).fill(false) as boolean[];
   const loading = new Set<number>();
   const roomNodes = new Map<number, T.Group>();
@@ -155,34 +183,60 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   function register(root: T.Object3D) {
     root.traverse((o) => {
       if (o instanceof T.Mesh) {
-        o.castShadow = true;
+        o.castShadow = !(o.material instanceof T.Material && o.material.transparent && o.material.opacity < 0.3);
         o.receiveShadow = true;
-        if (
-          softwareRenderer &&
-          !Array.isArray(o.material) &&
-          o.material instanceof T.MeshStandardMaterial
-        ) {
-          const old = o.material;
-          const fallback = old.userData.fallbackBaseColor;
-          if (Array.isArray(fallback) && old.map) resources.push(old.map);
-          o.material = new T.MeshLambertMaterial({
-            color: Array.isArray(fallback)
-              ? new T.Color().fromArray(fallback)
-              : old.color,
-            map: Array.isArray(fallback) ? null : old.map,
-            emissive: old.emissive,
-            emissiveMap: old.emissiveMap,
-            transparent: old.transparent,
-            opacity: old.opacity,
-            side: old.side,
-            depthWrite: old.depthWrite,
-          });
-          old.dispose();
+        if (softwareRenderer) {
+          const convert = (material: T.Material) => {
+            if (!(material instanceof T.MeshStandardMaterial)) return material;
+            // Preserve original maps with vertex lighting on CPU WebGL.
+            // Full PBR remains available on hardware; do not discard textures.
+            for (const texture of [material.roughnessMap, material.metalnessMap, material.normalMap, material.aoMap])
+              if (texture) resources.push(texture);
+            const fallback = new T.MeshLambertMaterial({
+              color: material.color,
+              map: material.map,
+              emissive: material.emissive,
+              emissiveMap: material.emissiveMap,
+              emissiveIntensity: material.emissiveIntensity,
+              transparent: material.transparent,
+              opacity: material.opacity,
+              side: material.side,
+              depthWrite: material.depthWrite,
+            });
+            material.dispose();
+            return fallback;
+          };
+          o.material = Array.isArray(o.material) ? o.material.map(convert) : convert(o.material);
         }
         for (const m of Array.isArray(o.material) ? o.material : [o.material])
           mats.set(m.uuid, m);
       }
     });
+  }
+  function batchSoftwareFurniture(root: T.Object3D) {
+    if (!softwareRenderer) return;
+    root.updateMatrixWorld(true);
+    const inverse = root.matrixWorld.clone().invert();
+    const meshes: T.Mesh<T.BufferGeometry, T.MeshLambertMaterial>[] = [];
+    root.traverse(o => {
+      if (o instanceof T.Mesh && !(o instanceof T.SkinnedMesh) &&
+          o.material instanceof T.MeshLambertMaterial && !o.material.map &&
+          !o.material.transparent && o.material.emissive.getHex() === 0) meshes.push(o);
+    });
+    const pieces = meshes.map(mesh => {
+      const geometry = furnitureGeometry(mesh.geometry, new T.Matrix4().multiplyMatrices(inverse, mesh.matrixWorld));
+      const colors = new Float32Array(geometry.getAttribute("position").count * 3);
+      for (let i = 0; i < colors.length; i += 3) mesh.material.color.toArray(colors, i);
+      geometry.setAttribute("color", new T.BufferAttribute(colors, 3));
+      return geometry;
+    });
+    const geometry = pieces.length ? mergeGeometries(pieces, false) : null;
+    pieces.forEach(piece => piece.dispose());
+    if (!geometry) return;
+    meshes.forEach(mesh => { mesh.parent?.remove(mesh); mesh.geometry.dispose(); });
+    const material = new T.MeshLambertMaterial({vertexColors: true, side: T.DoubleSide});
+    mats.set(material.uuid, material);
+    root.add(new T.Mesh(geometry, material));
   }
   function loadRoom(index: number) {
     if (loaded[index] || loading.has(index)) return;
@@ -193,6 +247,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         if (disposed) return;
         g.scene.position.z = -destinations[index];
         register(g.scene);
+        batchSoftwareFurniture(g.scene);
         world.add(g.scene);
         roomNodes.set(index, g.scene);
         loaded[index] = true;
@@ -216,10 +271,11 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                 );
                 screen.position.set(
                   x,
-                  1.35,
-                  -(destinations[2] + [-5, 1, 7][i]) - 0.1,
+                  1.31,
+                  -(destinations[2] + [-5, 1, 7][i]) + 0.19,
                 );
-                world.add(screen);
+                screen.position.z += destinations[index];
+              g.scene.add(screen);
               }
             },
           );
@@ -246,25 +302,55 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                 2.2,
                 -(destinations[3] + (i - 1) * 5) + 0.22,
               );
-              world.add(preview);
+              preview.position.z += destinations[index];
+              g.scene.add(preview);
             },
           );
         }
         if (index === 4) {
+          automationConcepts.forEach((concept, i) => {
+            const board = document.createElement("canvas");
+            board.width = 768; board.height = 432;
+            const ctx = board.getContext("2d")!;
+            ctx.fillStyle = "#0b1823"; ctx.fillRect(0,0,768,432);
+            ctx.fillStyle = "#d7b67b"; ctx.font = "18px Arial";
+            ctx.fillText("zAIon / FLUXO CONCEITUAL", 40, 54);
+            ctx.fillStyle = "#f2eee4"; ctx.font = "bold 42px Arial";
+            ctx.fillText(concept.title, 40, 119);
+            ctx.font = "20px Arial";
+            concept.steps.forEach((step, j) => {
+              const x = 40+j*237;
+              ctx.strokeStyle = "#ad915b"; ctx.lineWidth = 2; ctx.strokeRect(x,190,210,110);
+              ctx.fillStyle = "#d7b67b"; ctx.fillText(`0${j+1}`, x+18,223);
+              ctx.fillStyle = "#f2eee4"; ctx.fillText(step,x+18,267);
+              if(j<2) { ctx.beginPath();ctx.moveTo(x+210,245);ctx.lineTo(x+237,245);ctx.stroke(); }
+            });
+            ctx.fillStyle = "#c3cbd0"; ctx.font = "18px Arial";
+            ctx.fillText("DEMONSTRAÇÃO LOCAL · SEM INTEGRAÇÃO OU ENVIO",40,380);
+            const texture = new T.CanvasTexture(board); texture.colorSpace = T.SRGBColorSpace;
+            resources.push(texture);
+            const monitor = new T.Mesh(new T.PlaneGeometry(1.3,.7),new T.MeshBasicMaterial({map:texture}));
+            monitor.position.set(i<2 ? -4.8 : 4.8,1.31,-(destinations[4]+(i%2 ? 5 : -3))+.19);
+            monitor.position.z += destinations[index];
+              g.scene.add(monitor);
+          });
+        }
+        if (index === 0 || index === 4) {
           const logo = new T.TextureLoader().load(
             `${base}/brand/zaion-original.png`,
             (t) => {
               const image = t.image as HTMLImageElement;
               const badge = new T.Mesh(
-                new T.PlaneGeometry(3.3, (3.3 * image.height) / image.width),
+                new T.PlaneGeometry(index === 0 ? 3.3 : 1.1, ((index === 0 ? 3.3 : 1.1) * image.height) / image.width),
                 new T.MeshBasicMaterial({
                   map: t,
                   transparent: true,
                   side: T.DoubleSide,
                 }),
               );
-              badge.position.set(0, 3, -(destinations[4] + 6));
-              world.add(badge);
+              badge.position.set(index === 0 ? -5.5 : -6, index === 0 ? 2.9 : 2.1, -(destinations[index] + (index === 0 ? 5.75 : 8.88)));
+              badge.position.z += destinations[index];
+              g.scene.add(badge);
               assetDirty = true;
               pendingPublish = true;
             },
@@ -341,7 +427,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     desired = new T.Vector3(),
     projected = new T.Vector3();
   camera.position.set(
-    host.clientWidth < 700 ? -1.3 : 1.4,
+    host.clientWidth < 700 ? -1.3 : -1.2,
     host.clientHeight < 600 ? 2.7 : 2.4,
     -state.distance +
       (host.clientHeight < 600 ? 7.5 : host.clientWidth < 700 ? 6.5 : 5.4),
@@ -371,6 +457,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   }
   renderer.domElement.addEventListener("webglcontextlost", contextLost);
   let slowFrames = 0;
+  let quality: GraphicQuality = "auto";
   function update(now: number) {
     if (disposed) return;
     raf = requestAnimationFrame(update);
@@ -381,11 +468,11 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       slowFrames++;
     } else slowFrames = Math.max(0, slowFrames - 1);
     if (
-      slowFrames >= 2 &&
-      (renderer.getPixelRatio() > 0.7 || renderer.shadowMap.enabled)
+      quality === "auto" && slowFrames >= 12 &&
+      (renderer.getPixelRatio() > (softwareRenderer ? 0.45 : 0.7) || renderer.shadowMap.enabled)
     ) {
       renderer.shadowMap.enabled = false;
-      renderer.setPixelRatio(Math.max(0.65, renderer.getPixelRatio() * 0.75));
+      renderer.setPixelRatio(Math.max(softwareRenderer ? 0.45 : 0.65, renderer.getPixelRatio() * 0.75));
       renderer.setSize(host.clientWidth, host.clientHeight);
       mats.forEach((m) => (m.needsUpdate = true));
       slowFrames = 0;
@@ -432,12 +519,12 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     }
     const area = areaAt(state.distance);
     loadRoom(area);
-    if (state.distance > destinations[Math.min(5, area + 1)] - 15)
+    if (state.distance > destinations[Math.min(5, area + 1)] - 24)
       loadRoom(Math.min(5, area + 1));
     roomNodes.forEach((node, i) => {
       node.visible =
         destinations[i] - state.distance > -18 &&
-        destinations[i] - state.distance < 50;
+        destinations[i] - state.distance < (softwareRenderer ? 34 : 70);
     });
     const scrollMode = navigationMode === "scroll";
     world.position.z = journeyFrame(
@@ -477,7 +564,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const shortView = host.clientHeight < 600;
     desired.set(
       (scrollMode ? anchor.x : state.x) * 0.6 +
-        (host.clientWidth < 700 ? -1.3 : 1.4),
+        (host.clientWidth < 700 ? -1.3 : -1.2),
       shortView ? 2.7 : 2.4,
       -(scrollMode ? anchor.d : state.distance) +
         (shortView ? 7.5 : host.clientWidth < 700 ? 6.5 : 5.4),
@@ -490,7 +577,10 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         shortView ? 1.1 : 1.5,
         -(scrollMode ? anchor.d : state.distance) - 8,
       );
-      sun.position.set(-18, 9, (scrollMode ? -anchor.d : -state.distance) - 32);
+      sun.position.set(20, 8, (scrollMode ? -anchor.d : -state.distance) - 4);
+      ceilingLights.forEach((lamp, i) => {
+        lamp.position.z = -destinations[area] + world.position.z - (i ? 3 : -3);
+      });
       sun.target.position.set(0, 0, scrollMode ? -anchor.d : -state.distance);
       scene.add(sun.target);
       camera.lookAt(look);
@@ -573,6 +663,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     if (!announced && avatarReady && loaded[areaAt(options.initialDistance)]) {
       announced = true;
       options.onReady();
+      for (let i = 0; i < 6; i++) loadRoom(i);
     }
   }
   raf = requestAnimationFrame(update);
@@ -634,6 +725,17 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         state.vx = 0;
         state.vz = 0;
       }
+    },
+    setQuality(value: GraphicQuality) {
+      quality = value;
+      renderer.setPixelRatio(value === "low" ? (softwareRenderer ? .45 : .7) : value === "high" ? Math.min(devicePixelRatio, 1.75) : softwareRenderer ? .7 : Math.min(devicePixelRatio, 1.5));
+      const shadows = value !== "low" && host.clientWidth > 700 && !softwareRenderer;
+      const changedShadows = renderer.shadowMap.enabled !== shadows;
+      renderer.shadowMap.enabled = shadows;
+      renderer.setSize(host.clientWidth, host.clientHeight);
+      if (changedShadows) mats.forEach(m => { m.needsUpdate = true; });
+      assetDirty = true;
+      pendingPublish = true;
     },
     setReduced(value: boolean) {
       reduced = value;

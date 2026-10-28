@@ -19,7 +19,7 @@ const io = new NodeIO()
   .registerExtensions(ALL_EXTENSIONS)
   .registerDependencies({ "meshopt.encoder": MeshoptEncoder });
 for (const name of await readdir(dir)) {
-  if (!name.endsWith(".glb")) continue;
+  if (!name.endsWith(".glb") || (process.env.OFFICE_ONLY === "true" && !name.startsWith("environment-"))) continue;
   const path = dir + "/" + name,
     old = (await stat(path)).size;
   const doc = await io.read(path);

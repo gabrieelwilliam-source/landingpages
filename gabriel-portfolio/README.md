@@ -81,3 +81,11 @@ SEO mantém HTML pré-renderizado, idioma, metadata/OpenGraph e sitemap. O conte
 Consulte `RELATORIO_REDESIGN.md`, `LICENSE_ASSETS.md`, `CHANGELOG.md` e `docs/redesign/` para a matriz de aceite, fontes, capturas reais, dados medidos e comparação visual. `CONTENT_TO_CONFIRM.md` registra contatos pendentes. Os demais relatórios são históricos.
 
 A foto original permanece fora de `public/` e ignorada pelo Git. O personagem atual é humano articulado, mas sua aparência é estilizada e a semelhança facial não equivale à foto. Não há assets pagos, APIs de produção ou envio real de formulário. O visual fotorrealista das concept arts não foi atingido integralmente; o relatório explicita os desvios e a validação de GPU/dispositivos físicos ainda necessária.
+
+
+### Revisão do escritório contínuo
+O cenário atual tem seis setores conectados em `public/models/environment-*.glb`, gerados por `tools/build_office.py`. Para reconstruir apenas o escritório mantendo o avatar existente: `npm run assets:build` (requer Blender). O comando gera também `src/data/office-layout.json`, fonte das colisões; não edite suas medidas independentemente dos modelos. Refaça build e testes depois de modificar os assets. `public/models/manifest.json` registra integridade, tamanho e compressão.
+
+Gráficos: Automático ajusta a resolução conforme os frames; Leve reduz resolução e sombras; Alto aumenta a resolução em relação a Leve. GPUs compatíveis usam PBR; renderizadores por software mantêm texturas e iluminação com Lambert e sombras de contato leves. Alto em software não ativa os efeitos de GPU. O modo clássico segue disponível. A visita mantém scroll reversível e atalhos; esta revisão não adiciona NPCs ou converte o percurso em spline.
+
+Relatório e capturas atuais: `docs/virtual-studio/office-review/`.
