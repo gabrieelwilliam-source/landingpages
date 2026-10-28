@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "starter": "node INICIAR-REVISAO.mjs",
+  "rigBones": 16,
+  "receptionInteraction": true,
+  "classicContact": true,
+  "creditsCC0": true,
+  "errors": []
+}

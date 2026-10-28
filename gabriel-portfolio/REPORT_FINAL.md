@@ -88,3 +88,13 @@ Inspecionadas manualmente as capturas reais dos seis setores em 1440 × 900, a e
 `npm run build:pages` aprovado. `CHROMIUM_PATH=/usr/bin/chromium npm run test:pages` aprovado em **360, 768 e 1440 px**, validando navegação, GLBs versionados, logo original, Scroll/Caminhar, modo clássico, favicon e ausência de erros de runtime. A exportação está em `.next-pages/`, para revisão, sem copiar para a pasta publicada `../gabriel/`.
 
 Comparação com `cd9cdb5`: `gabriel/`, `index.html` e `.nojekyll` não tiveram alterações. Nenhum push foi executado nesta etapa.
+
+## Pacote e histórico local
+
+Implementação registrada no commit local `6fa26565bd60e3b4b2d48871b100e23dcfb0ef3e`, branch `visual-polish`; um commit seguinte registra a conclusão documental. A versão exata incluída no ZIP consta em `VERSAO.json`.
+
+Entrega: `/workspace/artifacts/zAIon-Polimento-Profissional-Revisao-20261028.zip`. Inclui código-fonte, assets/licenças, auditoria, capturas, comparador e site estático já compilado. Os 17 GLBs completos (seis cenas, nove pessoas e dois móveis compartilhados) somam 5.87 MB decimais; os nove LODs são variantes adicionais.
+
+O ZIP foi extraído em diretório separado e iniciado com `node INICIAR-REVISAO.mjs`. Smoke real no Chromium aprovado: rig de 16 ossos, diálogo de Lia, contato clássico e página de créditos CC0, sem erros de página/HTTP. Evidências: `docs/virtual-studio/professional-polish/evidence/zip-smoke.json` e captura `final/package-reception-dialog.png`. Integridade CRC e SHA-256 de cada arquivo também verificada. O SHA-256 do pacote final fica ao lado do ZIP em `pro-polish-package.json`, para evitar autorreferência dentro do pacote.
+
+Para revisar, extraia tudo, execute o iniciador e abra `http://127.0.0.1:8080/landingpages/gabriel/`. O comparador de screenshots também pode ser aberto diretamente em `codigo-fonte/docs/virtual-studio/professional-polish/index.html`. Não abrir o site 3D por `file://`.
