@@ -1,18 +1,9 @@
 import office from "../data/office-layout.json" with { type: "json" };
-export const JOURNEY_END = 90;
-export const destinations = [0, 12, 26, 44, 62, 80];
+export const JOURNEY_END = office.length;
+export const destinations = office.centres;
 export function areaAt(distance) {
-  return distance < 7
-    ? 0
-    : distance < 19
-      ? 1
-      : distance < 36
-        ? 2
-        : distance < 54
-          ? 3
-          : distance < 72
-            ? 4
-            : 5;
+ let index=0;while(index<destinations.length-1&&distance>=office.boundaries[index+1])index++;
+ return index;
 }
 export function advance(state, input, elapsed, speed = 2) {
   const dt = Math.min(Math.max(elapsed, 0), 0.05);

@@ -1,0 +1,187 @@
+{
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "hostThreads": 5,
+  "profiles": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sceneReadyMs": 2739.399999999441,
+      "stages": [
+        {
+          "quality": "auto",
+          "frames": 9,
+          "elapsedMs": 2372.899999999814,
+          "averageFps": 3.7928273420711807,
+          "p95FrameMs": 350,
+          "drawCalls": 42,
+          "triangles": 80107,
+          "textureCount": 31,
+          "estimatedTextureBytes": 45848529.333333336,
+          "jsHeapBytes": 30833978,
+          "lcpMs": 192,
+          "resourceBytes": 3208715,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            1007,
+            630
+          ]
+        },
+        {
+          "quality": "low",
+          "frames": 23,
+          "elapsedMs": 2358.600000000559,
+          "averageFps": 9.751547528192381,
+          "p95FrameMs": 200.10000000000036,
+          "drawCalls": 42,
+          "triangles": 80107,
+          "textureCount": 31,
+          "estimatedTextureBytes": 45848529.333333336,
+          "jsHeapBytes": 32535182,
+          "lcpMs": 192,
+          "resourceBytes": 3208715,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            648,
+            405
+          ]
+        },
+        {
+          "quality": "medium",
+          "frames": 5,
+          "elapsedMs": 2698.600000000559,
+          "averageFps": 1.8528125694800879,
+          "p95FrameMs": 700,
+          "drawCalls": 42,
+          "triangles": 184623,
+          "textureCount": 31,
+          "estimatedTextureBytes": 45848529.333333336,
+          "jsHeapBytes": 31669259,
+          "lcpMs": 192,
+          "resourceBytes": 3208715,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            1440,
+            900
+          ]
+        },
+        {
+          "quality": "high",
+          "frames": 4,
+          "elapsedMs": 2208.4000000005617,
+          "averageFps": 1.8112660749859548,
+          "p95FrameMs": 749.9000000000015,
+          "drawCalls": 43,
+          "triangles": 212363,
+          "textureCount": 32,
+          "estimatedTextureBytes": 45848785.333333336,
+          "jsHeapBytes": 30098844,
+          "lcpMs": 192,
+          "resourceBytes": 3434959,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            1440,
+            900
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sceneReadyMs": 1620.2000000001863,
+      "stages": [
+        {
+          "quality": "auto",
+          "frames": 57,
+          "elapsedMs": 2241.1999999998134,
+          "averageFps": 25.432803855079754,
+          "p95FrameMs": 66.60000000000036,
+          "drawCalls": 34,
+          "triangles": 70505,
+          "textureCount": 25,
+          "estimatedTextureBytes": 34200204,
+          "jsHeapBytes": 25234403,
+          "lcpMs": 140,
+          "resourceBytes": 3409055,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            273,
+            590
+          ]
+        },
+        {
+          "quality": "low",
+          "frames": 85,
+          "elapsedMs": 2209.600000000186,
+          "averageFps": 38.46850108616621,
+          "p95FrameMs": 50,
+          "drawCalls": 34,
+          "triangles": 70505,
+          "textureCount": 33,
+          "estimatedTextureBytes": 46786972,
+          "jsHeapBytes": 33191219,
+          "lcpMs": 140,
+          "resourceBytes": 3437699,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            175,
+            379
+          ]
+        },
+        {
+          "quality": "medium",
+          "frames": 33,
+          "elapsedMs": 2291.699999999628,
+          "averageFps": 14.399790548503452,
+          "p95FrameMs": 100.10000000000036,
+          "drawCalls": 36,
+          "triangles": 157955,
+          "textureCount": 36,
+          "estimatedTextureBytes": 46787740,
+          "jsHeapBytes": 32223275,
+          "lcpMs": 140,
+          "resourceBytes": 3668634,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            390,
+            844
+          ]
+        },
+        {
+          "quality": "high",
+          "frames": 31,
+          "elapsedMs": 2275.599999999442,
+          "averageFps": 13.622780805065743,
+          "p95FrameMs": 133.29999999999927,
+          "drawCalls": 37,
+          "triangles": 181815,
+          "textureCount": 37,
+          "estimatedTextureBytes": 46787996,
+          "jsHeapBytes": 39080804,
+          "lcpMs": 140,
+          "resourceBytes": 3895384,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            390,
+            844
+          ]
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "method": "Short active-scroll RAF samples, local cold page then warm tier changes. Texture allocation estimate from WebGL API calls, not driver VRAM; LCP measures DOM content, not completion of 3D scene. Headless SwiftShader is not a physical desktop/mobile GPU."
+}

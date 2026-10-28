@@ -1,0 +1,62 @@
+> site-zaion@0.1.0 assets:character
+> blender -b --python-exit-code 1 --python tools/build_character.py && CHARACTER_ONLY=true node tools/optimize-assets.mjs && node tools/build-character-lods.mjs && node tools/verify-assets.mjs
+
+ERROR Draco mesh compression is not available because library could not be found at /usr/bin/4.3/python/lib/python3.13/site-packages/libextern_draco.so
+19:21:52 | INFO: Starting glTF 2.0 export
+19:21:52 | INFO: Extracting primitive: Hoodie body
+19:21:52 | INFO: Primitives created: 1
+19:21:53 | INFO: Finished glTF 2.0 export in 0.796095609664917 s
+
+CHARACTER COMPLETE: original vertex palette, skinned mesh, 16 bones, Idle/Walk/Turn
+Blender 4.3.2
+
+Blender quit
+prune: Removed types... Accessor (1)
+prune: Removed types... Accessor (7)
+prune: Removed types... Skin (1), Accessor (5)
+gabriel-rigged.glb 3582740 -> 552228 skins 1 animations [
+  'Idle',    'Interact',
+  'Sit',     'SitDown',
+  'StandUp', 'Start',
+  'Stop',    'Talk',
+  'Turn',    'Type',
+  'Walk'
+]
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+gabriel-rigged 4640 triangles 104488 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-0 4603 triangles 102292 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-1 4603 triangles 102280 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-2 4602 triangles 102368 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-3 4603 triangles 102452 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-4 4600 triangles 102124 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-5 4603 triangles 102472 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-6 4603 triangles 102924 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-7 4603 triangles 102304 bytes
+PASS: 9 low-detail variants, <7000 triangles each, same skeletons, clips and normalized weights.
+PASS: 6 scenes, Gabriel + 8 distinct fictional humans, 16+ bones each, 11 verified poses/actions, Meshopt, original logo. 5869040 bytes

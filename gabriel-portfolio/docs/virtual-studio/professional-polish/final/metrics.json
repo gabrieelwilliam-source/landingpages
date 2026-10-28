@@ -1,0 +1,287 @@
+{
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "hostThreads": 5,
+  "profiles": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sceneReadyMs": 4412.199999999255,
+      "cameras": [
+        {
+          "sector": 1,
+          "data-camera-fov": "50",
+          "data-camera-distance": "5.4",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "0.000",
+          "data-camera-z": "5.400",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "inicio"
+        },
+        {
+          "sector": 2,
+          "data-camera-fov": "50",
+          "data-camera-distance": "5.4",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "9.600",
+          "data-camera-z": "5.400",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "sobre"
+        },
+        {
+          "sector": 3,
+          "data-camera-fov": "50",
+          "data-camera-distance": "5.4",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "20.800",
+          "data-camera-z": "5.400",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "servicos"
+        },
+        {
+          "sector": 4,
+          "data-camera-fov": "50",
+          "data-camera-distance": "5.4",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "35.200",
+          "data-camera-z": "5.400",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "projetos"
+        },
+        {
+          "sector": 5,
+          "data-camera-fov": "50",
+          "data-camera-distance": "5.4",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "49.600",
+          "data-camera-z": "5.400",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "processo"
+        },
+        {
+          "sector": 6,
+          "data-camera-fov": "50",
+          "data-camera-distance": "5.4",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "64.000",
+          "data-camera-z": "5.400",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "contato"
+        }
+      ],
+      "stages": [
+        {
+          "quality": "auto",
+          "frames": 18,
+          "elapsedMs": 2250.39999999851,
+          "averageFps": 7.998578030577638,
+          "p95FrameMs": 350.10000000000036,
+          "drawCalls": 56,
+          "triangles": 100675,
+          "textureCount": 40,
+          "estimatedTextureBytes": 55323852.00000002,
+          "jsHeapBytes": 36651275,
+          "lcpMs": 192,
+          "resourceBytes": 3915756,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            1007,
+            630
+          ]
+        },
+        {
+          "quality": "low",
+          "frames": 22,
+          "elapsedMs": 2223.7999999985095,
+          "averageFps": 9.892975987055825,
+          "p95FrameMs": 216.6999999999989,
+          "drawCalls": 54,
+          "triangles": 94074,
+          "textureCount": 40,
+          "estimatedTextureBytes": 55323852.00000002,
+          "jsHeapBytes": 27192170,
+          "lcpMs": 192,
+          "resourceBytes": 3915756,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            648,
+            405
+          ]
+        },
+        {
+          "quality": "medium",
+          "frames": 5,
+          "elapsedMs": 2798.300000000745,
+          "averageFps": 1.7867991280415498,
+          "p95FrameMs": 716.5999999999985,
+          "drawCalls": 58,
+          "triangles": 243549,
+          "textureCount": 42,
+          "estimatedTextureBytes": 55324364.00000002,
+          "jsHeapBytes": 25264111,
+          "lcpMs": 192,
+          "resourceBytes": 4180253,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            1440,
+            900
+          ]
+        },
+        {
+          "quality": "high",
+          "frames": 4,
+          "elapsedMs": 2334.5999999992564,
+          "averageFps": 1.7133556069567695,
+          "p95FrameMs": 783.3000000000029,
+          "drawCalls": 59,
+          "triangles": 304728,
+          "textureCount": 43,
+          "estimatedTextureBytes": 55324620.00000002,
+          "jsHeapBytes": 27322986,
+          "lcpMs": 192,
+          "resourceBytes": 4438743,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            1440,
+            900
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sceneReadyMs": 2025,
+      "cameras": [
+        {
+          "sector": 1,
+          "data-camera-fov": "50",
+          "data-camera-distance": "6.5",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "0.000",
+          "data-camera-z": "6.500",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "inicio"
+        },
+        {
+          "sector": 3,
+          "data-camera-fov": "50",
+          "data-camera-distance": "6.5",
+          "data-camera-shoulder": "-1.2",
+          "data-distance": "20.800",
+          "data-camera-z": "6.500",
+          "data-camera-x": "-1.200",
+          "data-camera-yaw": "0.000",
+          "data-camera-pitch": "0.000",
+          "data-area": "servicos"
+        }
+      ],
+      "stages": [
+        {
+          "quality": "auto",
+          "frames": 60,
+          "elapsedMs": 2241.4999999985102,
+          "averageFps": 26.767789426740965,
+          "p95FrameMs": 66.69999999999982,
+          "drawCalls": 39,
+          "triangles": 65822,
+          "textureCount": 36,
+          "estimatedTextureBytes": 48805761.33333334,
+          "jsHeapBytes": 26252381,
+          "lcpMs": 120,
+          "resourceBytes": 4214987,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            204,
+            443
+          ]
+        },
+        {
+          "quality": "low",
+          "frames": 74,
+          "elapsedMs": 2209.7999999977656,
+          "averageFps": 33.48719341120229,
+          "p95FrameMs": 50,
+          "drawCalls": 52,
+          "triangles": 85064,
+          "textureCount": 37,
+          "estimatedTextureBytes": 48806017.33333334,
+          "jsHeapBytes": 30896015,
+          "lcpMs": 120,
+          "resourceBytes": 4246978,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            175,
+            379
+          ]
+        },
+        {
+          "quality": "medium",
+          "frames": 30,
+          "elapsedMs": 2341.7999999985095,
+          "averageFps": 12.8106584678534,
+          "p95FrameMs": 150,
+          "drawCalls": 55,
+          "triangles": 171331,
+          "textureCount": 39,
+          "estimatedTextureBytes": 48806529.33333334,
+          "jsHeapBytes": 30687073,
+          "lcpMs": 120,
+          "resourceBytes": 4511728,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            390,
+            844
+          ]
+        },
+        {
+          "quality": "high",
+          "frames": 28,
+          "elapsedMs": 2342.4999999985084,
+          "averageFps": 11.953041622206118,
+          "p95FrameMs": 150,
+          "drawCalls": 58,
+          "triangles": 240422,
+          "textureCount": 40,
+          "estimatedTextureBytes": 48806785.33333334,
+          "jsHeapBytes": 37182623,
+          "lcpMs": 120,
+          "resourceBytes": 4770724,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1,
+          "raster": [
+            390,
+            844
+          ]
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "method": "Short active-scroll RAF samples, local cold page then warm tier changes. Texture allocation estimate from WebGL API calls, not driver VRAM; LCP measures DOM content, not completion of 3D scene. Headless SwiftShader is not a physical desktop/mobile GPU."
+}

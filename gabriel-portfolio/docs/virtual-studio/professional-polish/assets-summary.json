@@ -1,0 +1,429 @@
+{
+  "full": {
+    "generator": "Blender 4.3.2; glTF-Transform + Meshopt",
+    "originalLogo": {
+      "filename": "brand/zaion-original.png",
+      "bytes": 1004338,
+      "sha256": "fb2edb7999b9c5c35d54ec16a25661650905683a231abbe8d261f04e398b99cc"
+    },
+    "assets": [
+      {
+        "name": "environment-0.glb",
+        "bytes": 191360,
+        "sha256": "1fc8bb0e3c3706b951ade6fd896c24777e3a06236d228aee1ae16817b38b7653",
+        "meshes": 1,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "environment-1.glb",
+        "bytes": 224032,
+        "sha256": "09b397f6e03884203e2b688b29d9195d8926706409ee196382226d10f5f4843b",
+        "meshes": 1,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "environment-2.glb",
+        "bytes": 399936,
+        "sha256": "40f1e409563adc0a2b991f757d6526e6ea37499e7d5b9785ed92087c2c9586a8",
+        "meshes": 1,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "environment-3.glb",
+        "bytes": 177644,
+        "sha256": "5becb2dfd62cc09a7e1980e8980cfcb3d608303a364a2e202360d96c25b6ae6f",
+        "meshes": 1,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "environment-4.glb",
+        "bytes": 323900,
+        "sha256": "afee7a1e069c8a316cc2b3c2cff444de9de5862540d0eaf8d0d00bd96a26b5b5",
+        "meshes": 1,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "environment-5.glb",
+        "bytes": 267672,
+        "sha256": "332bea8e0923e79a174e68d6f0b649d60a3976332c3bf9140b1d52833a3529a4",
+        "meshes": 1,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "furniture/lounge-bench.glb",
+        "bytes": 410704,
+        "sha256": "71f59b2df7796017312f73e39f7a8a7e92b4bcb8cc73c671b35e1a726547663a",
+        "meshes": 4,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "furniture/lounge-chair.glb",
+        "bytes": 404224,
+        "sha256": "54852416ad69903e8249023d51f255e1abeb15cffacfab6d1173c5f6eb596a74",
+        "meshes": 4,
+        "skins": 0,
+        "animations": [],
+        "textureFormats": [
+          "image/webp"
+        ]
+      },
+      {
+        "name": "gabriel-rigged.glb",
+        "bytes": 552228,
+        "sha256": "a3336c82b2b59d4083145b054c986de695c567582390e2517c0d1919c7642557",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 58012,
+        "bones": 16
+      },
+      {
+        "name": "npc-0.glb",
+        "bytes": 364160,
+        "sha256": "97b435dba3b0064f4702d9a71f9a106352ac2d294206374f6b5b644c251dc17c",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32892,
+        "bones": 16
+      },
+      {
+        "name": "npc-1.glb",
+        "bytes": 363284,
+        "sha256": "aef2258756fbfa49676660099497cb2de5f4fd72445b4a254f82550250ae007b",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32892,
+        "bones": 16
+      },
+      {
+        "name": "npc-2.glb",
+        "bytes": 364584,
+        "sha256": "1f03a0385a46a967a456d2558297e651696986bf747ce56c6327fba412a6374c",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32891,
+        "bones": 16
+      },
+      {
+        "name": "npc-3.glb",
+        "bytes": 367244,
+        "sha256": "31f1d34441d604bb230f62f8337def200b4dc84d195c31e51c9bcc2f635df3bf",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32892,
+        "bones": 16
+      },
+      {
+        "name": "npc-4.glb",
+        "bytes": 361900,
+        "sha256": "b85a7fd82bdafd32c571d3f7f719e1c65c0810806fe30b76bf7099736488d934",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32892,
+        "bones": 16
+      },
+      {
+        "name": "npc-5.glb",
+        "bytes": 365524,
+        "sha256": "25a4503f4be60a954c6705513c7f8f8c3f12da49769b89e4738d4894c54e6cae",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32891,
+        "bones": 16
+      },
+      {
+        "name": "npc-6.glb",
+        "bytes": 367536,
+        "sha256": "1490e954c8fc4fe89e933a9a8967a5a458ca0defca4c229b786ea41b84ff5158",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32891,
+        "bones": 16
+      },
+      {
+        "name": "npc-7.glb",
+        "bytes": 363108,
+        "sha256": "be16b256316a131030eeec5639fd3d0d11c34253cca686141eedc9c2721c898a",
+        "meshes": 1,
+        "skins": 1,
+        "animations": [
+          "Idle",
+          "Interact",
+          "Sit",
+          "SitDown",
+          "StandUp",
+          "Start",
+          "Stop",
+          "Talk",
+          "Turn",
+          "Type",
+          "Walk"
+        ],
+        "textureFormats": [
+          "image/webp"
+        ],
+        "triangles": 32891,
+        "bones": 16
+      }
+    ],
+    "totalBytes": 5869040
+  },
+  "low": {
+    "purpose": "Original low detail character variants; same rigs and authored clips",
+    "assets": [
+      {
+        "name": "gabriel-rigged.glb",
+        "bytes": 104488,
+        "sha256": "d3acdd6c79c931a3afa1921c1708a7bfd84cb87296c58efbcecde357c7abf7da",
+        "triangles": 4640
+      },
+      {
+        "name": "npc-0.glb",
+        "bytes": 102292,
+        "sha256": "8d04d7a3791b21bd983f8ccec55d2c6c200b9fd0281fe3d9d262ef4d561acf0c",
+        "triangles": 4603
+      },
+      {
+        "name": "npc-1.glb",
+        "bytes": 102280,
+        "sha256": "a3279b944c8f85f922d6ab899247558f9ca34f8e3a9ace23e21c476ab47e3a5d",
+        "triangles": 4603
+      },
+      {
+        "name": "npc-2.glb",
+        "bytes": 102368,
+        "sha256": "d6b753a8bcaa1107a790584729893821157fda7a62e7363e75d37f42f1da1d91",
+        "triangles": 4602
+      },
+      {
+        "name": "npc-3.glb",
+        "bytes": 102452,
+        "sha256": "e4389bc49c6b3e7d504e4ff029ecaf54d84f3a759ce6a2c528af8bb0646d5dfc",
+        "triangles": 4603
+      },
+      {
+        "name": "npc-4.glb",
+        "bytes": 102124,
+        "sha256": "465072cb42aa07a55f426087db1589c6e0c9622e0db7e331d214f74f41d08375",
+        "triangles": 4600
+      },
+      {
+        "name": "npc-5.glb",
+        "bytes": 102472,
+        "sha256": "fe6fbac08b0ae41af7101ed95bf9b3e8ef1b4d02728dde248711735e263e3c64",
+        "triangles": 4603
+      },
+      {
+        "name": "npc-6.glb",
+        "bytes": 102924,
+        "sha256": "47ad1df6ddff1178b4af25655330ecb7c6e86257781ae75e6addce7c9409f748",
+        "triangles": 4603
+      },
+      {
+        "name": "npc-7.glb",
+        "bytes": 102304,
+        "sha256": "5e2686209e9425a0d4b903ed57e47bc458e6dac7bb0a7f5555651ab7ec3819bc",
+        "triangles": 4603
+      }
+    ]
+  },
+  "furniture": {
+    "assets": [
+      {
+        "name": "lounge-chair.glb",
+        "triangles": 8075,
+        "bytes": 404224,
+        "sha256": "54852416ad69903e8249023d51f255e1abeb15cffacfab6d1173c5f6eb596a74",
+        "bounds": {
+          "min": [
+            -0.4760320425033569,
+            0.00022400875744299498,
+            -0.4146728538815549
+          ],
+          "max": [
+            0.47441591471433636,
+            1.0293687637753282,
+            0.4403054290358594
+          ]
+        },
+        "source": "Wayfair LLC / Eric Chadwick, SheenChair, CC0",
+        "adaptation": "Scale, navy/sand palette, physically dielectric wood/fabric, UV density, 512px WebP and Meshopt"
+      },
+      {
+        "name": "lounge-bench.glb",
+        "triangles": 8787,
+        "bytes": 410704,
+        "sha256": "71f59b2df7796017312f73e39f7a8a7e92b4bcb8cc73c671b35e1a726547663a",
+        "bounds": {
+          "min": [
+            -1.366004991531372,
+            0.00028189402095391003,
+            -0.4146728538815549
+          ],
+          "max": [
+            1.361367407441139,
+            1.0293687637753282,
+            0.4403054290358594
+          ]
+        },
+        "source": "Wayfair LLC / Eric Chadwick, SheenChair, CC0",
+        "adaptation": "Scale, navy/sand palette, physically dielectric wood/fabric, UV density, 512px WebP and Meshopt"
+      }
+    ]
+  }
+}

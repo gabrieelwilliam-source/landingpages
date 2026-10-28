@@ -1,3 +1,4 @@
+import {options,jump,area} from './studio-options';
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const world = (p: any) => p.locator(".world-stage");
@@ -20,12 +21,14 @@ for (const width of [360, 390, 1280, 1440])
         Number(await world(page).getAttribute("data-rig-bones")),
       )
       .toBeGreaterThan(10);
+    await options(page,true);
     expect(
       await page
         .getByRole("navigation", { name: "Atalhos para ambientes" })
         .getByRole("button")
         .count(),
     ).toBe(6);
+    await options(page,false);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -50,6 +53,7 @@ test("scroll moves world while avatar and camera stay anchored; guided walking m
     .poll(async () => Number(await world(page).getAttribute("data-world-z")))
     .toBeGreaterThan(1);
   expect(await world(page).getAttribute("data-avatar-z")).toBe(anchor);
+  await expect(world(page)).toHaveAttribute("data-animation","Walk");
   expect(await world(page).getAttribute("data-camera-z")).toBe(camera);
   await page.mouse.wheel(0, -640);
   await expect(world(page)).toHaveAttribute("data-distance", "0.000", {
@@ -71,11 +75,8 @@ test("all six architectural destinations, panels, concepts, navigation history a
   test.setTimeout(90000);
   await page.goto("/");
   await ready(page);
-  const buttons = page
-    .getByRole("navigation", { name: "Atalhos para ambientes" })
-    .getByRole("button");
   for (let i = 0; i < 6; i++) {
-    await buttons.nth(i).click();
+    await jump(page,i);
     await expect(page.locator(".spatial-kicker")).toContainText(`0${i + 1}`);
     await expect(page.locator(".spatial-progress")).not.toContainText(
       "Em travessia",
@@ -86,21 +87,18 @@ test("all six architectural destinations, panels, concepts, navigation history a
       .toBeGreaterThanOrEqual(i + 1);
     await page.screenshot({ path: `test-results/final-room-${i + 1}.png` });
   }
-  await page
+  await area(page);await page
     .getByRole("button", { name: "Preparar um projeto", exact: true })
     .click();
   await expect(page.getByRole("dialog")).toContainText("canais oficiais");
   await page.keyboard.press("Escape");
-  await buttons.nth(3).click();
+  await jump(page,3);
   await expect(world(page)).toHaveAttribute("data-area", "projetos");
-  await page
-    .getByRole("button", { name: "Landing de serviço", exact: true })
-    .click();
-  await expect(page.getByRole("dialog")).toContainText("Projeto conceitual");
-  await expect(
-    page.getByRole("link", { name: "Ver projeto conceitual" }),
-  ).toHaveAttribute("href", /conceito-landing/);
-  await page.keyboard.press("Escape");
+  await area(page);
+  await page.locator(".spatial-editorial").getByRole("button",{name:/^Filtrar projetos/}).click();
+  await page.getByRole("dialog").getByRole("link",{name:"Ver conceito"}).first().click();
+  await expect(page.locator("h1")).toContainText("Landing de serviço");
+  await page.goBack();await ready(page);await jump(page,3);
   await page.getByRole("button", { name: "Pausar exploração" }).click();
   await expect(world(page)).toHaveAttribute("data-paused", "true");
   const d = await world(page).getAttribute("data-distance");
@@ -110,7 +108,7 @@ test("all six architectural destinations, panels, concepts, navigation history a
   await page.goto("/?chapter=processo");
   await ready(page);
   await expect(world(page)).toHaveAttribute("data-area", "processo");
-  await buttons.nth(5).click();
+  await jump(page,5);
   await expect(world(page)).toHaveAttribute("data-area", "contato");
   await page.goBack();
   await expect(world(page)).toHaveAttribute("data-area", "processo");
@@ -254,6 +252,7 @@ test("portrait dialogs scroll independently and landscape keeps controls and ori
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/?chapter=servicos");
   await ready(page);
+  await area(page);
   await page
     .getByRole("button", { name: "Explorar serviços", exact: true })
     .click();
@@ -271,12 +270,9 @@ test("portrait dialogs scroll independently and landscape keeps controls and ori
     page.getByRole("button", { name: "Explorar serviços", exact: true }),
   ).toBeFocused();
   await page.setViewportSize({ width: 844, height: 390 });
-  await page
-    .getByRole("navigation", { name: "Atalhos para ambientes" })
-    .getByRole("button")
-    .nth(4)
-    .click();
+  await jump(page,4);
   await expect(world(page)).toHaveAttribute("data-area", "processo");
+  await area(page);
   for (const name of [
     "Modo clássico",
     "Pausar exploração",
@@ -306,7 +302,8 @@ test("portrait dialogs scroll independently and landscape keeps controls and ori
   ).toBe(true);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.getByRole("button", { name: "Fechar painel" }).click();
-  await page.getByRole("navigation", { name: "Atalhos para ambientes" }).getByRole("button").nth(5).click();
+  await jump(page,5);
+  await area(page);
   await expect(page.getByRole("button", { name: "Preparar resumo local", exact: true })).toBeInViewport();
   await expect(page.getByRole("button", { name: "Visitar galeria", exact: true })).toBeInViewport();
   const actions = await page.locator(".destination-actions").boundingBox();

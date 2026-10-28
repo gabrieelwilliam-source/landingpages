@@ -29,14 +29,16 @@ test("diagonal input does not increase speed", () => {
   }
   assert.ok(Math.abs(Math.hypot(b.x, b.distance) - a.distance) < 0.0001);
 });
-test("facade boundary and workstation chairs match the connected office", () => {
+test("facade boundary and workstation chairs match the connected office", async () => {
   let p = { ...start(), x: 10, distance: 12 };
   p = advance(p, { x: 1, forward: 0 }, 0.016);
   assert.equal(p.x, 7.65);
-  p = { ...start(), x: 4.5, distance: 18 };
+  const {default:layout} = await import("../src/data/office-layout.json",{with:{type:"json"}});
+  const seat=layout.seats.find(s=>s.x===4.5&&s.sourceD===19.8);
+  p = { ...start(), x: 4.5, distance: seat.d-1.8 };
   for (let i = 0; i < 100; i++) p = advance(p, { x: 0, forward: 1 }, 0.016);
-  assert.ok(p.distance <= 19.4);
-  assert.ok(p.distance > 18);
+  assert.ok(p.distance <= seat.d-.4);
+  assert.ok(p.distance > seat.d-1.8);
 });
 test("release decelerates and delta cap prevents tab-resume jumps", () => {
   let p = start();
@@ -153,5 +155,5 @@ test("camera remains inside the building envelope and every collision has a real
   const safe=safeCamera({x:0,y:1.35,d:40},{x:100,y:100,d:100},{...office,colliders:[]});
   assert.equal(safe.x,office.halfWidth);
   assert.equal(safe.y,office.cameraCeiling ?? 5.2);
-  assert.equal(safe.d,91.6);
+  assert.equal(safe.d,office.boundaries.at(-1)-.4);
 });

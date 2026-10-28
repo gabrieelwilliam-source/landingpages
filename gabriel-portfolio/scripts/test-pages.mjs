@@ -1,3 +1,5 @@
+async function jump(page,index){const button=page.getByRole('button',{name:'Câmera e ajuda'});if(await button.getAttribute('aria-expanded')!=='true')await button.click();await page.getByRole('navigation',{name:'Atalhos para ambientes'}).getByRole('button').nth(index).click();}
+async function area(page){const button=page.locator('.area-disclosure');if(await button.getAttribute('aria-expanded')!=='true')await button.click();}
 import http from "node:http";
 import { readFile, stat, mkdir } from "node:fs/promises";
 import { resolve, extname } from "node:path";
@@ -117,7 +119,7 @@ try {
     await expect(page.locator(".world-stage")).not.toHaveAttribute("data-camera-yaw", "0.000");
     await page.keyboard.press("r");
     await expect(page.locator(".world-stage")).toHaveAttribute("data-camera-yaw", "0.000");
-    await page.getByRole("button", { name: "03 Atelier digital" }).click();
+    await jump(page,2);
     await expect(page.locator(".world-stage")).toHaveAttribute(
       "data-area",
       "servicos",
@@ -130,11 +132,7 @@ try {
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     );
-    await page
-      .getByRole("navigation", { name: "Atalhos para ambientes" })
-      .getByRole("button")
-      .nth(3)
-      .click();
+    await jump(page,3);
     await expect(page.locator(".world-stage")).toHaveAttribute(
       "data-area",
       "projetos",
@@ -150,9 +148,9 @@ try {
     await expect(page.getByLabel("Resumo do projeto")).toHaveValue(/Teste da exportação/);
     await page.getByRole("button", { name: "Voltar à jornada 3D" }).click();
     await expect(page.locator(".spatial-loading")).toHaveCount(0, { timeout: 15000 });
-    await page.getByRole("navigation", { name: "Atalhos para ambientes" }).getByRole("button").nth(5).click();
+    await jump(page,5);
     await expect(page.locator(".world-stage")).toHaveAttribute("data-area", "contato");
-    await page.getByRole("button", { name: "Preparar um projeto", exact: true }).click();
+    await area(page);await page.getByRole("button", { name: "Preparar um projeto", exact: true }).click();
     await expect(page.getByLabel("Seu nome", { exact: true })).toHaveValue("Teste da exportação");
     await page.screenshot({ path: `test-results/pages-contact-${width}.png` });
     await page.keyboard.press("Escape");

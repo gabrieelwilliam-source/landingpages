@@ -1,5 +1,7 @@
 # Assets, autoria e permissões
 
+**Etapa atual de Polimento Profissional:** cabeça/mãos agora usam dados CC0 MakeHuman e os assentos estofados usam SheenChair CC0. Consulte `ASSETS_LICENSES.md` e `/creditos` para autoria, revisão exata e adaptações. Os registros abaixo descrevem etapas anteriores e os demais assets preservados.
+
 Revisão de 28/10/2026. Este documento identifica as fontes; não transfere direitos de marcas ou arquivos pessoais.
 
 | Arquivo / grupo | Fonte e uso | Licença / restrição |

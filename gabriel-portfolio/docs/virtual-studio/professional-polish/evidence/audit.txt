@@ -1,0 +1,1 @@
+PASS: baseline/final cameras, desktop/mobile tiers, LCP, texture allocation estimate and resources recorded.

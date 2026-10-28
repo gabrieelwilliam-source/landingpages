@@ -44,7 +44,7 @@ export default function SpatialJourney({
     stage = useRef<HTMLDivElement>(null),
     engine = useRef<SpatialEngine | null>(null);
   const [snapshot, setSnapshot] = useState<SpatialSnapshot>({
-    avatarLod:"high",npcCount:0,npcsLoaded:0,npcLoadError:false,npcStates:[],nearby:null,cameraDistance:5.4,cameraShoulder:-1.2,reconnecting:false,guideUnavailable:false,
+    furnitureLoaded:0,cameraFov:50,avatarLod:"high",npcCount:0,npcsLoaded:0,npcLoadError:false,npcStates:[],nearby:null,cameraDistance:5.4,cameraShoulder:-1.2,reconnecting:false,guideUnavailable:false,
     rigBones: 0,
     animation: "Idle",
     avatarZ: -initialDistance,
@@ -73,6 +73,8 @@ export default function SpatialJourney({
     [started, setStarted] = useState(false);
   const [quality, setQuality] = useState<GraphicQuality>("auto");
   const [help,setHelp]=useState(false);
+  const [fieldOfView,setFieldOfView]=useState(50);
+  const [areaDetails,setAreaDetails]=useState(false);
   const [cameraDistance,setCameraDistance]=useState(5.4),[cameraShoulder,setCameraShoulder]=useState(-1.2);
   const [exhibit, setExhibit] = useState<string | null>(null);
   const dialog = useRef<HTMLDialogElement>(null),
@@ -189,7 +191,7 @@ export default function SpatialJourney({
       const target = event.target;
       if (
         target instanceof Element &&
-        target.closest('dialog,input,textarea,select,[contenteditable="true"]')
+        target.closest('dialog,input,textarea,select,[contenteditable="true"],[data-spatial-blocker]')
       )
         return;
       const pixels = normalizeWheel(
@@ -306,6 +308,7 @@ export default function SpatialJourney({
     return () => window.removeEventListener("popstate", navigate);
   }, []);
   function goTo(index: number) {
+    setHelp(false);setAreaDetails(false);
     const url = new URL(location.href);
     url.searchParams.set("chapter", environments[index].id);
     history.pushState(null, "", url);
@@ -354,7 +357,7 @@ export default function SpatialJourney({
   return (
     <main
       ref={shell}
-      className={`spatial-shell ${started ? "explored" : ""} ${help ? "help-open" : ""} ${reduced ? "motion-reduced" : ""} navigation-${navigationMode}`}
+      className={`spatial-shell ${started ? "explored" : ""} ${help ? "help-open" : ""} ${areaDetails ? "area-open" : ""} ${reduced ? "motion-reduced" : ""} navigation-${navigationMode}`}
     >
       <a
         className="skip-link"
@@ -386,6 +389,17 @@ export default function SpatialJourney({
               onNavigationChange(next);
             }}
           />
+              <button
+                className="spatial-button pause-button"
+                disabled={!ready}
+                aria-label={paused ? "Continuar exploração" : "Pausar exploração"}
+                title={paused ? "Continuar exploração" : "Pausar exploração"}
+                aria-pressed={paused}
+                onClick={() => setPaused((v) => !v)}
+              >
+                <span aria-hidden="true">{paused ? "▷" : "||"}</span>
+              </button>
+          <button className="spatial-button studio-menu-toggle" aria-label="Câmera e ajuda" title="Câmera e ajuda" aria-expanded={help} aria-controls="studio-options" onClick={()=>{setHelp(v=>!v);requestAnimationFrame(()=>{if(help)stage.current?.focus({preventScroll:true});else document.getElementById("studio-options")?.focus()})}}>☰</button>
           <button
             id="classic-access"
             className="spatial-button"
@@ -461,6 +475,8 @@ export default function SpatialJourney({
           orbitDrag.current = null;
           drag.current = null;
         }}
+        data-furniture-loaded={snapshot.furnitureLoaded}
+        data-camera-fov={snapshot.cameraFov}
         data-avatar-lod={snapshot.avatarLod}
         data-npc-count={snapshot.npcCount}
         data-npcs-loaded={snapshot.npcsLoaded}
@@ -513,6 +529,7 @@ export default function SpatialJourney({
             data-spatial-blocker
             aria-label="Ambiente atual"
           >
+            <button className="area-disclosure" aria-expanded={areaDetails} onClick={()=>setAreaDetails(v=>!v)}>{areaDetails?"Fechar apresentação":"Sobre este ambiente"}</button>
             <p className="spatial-kicker">
               {current.number} / {current.name}
             </p>
@@ -578,32 +595,10 @@ export default function SpatialJourney({
                 </button>
               );
             })}
-          <nav
-            className="chapter-step"
-            aria-label="Percorrer capítulos"
-            data-spatial-blocker
-          >
-            <button
-              disabled={!ready || snapshot.area === 0}
-              onClick={() => goTo(snapshot.area - 1)}
-            >
-              ← Anterior
-            </button>
-            <span>{snapshot.area + 1} / 6</span>
-            <button
-              disabled={!ready || snapshot.area === 5}
-              onClick={() => goTo(snapshot.area + 1)}
-            >
-              Próximo →
-            </button>
-          </nav>
+
           <div className="studio-tools" data-spatial-blocker>
-            <button className="spatial-button" aria-expanded={help} aria-controls="studio-options" onClick={()=>setHelp(v=>!v)}>Câmera e ajuda</button>
-            {help&&<section id="studio-options" aria-label="Ajustes da visita">
+            {help&&<section id="studio-options" aria-label="Ajustes da visita" tabIndex={-1} onKeyDown={e=>{if(e.key==="Escape"){e.preventDefault();setHelp(false);stage.current?.focus({preventScroll:true})}}}>
               <h2>Explorar o estúdio</h2>
-              <p>WASD/setas: caminhar. Arraste: olhar. I/J/K/L: orientar a câmera. E: interagir por proximidade. R: recentrar. P/Esc: pausa. No Scroll, role ou deslize para avançar e retornar.</p>
-              <label>Distância da câmera<input aria-label="Distância da câmera" type="range" min="2.2" max="8.5" step=".1" value={cameraDistance} onChange={e=>{const value=Number(e.target.value);setCameraDistance(value);engine.current?.setCamera(value,cameraShoulder)}}/></label>
-              <label>Ombro da câmera<select aria-label="Ombro da câmera" value={cameraShoulder} onChange={e=>{const value=Number(e.target.value);setCameraShoulder(value);engine.current?.setCamera(cameraDistance,value)}}><option value={-1.2}>Esquerdo</option><option value={0}>Central</option><option value={1.2}>Direito</option></select></label>
               <label className="graphic-quality">
                 <span>Gráficos</span>
                 <select aria-label="Gráficos" value={quality} disabled={!ready} onChange={e => {
@@ -625,6 +620,52 @@ export default function SpatialJourney({
                 Movimento reduzido
               </label>
 
+
+
+                        {navigationMode === "walk" && <button className="spatial-button camera-reset" data-spatial-blocker disabled={!ready || paused} onClick={() => engine.current?.resetCamera()}>Recentrar câmera</button>}
+              <label>Distância da câmera<input aria-label="Distância da câmera" type="range" min="2.2" max="8.5" step=".1" value={cameraDistance} onChange={e=>{const value=Number(e.target.value);setCameraDistance(value);engine.current?.setCamera(value,cameraShoulder)}}/></label>
+              <label>Campo de visão<input aria-label="Campo de visão" type="range" min="40" max="65" step="1" value={fieldOfView} onChange={e=>{const value=Number(e.target.value);setFieldOfView(value);engine.current?.setFov(value)}}/></label>
+              <label>Ombro da câmera<select aria-label="Ombro da câmera" value={cameraShoulder} onChange={e=>{const value=Number(e.target.value);setCameraShoulder(value);engine.current?.setCamera(cameraDistance,value)}}><option value={-1.2}>Esquerdo</option><option value={0}>Central</option><option value={1.2}>Direito</option></select></label>
+
+
+                        <nav
+            className="chapter-step"
+            aria-label="Percorrer capítulos"
+            data-spatial-blocker
+          >
+            <button
+              disabled={!ready || snapshot.area === 0}
+              onClick={() => goTo(snapshot.area - 1)}
+            >
+              ← Anterior
+            </button>
+            <span>{snapshot.area + 1} / 6</span>
+            <button
+              disabled={!ready || snapshot.area === 5}
+              onClick={() => goTo(snapshot.area + 1)}
+            >
+              Próximo →
+            </button>
+          </nav>
+              <nav
+                className="environment-shortcuts"
+                aria-label="Atalhos para ambientes"
+              >
+                {environments.map((e, i) => (
+                  <button
+                    key={e.id}
+                    disabled={!ready}
+                    aria-current={snapshot.area === i ? "step" : undefined}
+                    onClick={() => goTo(i)}
+                  >
+                    <small>{e.number}</small>
+                    <span>{e.name}</span>
+                    <span aria-hidden="true">→</span>
+                  </button>
+                ))}
+              </nav>
+              <p>WASD/setas: caminhar. Arraste: olhar. I/J/K/L: orientar a câmera. E: interagir por proximidade. R: recentrar. P/Esc: pausa. No Scroll, role ou deslize para avançar e retornar.</p>
+              <p><Link href="/creditos">Créditos dos modelos e licenças →</Link></p>
               <p>Equipe fictícia e simulações locais. Nenhuma conversa com IA ao vivo.</p>
             </section>}
           </div>
@@ -657,34 +698,10 @@ export default function SpatialJourney({
                 )}{" "}
                 · P ou Esc para pausar
               </p>
-              <button
-                className="spatial-button pause-button"
-                disabled={!ready}
-                aria-pressed={paused}
-                onClick={() => setPaused((v) => !v)}
-              >
-                {paused ? "Continuar exploração" : "Pausar exploração"}{" "}
-                <span aria-hidden="true">{paused ? "▷" : "||"}</span>
-              </button>
+
             </div>
             <div className="journey-bottom">
-              <nav
-                className="environment-shortcuts"
-                aria-label="Atalhos para ambientes"
-              >
-                {environments.map((e, i) => (
-                  <button
-                    key={e.id}
-                    disabled={!ready}
-                    aria-current={snapshot.area === i ? "step" : undefined}
-                    onClick={() => goTo(i)}
-                  >
-                    <small>{e.number}</small>
-                    <span>{e.name}</span>
-                    <span aria-hidden="true">→</span>
-                  </button>
-                ))}
-              </nav>
+
               <div className="spatial-progress">
                 <label htmlFor="journey-progress">
                   Percurso <span>{percentage}%</span>
@@ -708,7 +725,7 @@ export default function SpatialJourney({
               </div>
             </div>
           </section>
-          {navigationMode === "walk" && <button className="spatial-button camera-reset" data-spatial-blocker disabled={!ready || paused} onClick={() => engine.current?.resetCamera()}>Recentrar câmera</button>}
+
           {navigationMode === "walk" ? (
             <div
               className="spatial-touch"

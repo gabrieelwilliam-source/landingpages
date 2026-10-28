@@ -3,57 +3,57 @@
   "assets": [
     {
       "name": "gabriel-rigged.glb",
-      "bytes": 104804,
-      "sha256": "62bf7ada64a2977468ce9fbca6219b359d590bb383026eed9e9d786b2b3c5691",
-      "triangles": 4832
+      "bytes": 104488,
+      "sha256": "d3acdd6c79c931a3afa1921c1708a7bfd84cb87296c58efbcecde357c7abf7da",
+      "triangles": 4640
     },
     {
       "name": "npc-0.glb",
-      "bytes": 97728,
-      "sha256": "5b8f6334b92190993db9a5ceea4f9ec76ac4ff9dd1dc813157a7010334204aed",
-      "triangles": 3962
+      "bytes": 102292,
+      "sha256": "8d04d7a3791b21bd983f8ccec55d2c6c200b9fd0281fe3d9d262ef4d561acf0c",
+      "triangles": 4603
     },
     {
       "name": "npc-1.glb",
-      "bytes": 97676,
-      "sha256": "2d3d4c787538e4a67151e376f4ad32091b00d7a0546477f1a2e530d093d7f9c2",
-      "triangles": 3962
+      "bytes": 102280,
+      "sha256": "a3279b944c8f85f922d6ab899247558f9ca34f8e3a9ace23e21c476ab47e3a5d",
+      "triangles": 4603
     },
     {
       "name": "npc-2.glb",
-      "bytes": 98040,
-      "sha256": "d83bf1325eb3fdf6d7129929689ea0bb9e4e14039aad0995a5a23eb557001cb8",
-      "triangles": 3882
+      "bytes": 102368,
+      "sha256": "d6b753a8bcaa1107a790584729893821157fda7a62e7363e75d37f42f1da1d91",
+      "triangles": 4602
     },
     {
       "name": "npc-3.glb",
-      "bytes": 98096,
-      "sha256": "7c2fdcc3e80be8df56a1f165d1fdc9931853066f5958d82c09dbf792bb60b3db",
-      "triangles": 3950
+      "bytes": 102452,
+      "sha256": "e4389bc49c6b3e7d504e4ff029ecaf54d84f3a759ce6a2c528af8bb0646d5dfc",
+      "triangles": 4603
     },
     {
       "name": "npc-4.glb",
-      "bytes": 97756,
-      "sha256": "a7a40ed12ab847e794591d7e1a47435606b7cec3c4061ef9ebcd10bf2492b8c6",
-      "triangles": 3865
+      "bytes": 102124,
+      "sha256": "465072cb42aa07a55f426087db1589c6e0c9622e0db7e331d214f74f41d08375",
+      "triangles": 4600
     },
     {
       "name": "npc-5.glb",
-      "bytes": 98324,
-      "sha256": "a41d670be0b0875f7f654bf5962dbfae92e6abafc55cf0f2ecc64cdf3cc39374",
-      "triangles": 3880
+      "bytes": 102472,
+      "sha256": "fe6fbac08b0ae41af7101ed95bf9b3e8ef1b4d02728dde248711735e263e3c64",
+      "triangles": 4603
     },
     {
       "name": "npc-6.glb",
-      "bytes": 98612,
-      "sha256": "592fca8f750b9d55318bd6a409cee2dd58c117b05637d36b801d40ffcbbd7833",
-      "triangles": 3882
+      "bytes": 102924,
+      "sha256": "47ad1df6ddff1178b4af25655330ecb7c6e86257781ae75e6addce7c9409f748",
+      "triangles": 4603
     },
     {
       "name": "npc-7.glb",
-      "bytes": 97976,
-      "sha256": "d2f11937c3c46b4879e30af62df4c111b5d8b126373f4e4d06674f0b857db485",
-      "triangles": 3871
+      "bytes": 102304,
+      "sha256": "5e2686209e9425a0d4b903ed57e47bc458e6dac7bb0a7f5555651ab7ec3819bc",
+      "triangles": 4603
     }
   ]
 }

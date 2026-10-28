@@ -1,0 +1,37 @@
+[
+  {
+    "file": "human/PROVENANCE.md",
+    "bytes": 3598,
+    "sha256": "edd99571ca62698f78c943fd4fffb159a413c315fa0d4819d3cec5cadaf8b4f1"
+  },
+  {
+    "file": "human/REVISION.txt",
+    "bytes": 41,
+    "sha256": "fd1a9df6efd4ba25da857a822213e9ba9c8e213cf6dc564b8329bbb61119a762"
+  },
+  {
+    "file": "human/CC0.md",
+    "bytes": 6962,
+    "sha256": "f6089cba01cb570a24712b41ab8a586ccd3cc5ef53dc266ca50b95c288956d2c"
+  },
+  {
+    "file": "human/base.obj",
+    "bytes": 1749303,
+    "sha256": "8e761e6624b8f54536409135d1636da63b32486a90d4897f84e121d144f6fb4c"
+  },
+  {
+    "file": "furniture/SheenChair.glb",
+    "bytes": 4125648,
+    "sha256": "f0af2a2b102d28d540236306ae19f8fb36842df76bd38cf76f063f9bd2853399"
+  },
+  {
+    "file": "furniture/SheenChair-README.md",
+    "bytes": 4250,
+    "sha256": "7bbb705e0532711b80a512161da64ab0f2a719412121daf24b8177bdbdbaca7a"
+  },
+  {
+    "file": "furniture/REVISION.txt",
+    "bytes": 41,
+    "sha256": "33e055e011e23003c71f0128da330b8693046c61596d22dba3a6cd28dfbfee4d"
+  }
+]

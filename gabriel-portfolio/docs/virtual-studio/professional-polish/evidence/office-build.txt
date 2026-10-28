@@ -1,0 +1,90 @@
+> site-zaion@0.1.0 assets:build
+> blender -b --python-exit-code 1 --python tools/build_office.py && OFFICE_ONLY=true node tools/optimize-assets.mjs && node tools/verify-assets.mjs
+
+ERROR Draco mesh compression is not available because library could not be found at /usr/bin/4.3/python/lib/python3.13/site-packages/libextern_draco.so
+19:17:48 | INFO: Starting glTF 2.0 export
+19:17:48 | INFO: Extracting primitive: Cube.001
+19:17:48 | INFO: Primitives created: 13
+19:17:48 | INFO: Finished glTF 2.0 export in 0.09037518501281738 s
+
+19:17:50 | INFO: Starting glTF 2.0 export
+19:17:50 | INFO: Extracting primitive: Cube.088
+19:17:50 | INFO: Primitives created: 13
+19:17:50 | INFO: Finished glTF 2.0 export in 0.0846707820892334 s
+
+19:18:00 | INFO: Starting glTF 2.0 export
+19:18:00 | INFO: Extracting primitive: Cube.190
+19:18:00 | INFO: Primitives created: 16
+19:18:00 | INFO: Finished glTF 2.0 export in 0.1206352710723877 s
+
+19:18:02 | INFO: Starting glTF 2.0 export
+19:18:02 | INFO: Extracting primitive: Cube.487
+19:18:02 | INFO: Primitives created: 11
+19:18:02 | INFO: Finished glTF 2.0 export in 0.05999183654785156 s
+
+19:18:09 | INFO: Starting glTF 2.0 export
+19:18:09 | INFO: Extracting primitive: Cube.579
+19:18:09 | INFO: Primitives created: 17
+19:18:09 | INFO: Finished glTF 2.0 export in 0.11769628524780273 s
+
+19:18:13 | INFO: Starting glTF 2.0 export
+19:18:13 | INFO: Extracting primitive: Cube.836
+19:18:13 | INFO: Primitives created: 14
+19:18:13 | INFO: Finished glTF 2.0 export in 0.1027214527130127 s
+
+CONNECTED OFFICE COMPLETE; 72m physical layout, supported fixtures, shared CC0 furnishings
+Blender 4.3.2
+
+Blender quit
+prune: Removed types... Accessor (2)
+prune: Removed types... Accessor (21)
+prune: Removed types... Accessor (43)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (13)
+environment-0.glb 1832196 -> 191360 skins 0 animations []
+prune: Removed types... Accessor (9)
+prune: Removed types... Accessor (43)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (13)
+environment-1.glb 1852780 -> 224032 skins 0 animations []
+prune: Removed types... Accessor (2)
+prune: Removed types... Accessor (27)
+prune: Removed types... Accessor (52)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (16)
+environment-2.glb 3634860 -> 399936 skins 0 animations []
+prune: Removed types... Accessor (9)
+prune: Removed types... Accessor (35)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (11)
+environment-3.glb 1223992 -> 177644 skins 0 animations []
+prune: Removed types... Accessor (2)
+prune: Removed types... Accessor (29)
+prune: Removed types... Accessor (55)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (17)
+environment-4.glb 2995872 -> 323900 skins 0 animations []
+prune: Removed types... Accessor (2)
+prune: Removed types... Accessor (23)
+prune: Removed types... Accessor (46)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (14)
+environment-5.glb 2417620 -> 267672 skins 0 animations []
+PASS: 9 low-detail variants, <7000 triangles each, same skeletons, clips and normalized weights.
+PASS: 6 scenes, Gabriel + 8 distinct fictional humans, 16+ bones each, 11 verified poses/actions, Meshopt, original logo. 5869300 bytes

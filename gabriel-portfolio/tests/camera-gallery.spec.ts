@@ -1,4 +1,4 @@
-import {reduceMotion} from './studio-options';
+import {reduceMotion,jump,area,options} from './studio-options';
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdir } from "node:fs/promises";
@@ -36,10 +36,11 @@ test("orbit, camera-relative walking, pause, reset and accessible project filter
   const yaw=await stage.getAttribute("data-camera-yaw");
   await stage.focus();await page.keyboard.press("j");
   expect(await stage.getAttribute("data-camera-yaw")).toBe(yaw);
-  await expect(page.getByRole("button",{name:"Recentrar câmera"})).toBeDisabled();
-  await page.getByRole("navigation",{name:"Atalhos para ambientes"}).getByRole("button").nth(3).click();
+  await options(page,true);await expect(page.getByRole("button",{name:"Recentrar câmera"})).toBeDisabled();await options(page,false);
+  await jump(page,3);
   await expect(stage).toHaveAttribute("data-area","projetos");
   await expect(stage).toHaveAttribute("data-camera-yaw","0.000");
+  await area(page);
   const open=page.locator(".spatial-editorial").getByRole("button",{name:/^Filtrar projetos/});
   await open.click();
   const modal=page.getByRole("dialog");
@@ -74,7 +75,7 @@ test("touch orbits without moving the visitor and reset is available on mobile",
     expect(await stage.getAttribute("data-distance")).toBe(before);
     await mkdir("test-results/camera-gallery",{recursive:true});
     await page.screenshot({path:"test-results/camera-gallery/orbit-mobile.png"});
-    const reset=page.getByRole("button",{name:"Recentrar câmera"});await expect(reset).toBeInViewport();await reset.click();
+    await options(page,true);const reset=page.getByRole("button",{name:"Recentrar câmera"});await expect(reset).toBeInViewport();await reset.click();
     await expect(stage).toHaveAttribute("data-camera-yaw","0.000");
   }finally{await context.close();}
 });

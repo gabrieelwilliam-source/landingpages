@@ -16,7 +16,8 @@
     "assets:build": "blender -b --python-exit-code 1 --python tools/build_office.py && OFFICE_ONLY=true node tools/optimize-assets.mjs && node tools/verify-assets.mjs",
     "assets:cast": "sh tools/build_cast.sh",
     "preview:review": "node scripts/serve-review.mjs",
-    "assets:lod": "node tools/build-character-lods.mjs"
+    "assets:lod": "node tools/build-character-lods.mjs",
+    "assets:furniture": "node tools/prepare-furniture.mjs"
   },
   "dependencies": {
     "next": "^15.5.0",

@@ -1,28 +1,29 @@
 {
   "halfWidth": 7.65,
-  "length": 90,
+  "length": 72.0,
   "centres": [
-    0,
-    12,
-    26,
-    44,
-    62,
-    80
+    0.0,
+    9.6,
+    20.8,
+    35.2,
+    49.6,
+    64.0
   ],
   "boundaries": [
-    -7,
-    7,
-    19,
-    36,
-    54,
-    72,
-    92
+    -7.0,
+    5.6,
+    15.2,
+    28.8,
+    43.2,
+    57.6,
+    73.6
   ],
+  "depthScale": 0.8,
   "colliders": [
     {
       "name": "Reception stone counter",
       "x": -4.9,
-      "d": 3.0,
+      "d": 2.4,
       "w": 2.18,
       "h": 0.93,
       "top": 1.0
@@ -30,15 +31,15 @@
     {
       "name": "Lounge plinth",
       "x": 5.2,
-      "d": 4.0,
-      "w": 1.63,
-      "h": 0.79,
-      "top": 0.3
+      "d": 3.2,
+      "w": 1.645,
+      "h": 0.71,
+      "top": 1.03
     },
     {
       "name": "Stone planter",
       "x": 6.9,
-      "d": 7.0,
+      "d": 5.6,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -46,7 +47,7 @@
     {
       "name": "Stone planter.001",
       "x": -6.7,
-      "d": -1.0,
+      "d": -0.8,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -54,15 +55,15 @@
     {
       "name": "Chair gas lift",
       "x": -4.9,
-      "d": 4.15,
+      "d": 3.55,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Brand navy feature",
       "x": -5.5,
-      "d": 5.9,
+      "d": 4.72,
       "w": 2.53,
       "h": 0.58,
       "top": 4.85
@@ -70,39 +71,39 @@
     {
       "name": "Side bay clear glass return",
       "x": -5.2,
-      "d": 7.05,
+      "d": 5.64,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Side bay clear glass return.001",
       "x": 5.2,
-      "d": 7.05,
+      "d": 5.64,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Lounge plinth",
       "x": -5.0,
-      "d": 14.0,
-      "w": 1.63,
-      "h": 0.79,
-      "top": 0.3
+      "d": 11.2,
+      "w": 1.645,
+      "h": 0.71,
+      "top": 1.03
     },
     {
       "name": "Lounge plinth.001",
       "x": 5.0,
-      "d": 9.0,
-      "w": 1.63,
-      "h": 0.79,
-      "top": 0.3
+      "d": 7.2,
+      "w": 0.76,
+      "h": 0.71,
+      "top": 1.03
     },
     {
       "name": "Stone planter",
       "x": -6.9,
-      "d": 20.0,
+      "d": 16.0,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -110,7 +111,7 @@
     {
       "name": "Stone planter.001",
       "x": 6.7,
-      "d": 17.0,
+      "d": 13.6,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -118,7 +119,7 @@
     {
       "name": "Library shelving",
       "x": -6.7,
-      "d": 7.0,
+      "d": 5.6,
       "w": 1.23,
       "h": 0.58,
       "top": 3.4
@@ -126,23 +127,23 @@
     {
       "name": "Side bay clear glass return",
       "x": -5.2,
-      "d": 19.05,
+      "d": 15.24,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Side bay clear glass return.001",
       "x": 5.2,
-      "d": 19.05,
+      "d": 15.24,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Solid walnut desk",
       "x": -4.5,
-      "d": 21.0,
+      "d": 16.8,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
@@ -150,15 +151,15 @@
     {
       "name": "Chair gas lift",
       "x": -4.5,
-      "d": 19.8,
+      "d": 15.6,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Solid walnut desk.001",
       "x": 4.5,
-      "d": 21.0,
+      "d": 16.8,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
@@ -166,79 +167,63 @@
     {
       "name": "Chair gas lift.001",
       "x": 4.5,
-      "d": 19.8,
+      "d": 15.6,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Solid walnut desk.002",
-      "x": -4.5,
-      "d": 27.0,
+      "x": 4.5,
+      "d": 21.6,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
     },
     {
       "name": "Chair gas lift.002",
-      "x": -4.5,
-      "d": 25.8,
+      "x": 4.5,
+      "d": 20.4,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Solid walnut desk.003",
-      "x": 4.5,
-      "d": 27.0,
+      "x": -4.5,
+      "d": 26.4,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
     },
     {
       "name": "Chair gas lift.003",
-      "x": 4.5,
-      "d": 25.8,
+      "x": -4.5,
+      "d": 25.2,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Solid walnut desk.004",
-      "x": -4.5,
-      "d": 33.0,
+      "x": 4.5,
+      "d": 26.4,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
     },
     {
       "name": "Chair gas lift.004",
-      "x": -4.5,
-      "d": 31.8,
+      "x": 4.5,
+      "d": 25.2,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
-    },
-    {
-      "name": "Solid walnut desk.005",
-      "x": 4.5,
-      "d": 33.0,
-      "w": 1.58,
-      "h": 0.905,
-      "top": 0.838
-    },
-    {
-      "name": "Chair gas lift.005",
-      "x": 4.5,
-      "d": 31.8,
-      "w": 0.58,
-      "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Stone planter",
       "x": -6.9,
-      "d": 36.0,
+      "d": 28.8,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -246,7 +231,7 @@
     {
       "name": "Stone planter.001",
       "x": 6.9,
-      "d": 18.0,
+      "d": 14.4,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -254,23 +239,23 @@
     {
       "name": "Side bay clear glass return",
       "x": -5.2,
-      "d": 36.05,
+      "d": 28.84,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Side bay clear glass return.001",
       "x": 5.2,
-      "d": 36.05,
+      "d": 28.84,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Gallery freestanding stone display",
       "x": -5.0,
-      "d": 39.0,
+      "d": 31.2,
       "w": 2.18,
       "h": 0.58,
       "top": 3.65
@@ -278,7 +263,7 @@
     {
       "name": "Gallery freestanding stone display.001",
       "x": 5.0,
-      "d": 44.0,
+      "d": 35.2,
       "w": 2.18,
       "h": 0.58,
       "top": 3.65
@@ -286,7 +271,7 @@
     {
       "name": "Gallery freestanding stone display.002",
       "x": -5.0,
-      "d": 49.0,
+      "d": 39.2,
       "w": 2.18,
       "h": 0.58,
       "top": 3.65
@@ -294,15 +279,15 @@
     {
       "name": "Lounge plinth",
       "x": 5.0,
-      "d": 52.0,
-      "w": 1.63,
-      "h": 0.79,
-      "top": 0.3
+      "d": 41.6,
+      "w": 1.645,
+      "h": 0.71,
+      "top": 1.03
     },
     {
       "name": "Stone planter",
       "x": -6.8,
-      "d": 36.0,
+      "d": 28.8,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -310,7 +295,7 @@
     {
       "name": "Stone planter.001",
       "x": 6.9,
-      "d": 55.0,
+      "d": 44.0,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -318,23 +303,23 @@
     {
       "name": "Side bay clear glass return",
       "x": -5.2,
-      "d": 54.05,
+      "d": 43.24,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Side bay clear glass return.001",
       "x": 5.2,
-      "d": 54.05,
+      "d": 43.24,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Solid walnut desk",
       "x": -4.8,
-      "d": 59.0,
+      "d": 47.2,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
@@ -342,15 +327,15 @@
     {
       "name": "Chair gas lift",
       "x": -4.8,
-      "d": 57.8,
+      "d": 46.0,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Solid walnut desk.001",
       "x": -4.8,
-      "d": 67.0,
+      "d": 53.6,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
@@ -358,15 +343,15 @@
     {
       "name": "Chair gas lift.001",
       "x": -4.8,
-      "d": 65.8,
+      "d": 52.4,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Solid walnut desk.002",
       "x": 4.8,
-      "d": 59.0,
+      "d": 47.2,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
@@ -374,15 +359,15 @@
     {
       "name": "Chair gas lift.002",
       "x": 4.8,
-      "d": 57.8,
+      "d": 46.0,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Solid walnut desk.003",
       "x": 4.8,
-      "d": 67.0,
+      "d": 53.6,
       "w": 1.58,
       "h": 0.905,
       "top": 0.838
@@ -390,15 +375,15 @@
     {
       "name": "Chair gas lift.003",
       "x": 4.8,
-      "d": 65.8,
+      "d": 52.4,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Lab vertical presentation panel",
       "x": -6.0,
-      "d": 71.0,
+      "d": 56.8,
       "w": 0.955,
       "h": 0.58,
       "top": 3.5
@@ -406,7 +391,7 @@
     {
       "name": "Lab vertical presentation panel.001",
       "x": 6.0,
-      "d": 71.0,
+      "d": 56.8,
       "w": 0.955,
       "h": 0.58,
       "top": 3.5
@@ -414,7 +399,7 @@
     {
       "name": "Stone planter",
       "x": 6.9,
-      "d": 54.0,
+      "d": 43.2,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -422,87 +407,87 @@
     {
       "name": "Side bay clear glass return",
       "x": -5.2,
-      "d": 72.05,
+      "d": 57.64,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Side bay clear glass return.001",
       "x": 5.2,
-      "d": 72.05,
+      "d": 57.64,
       "w": 3.08,
-      "h": 0.58,
+      "h": 0.294,
       "top": 4.3
     },
     {
       "name": "Meeting table",
       "x": 4.7,
-      "d": 83.0,
+      "d": 66.4,
       "w": 1.88,
-      "h": 2.63,
+      "h": 2.16,
       "top": 0.865
     },
     {
       "name": "Chair gas lift",
       "x": 2.45,
-      "d": 81.4,
+      "d": 65.12,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Chair gas lift.001",
       "x": 6.95,
-      "d": 81.4,
+      "d": 65.12,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Chair gas lift.002",
       "x": 2.45,
-      "d": 83.0,
+      "d": 66.4,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Chair gas lift.003",
       "x": 6.95,
-      "d": 83.0,
+      "d": 66.4,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Chair gas lift.004",
       "x": 2.45,
-      "d": 84.6,
+      "d": 67.68,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Chair gas lift.005",
       "x": 6.95,
-      "d": 84.6,
+      "d": 67.68,
       "w": 0.58,
       "h": 0.58,
-      "top": 0.53
+      "top": 1.3
     },
     {
       "name": "Lounge plinth",
       "x": -5.1,
-      "d": 85.0,
-      "w": 1.63,
-      "h": 0.79,
-      "top": 0.3
+      "d": 68.0,
+      "w": 1.645,
+      "h": 0.71,
+      "top": 1.03
     },
     {
       "name": "Stone planter",
       "x": -6.8,
-      "d": 88.0,
+      "d": 70.4,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
@@ -510,44 +495,52 @@
     {
       "name": "Stone planter.001",
       "x": 6.9,
-      "d": 76.0,
+      "d": 60.8,
       "w": 0.68,
       "h": 0.68,
       "top": 0.6
     },
     {
       "name": "Meeting screen stone surround",
-      "x": -4.5,
-      "d": 89.0,
+      "x": 4.7,
+      "d": 71.2,
       "w": 2.38,
       "h": 0.58,
       "top": 4.3
+    },
+    {
+      "name": "Meeting inner glass",
+      "x": 1.65,
+      "d": 67.6,
+      "w": 0.298,
+      "h": 4.88,
+      "top": 4.2
     }
   ],
-  "cameraCeiling": 4.95,
+  "cameraCeiling": 4.65,
   "cameraObstacles": [
     {
       "name": "Suspended luminaire",
       "x": -4.9,
-      "d": 3.0,
+      "d": 2.4,
       "w": 1.58,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Suspended luminaire.001",
       "x": 4.8,
-      "d": 3.0,
+      "d": 2.4,
       "w": 1.18,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Reception workstation",
       "x": -6.12,
-      "d": 3.28,
+      "d": 2.68,
       "w": 0.59,
       "h": 0.31,
       "bottom": 1.11,
@@ -556,25 +549,25 @@
     {
       "name": "Suspended luminaire",
       "x": -5.0,
-      "d": 12.0,
+      "d": 9.6,
       "w": 1.08,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Suspended luminaire.001",
       "x": 5.0,
-      "d": 7.0,
+      "d": 5.6,
       "w": 1.08,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Monitor frame",
       "x": -4.5,
-      "d": 21.22,
+      "d": 17.02,
       "w": 1.005,
       "h": 0.315,
       "bottom": 0.89,
@@ -583,7 +576,7 @@
     {
       "name": "Monitor frame.001",
       "x": 4.5,
-      "d": 21.22,
+      "d": 17.02,
       "w": 1.005,
       "h": 0.315,
       "bottom": 0.89,
@@ -591,53 +584,26 @@
     },
     {
       "name": "Suspended luminaire",
-      "x": 0.0,
-      "d": 21.0,
-      "w": 1.78,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
-    },
-    {
-      "name": "Monitor frame.002",
       "x": -4.5,
-      "d": 27.22,
-      "w": 1.005,
-      "h": 0.315,
-      "bottom": 0.89,
-      "top": 1.73
-    },
-    {
-      "name": "Monitor frame.003",
-      "x": 4.5,
-      "d": 27.22,
-      "w": 1.005,
-      "h": 0.315,
-      "bottom": 0.89,
-      "top": 1.73
+      "d": 16.8,
+      "w": 1.48,
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Suspended luminaire.001",
-      "x": 0.0,
-      "d": 27.0,
-      "w": 1.78,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
-    },
-    {
-      "name": "Monitor frame.004",
-      "x": -4.5,
-      "d": 33.22,
-      "w": 1.005,
-      "h": 0.315,
-      "bottom": 0.89,
-      "top": 1.73
-    },
-    {
-      "name": "Monitor frame.005",
       "x": 4.5,
-      "d": 33.22,
+      "d": 16.8,
+      "w": 1.18,
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
+    },
+    {
+      "name": "Monitor frame.002",
+      "x": 4.5,
+      "d": 21.82,
       "w": 1.005,
       "h": 0.315,
       "bottom": 0.89,
@@ -645,17 +611,53 @@
     },
     {
       "name": "Suspended luminaire.002",
-      "x": 0.0,
-      "d": 33.0,
-      "w": 1.78,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "x": -4.5,
+      "d": 21.6,
+      "w": 1.48,
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
+    },
+    {
+      "name": "Monitor frame.003",
+      "x": -4.5,
+      "d": 26.62,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
+      "name": "Monitor frame.004",
+      "x": 4.5,
+      "d": 26.62,
+      "w": 1.005,
+      "h": 0.315,
+      "bottom": 0.89,
+      "top": 1.73
+    },
+    {
+      "name": "Suspended luminaire.003",
+      "x": -4.5,
+      "d": 26.4,
+      "w": 1.48,
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
+    },
+    {
+      "name": "Suspended luminaire.004",
+      "x": 4.5,
+      "d": 26.4,
+      "w": 1.18,
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Monitor frame",
       "x": -4.8,
-      "d": 59.22,
+      "d": 47.42,
       "w": 1.005,
       "h": 0.315,
       "bottom": 0.89,
@@ -664,7 +666,7 @@
     {
       "name": "Monitor frame.001",
       "x": -4.8,
-      "d": 67.22,
+      "d": 53.82,
       "w": 1.005,
       "h": 0.315,
       "bottom": 0.89,
@@ -673,16 +675,16 @@
     {
       "name": "Suspended luminaire",
       "x": -4.8,
-      "d": 62.0,
+      "d": 49.6,
       "w": 1.78,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Monitor frame.002",
       "x": 4.8,
-      "d": 59.22,
+      "d": 47.42,
       "w": 1.005,
       "h": 0.315,
       "bottom": 0.89,
@@ -691,7 +693,7 @@
     {
       "name": "Monitor frame.003",
       "x": 4.8,
-      "d": 67.22,
+      "d": 53.82,
       "w": 1.005,
       "h": 0.315,
       "bottom": 0.89,
@@ -700,29 +702,287 @@
     {
       "name": "Suspended luminaire.001",
       "x": 4.8,
-      "d": 62.0,
+      "d": 49.6,
       "w": 1.78,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Suspended luminaire",
       "x": 4.7,
-      "d": 81.8,
+      "d": 65.44,
       "w": 1.58,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
     },
     {
       "name": "Suspended luminaire.001",
       "x": 4.7,
-      "d": 84.3,
+      "d": 67.44,
       "w": 1.58,
-      "h": 0.32,
-      "bottom": 3.448,
-      "top": 3.513
+      "h": 0.318,
+      "bottom": 4.777,
+      "top": 4.842
+    }
+  ],
+  "furniture": [
+    {
+      "asset": "lounge-bench",
+      "area": 0,
+      "x": 5.2,
+      "d": 3.2,
+      "sourceD": 4,
+      "yaw": 0,
+      "width": 2.73,
+      "depth": 0.86,
+      "seatHeight": 0.48
+    },
+    {
+      "asset": "lounge-bench",
+      "area": 1,
+      "x": -5,
+      "d": 11.2,
+      "sourceD": 14,
+      "yaw": 0,
+      "width": 2.73,
+      "depth": 0.86,
+      "seatHeight": 0.48
+    },
+    {
+      "asset": "lounge-chair",
+      "area": 1,
+      "x": 5,
+      "d": 7.2,
+      "sourceD": 9,
+      "yaw": 0,
+      "width": 0.96,
+      "depth": 0.86,
+      "seatHeight": 0.48
+    },
+    {
+      "asset": "lounge-bench",
+      "area": 3,
+      "x": 5,
+      "d": 41.6,
+      "sourceD": 52,
+      "yaw": 0,
+      "width": 2.73,
+      "depth": 0.86,
+      "seatHeight": 0.48
+    },
+    {
+      "asset": "lounge-bench",
+      "area": 5,
+      "x": -5.1,
+      "d": 68.0,
+      "sourceD": 85,
+      "yaw": 0,
+      "width": 2.73,
+      "depth": 0.86,
+      "seatHeight": 0.48
+    }
+  ],
+  "seats": [
+    {
+      "x": -4.9,
+      "d": 3.55,
+      "sourceD": 4.15
+    },
+    {
+      "x": -4.5,
+      "d": 15.6,
+      "sourceD": 19.8
+    },
+    {
+      "x": 4.5,
+      "d": 15.6,
+      "sourceD": 19.8
+    },
+    {
+      "x": 4.5,
+      "d": 20.4,
+      "sourceD": 25.8
+    },
+    {
+      "x": -4.5,
+      "d": 25.2,
+      "sourceD": 31.8
+    },
+    {
+      "x": 4.5,
+      "d": 25.2,
+      "sourceD": 31.8
+    },
+    {
+      "x": -4.8,
+      "d": 46.0,
+      "sourceD": 57.8
+    },
+    {
+      "x": -4.8,
+      "d": 52.4,
+      "sourceD": 65.8
+    },
+    {
+      "x": 4.8,
+      "d": 46.0,
+      "sourceD": 57.8
+    },
+    {
+      "x": 4.8,
+      "d": 52.4,
+      "sourceD": 65.8
+    },
+    {
+      "x": 2.45,
+      "d": 65.12,
+      "sourceD": 81.4
+    },
+    {
+      "x": 6.95,
+      "d": 65.12,
+      "sourceD": 81.4
+    },
+    {
+      "x": 2.45,
+      "d": 66.4,
+      "sourceD": 83.0
+    },
+    {
+      "x": 6.95,
+      "d": 66.4,
+      "sourceD": 83.0
+    },
+    {
+      "x": 2.45,
+      "d": 67.68,
+      "sourceD": 84.6
+    },
+    {
+      "x": 6.95,
+      "d": 67.68,
+      "sourceD": 84.6
+    }
+  ],
+  "fixtures": [
+    {
+      "area": 0,
+      "x": -4.9,
+      "d": 2.4,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 0,
+      "x": 4.8,
+      "d": 2.4,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 1,
+      "x": -5,
+      "d": 9.6,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 1,
+      "x": 5,
+      "d": 5.6,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 2,
+      "x": -4.5,
+      "d": 16.8,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 2,
+      "x": 4.5,
+      "d": 16.8,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 2,
+      "x": -4.5,
+      "d": 21.6,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 2,
+      "x": -4.5,
+      "d": 26.4,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 2,
+      "x": 4.5,
+      "d": 26.4,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 4,
+      "x": -4.8,
+      "d": 49.6,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 4,
+      "x": 4.8,
+      "d": 49.6,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 5,
+      "x": 4.7,
+      "d": 65.44,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
+    },
+    {
+      "area": 5,
+      "x": 4.7,
+      "d": 67.44,
+      "bottom": 4.766,
+      "top": 4.843,
+      "ceiling": 5.61,
+      "suspensions": 2
     }
   ]
 }

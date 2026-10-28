@@ -1,0 +1,24 @@
+{
+  "depthScale": 0.8,
+  "referenceCentres": [
+    0,
+    12,
+    26,
+    44,
+    62,
+    80
+  ],
+  "referenceBoundaries": [
+    -7,
+    7,
+    19,
+    36,
+    54,
+    72,
+    92
+  ],
+  "referenceLength": 90,
+  "halfWidth": 7.65,
+  "ceiling": 5.7,
+  "entranceDepth": 7
+}

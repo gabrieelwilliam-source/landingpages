@@ -125,3 +125,15 @@ Revisão e capturas atuais: [docs/virtual-studio/navy-review/index.html](docs/vi
 As divisórias internas de vidro mantêm colisão; computadores do estúdio abrem demonstrações existentes. “Câmera e ajuda” reúne qualidade, movimento reduzido, distância de 2,2 a 8,5 m, ombro e instruções. O logo original aparece na recepção e reunião.
 
 O elenco completo usa atlas PBR procedural de micro-normal/rugosidade e malhas faciais/mãos refinadas; os LODs dispensam esses mapas e preservam cores/rig/animações com menos de 7 mil triângulos por personagem. Os personagens continuam estilizados. Rotas de funcionários são verificadas contra vidro e móveis, com saída lateral contínua das cadeiras. `CHROMIUM_PATH=/usr/bin/chromium node scripts/capture-studio-quality.mjs` registra quatro níveis gráficos e uma captura do caminho PBR, em servidor local próprio, depois de `npm run build` e sem outros builds/testes simultâneos. O teste na nuvem usa SwiftShader e não representa desempenho em GPU física.
+
+## Revisão local — Polimento Visual Profissional
+
+A branch `visual-polish` segue o novo pacote: **sem publicação**, sem push e sem alterar a versão de `../gabriel/`. Veja [AUDIT.md](AUDIT.md), [ASSETS_LICENSES.md](ASSETS_LICENSES.md) e [REPORT_FINAL.md](REPORT_FINAL.md). Capturas e comparação: `docs/virtual-studio/professional-polish/`.
+
+A navegação usa uma planta de 72 m configurada por `src/data/office-plan.json`, com entrada de 7 m para manter o enquadramento. `office-layout.json`, assentos e atores são gerados pela mesma fonte física. O eixo anterior era 90 m; mesas/cadeiras e avatares preservam sua escala, e os demais elementos centrais são ajustados à planta. Não alterar só a extensão visual sem atualizar colisões e pontos de interação.
+
+Dados CC0 MakeHuman fornecem anatomia de cabeça/mãos; figurino, rig e ações permanecem do projeto. Poltrona e banco estofado derivam de SheenChair CC0; usam cache compartilhado de geometria/materiais por visita. Fontes e licenças estão incluídas. Reconstruir: `npm run assets:furniture`, `npm run assets:build`, `npm run assets:cast`, em sequência, com Blender instalado. O uso de Blender e das fontes não é necessário para abrir o export já pronto.
+
+A interface mantém marca, modos, pausa, menu, ação próxima e progresso. “Sobre este ambiente” revela a apresentação. Destinos, gráficos, câmera/FOV e ajuda estão no menu. A tecla Escape fecha o menu e devolve o foco ao cenário; rolar o painel não desloca o mundo. Scroll dirige o ciclo de caminhada pela distância virtual, mantendo a raiz ancorada; o sentido inverso reverte o ciclo. Conteúdo, rascunho e modo clássico continuam disponíveis.
+
+Para auditar após build: `CHROMIUM_PATH=/usr/bin/chromium node scripts/audit-studio.mjs docs/virtual-studio/professional-polish/final`. A ferramenta usa servidor de produção próprio; execute sem outros builds/testes simultâneos. Memória de textura é estimativa por alocações WebGL, não VRAM física. LCP mede DOM, não conclusão do canvas. O perfil móvel na nuvem é emulação por viewport/toque, não benchmark de telefone real.

@@ -11,3 +11,5 @@ out/
 /public_gabriel_foto_original.jpg
 
 .next-pages/
+
+/tools/__pycache__/

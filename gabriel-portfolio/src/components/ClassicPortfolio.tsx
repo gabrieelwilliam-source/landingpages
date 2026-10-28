@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect } from "react";
 import ProjectGallery from "./ProjectGallery";
 import actors from "@/data/studio-actors.json";
@@ -152,7 +153,7 @@ export default function ClassicPortfolio({
         </strong>
         <span>Desenvolvimento web · by zAIon</span>
         <a href="#inicio">Voltar ao início ↑</a>
-      </footer>
+      <p><Link href="/creditos">Créditos dos modelos 3D e licenças →</Link></p></footer>
       <button className="classic-return" onClick={()=>onExplore()}>
         Voltar à jornada 3D →
       </button>

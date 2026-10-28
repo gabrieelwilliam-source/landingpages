@@ -1,4 +1,5 @@
-import {reduceMotion,graphics} from './studio-options';
+import office from "../src/data/office-layout.json";
+import {reduceMotion,graphics,jump,area} from './studio-options';
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import {mkdir} from 'node:fs/promises';
@@ -20,20 +21,20 @@ test('fictional receptionist animates, pauses and opens a useful keyboard intera
 test('all six sectors have a scripted interaction and render real inhabited interiors',async({page})=>{
  test.setTimeout(180000);await page.setViewportSize({width:1440,height:900});const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});
  await page.goto('/');await ready(page);await reduceMotion(page);await graphics(page,'high');
- await mkdir('test-results/full-studio',{recursive:true});const zones=page.getByRole('navigation',{name:'Atalhos para ambientes'}).getByRole('button');
+ await mkdir('test-results/full-studio',{recursive:true});
  for(let i=0;i<6;i++){
-  await zones.nth(i).click();await expect(page.locator('.spatial-kicker')).toContainText(`0${i+1}`);await expect(page.locator('.spatial-progress')).not.toContainText('Em travessia');
+  await jump(page,i);await expect(page.locator('.spatial-kicker')).toContainText(`0${i+1}`);await expect(page.locator('.spatial-progress')).not.toContainText('Em travessia');
   await expect.poll(async()=>Number(await page.locator('.world-stage').getAttribute('data-npc-count')),{timeout:20000}).toBeGreaterThan(0);
   await page.screenshot({path:`test-results/full-studio/sector-${i+1}-1440.png`});
-  await page.locator('.studio-area-assistant').click();await expect(page.getByRole('dialog')).toContainText('ORIENTAÇÃO ROTEIRIZADA LOCAL');
+  await area(page);await page.locator('.studio-area-assistant').click();await expect(page.getByRole('dialog')).toContainText('ORIENTAÇÃO ROTEIRIZADA LOCAL');
   await page.keyboard.press('Escape');
  }
- await page.setViewportSize({width:390,height:844});await zones.nth(0).click();await expect(page.locator('.spatial-kicker')).toContainText('01');await page.screenshot({path:'test-results/full-studio/reception-390.png'});
+ await page.setViewportSize({width:390,height:844});await jump(page,0);await expect(page.locator('.spatial-kicker')).toContainText('01');await page.screenshot({path:'test-results/full-studio/reception-390.png'});
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);expect(errors).toEqual([]);
 });
 test('all four automation demos change local state and never send requests',async({page})=>{
  test.setTimeout(90000);const posts:string[]=[];page.on('request',r=>{if(r.method()==='POST')posts.push(r.url())});await page.goto('/?chapter=processo');await ready(page);
- await page.locator('.studio-area-assistant').click();const demo=page.getByRole('region',{name:'Simulador local de automações'});
+ await area(page);await page.locator('.studio-area-assistant').click();const demo=page.getByRole('region',{name:'Simulador local de automações'});
  for(const kind of ['clinic','property','salon','marketing']){
   await demo.getByLabel('Área da demonstração').selectOption(kind);await demo.getByLabel('Exemplo',{exact:true}).selectOption({index:1});
   await demo.getByRole('button',{name:'Iniciar simulação',exact:true}).click();await expect(demo.getByRole('status')).toContainText('Etapa 1 concluída');
@@ -54,7 +55,7 @@ test('distance, shoulder and obstacle-aware reconnect preserve anchored reversib
  await page.mouse.wheel(0,-500);await expect.poll(async()=>Number(await stage.getAttribute('data-distance'))).toBeLessThan(distance+.5);expect(await stage.getAttribute('data-avatar-z')).toBe(avatar);
 });
 test('briefing assistant preserves an existing draft and the classic mode exposes the same content',async({page})=>{
- test.setTimeout(90000);await page.goto('/?chapter=contato');await ready(page);await page.locator('.studio-area-assistant').click();const dialog=page.getByRole('dialog');
+ test.setTimeout(90000);await page.goto('/?chapter=contato');await ready(page);await area(page);await page.locator('.studio-area-assistant').click();const dialog=page.getByRole('dialog');
  await dialog.getByLabel('O que você quer construir?').fill('Texto existente que precisa ser preservado.');await dialog.getByLabel('Tipo de projeto').selectOption('Automação');await dialog.getByRole('button',{name:'Adicionar ao rascunho'}).click();await expect(dialog.getByLabel('O que você quer construir?')).toHaveValue(/Texto existente.*\n\nProjeto: Automação/);
  await page.keyboard.press('Escape');await page.getByRole('button',{name:'Modo clássico'}).click();await expect(page.locator('#contato').getByLabel('O que você quer construir?')).toHaveValue(/Texto existente/);
  const cast=page.getByRole('region',{name:'Equipe virtual demonstrativa'});await cast.getByText('Rui · Laboratório virtual',{exact:true}).click();await cast.getByRole('link',{name:'Executar simulação local'}).click();await expect(page.locator('#zaion').getByRole('region',{name:'Simulador local de automações'})).toBeVisible();
@@ -65,7 +66,8 @@ test('close reception view and real touch interaction remain usable on mobile',a
  await reduceMotion(page);await graphics(page,'high');await page.getByRole('button',{name:'Caminhar',exact:true}).click();
  await page.getByRole('button',{name:'Câmera e ajuda'}).click();await page.getByLabel('Distância da câmera',{exact:true}).fill('3.8');await page.getByLabel('Ombro da câmera',{exact:true}).selectOption('0');await page.getByRole('button',{name:'Câmera e ajuda'}).click();
  const stage=page.locator('.world-stage');await stage.focus();await page.keyboard.down('a');try{await expect.poll(async()=>Number(await stage.getAttribute('data-x'))).toBeLessThan(-1.5);}finally{await page.keyboard.up('a');}
- await page.keyboard.down('w');try{await expect.poll(async()=>Number(await stage.getAttribute('data-distance'))).toBeGreaterThan(1.8);}finally{await page.keyboard.up('w');}
+ const counter=office.colliders.find(box=>box.name==='Reception stone counter')!;
+ await page.keyboard.down('w');try{await expect.poll(async()=>Number(await stage.getAttribute('data-distance'))).toBeGreaterThan(counter.d-counter.h-.18);}finally{await page.keyboard.up('w');}
  for(let i=0;i<4;i++)await page.keyboard.press('j');await expect.poll(async()=>Number(await stage.getAttribute('data-camera-yaw'))).toBeGreaterThan(.7);
  await mkdir('test-results/full-studio',{recursive:true});await page.screenshot({path:'test-results/full-studio/reception-close-1440.png'});
  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
@@ -114,4 +116,14 @@ test('detailed characters remain inspectable with the closer collision-aware cam
  await page.screenshot({path:'test-results/full-studio/character-detail-high.png'});
  await graphics(page,'low');await expect(stage).toHaveAttribute('data-avatar-lod','low');await page.screenshot({path:'test-results/full-studio/character-detail-low.png'});
  await expect(stage).toHaveAttribute('data-rig-bones','16');
+});
+
+test('supported furniture, adjustable FOV and menu scrolling preserve the scene position',async({page})=>{
+ test.setTimeout(90000);await page.setViewportSize({width:390,height:844});await page.goto('/');await ready(page);
+ const stage=page.locator('.world-stage');await expect.poll(async()=>Number(await stage.getAttribute('data-furniture-loaded'))).toBeGreaterThan(0);
+ await page.getByRole('button',{name:'Câmera e ajuda'}).click();await page.getByLabel('Campo de visão',{exact:true}).fill('62');await expect(stage).toHaveAttribute('data-camera-fov','62');
+ const distance=await stage.getAttribute('data-distance');const panel=page.locator('#studio-options');await panel.hover();await page.mouse.wheel(0,600);await page.waitForTimeout(300);
+ expect(await stage.getAttribute('data-distance')).toBe(distance);await expect.poll(()=>panel.evaluate(el=>el.scrollTop)).toBeGreaterThan(0);
+ await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:'Câmera e ajuda'})).toHaveAttribute('aria-expanded','false');await expect(stage).toBeFocused();
+ await page.getByRole('button',{name:'Câmera e ajuda'}).click();await page.getByRole('link',{name:'Créditos dos modelos e licenças'}).click();await expect(page.locator('h1')).toHaveText('Créditos dos modelos 3D');await expect(page.locator('main')).toContainText('CC0');
 });

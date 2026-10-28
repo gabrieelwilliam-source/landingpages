@@ -1,3 +1,4 @@
+import officePlan from "./office-plan.json";
 export type Chapter = {
   id: string;
   index: string;
@@ -285,7 +286,7 @@ export const spatialExhibits = [
     position: [4.7, 1.4, 83],
   },
   {id: "galeria", area: 3, label: "Filtrar projetos", title: "Galeria de conceitos", body: "Explore por tipo. Todos os itens são demonstrações autorais, sem clientes ou resultados comerciais alegados.", position: [3.8,1.3,47]},
-];
+].filter(e=>e.id!=="workstation-1-left").map(e=>({...e,position:[e.position[0],e.position[1],e.position[2]*officePlan.depthScale]}));
 
 export const automationConcepts = [
   { title: "Clínica", steps: ["Solicitação", "Agenda", "Confirmação"] },

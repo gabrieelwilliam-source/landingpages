@@ -1,0 +1,41 @@
+> site-zaion@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ cast has eight fictional identities and a useful scripted role in every sector (1.735919ms)
+✔ NPC routines are deterministic, periodic and remain inside the facade (37.290554ms)
+✔ walking actors follow closed local routes rather than teleporting between workstations (5.655553ms)
+✔ guide curve and reconnect segments clear physical furniture and the glass facade (5.889935ms)
+✔ a reconnect route goes around an occupied local point (1.957353ms)
+✔ visitor movement stops at people and nearby activation respects distance (0.403076ms)
+✔ camera clipping includes a standing person as well as architecture (0.406792ms)
+✔ all four simulations expose three real local state transitions, reset and no overrun (0.487563ms)
+✔ contact CTA accepts configured public channels and rejects unsafe or invented destinations (0.415925ms)
+✔ overhead light bounds stop the camera while leaving the floor route open (0.481453ms)
+✔ geometry LOD follows explicit quality and distance while high keeps the protagonist detailed (0.29262ms)
+✔ transparent sector returns retain physical collisions and monitors clip the camera at screen height (0.327963ms)
+✔ every walking staff route clears the furniture and glass, with continuous chair exits (7.592074ms)
+✔ compacted plan keeps a clear arrival and supported luminaires above people and camera (0.344388ms)
+✔ forward and back traverse both environments with bounded depth (26.326615ms)
+✔ diagonal input does not increase speed (0.61862ms)
+✔ facade boundary and workstation chairs match the connected office (1.373045ms)
+✔ release decelerates and delta cap prevents tab-resume jumps (0.573192ms)
+✔ cinematic easing has stable endpoints and a symmetric midpoint (0.250116ms)
+✔ sector boundary allows off-centre walking without invisible causeway barriers (0.238158ms)
+✔ central guided lane remains clear of the actual furniture footprints (0.510277ms)
+✔ wheel normalization treats pixel, line and page devices consistently (0.254883ms)
+✔ scroll converges, reverses and honours the endpoints without overshoot (6.497779ms)
+✔ scroll progress preserves lateral stance and does not simulate a walking avatar (0.783107ms)
+✔ reduced-motion scroll goes directly to the selected point (1.17785ms)
+✔ scroll transforms all chapters around an anchored avatar; walking translates the avatar (1.244041ms)
+✔ batching Meshopt quantized furniture preserves metre-scale placement and source data (45.06237ms)
+✔ camera-relative movement rotates forward and strafe without increasing diagonal speed (1.76255ms)
+✔ camera segment stops before a tall display but clears low furniture (0.51882ms)
+✔ camera remains inside the building envelope and every collision has a real height (0.347953ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 163.8668

@@ -32,8 +32,8 @@ test('walking actors follow closed local routes rather than teleporting between 
  }
 });
 test('guide curve and reconnect segments clear physical furniture and the glass facade',()=>{
- for(let d=0;d<=90;d+=.1)assert.ok(freePoint(guideX(d),d,office),`guide blocked at ${d}`);
- for(const start of [{x:4,distance:16},{x:-3,distance:24},{x:3,distance:47},{x:-3,distance:65},{x:0,distance:80}]){
+ for(let step=0;step<=office.length*10;step++){const d=step/10;assert.ok(freePoint(guideX(d),d,office),`guide blocked at ${d}`);}
+ for(const start of [{x:4,distance:16},{x:-3,distance:24},{x:3,distance:47},{x:-3,distance:65},{x:0,distance:80}].map(p=>({...p,distance:p.distance*office.depthScale}))){
   assert.ok(freePoint(start.x,start.distance,office));const path=reconnectPath(start,office);
   assert.ok(path.length>0);assert.ok(Math.abs(path.at(-1).x-guideX(start.distance))<.01);
   for(let i=1;i<path.length;i++)for(let f=0;f<=1;f+=.05){
@@ -44,7 +44,7 @@ test('guide curve and reconnect segments clear physical furniture and the glass 
  assert.deepEqual(reconnectPath({x:desk.x,distance:desk.d},office),[]);
 });
 test('a reconnect route goes around an occupied local point',()=>{
- const start={x:3,distance:24},body={id:'person',x:1.5,d:24},path=reconnectPath(start,office,[body]);
+ const start={x:3,distance:24*office.depthScale},body={id:'person',x:1.5,d:24*office.depthScale},path=reconnectPath(start,office,[body]);
  assert.ok(path.length>0);for(const p of path)assert.ok(Math.hypot(p.x-body.x,p.d-body.d)>=.77);
 });
 test('visitor movement stops at people and nearby activation respects distance',()=>{
@@ -106,4 +106,12 @@ test('every walking staff route clears the furniture and glass, with continuous 
    assert.ok(Math.hypot(after.x-before.x,after.d-before.d)<.01,`${actor.id} teleports at ${boundary}`);
   }
  }
+});
+
+test('compacted plan keeps a clear arrival and supported luminaires above people and camera',()=>{
+ assert.equal(office.length,72);assert.ok(office.boundaries[0]<=-7);assert.equal(office.centres.length,6);
+ assert.ok(office.fixtures.length>=10);for(const light of office.fixtures){assert.equal(light.suspensions,2);assert.ok(light.bottom>office.cameraCeiling+.1);assert.ok(light.ceiling>light.top+.5)}
+ assert.ok(office.furniture.some(f=>f.asset==='lounge-bench'));assert.ok(office.furniture.some(f=>f.asset==='lounge-chair'));
+ assert.ok(office.colliders.some(b=>b.name.startsWith('Meeting inner glass')));
+ for(const seat of office.seats)assert.ok(seat.d>=office.boundaries[0]&&seat.d<office.boundaries.at(-1));
 });

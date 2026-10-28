@@ -1,6 +1,6 @@
 """Original Gabriel character refinement. The private portrait is reference only.
 Reuses the existing 16-bone contract and Idle / Walk / Turn animation names.
-No portrait pixels or third-party character assets are embedded.
+CC0 MakeHuman anatomical head/hands are adapted; no portrait pixels are embedded.
 """
 import bpy, math, random, os, sys
 from mathutils import Vector
@@ -107,14 +107,14 @@ shape('Nose bridge',[(0,-.118,1.637,.022,.011),(0,-.131,1.651,.021,.018),(0,-.11
 for side in [-1,1]:oval('Nostril',(side*.013,-.14,1.641),(.005,.003,.003),skin_shadow,'head',8,6)
 oval('Lower lip',(0,-.113,1.603),(.029,.007,.005),lip,'head',16,8)
 detail('Mouth line',[(-.026,-.118,1.608),(0,-.121,1.606),(.026,-.118,1.608)],.0016,skin_shadow,'head')
-shape('Long tapered beard',[(0,-.075,1.30,.022,.019),(0,-.081,1.345,.048,.038),(0,-.073,1.40,.070,.052),(0,-.062,1.47,.090,.067),(0,-.044,1.54,.105,.076),(0,-.026,1.59,.105,.074),(0,-.009,1.628,.100,.060)],beard,'head',24)
+shape('Long tapered beard',[(0,-.075,1.37,.038,.024),(0,-.081,1.405,.058,.042),(0,-.073,1.45,.079,.056),(0,-.062,1.50,.090,.067),(0,-.044,1.54,.105,.076),(0,-.026,1.59,.105,.074),(0,-.009,1.628,.100,.060)],beard,'head',24)
 for side in [-1,1]:
  detail('Moustache',[(side*.007,-.145,1.633),(side*.025,-.138,1.625),(side*.04,-.121,1.611)],.008,beard,'head')
-for j in range(340):
- x=random.uniform(-.085,.085);top=random.uniform(1.49,1.59);bottom=random.uniform(1.32,1.44)
+for j in range(220):
+ x=random.uniform(-.085,.085);top=random.uniform(1.51,1.60);bottom=random.uniform(1.39,1.45)
  # Thin, varied strands follow the volume rather than floating below the jaw.
  endx=x*.45+random.uniform(-.009,.009)
- detail('Beard strand',[(x,-.116-abs(x)*.08,top),(x*.88+math.sin(j)*.003,-.134-random.random()*.004,1.475),(x*.65,-.129,1.40),(endx,-.102,bottom)],.00055,grey if j%9==0 else hair if j%3==0 else beard,'head')
+ detail('Beard strand',[(x,-.116-abs(x)*.08,top),(x*.88+math.sin(j)*.003,-.134-random.random()*.004,1.505),(x*.65,-.129,1.455),(endx,-.102,bottom)],.0004,grey if j%9==0 else hair if j%3==0 else beard,'head')
 oval('Short rear hair',(0,.069,1.76),(.092,.039,.061),hair,'head',20,10)
 for j in range(55):
  a=random.uniform(.1,math.pi-.1);x=math.cos(a)*.094;y=.01+math.sin(a)*.083;z=random.uniform(1.75,1.795)
@@ -215,6 +215,9 @@ if npc_index is not None:
    detail('Styled hair flow',[(math.cos(a)*.04,.012+math.sin(a)*.035,1.825),(math.cos(a)*.101,.012+math.sin(a)*.09,1.795)],.0014,hair,'head')
  # A lapel collar distinguishes professional jackets from Gabriel's hoodie.
  for side in [-1,1]:detail('Tailored lapel',[(side*.045,-.085,1.48),(side*.09,-.124,1.34),(side*.025,-.133,1.23)],.009,lining,'spine')
+sys.path.insert(0,os.path.join(ROOT,'tools'))
+from import_human import import_anatomical_surfaces
+import_anatomical_surfaces(ROOT,skin,hair,eye,white,black,npc_index)
 # Convert detailed curves and bind them to the appropriate deforming bone.
 for o in list(bpy.context.scene.objects):
  if o.type=='CURVE':
@@ -263,6 +266,19 @@ for o in list(bpy.context.scene.objects):
  for loop in o.data.loops:
   v=o.data.vertices[loop.vertex_index].co
   variation=1+math.sin(v.x*43+v.z*29)*.025
+  if o.name.startswith('MakeHuman CC0 anatomical head'):
+   mouth=math.exp(-((v.x/.033)**4+((v.z-1.592)/.012)**4))*max(0,min(1,(-v.y-.090)/.025))
+   color=tuple(a*(1-mouth*.5)+b*mouth*.5 for a,b in zip(original.diffuse_color[:3],(.34,.16,.14)))
+   smooth=lambda value:max(0,min(1,value))**2*(3-2*max(0,min(1,value)))
+   side_hair=smooth((v.z-1.73)/.035)*max(smooth((v.y+.018)/.025),smooth((abs(v.x)-.075)/.012))
+   top_hair=smooth((v.z-1.795)/.027)*smooth((v.y+.04)/.03)
+   if npc_index is not None:
+    top_hair=smooth((v.z-1.755)/.025)
+    side_hair=max(side_hair,smooth((v.z-1.68)/.04)*smooth((v.y+.005)/.025))
+   brow=math.exp(-(((abs(v.x)-.034)/.023)**4+((v.z-1.710)/.0038)**2))*smooth((-v.y-.072)/.025)
+   hair_weight=min(1,max(side_hair,top_hair,brow*.9))
+   hair_color=[(.026,.018,.014),(.065,.028,.012),(.012,.015,.019),(.10,.065,.024)][(npc_index or 0)%4]
+   color=tuple(c*(1-hair_weight)+h*hair_weight for c,h in zip(color,hair_color))
   layer.data[loop.index].color=(*(max(0,min(1,c*variation)) for c in color),1)
  o.data.color_attributes.active_color=layer;o.data.color_attributes.render_color_index=0
  o.data.materials.clear();o.data.materials.append(surface)
@@ -285,18 +301,26 @@ for name in ['Idle','Walk','Turn','Start','Stop','Interact','Sit','Type','Talk',
    b.rotation_mode='XYZ';b.rotation_euler=(0,0,0);b.location=(0,0,0)
    if name in ['Walk','Start','Stop']:
     side=-1 if '-1' in b.name else 1
-    if b.name.startswith('thigh'):b.rotation_euler.x=math.sin(phase+side*math.pi/2)*.43
-    if b.name.startswith('shin'):b.rotation_euler.x=max(0,math.sin(phase+side*math.pi/2))*.45
-    if b.name.startswith('arm'):b.rotation_euler.x=-math.sin(phase+side*math.pi/2)*.25
-    if b.name.startswith('forearm'):b.rotation_euler.x=-.12
-    if b.name.startswith('foot'):b.rotation_euler.x=math.sin(phase+side*math.pi/2)*.10
-    if b.name=='hips':b.location.y=.012*(1-math.cos(phase*2))
+    u=((frame-1)/31+(0 if side<0 else .5))%1
+    if u<.5:foot_y=-.2875+u*1.15;lift=0
+    else:
+     swing=(u-.5)*2;foot_y=.2875*(1-2*(swing*swing*(3-2*swing)));lift=.075*math.sin(swing*math.pi)
+    hip=-.060+.003*math.cos(phase*2)
+    down=.8+hip-lift;reach=min(.799,max(.30,math.hypot(foot_y,down)))
+    knee=2*math.acos(reach/.8);thigh=math.atan2(foot_y,down)-knee/2
+    if b.name.startswith('thigh'):b.rotation_euler.x=thigh
+    if b.name.startswith('shin'):b.rotation_euler.x=knee
+    if b.name.startswith('foot'):b.rotation_euler.x=-thigh-knee
+    if b.name.startswith('arm'):b.rotation_euler.x=-math.sin(phase+side*math.pi/2)*.22
+    if b.name.startswith('forearm'):b.rotation_euler.x=-.15
+    if b.name=='hips':b.location.y=hip
     if b.name=='spine':
      b.rotation_euler.z=math.sin(phase)*.008
      b.rotation_euler.y=math.sin(phase)*.035
    if name in ['Start','Stop']:
     amount=(frame-1)/31 if name=='Start' else 1-(frame-1)/31
     for axis in range(3):b.rotation_euler[axis]*=amount
+    if b.name=='hips':b.location.y*=amount
    seated=name in ['Sit','Type'] or (name=='Talk' and npc_index is not None and npc_index in [1,5,7]) or name in ['StandUp','SitDown']
    amount=(1-(frame-1)/31) if name=='StandUp' else (frame-1)/31 if name=='SitDown' else 1
    if seated:
@@ -304,8 +328,8 @@ for name in ['Idle','Walk','Turn','Start','Stop','Interact','Sit','Type','Talk',
      b.location.y=-.25*amount
      # Root follows the collision-checked lateral chair exit in npcRoutine.
      if name in ['StandUp','SitDown']:b.location.z=0
-    if b.name.startswith('thigh'):b.rotation_euler.x=-1.20*amount
-    if b.name.startswith('shin'):b.rotation_euler.x=1.20*amount
+    if b.name.startswith('thigh'):b.rotation_euler.x=(-1.43 if npc_index in [1,7] else -1.20)*amount
+    if b.name.startswith('shin'):b.rotation_euler.x=(1.43 if npc_index in [1,7] else 1.20)*amount
     if b.name.startswith('arm'):b.rotation_euler.x=-.35*amount
     if b.name.startswith('forearm'):b.rotation_euler.x=(-.95+math.sin(phase+(1 if '-1' in b.name else 0))*.045)*amount
    if name=='Type':

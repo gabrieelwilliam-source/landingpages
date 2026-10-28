@@ -31,6 +31,8 @@ export type SpatialSnapshot = {
   npcLoadError:boolean;
   npcStates: {id:string;x:number;d:number;clip:string;time:number;lod:string}[];
   nearby: string | null;
+  furnitureLoaded:number;
+  cameraFov:number;
   cameraDistance: number;
   cameraShoulder: number;
   reconnecting: boolean;
@@ -103,14 +105,14 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   }
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.95;
+  renderer.toneMappingExposure = 0.90;
   renderer.shadowMap.enabled = host.clientWidth > 700 && !softwareRenderer;
   renderer.shadowMap.type = softwareRenderer ? T.BasicShadowMap : T.PCFSoftShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
   const camera = new T.PerspectiveCamera(50, 1, 0.1, 500);
-  scene.add(new T.HemisphereLight("#cfdaeb", "#66513e", 1.0));
-  const sun = new T.DirectionalLight("#ffd3a0", 2.4);
+  scene.add(new T.HemisphereLight("#cfdaeb", "#66513e", 0.72));
+  const sun = new T.DirectionalLight("#ffd3a0", 1.8);
   sun.position.set(18, 9, -32);
   sun.castShadow = true;
   sun.shadow.mapSize.set(softwareRenderer ? 512 : 1024, softwareRenderer ? 512 : 1024);
@@ -121,7 +123,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   sun.shadow.bias = -0.0005;
   scene.add(sun, sun.target);
   const ceilingLights = [-4, 4].map(x => {
-    const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 30 : 40, 20, 2);
+    const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 20 : 25, 20, 2);
     lamp.position.set(x, 4.2, -3);
     scene.add(lamp);
     return lamp;
@@ -132,7 +134,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const probe = new RoomEnvironment();
     const env = pmrem.fromScene(probe, 0.04, 0.1, 100, {size: softwareRenderer ? 64 : 128});
     scene.environment = env.texture;
-    scene.environmentIntensity = 0.55;
+    scene.environmentIntensity = 0.32;
     probe.dispose();
     pmrem.dispose();
     resources.push(env.texture);
@@ -142,6 +144,12 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   scene.add(world);
   const avatar = new T.Group();
   scene.add(avatar);
+  if(options.initialDistance<.01)avatar.rotation.y=1.02;
+  const envelopeMaterial=softwareRenderer?new T.MeshLambertMaterial({color:new T.Color(.105,.11,.12)}):new T.MeshStandardMaterial({color:new T.Color(.105,.11,.12),roughness:.8});
+  const buildingLength=office.boundaries.at(-1)!-office.boundaries[0],buildingMid=(office.boundaries.at(-1)!+office.boundaries[0])/2;
+  const envelopeFloor=new T.Mesh(new T.BoxGeometry(17,.04,buildingLength),envelopeMaterial);envelopeFloor.position.set(0,-.07,-buildingMid);envelopeFloor.receiveShadow=true;world.add(envelopeFloor);
+  const envelopeRoof=new T.Mesh(new T.BoxGeometry(17,.12,buildingLength),softwareRenderer?new T.MeshLambertMaterial({color:new T.Color(.055,.065,.075)}):new T.MeshStandardMaterial({color:new T.Color(.055,.065,.075),roughness:.95}));envelopeRoof.position.set(0,5.83,-buildingMid);world.add(envelopeRoof);
+  const envelopeWall=new T.Mesh(new T.BoxGeometry(.12,5.7,buildingLength),softwareRenderer?new T.MeshLambertMaterial({color:new T.Color(.11,.055,.026)}):new T.MeshStandardMaterial({color:new T.Color(.11,.055,.026),roughness:.8}));envelopeWall.position.set(-8.45,2.8,-buildingMid);world.add(envelopeWall);
   // Soft contact occlusion remains inexpensive on software WebGL renderers.
   const contact = document.createElement("canvas");
   contact.width = contact.height = 64;
@@ -251,6 +259,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
               color: material.color,
               vertexColors: material.vertexColors,
               map: material.map,
+              aoMap:material.aoMap,aoMapIntensity:material.aoMapIntensity,alphaTest:material.alphaTest,
               emissive: material.emissive,
               emissiveMap: material.emissiveMap,
               emissiveIntensity: material.emissiveIntensity,
@@ -307,7 +316,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       if(cast.has(definition.id)||castLoading.has(definition.id)||castFailed.has(definition.id))return;
       castLoading.add(definition.id);
       loader.load(modelUrl(`npc-${definition.model}.glb`),g=>{
-        if(disposed)return;
+        if(disposed){releaseDetached(g.scene);return;}
         const high=rigVariant(g.scene,g.animations),root=new T.Group();root.add(g.scene);
         const initial=npcRoutine(definition,0);
         root.position.set(initial.x,0,-initial.d);root.rotation.y=initial.yaw;
@@ -339,18 +348,41 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     ctx.font='20px monospace';lines.forEach((line,j)=>{ctx.fillStyle='#667899';ctx.fillText(String(j+1),13,85+j*31);ctx.fillStyle=j%3===0?'#83aaff':'#c7d4e9';ctx.fillText(line,70,85+j*31)});
     const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;resources.push(texture);return texture;
   }
+  const furniturePool=new Map<string,T.Group>(),furnitureLoading=new Set<string>();
+  const furniturePlaced=new Set<number>();
+  function mountFurnishings(){
+    office.furniture.forEach((entry,i)=>{
+      if(furniturePlaced.has(i))return;
+      const room=roomNodes.get(entry.area),template=furniturePool.get(entry.asset);if(!room||!template)return;
+      const instance=template.clone(true);instance.position.set(entry.x,0,-entry.d+destinations[entry.area]);instance.rotation.y=entry.yaw;room.add(instance);furniturePlaced.add(i);
+    });assetDirty=true;pendingPublish=true;
+  }
+  function loadFurnishings(index:number){
+    office.furniture.filter(entry=>entry.area===index).forEach(entry=>{
+      if(furniturePool.has(entry.asset)||furnitureLoading.has(entry.asset))return;
+      furnitureLoading.add(entry.asset);
+      loader.load(modelUrl(`furniture/${entry.asset}.glb`),g=>{
+        if(disposed){releaseDetached(g.scene);return;}
+        register(g.scene);furniturePool.set(entry.asset,g.scene);furnitureLoading.delete(entry.asset);mountFurnishings();
+      },undefined,()=>options.onError('Um modelo do mobiliário não carregou. Reabra a visita ou continue no modo clássico.'));
+    });mountFurnishings();
+  }
+  function releaseDetached(root:T.Object3D){
+    root.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(Array.isArray(o.material)?o.material:[o.material]).forEach((m:T.Material)=>{for(const value of Object.values(m))if(value instanceof T.Texture)value.dispose();m.dispose()})}});
+  }
   function loadRoom(index: number) {
     if (loaded[index] || loading.has(index)) return;
     loading.add(index);
     loader.load(
       modelUrl(`environment-${index}.glb`),
       (g) => {
-        if (disposed) return;
+        if (disposed){releaseDetached(g.scene);return;}
         g.scene.position.z = -destinations[index];
         register(g.scene);
         batchSoftwareFurniture(g.scene);
         world.add(g.scene);
         roomNodes.set(index, g.scene);
+        loadFurnishings(index);
         loaded[index] = true;
         loading.delete(index);
         assetDirty = true;
@@ -366,6 +398,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
               t.colorSpace = T.SRGBColorSpace;
               resources.push(t);
               for (const x of [-4.5, 4.5]) {
+                if(i===1&&x<0)continue;
                 const screen = new T.Mesh(
                   new T.PlaneGeometry(1.3, 0.7),
                   new T.MeshBasicMaterial({ map: x<0?t:codeScreen(i) }),
@@ -373,7 +406,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                 screen.position.set(
                   x,
                   1.31,
-                  -(destinations[2] + [-5, 1, 7][i]) - 0.16,
+                  -(destinations[2] + [-5, 1, 7][i]*office.depthScale) - 0.16,
                 );
                 screen.position.z += destinations[index];
               g.scene.add(screen);
@@ -401,7 +434,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
               preview.position.set(
                 i % 2 ? 5 : -5,
                 2.2,
-                -(destinations[3] + (i - 1) * 5) + 0.22,
+                -(destinations[3] + (i - 1) * 5*office.depthScale) + 0.22,
               );
               preview.position.z += destinations[index];
               g.scene.add(preview);
@@ -431,7 +464,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
             const texture = new T.CanvasTexture(board); texture.colorSpace = T.SRGBColorSpace;
             resources.push(texture);
             const monitor = new T.Mesh(new T.PlaneGeometry(1.3,.7),new T.MeshBasicMaterial({map:texture}));
-            monitor.position.set(i<2 ? -4.8 : 4.8,1.31,-(destinations[4]+(i%2 ? 5 : -3))-.16);
+            monitor.position.set(i<2 ? -4.8 : 4.8,1.31,-(destinations[4]+(i%2 ? 5 : -3)*office.depthScale)-.16);
             monitor.position.z += destinations[index];
               g.scene.add(monitor);
           });
@@ -450,7 +483,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                   side: T.DoubleSide,
                 }),
               );
-              badge.position.set(index === 0 ? -5.5 : -4.5, index === 0 ? 2.9 : 2.4, -(destinations[index] + (index === 0 ? 5.75 : 8.80)));
+              badge.position.set(index === 0 ? -5.5 : 4.7, index === 0 ? 2.9 : 2.4, -(destinations[index] + ((index === 0 ? 5.75 : 8.80)*office.depthScale)));
               badge.position.z += destinations[index];
               g.scene.add(badge);
               assetDirty = true;
@@ -471,7 +504,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   loader.load(
     modelUrl("gabriel-rigged.glb"),
     (g) => {
-      if (disposed) return;
+      if (disposed){releaseDetached(g.scene);return;}
       g.scene.scale.setScalar(1.0);
       g.scene.rotation.y = Math.PI;
       heroHigh=rigVariant(g.scene,g.animations);
@@ -535,12 +568,8 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   const look = new T.Vector3(),
     desired = new T.Vector3(),
     projected = new T.Vector3();
-  camera.position.set(
-    host.clientWidth < 700 ? -1.3 : -1.2,
-    host.clientHeight < 600 ? 2.7 : 2.4,
-    -state.distance +
-      (host.clientHeight < 600 ? 7.5 : host.clientWidth < 700 ? 6.5 : 5.4),
-  );
+  const initialCamera=safeCamera({x:state.x,y:1.35,d:state.distance},{x:state.x*.6+cameraShoulder,y:host.clientHeight<600?2.7:2.4,d:state.distance-(host.clientHeight<600?Math.max(6.5,cameraDistance):cameraDistance)},office);
+  camera.position.set(initialCamera.x,initialCamera.y,-initialCamera.d);
   camera.lookAt(0, host.clientHeight < 600 ? 1.1 : 1.5, -state.distance - 8);
   function resize() {
     if (disposed) return;
@@ -640,8 +669,8 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     }
     if(navigationMode==='scroll'&&!reconnect)state.x=guideX(state.distance);
     const area = areaAt(state.distance);
-    loadCast(area);if(area<5)loadCast(area+1);if(area>0)loadCast(area-1);
-    loadRoom(area);
+    loadCast(area);if(area<5)loadCast(area+1);if(area<4)loadCast(area+2);if(area>0)loadCast(area-1);
+    loadRoom(area);if(area<4)loadRoom(area+2);
     if (state.distance > destinations[Math.min(5, area + 1)] - 24)
       loadRoom(Math.min(5, area + 1));
     roomNodes.forEach((node, i) => {
@@ -698,7 +727,9 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       !paused &&
       Math.abs(state.x - previousX) + Math.abs(state.distance - previousD) >
         0.00001;
-    if(moving){moveAge=wasMoving?moveAge+elapsed:0;stopAge=0;gaitDistance+=Math.hypot(state.x-previousX,state.distance-previousD);}
+    const virtualWalking=scrollMode&&!transition&&!paused&&Math.abs(state.distance-previousD)>.00001;
+    const locomotion=moving||virtualWalking;
+    if(locomotion){moveAge=wasMoving?moveAge+elapsed:0;stopAge=0;gaitDistance+=virtualWalking?(state.distance-previousD):Math.hypot(state.x-previousX,state.distance-previousD);}
     else{stopAge=wasMoving?0:stopAge+elapsed;moveAge=0;}
     if(!paused&&!hidden)gesture=Math.max(0,gesture-elapsed);
     const detail=characterDetail(quality,softwareRenderer)==='low'&&heroLow?'low':'high';
@@ -706,8 +737,8 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       heroHigh.scene.visible=detail==='high';if(heroLow)heroLow.scene.visible=detail==='low';
       const oldTime=actions[animationName]?.time||0;const model=detail==='low'?heroLow!:heroHigh;mixer=model.mixer;actions=model.actions;mixer.stopAllAction();if(actions[animationName]){actions[animationName].reset().play();actions[animationName].time=oldTime;}mixer.update(0);avatarLod=detail;assetDirty=true;pendingPublish=true;
     }
-    const nextAnimation = reduced?'Idle':gesture>0?'Interact':moving?(moveAge<.22?'Start':'Walk'):stopAge<.25?'Stop':'Idle';
-    wasMoving=moving;
+    const nextAnimation = reduced?'Idle':gesture>0?'Interact':locomotion?(moveAge<.22?'Start':'Walk'):stopAge<.25?'Stop':'Idle';
+    wasMoving=locomotion;
     if (nextAnimation !== animationName && actions[nextAnimation]) {
       actions[animationName]?.fadeOut(0.2);
       actions[nextAnimation].reset().fadeIn(0.2).play();
@@ -718,15 +749,15 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         moving && Math.abs(state.vx) > 0.1 ? 0.2 : 0,
       );
     }
-    if(actions.Walk){actions.Walk.paused=true;actions.Walk.time=(gaitDistance/1.15*actions.Walk.getClip().duration)%actions.Walk.getClip().duration;}
+    if(actions.Walk){actions.Walk.paused=true;actions.Walk.time=((gaitDistance/1.15*actions.Walk.getClip().duration)%actions.Walk.getClip().duration+actions.Walk.getClip().duration)%actions.Walk.getClip().duration;}
     if (!paused && !hidden && mixer && !reduced) mixer.update(elapsed);
     avatar.position.set(
       scrollMode ? anchor.x : state.x,
       0,
       scrollMode ? -anchor.d : -state.distance,
     );
-    if (moving) {
-      const target = Math.atan2(-state.vx, state.vz);
+    if (locomotion) {
+      const target = virtualWalking?0:Math.atan2(-state.vx, state.vz);
       let diff = target - avatar.rotation.y;
       diff = Math.atan2(Math.sin(diff), Math.cos(diff));
       avatar.rotation.y += diff * (reduced ? 1 : 1 - Math.exp(-9 * elapsed));
@@ -753,7 +784,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     if (!paused && !hidden) {
       camera.position.lerp(desired, reduced ? 1 : 1 - Math.exp(-5.4 * elapsed));
       clipWorldCamera(camera.position);
-      look.set(focusX*.5 - 8*Math.sin(yaw), shortView ? 1.1 : 1.5, -focusD - 8*Math.cos(yaw));
+      look.set(focusX*.5 - 8*Math.sin(yaw)-.55*Math.cos(yaw), shortView ? 1.1 : 1.5, -focusD - 8*Math.cos(yaw)+.55*Math.sin(yaw));
       sun.position.set(20, 8, (scrollMode ? -anchor.d : -state.distance) - 4);
       ceilingLights.forEach((lamp, i) => {
         lamp.position.z = -destinations[area] + world.position.z - (i ? 3 : -3);
@@ -825,7 +856,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         npcCount:[...cast.values()].filter(n=>n.active).length,
         npcsLoaded:cast.size,npcLoadError,
         npcStates:[...cast.values()].filter(n=>n.active).map(n=>({id:n.definition.id,x:n.x,d:n.d,clip:n.clip,time:n.time,lod:n.detail})),
-        nearby:near?.id||null,cameraDistance,cameraShoulder,reconnecting:!!reconnect,guideUnavailable,
+        nearby:near?.id||null,furnitureLoaded:furniturePool.size,cameraFov:camera.fov,cameraDistance,cameraShoulder,reconnecting:!!reconnect,guideUnavailable,
         rigBones,
         animation: animationName,
         navigationMode,
@@ -849,10 +880,10 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       });
     }
     if (first) first = false;
-    if (!announced && avatarReady && loaded[areaAt(options.initialDistance)]) {
+    if (!announced && avatarReady && loaded[areaAt(options.initialDistance)] && office.furniture.filter(e=>e.area===areaAt(options.initialDistance)).every(e=>furniturePool.has(e.asset))) {
       announced = true;
       options.onReady();
-      for (let i = 0; i < 6; i++) loadRoom(i);
+      // Interiors are streamed by proximity; the structural envelope stays continuous.
     }
   }
   raf = requestAnimationFrame(update);
@@ -925,6 +956,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         state.vz = 0;
       }
     },
+    setFov(value:number){camera.fov=Math.max(40,Math.min(65,value));camera.updateProjectionMatrix();assetDirty=true;pendingPublish=true;},
     setCamera(distance:number,shoulder:number){
       cameraDistance=Math.max(2.2,Math.min(8.5,distance));cameraShoulder=Math.max(-1.3,Math.min(1.3,shoulder));assetDirty=true;pendingPublish=true;
     },
@@ -932,7 +964,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     setQuality(value: GraphicQuality) {
       quality = value;
       renderer.setPixelRatio(value === "low" ? (softwareRenderer ? .45 : .7) : value === "medium" ? Math.min(devicePixelRatio,1.15) : value === "high" ? Math.min(devicePixelRatio, 1.75) : softwareRenderer ? .7 : Math.min(devicePixelRatio, 1.5));
-      scene.environmentIntensity=value === "high" ? 0.65 : 0.55;
+      scene.environmentIntensity=value === "high" ? 0.36 : 0.30;
       const shadows = value !== "low" && host.clientWidth > 700 && !softwareRenderer;
       const changedShadows = renderer.shadowMap.enabled !== shadows;
       renderer.shadowMap.enabled = shadows;
@@ -987,7 +1019,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       const geometries = new Set<T.BufferGeometry>(),
         materials = new Set<T.Material>(),
         textures = new Set<T.Texture>(resources);
-      scene.traverse((o) => {
+      for(const root of [scene,...furniturePool.values()])root.traverse((o) => {
         if (o instanceof T.Mesh) {
           geometries.add(o.geometry);
           (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) =>

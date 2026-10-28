@@ -16,9 +16,7 @@ const logo = await readFile(
 const originalLogoHash =
   "fb2edb7999b9c5c35d54ec16a25661650905683a231abbe8d261f04e398b99cc";
 assert.equal(createHash("sha256").update(logo).digest("hex"), originalLogoHash);
-for (const name of (await readdir(root))
-  .filter((n) => n.endsWith(".glb"))
-  .sort()) {
+for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(await readdir(new URL("furniture/",root))).filter(n=>n.endsWith(".glb")).map(n=>"furniture/"+n)].sort()) {
   const b = await readFile(new URL(name, root));
   assert.equal(b.toString("ascii", 0, 4), "glTF");
   const json = JSON.parse(b.toString("utf8", 20, 20 + b.readUInt32LE(12)));
@@ -37,7 +35,11 @@ for (const name of (await readdir(root))
   if (name.startsWith("environment")) {
     assert.ok(json.extensionsUsed.includes("EXT_texture_webp"));
     assert.ok(json.images.every((img) => img.mimeType === "image/webp"));
-    assert.ok(json.materials.filter(material => material.normalTexture && material.pbrMetallicRoughness?.baseColorTexture && material.pbrMetallicRoughness?.metallicRoughnessTexture).length >= 3, "stone/wood/fabric retain full original PBR maps");
+    assert.ok(json.materials.filter(material => material.normalTexture && material.pbrMetallicRoughness?.baseColorTexture && material.pbrMetallicRoughness?.metallicRoughnessTexture).length >= 2, "architectural stone and wood retain full PBR maps; upholstered assets are shared separately");
+  }
+  if(name.startsWith('furniture/')){
+    assert.ok(json.materials.some(m=>m.normalTexture&&m.occlusionTexture),'licensed upholstery keeps its normal and AO maps');
+    const tris=json.meshes.flatMap(m=>m.primitives).reduce((n,p)=>n+json.accessors[p.indices].count/3,0);assert.ok(tris<10000,'shared furniture realtime budget');
   }
   if (name === "gabriel-rigged.glb" || name.startsWith("npc-")) {
     assert.equal(entry.skins, 1);
@@ -92,7 +94,7 @@ for (const name of (await readdir(root))
   }
   entries.push(entry);
 }
-assert.equal(entries.length, 15);
+assert.equal(entries.length, 17);
 const lowRoot=new URL("low/",root);
 const lowManifest=JSON.parse(await readFile(new URL("manifest.json",lowRoot),"utf8"));
 assert.equal(lowManifest.assets.length,9);

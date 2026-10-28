@@ -1,0 +1,44 @@
+{
+  "assets": [
+    {
+      "name": "lounge-chair.glb",
+      "triangles": 8075,
+      "bytes": 404224,
+      "sha256": "54852416ad69903e8249023d51f255e1abeb15cffacfab6d1173c5f6eb596a74",
+      "bounds": {
+        "min": [
+          -0.4760320425033569,
+          0.00022400875744299498,
+          -0.4146728538815549
+        ],
+        "max": [
+          0.47441591471433636,
+          1.0293687637753282,
+          0.4403054290358594
+        ]
+      },
+      "source": "Wayfair LLC / Eric Chadwick, SheenChair, CC0",
+      "adaptation": "Scale, navy/sand palette, physically dielectric wood/fabric, UV density, 512px WebP and Meshopt"
+    },
+    {
+      "name": "lounge-bench.glb",
+      "triangles": 8787,
+      "bytes": 410704,
+      "sha256": "71f59b2df7796017312f73e39f7a8a7e92b4bcb8cc73c671b35e1a726547663a",
+      "bounds": {
+        "min": [
+          -1.366004991531372,
+          0.00028189402095391003,
+          -0.4146728538815549
+        ],
+        "max": [
+          1.361367407441139,
+          1.0293687637753282,
+          0.4403054290358594
+        ]
+      },
+      "source": "Wayfair LLC / Eric Chadwick, SheenChair, CC0",
+      "adaptation": "Scale, navy/sand palette, physically dielectric wood/fabric, UV density, 512px WebP and Meshopt"
+    }
+  ]
+}

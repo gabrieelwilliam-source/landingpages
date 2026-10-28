@@ -7,11 +7,23 @@ from mathutils import Vector
 # Reuse geometry utilities only; preserve the existing skinned Gabriel asset.
 source=open(os.path.join(os.path.dirname(__file__),'build_assets.py')).read()
 exec(source.split('\nclean()\nskin=')[0])
-CENTRES=[0,12,26,44,62,80]
-EDGES=[-7,7,19,36,54,72,92]
+PLAN=json.load(open(os.path.join(os.path.dirname(__file__),'..','src','data','office-plan.json')))
+CENTRES=PLAN['referenceCentres'];EDGES=list(PLAN['referenceBoundaries']);SCALE=PLAN['depthScale'];EDGES[0]=-PLAN['entranceDepth']/SCALE
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 colliders=[]
 camera_obstacles=[]
+furniture=[]
+seat_spots=[]
+fixtures=[]
+
+def furnishing(fn):
+ def wrapped(x,y,*args,**kwargs):
+  anchor=kwargs.pop('_anchor',y);before=set(bpy.context.scene.objects)
+  result=fn(x,y,*args,**kwargs)
+  for obj in set(bpy.context.scene.objects)-before:obj['depthAnchor']=anchor
+  return result
+ return wrapped
+
 
 def cylinder(name,loc,r,depth,material):
  bpy.ops.mesh.primitive_cylinder_add(vertices=16,radius=r,depth=depth,location=loc)
@@ -29,10 +41,10 @@ def texture_material(name,color,kind):
     grain=math.sin(x*.32+math.sin(y*.03)*1.8)*.12+math.sin(x*1.5+y*.006)*.05+rng.uniform(-.025,.025)
    else:
     vein=abs(math.sin(x*.024+y*.036+math.sin(y*.057+x*.019)*1.2+math.sin(x*.05-y*.035)*.6+math.sin(x*.13+y*.11)*.12))
-    grain=(max(0,1-vein*24)*.08)+rng.uniform(-.018,.018)
+    grain=(max(0,1-vein*24)*.015)+rng.uniform(-.018,.018)
    rgb=[max(0,min(1,c*(1+grain))) for c in color]
    pixels.extend([12.92*c if c<=.0031308 else 1.055*c**(1/2.4)-.055 for c in rgb]+[1])
-   v=(.66+grain*.025) if kind=='stone' else (.92+grain*.1) if kind=='fabric' else .68+grain*.15
+   v=(.66+grain*.8+rng.uniform(-.018,.018)) if kind=='stone' else (.92+grain*.1) if kind=='fabric' else .68+grain*.15
    rough.extend([v,v,v,1])
  for title,data,socket in [('surface',pixels,'Base Color'),('roughness',rough,'Roughness')]:
   image=bpy.data.images.new(name+' '+title,width=size,height=size);image.pixels=data;image.pack()
@@ -45,7 +57,7 @@ def texture_material(name,color,kind):
   for x in range(size):
    a=pixels[(y*size+(x+1)%size)*4];b=pixels[(y*size+(x-1)%size)*4]
    c=pixels[(((y+1)%size)*size+x)*4];d=pixels[(((y-1)%size)*size+x)*4]
-   nx=(b-a)*(.8 if kind=='wood' else .35);ny=(d-c)*.35
+   nx=(b-a)*(.8 if kind=='wood' else 3.5 if kind=='stone' else .35);ny=(d-c)*(3.5 if kind=='stone' else .35)
    v=Vector((nx,ny,1)).normalized();normal_pixels.extend((v.x*.5+.5,v.y*.5+.5,v.z*.5+.5,1))
  image=bpy.data.images.new(name+' micro normal',width=size,height=size);image.colorspace_settings.name='Non-Color';image.pixels=normal_pixels;image.pack()
  node=material.node_tree.nodes.new('ShaderNodeTexImage');node.image=image
@@ -53,7 +65,9 @@ def texture_material(name,color,kind):
  material.node_tree.links.new(node.outputs['Color'],normal.inputs['Color']);material.node_tree.links.new(normal.outputs['Normal'],p.inputs['Normal'])
  return material
 
+@furnishing
 def chair(x,y,angle=0):
+ before=set(bpy.context.scene.objects)
  # Five-spoke swivel base, upholstered shell, armrests, seat seams.
  parts=[]
  def part(n,loc,scale,m,b=.04):
@@ -62,22 +76,34 @@ def chair(x,y,angle=0):
  for k in range(5):
   a=k*math.tau/5
   curve('Chair spoke',[(x,y,.13),(x+math.cos(a)*.31,y+math.sin(a)*.31,.08)],.018,metal)
-  cylinder('Caster',(x+math.cos(a)*.31,y+math.sin(a)*.31,.06),.045,.06,metal)
+  wheel=cylinder('Caster',(x+math.cos(a)*.31,y+math.sin(a)*.31,.06),.045,.035,metal);wheel.rotation_euler.x=math.pi/2
  part('Stitched seat',(0,0,.52),(.58,.58,.14),fabric,.07)
- part('Sculpted chair back',(0,.26,.91),(.6,.13,.73),fabric,.065)
- part('Lumbar chair cushion',(0,.175,.78),(.48,.08,.22),fabric,.035)
+ # A continuously curved ergonomic shell, with lumbar support and a visible rear spine.
+ vertices=[];faces=[];cols=16;rows=14
+ for row in range(rows+1):
+  v=row/rows;z=.60+v*.69;width=.255+.045*math.sin(v*math.pi)
+  for col in range(cols+1):
+   t=col/cols*2-1;vertices.append((x+t*width,y+.23+.045*t*t-.055*math.sin(v*math.pi),z))
+ for row in range(rows):
+  for col in range(cols):
+   a=row*(cols+1)+col;faces.append((a,a+1,a+cols+2,a+cols+1))
+ mesh=bpy.data.meshes.new('Ergonomic woven chair shell');mesh.from_pydata(vertices,[],faces);mesh.update()
+ shell=bpy.data.objects.new('Ergonomic chair back',mesh);bpy.context.collection.objects.link(shell);mesh.materials.append(fabric)
+ for polygon in mesh.polygons:polygon.use_smooth=True
+ solid=shell.modifiers.new('Molded shell thickness','SOLIDIFY');solid.thickness=.04;bpy.context.view_layer.objects.active=shell;bpy.ops.object.modifier_apply(modifier=solid.name)
+ curve('Chair rear spine',[(x,y+.28,.35),(x,y+.31,.78),(x,y+.29,1.20)],.025,metal)
+
  for dx in [-.34,.34]:
   part('Arm support',(dx,0,.65),(.035,.035,.28),metal,.01)
   part('Armrest',(dx,-.03,.78),(.07,.35,.055),fabric,.025)
- # Transform complete chair around its pivot.
- for o in list(bpy.context.scene.objects):
-  if o.get('chair_done'): continue
-  if o.name.startswith(('Chair','Caster','Stitched','Sculpted','Arm support','Armrest')):
-   dx=o.location.x-x;dy=o.location.y-y
-   o.location.x=x+dx*math.cos(angle)-dy*math.sin(angle)
-   o.location.y=y+dx*math.sin(angle)+dy*math.cos(angle)
-   o.rotation_euler.z+=angle;o['chair_done']=True
+ # Rotate every new part, including lumbar structure, curves and wheels.
+ for o in set(bpy.context.scene.objects)-before:
+  dx=o.location.x-x;dy=o.location.y-y
+  o.location.x=x+dx*math.cos(angle)-dy*math.sin(angle)
+  o.location.y=y+dx*math.sin(angle)+dy*math.cos(angle)
+  o.rotation_euler.z+=angle
 
+@furnishing
 def desk(x,y):
  cube('Solid walnut desk',(x,y,.79),(2.6,1.25,.095),wood,.045)
  for dx in [-1.05,1.05]:
@@ -99,16 +125,15 @@ def desk(x,y):
  curve('Task lamp',[(x+1,y+.35,.85),(x+1,y+.35,1.6),(x+.55,y+.35,1.73)],.018,brass)
  cube('Task lamp shade',(x+.55,y+.35,1.71),(.35,.1,.045),glow,.02)
 
+@furnishing
 def sofa(x,y):
- cube('Lounge plinth',(x,y,.19),(2.7,1.02,.22),metal,.055)
- for i in range(3):
-  cube('Lounge cushion',(x+(i-1)*.83,y,.46),(.8,.91,.26),linen,.10)
-  cube('Back cushion',(x+(i-1)*.83,y+.4,.84),(.8,.25,.7),linen,.09)
- for i in [-1,1]:
-  cushion=cube('Loose lounge pillow',(x+i*.86,y+.2,.92),(.48,.19,.46),fabric,.095,4);cushion.rotation_euler.y=i*.15
- for dx in [-1.36,1.36]: cube('Lounge arm',(x+dx,y,.66),(.22,1.1,.6),linen,.09)
- for dx in [-1.1,1.1]:cube('Lounge foot',(x+dx,y,.09),(.06,.65,.16),brass,.012)
+ # Real licensed upholstery is loaded once and shared across rooms by the runtime.
+ kind='lounge-chair' if index==1 and x>0 else 'lounge-bench'
+ width=.96 if kind=='lounge-chair' else 2.73
+ furniture.append({'asset':kind,'area':index,'x':x,'d':round((CENTRES[index]+y)*SCALE,3),'sourceD':CENTRES[index]+y,'yaw':0,'width':width,'depth':.86,'seatHeight':.48})
+ proxy=cube('Lounge plinth',(x,y,.515),(width,.86,1.03),linen,0);proxy['physicsOnly']=True
 
+@furnishing
 def plant(x,y,height=2.9):
  cylinder('Stone planter',(x,y,.3),.4,.6,concrete)
  cylinder('Soil',(x,y,.61),.36,.02,soil)
@@ -126,14 +151,19 @@ def plant(x,y,height=2.9):
  mesh=bpy.data.meshes.new('Leaf clusters');mesh.from_pydata(vertices,[],faces);mesh.update()
  obj=bpy.data.objects.new('Olive foliage',mesh);bpy.context.collection.objects.link(obj);obj.data.materials.append(leaf)
 
+@furnishing
 def pendant(x,y,length=2.6):
- curve('Pendant cable',[(x,y,5.6),(x,y,3.5)],.006,metal)
- cube('Suspended luminaire',(x,y,3.48),(length,.08,.065),brass,.018)
- cube('Diffuser',(x,y,3.44),(length-.05,.065,.012),glow,.005)
+ # Two ceiling anchors and load-bearing cables; never at the avatar's head height.
+ for dx in [-length*.34,length*.34]:
+  cylinder('Pendant ceiling mount',(x+dx,y,5.615),.035,.04,metal)
+  curve('Pendant suspension cable',[(x+dx,y,5.595),(x+dx,y,4.84)],.0045,metal)
+ cube('Suspended luminaire',(x,y,4.81),(length,.075,.065),metal,.012)
+ cube('Diffuser',(x,y,4.772),(length-.08,.045,.012),glow,.004)
+ fixtures.append({'area':index,'x':x,'d':round((CENTRES[index]+y)*SCALE,3),'bottom':4.766,'top':4.843,'ceiling':5.61,'suspensions':2})
 
 for index in range(6):
  clean();random.seed(280+index)
- stone=texture_material('Honed graphite limestone',(.075,.085,.105),'stone')
+ stone=texture_material('Honed graphite limestone',(.105,.11,.12),'stone')
  wood=texture_material('Quarter sawn walnut',(.11,.055,.026),'wood')
  concrete=mat('Warm mineral plaster',(.22,.235,.26),rough=.9)
  navy=mat('zAIon deep navy architectural lacquer',(.012,.027,.075),rough=.52)
@@ -151,7 +181,7 @@ for index in range(6):
  leaf=mat('Olive foliage',(.075,.12,.055),rough=.95);leaf.use_backface_culling=False
  soil=mat('Soil',(.025,.019,.012))
  glow=mat('Architectural warm diffuser',(.9,.62,.28),rough=.5)
- p=glow.node_tree.nodes.get('Principled BSDF');p.inputs['Emission Color'].default_value=(1,.64,.32,1);p.inputs['Emission Strength'].default_value=1.25
+ p=glow.node_tree.nodes.get('Principled BSDF');p.inputs['Emission Color'].default_value=(1,.64,.32,1);p.inputs['Emission Strength'].default_value=.75
  screen=mat('Monitor idle display',(.025,.07,.09),.1,.4)
  p=screen.node_tree.nodes.get('Principled BSDF');p.inputs['Emission Color'].default_value=(.015,.07,.1,1);p.inputs['Emission Strength'].default_value=.5
  d=CENTRES[index];lo=EDGES[index]-d;hi=EDGES[index+1]-d;mid=(lo+hi)/2;length=hi-lo
@@ -181,17 +211,22 @@ for index in range(6):
    cube('Glazing top frame',(side*5.2,lo+.05,4.3),(5.6,.065,.055),metal,.005)
    cube('Side bay bronze vertical',(side*2.38,lo-.07,2.15),(.025,.025,4.15),brass,.004,1)
  if index in [2,4]:
-  cube('Central acoustic ceiling cloud',(0,mid,5.37),(5.7,length-.6,.16),fabric,.045)
+  cube('Central acoustic ceiling cloud',(0,mid,5.37),(5.7,min(length-1,8),.16),fabric,.10)
  # Finely spaced walnut fins on the interior wall.
- for j in range(int(length/.32)):
-  cube('Walnut acoustic fin',(-8.19,lo+.16+j*.32,2.9),(.11,.065,4.9),wood,.008,1)
+ for j in range(int(length/.48)):
+  cube('Walnut acoustic fin',(-8.19,lo+.24+j*.48,2.9),(.11,.065,4.9),wood,.008,1)
  for side in [-1,1]:
   curve('Floor wayfinding inlay',[(side*2.6,lo,.018),(side*2.6,hi,.018)],.008,brass)
  # Recessed ceiling coffers: restrained bronze lines and dark walnut baffles.
- for x in [-5.8,-3.8,3.8,5.8]:
+ for x in [-6.4,6.4]:
   cube('Ceiling walnut baffle',(x,mid,5.54),(.075,length,.24),wood,.008,1)
- for y in range(math.ceil(lo/3),math.floor(hi/3)+1):
-  cube('Recessed ceiling crossbar',(0,y*3,5.57),(14.9,.055,.10),brass,.006,1)
+ # Different ceiling rhythms mark the sectors without an endless ladder of gold bars.
+ if index in [0,3,5]:
+  cube('Ceiling architectural frame',(0,mid,5.52),(14.9,.08,.10),metal,.01)
+ if index==1:
+  canopy=cylinder('Lounge acoustic canopy',(-4.6,1.5,5.35),2.15,.13,fabric);canopy.scale.y=1.2
+  for dx in [-1.2,1.2]:
+   for dy in [-1,1]:curve('Canopy load cable',[(-4.6+dx,1.5+dy,5.61),(-4.6+dx,1.5+dy,5.415)],.0045,metal)
  # Flush woven rugs anchor lounge areas without changing navigation footprints.
  if index in [0,1,5]:
   rx,ry=(5.2,3) if index==0 else ((-5,1) if index==1 else (-5.1,4))
@@ -208,7 +243,7 @@ for index in range(6):
   pendant(-4.9,3);pendant(4.8,3,1.8)
   cube('Reception workstation',(-6.12,3.28,1.30),(.62,.06,.38),metal,.025)
   cylinder('Reception monitor stand',(-6.12,3.28,1.13),.025,.18,metal)
-  chair(-4.9,4.15)
+  chair(-4.9,4.15,_anchor=3)
   # Feature panel is offset: the long view through the office remains open.
   cube('Brand navy feature',(-5.5,5.9,2.6),(4.5,.22,4.5),navy,.04)
   for x in [-7.65,-3.35]:
@@ -227,10 +262,12 @@ for index in range(6):
  elif index==2:
   for y in [-5,1,7]:
    for x in [-4.5,4.5]:
+    if y==1 and x<0:continue
     desk(x,y)
     if (y==1 and x>0) or (y==7 and x<0):
      cube('Design tablet',(x+.8,y-.12,.91),(.45,.32,.035),royal,.02)
-   pendant(0,y,3)
+   pendant(-4.5,y,2.4)
+   if y!=1:pendant(4.5,y,1.8)
   plant(-6.9,10,3.4);plant(6.9,-8,3)
   cube('Studio pinboard',(-7.9,0,2.5),(.1,5,1.9),fabric,.02)
  elif index==3:
@@ -258,8 +295,26 @@ for index in range(6):
    chair(2.45,y,math.pi/2);chair(6.95,y,-math.pi/2)
   for y in [1.8,4.3]:pendant(4.7,y,2.6)
   sofa(-5.1,5);plant(-6.8,8,3.4);plant(6.9,-4,3.3)
-  cube('Meeting screen stone surround',(-4.5,9,2.4),(4.2,.23,3.8),navy,.04)
-  cube('Meeting screen',(-4.5,8.85,2.4),(3.5,.03,2),screen,.025)
+  cube('Meeting screen stone surround',(4.7,9,2.4),(4.2,.23,3.8),navy,.04)
+  cube('Meeting screen',(4.7,8.85,2.4),(3.5,.03,2),screen,.025)
+ if index==0:
+  cube('Entrance facade glass',(0,lo,2.85),(16.5,.025,5.45),glass,0)
+  for x in [-1.05,1.05]:cube('Entrance door frame',(x,lo-.02,1.25),(.05,.07,2.5),metal,.005)
+ if index==5:
+  cube('Meeting inner glass',(1.65,4.5,2.1),(.035,11.5,4.2),glass,0)
+  cube('Meeting glass rail',(1.65,4.5,4.22),(.065,11.5,.05),metal,.004)
+  for y in [-1.25,4.5,10.25]:cube('Meeting glass mullion',(1.65,y,2.1),(.065,.065,4.2),metal,.005)
+  cube('End facade glazing',(0,hi,2.85),(16.5,.025,5.45),glass,0)
+  for x in range(-8,9,2):cube('End facade mullion',(x,hi-.03,2.85),(.055,.10,5.5),brass,.008,1)
+ # Compress the circulation, preserving the dimensions of furniture and people.
+ source_d=d;d*=SCALE
+ for obj in bpy.context.scene.objects:
+  source_y=obj.location.y
+  if obj.name.startswith(('Reception stone counter','Reception walnut top','Reception recessed','Reception bronze reveal','Reception navy fascia','Reception workstation','Reception monitor stand')):obj['depthAnchor']=3
+  if 'depthAnchor' in obj:obj.location.y+=obj['depthAnchor']*(SCALE-1)
+  else:obj.location.y*=SCALE;obj.scale.y*=SCALE
+  if obj.name.startswith('Chair gas lift'):seat_spots.append({'x':round(obj.location.x,3),'d':round(d+obj.location.y,3),'sourceD':round(source_d+source_y,3)})
+ bpy.context.view_layer.update()
  # Triplanar-style metre UV projection, baked to ordinary glTF UVs.
  for obj in bpy.context.scene.objects:
   if obj.type!='MESH' or not any(m.node_tree and any(n.type=='TEX_IMAGE' for n in m.node_tree.nodes) for m in obj.data.materials):continue
@@ -276,12 +331,23 @@ for index in range(6):
    camera_obstacles.append({'name':obj.name,'x':round(obj.location.x,3),'d':round(d+obj.location.y,3),'w':round(obj.dimensions.x/2+.28,3),'h':round(obj.dimensions.y/2+.28,3),'bottom':round(obj.location.z-obj.dimensions.z/2,3),'top':round(obj.location.z+obj.dimensions.z/2,3)})
  # Export the same furniture footprints used by the movement engine.
  for o in bpy.context.scene.objects:
-  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand navy feature','Meeting screen stone surround','Side bay clear glass return')):
-   colliders.append({'name':o.name,'x':round(o.location.x,3),'d':round(d+o.location.y,3),'w':round(max(.3,o.dimensions.x/2)+.28,3),'h':round(max(.3,o.dimensions.y/2)+.28,3),'top':round(o.location.z+o.dimensions.z/2,3)})
- if index==5:
-  cube('End facade glazing',(0,hi,2.85),(16.5,.025,5.45),glass,0)
-  for x in range(-8,9,2):cube('End facade mullion',(x,hi-.03,2.85),(.055,.10,5.5),brass,.008,1)
+  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand navy feature','Meeting screen stone surround','Side bay clear glass return','Meeting inner glass')):
+   colliders.append({'name':o.name,'x':round(o.location.x,3),'d':round(d+o.location.y,3),'w':round((o.dimensions.x/2 if o.name.startswith(('Side bay','Meeting inner glass')) else max(.3,o.dimensions.x/2))+.28,3),'h':round((o.dimensions.y/2 if o.name.startswith(('Side bay','Meeting inner glass')) else max(.3,o.dimensions.y/2))+.28,3),'top':1.30 if o.name.startswith('Chair gas lift') else round(o.location.z+o.dimensions.z/2,3)})
+ for obj in list(bpy.context.scene.objects):
+  if obj.get('physicsOnly'):bpy.data.objects.remove(obj,do_unlink=True)
  export('environment-'+str(index))
 with open(os.path.join(ROOT,'src','data','office-layout.json'),'w') as f:
- json.dump({'halfWidth':7.65,'length':90,'centres':CENTRES,'boundaries':EDGES,'colliders':colliders,'cameraCeiling':4.95,'cameraObstacles':camera_obstacles},f,indent=2)
-print('CONNECTED OFFICE COMPLETE; character preserved')
+ json.dump({'halfWidth':PLAN['halfWidth'],'length':PLAN['referenceLength']*SCALE,'centres':[round(v*SCALE,3) for v in CENTRES],'boundaries':[round(v*SCALE,3) for v in EDGES],'depthScale':SCALE,'colliders':colliders,'cameraCeiling':4.65,'cameraObstacles':camera_obstacles,'furniture':furniture,'seats':seat_spots,'fixtures':fixtures},f,indent=2)
+# Generate actual actor positions from the source layout and physical seat anchors.
+actors=json.load(open(os.path.join(ROOT,'tools','studio-actors-source.json')))
+for actor in actors:
+ old=actor['d'];new=old*SCALE
+ if actor['seat']:
+  matching=[v for v in seat_spots if abs(v['x']-actor['x'])<.15 and abs(v['sourceD']-old)<.15]
+  lounges=[v for v in furniture if abs(v['x']-actor['x'])<1.25 and abs(v['sourceD']-old)<.4]
+  if matching:new=matching[0]['d']
+  elif lounges:new=lounges[0]['d']+(old-lounges[0]['sourceD'])
+ actor['d']=round(new,3)
+ actor['route']=[[x,round(new+(depth-old)*SCALE,3)] for x,depth in actor['route']]
+with open(os.path.join(ROOT,'src','data','studio-actors.json'),'w') as f:json.dump(actors,f,ensure_ascii=False,indent=2)
+print('CONNECTED OFFICE COMPLETE; 72m physical layout, supported fixtures, shared CC0 furnishings')

@@ -1,0 +1,206 @@
+[
+  {
+    "id": "recepcao",
+    "name": "Lia",
+    "role": "Recepção virtual",
+    "area": 0,
+    "model": 0,
+    "action": "Type",
+    "x": -4.9,
+    "d": 4.15,
+    "yaw": 0,
+    "offset": 0,
+    "seat": true,
+    "route": [],
+    "target": "welcome",
+    "intro": "Bem-vindo ao estúdio. Posso apresentar a visita, a exploração livre e os projetos.",
+    "detail": "Esta recepcionista é uma personagem fictícia, com orientações locais roteirizadas. Escolha como conhecer o portfólio."
+  },
+  {
+    "id": "visita",
+    "name": "Nina",
+    "role": "Visitante virtual",
+    "area": 1,
+    "model": 1,
+    "action": "Talk",
+    "x": -5.5,
+    "d": 13.9,
+    "yaw": 0,
+    "offset": 7,
+    "seat": true,
+    "route": [],
+    "target": "approach",
+    "intro": "Um bom briefing começa com o objetivo da página e as necessidades de quem vai usá-la.",
+    "detail": "Uma conversa demonstrativa sobre objetivo, público, conteúdo e revisão. Não representa uma cliente ou resultado comercial real."
+  },
+  {
+    "id": "dev",
+    "name": "Caio",
+    "role": "Desenvolvimento virtual",
+    "area": 2,
+    "model": 2,
+    "action": "Type",
+    "x": -4.5,
+    "d": 19.8,
+    "yaw": 3.141593,
+    "offset": 16,
+    "seat": true,
+    "route": [
+      [
+        -3.65,
+        19.8
+      ],
+      [
+        -2.2,
+        19.8
+      ],
+      [
+        -2.2,
+        23
+      ],
+      [
+        -2.2,
+        19.8
+      ]
+    ],
+    "target": "projects",
+    "intro": "Vamos olhar as demonstrações de landing page, portfólio editorial e site institucional?",
+    "detail": "Os projetos são autorais e conceituais. As páginas podem ser abertas de verdade, com navegação e conteúdo legíveis."
+  },
+  {
+    "id": "design",
+    "name": "Bia",
+    "role": "Design virtual",
+    "area": 3,
+    "model": 3,
+    "action": "Talk",
+    "x": -5,
+    "d": 37.5,
+    "yaw": 0.6,
+    "offset": 29,
+    "seat": false,
+    "route": [
+      [
+        -5,
+        37.5
+      ],
+      [
+        -2.4,
+        37.5
+      ],
+      [
+        -2.4,
+        41.5
+      ],
+      [
+        -2.4,
+        37.5
+      ]
+    ],
+    "target": "projects",
+    "intro": "Você pode comparar os conceitos por tipo e abrir seus detalhes.",
+    "detail": "A galeria organiza demonstrações de interface. Nenhum item é apresentado como case de cliente verificado."
+  },
+  {
+    "id": "ia",
+    "name": "Rui",
+    "role": "Laboratório virtual",
+    "area": 4,
+    "model": 4,
+    "action": "Type",
+    "x": -4.8,
+    "d": 57.8,
+    "yaw": 3.141593,
+    "offset": 38,
+    "seat": true,
+    "route": [
+      [
+        -3.95,
+        57.8
+      ],
+      [
+        -2.2,
+        57.8
+      ],
+      [
+        -2.2,
+        61
+      ],
+      [
+        -2.2,
+        57.8
+      ]
+    ],
+    "target": "automation",
+    "intro": "Aqui você pode executar uma simulação local e acompanhar cada etapa de um fluxo.",
+    "detail": "Os exemplos de clínica, imobiliária, salão e marketing rodam somente neste navegador. Não se conectam a serviços externos, não usam IA ao vivo e não enviam dados."
+  },
+  {
+    "id": "briefing",
+    "name": "Ivo",
+    "role": "Planejamento virtual",
+    "area": 5,
+    "model": 5,
+    "action": "Talk",
+    "x": 2.45,
+    "d": 83,
+    "yaw": 1.570796,
+    "offset": 43,
+    "seat": true,
+    "route": [],
+    "target": "briefing",
+    "intro": "Podemos transformar sua ideia em um resumo de projeto para revisão.",
+    "detail": "O rascunho é compartilhado entre os modos durante esta visita. Nada é enviado. Os canais oficiais só aparecem se forem configurados com dados reais."
+  },
+  {
+    "id": "dev-extra",
+    "name": "Leo",
+    "role": "Desenvolvimento virtual",
+    "area": 2,
+    "model": 6,
+    "action": "Type",
+    "x": 4.5,
+    "d": 25.8,
+    "yaw": 3.141593,
+    "offset": 53,
+    "seat": true,
+    "route": [
+      [
+        3.65,
+        25.8
+      ],
+      [
+        2.2,
+        25.8
+      ],
+      [
+        2.2,
+        29
+      ],
+      [
+        2.2,
+        25.8
+      ]
+    ],
+    "target": "projects",
+    "intro": "Interfaces precisam funcionar com teclado, toque e movimento reduzido.",
+    "detail": "Experimente os mesmos conceitos no modo clássico, sem depender da navegação 3D."
+  },
+  {
+    "id": "visita-extra",
+    "name": "Alex",
+    "role": "Visitante virtual",
+    "area": 1,
+    "model": 7,
+    "action": "Talk",
+    "x": -4.55,
+    "d": 13.9,
+    "yaw": 0,
+    "offset": 61,
+    "seat": true,
+    "route": [],
+    "target": "approach",
+    "intro": "Clareza de conteúdo e navegação vem antes da escolha dos efeitos.",
+    "detail": "Uma orientação local demonstrativa sobre o processo de criação, sem alegar experiência ou depoimento de cliente real."
+  }
+]
