@@ -7,7 +7,10 @@ from mathutils import Vector
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 source=open(os.path.join(ROOT,'tools','build_assets.py')).read()
 exec(source.split('\nclean()\nskin=')[0])
-clean();random.seed(2810)
+npc_index=int(sys.argv[sys.argv.index('--npc')+1]) if '--npc' in sys.argv else None
+if '--output' in sys.argv:
+ OUT=os.path.abspath(sys.argv[sys.argv.index('--output')+1]);os.makedirs(OUT,exist_ok=True)
+clean();random.seed(2810+(npc_index or 0))
 skin=mat('Skin warm neutral',(.40,.265,.205),rough=.82)
 skin_shadow=mat('Skin detail',(.30,.18,.135),rough=.86)
 lip=mat('Natural lip',(.32,.135,.12),rough=.82)
@@ -78,11 +81,11 @@ for side in [-1,1]:
  detail('Elbow fold',[(ax-side*.035,-.047,1.14),(ax,-.067,1.12),(ax+side*.035,-.043,1.13)],.002,seam,'forearm'+str(side))
  oval('Ear',(side*.113,.002,1.675),(.019,.019,.037),skin,'head',12,8)
  oval('Ear inset',(side*.122,-.012,1.675),(.009,.005,.022),skin_shadow,'head',10,8)
- oval('Eye',(side*.043,-.093,1.698),(.021,.010,.009),white,'head',16,10)
+ oval('Eye',(side*.043,-.093,1.698),(.019,.008,.008),white,'head',16,10)
  oval('Iris',(side*.043,-.102,1.698),(.0074,.0025,.0074),eye,'head',12,8)
  oval('Pupil',(side*.043,-.105,1.698),(.0038,.0018,.0046),black,'head',10,8)
  oval('Eye catchlight',(side*.043-.002,-.1065,1.701),(.0018,.0008,.0018),white,'head',8,6)
- detail('Upper eyelid',[(side*.043-.022,-.102,1.698),(side*.043-.011,-.108,1.708),(side*.043+.008,-.108,1.709),(side*.043+.022,-.102,1.699)],.0026,skin_shadow,'head')
+ detail('Upper eyelid',[(side*.043-.022,-.102,1.698),(side*.043-.011,-.108,1.708),(side*.043+.008,-.108,1.709),(side*.043+.022,-.102,1.699)],.003,skin,'head')
  detail('Lower eyelid',[(side*.043-.020,-.101,1.695),(side*.043,-.108,1.687),(side*.043+.019,-.102,1.695)],.002,skin,'head')
  detail('Natural eyebrow',[(side*.043-.029,-.096,1.726),(side*.043-.005,-.105,1.732),(side*.043+.026,-.095,1.726)],.004,hair,'head')
  # Receding hair around the sides and back, not a thick helmet cap.
@@ -119,6 +122,60 @@ for side in [-1,1]:
  detail('Backpack piping',[(side*.135,.25,1.35),(side*.15,.25,1.17),(side*.12,.27,1.04)],.0025,lining,'spine')
 detail('Backpack zip',[(-.105,.294,1.20),(0,.296,1.21),(.105,.294,1.20)],.0018,trim,'spine')
 
+# Continuous organic surfaces replace visibly separate sleeve/torso and limb shells.
+def continuous_surface(names,title,material,voxel,ratio,assignment):
+ pieces=[o for o in bpy.context.scene.objects if o.type=='MESH' and o.name.split('.')[0] in names]
+ bpy.ops.object.select_all(action='DESELECT')
+ for o in pieces:o.select_set(True)
+ bpy.context.view_layer.objects.active=pieces[0];bpy.ops.object.join();o=bpy.context.object;o.name=title
+ remesh=o.modifiers.new('Continuous tailored volume','REMESH');remesh.mode='VOXEL';remesh.voxel_size=voxel;remesh.use_smooth_shade=True
+ bpy.ops.object.modifier_apply(modifier=remesh.name)
+ smooth=o.modifiers.new('Relaxed surface','SMOOTH');smooth.factor=.4;smooth.iterations=3;bpy.ops.object.modifier_apply(modifier=smooth.name)
+ decimate=o.modifiers.new('Optimized organic topology','DECIMATE');decimate.ratio=ratio;bpy.ops.object.modifier_apply(modifier=decimate.name)
+ o.data.materials.clear();o.data.materials.append(material)
+ o.vertex_groups.clear()
+ groups={}
+ for v in o.data.vertices:
+  for name,weight in assignment(v.co).items():
+   if weight<=0:continue
+   if name not in groups:groups[name]=o.vertex_groups.new(name=name)
+   groups[name].add([v.index],weight,'REPLACE')
+ for polygon in o.data.polygons:polygon.use_smooth=True
+ return o
+clamp=lambda n:max(0,min(1,n))
+def jacket_weights(v):
+ side=-1 if v.x<0 else 1
+ arm=clamp((abs(v.x)-.18)/.075)*clamp((1.50-v.z)/.10)
+ lower=clamp((1.24-v.z)/.16)
+ return {'spine':1-arm,'arm'+str(side):arm*(1-lower),'forearm'+str(side):arm*lower}
+def trouser_weights(v):
+ side=-1 if v.x<0 else 1;leg=clamp((.95-v.z)/.12);lower=clamp((.60-v.z)/.15)
+ return {'hips':1-leg,'thigh'+str(side):leg*(1-lower),'shin'+str(side):leg*lower}
+continuous_surface({'Hoodie body','Sleeve'},'Continuous tailored jacket',cloth,.012,.45,jacket_weights)
+continuous_surface({'Pelvis','Trousers'},'Continuous tailored trousers',denim,.011,.40,trouser_weights)
+continuous_surface({'Anatomical head','Neck','Nose bridge','Ear'},'Sculpted anatomical face',skin,.006,.32 if npc_index is None else .50,lambda v:{'head':1})
+for o in bpy.context.scene.objects:
+ if o.name.startswith('Long tapered beard'):
+  for v in o.data.vertices:
+   wave=math.sin(v.co.x*170+v.co.z*69)*.0016
+   v.co.y+=wave
+# Original fictional cast: varied skin, tailoring and hairstyles, never the moodboard face.
+if npc_index is not None:
+ palettes=[((.43,.26,.18),(.035,.045,.06)),((.26,.13,.075),(.16,.09,.055)),((.32,.20,.14),(.045,.09,.13)),((.49,.32,.24),(.14,.11,.09)),((.17,.09,.055),(.04,.12,.13)),((.38,.23,.16),(.085,.09,.12)),((.53,.36,.27),(.16,.18,.20)),((.23,.135,.075),(.12,.07,.10))]
+ skin_color,cloth_color=palettes[npc_index]
+ for material,color in [(skin,skin_color),(skin_shadow,tuple(c*.72 for c in skin_color)),(cloth,cloth_color),(seam,tuple(c*1.25 for c in cloth_color))]:
+  material.diffuse_color=(*color,1);material.node_tree.nodes.get('Principled BSDF').inputs['Base Color'].default_value=(*color,1)
+ for o in list(bpy.context.scene.objects):
+  if o.name.startswith(('Long tapered beard','Beard strand','Moustache','Backpack','Rolled hood','Folded hood','Short hair strand','Side hair','Short rear hair')):bpy.data.objects.remove(o,do_unlink=True)
+ if npc_index in [0,1,3]:
+  oval('Soft bob hair',(0,.055,1.69),(.124,.086,.145),hair,'head',20,12)
+  oval('Hair crown',(0,.015,1.79),(.108,.095,.055),hair,'head',20,12)
+  for side in [-1,1]:oval('Hair side locks',(side*.107,-.005,1.65),(.022,.04,.11),hair,'head',12,10)
+ else:
+  oval('Short hair cap',(0,.012,1.787),(.106,.094,.045),hair,'head',20,10)
+  for side in [-1,1]:oval('Clipped side hair',(side*.102,.015,1.74),(.012,.057,.053),hair,'head',12,8)
+ # A lapel collar distinguishes professional jackets from Gabriel's hoodie.
+ for side in [-1,1]:detail('Tailored lapel',[(side*.045,-.085,1.48),(side*.09,-.124,1.34),(side*.025,-.133,1.23)],.009,lining,'spine')
 # Convert detailed curves and bind them to the appropriate deforming bone.
 for o in list(bpy.context.scene.objects):
  if o.type=='CURVE':
@@ -131,6 +188,10 @@ vc=surface.node_tree.nodes.new('ShaderNodeVertexColor');vc.layer_name='SurfaceCo
 for o in list(bpy.context.scene.objects):
  if o.type!='MESH':continue
  color=o.data.materials[0].diffuse_color[:3]
+ if npc_index is not None and o.vertex_groups.get('head'):
+  width=[.93,1.0,1.05,.95,1.03,1.0,1.08,.98][npc_index]
+  o.location.x*=width
+  for v in o.data.vertices:v.co.x*=width
  layer=o.data.color_attributes.new(name='SurfaceColor',type='FLOAT_COLOR',domain='CORNER')
  for loop in o.data.loops:
   v=o.data.vertices[loop.vertex_index].co
@@ -149,13 +210,13 @@ for side in [-1,1]:
 bpy.ops.object.mode_set(mode='OBJECT')
 for o in list(bpy.context.scene.objects):
  if o.type=='MESH':o.parent=rig;mod=o.modifiers.new('Skinning','ARMATURE');mod.object=rig
-for name in ['Idle','Walk','Turn']:
+for name in ['Idle','Walk','Turn','Start','Stop','Interact','Sit','Type','Talk','StandUp','SitDown']:
  rig.animation_data_create();action=bpy.data.actions.new(name);rig.animation_data.action=action
  for frame in range(1,33):
   phase=(frame-1)/31*math.tau
   for b in rig.pose.bones:
    b.rotation_mode='XYZ';b.rotation_euler=(0,0,0);b.location=(0,0,0)
-   if name=='Walk':
+   if name in ['Walk','Start','Stop']:
     side=-1 if '-1' in b.name else 1
     if b.name.startswith('thigh'):b.rotation_euler.x=math.sin(phase+side*math.pi/2)*.43
     if b.name.startswith('shin'):b.rotation_euler.x=max(0,math.sin(phase+side*math.pi/2))*.45
@@ -163,12 +224,37 @@ for name in ['Idle','Walk','Turn']:
     if b.name.startswith('forearm'):b.rotation_euler.x=-.12
     if b.name=='hips':b.location.y=.012*(1-math.cos(phase*2))
     if b.name=='spine':b.rotation_euler.z=math.sin(phase)*.008
+   if name in ['Start','Stop']:
+    amount=(frame-1)/31 if name=='Start' else 1-(frame-1)/31
+    for axis in range(3):b.rotation_euler[axis]*=amount
+   seated=name in ['Sit','Type'] or (name=='Talk' and npc_index is not None and npc_index in [1,5,7]) or name in ['StandUp','SitDown']
+   amount=(1-(frame-1)/31) if name=='StandUp' else (frame-1)/31 if name=='SitDown' else 1
+   if seated:
+    if b.name=='hips':
+     b.location.y=-.25*amount
+     if name in ['StandUp','SitDown']:b.location.z=.32*(1-amount)
+    if b.name.startswith('thigh'):b.rotation_euler.x=-1.20*amount
+    if b.name.startswith('shin'):b.rotation_euler.x=1.20*amount
+    if b.name.startswith('arm'):b.rotation_euler.x=-.35*amount
+    if b.name.startswith('forearm'):b.rotation_euler.x=(-.95+math.sin(phase+(1 if '-1' in b.name else 0))*.045)*amount
+   if name=='Type':
+    if b.name=='hips':b.location.z=.18
+    if b.name=='spine':b.rotation_euler.x=.22
+    if b.name.startswith('arm'):b.rotation_euler.x=-.85
+    if b.name.startswith('forearm'):b.rotation_euler.x=-.70+math.sin(phase+(1 if '-1' in b.name else 0))*.045
+   if name=='Talk':
+    if b.name=='head':b.rotation_euler.y=math.sin(phase)*.11
+    if b.name=='forearm1':b.rotation_euler.x=-.7+math.sin(phase)*.14
+   if name=='Interact':
+    if b.name=='arm1':b.rotation_euler.x=-.4*math.sin(phase/2)
+    if b.name=='forearm1':b.rotation_euler.x=-.7*math.sin(phase/2)
+    if b.name=='head':b.rotation_euler.x=math.sin(phase)*.05
    if name=='Idle' and b.name=='spine':b.rotation_euler.x=math.sin(phase)*.007
    if name=='Turn' and b.name=='head':b.rotation_euler.y=math.sin(phase)*.20
    b.keyframe_insert('rotation_euler',frame=frame,group=b.name)
    if b.name=='hips':b.keyframe_insert('location',frame=frame,group=b.name)
  track=rig.animation_data.nla_tracks.new();track.name=name;track.strips.new(name,1,action);rig.animation_data.action=None
-export('gabriel-rigged')
+export('gabriel-rigged' if npc_index is None else 'npc-'+str(npc_index))
 if '--preview' in sys.argv:
  for track in rig.animation_data.nla_tracks:track.mute=True
  for b in rig.pose.bones:b.rotation_euler=(0,0,0);b.location=(0,0,0)

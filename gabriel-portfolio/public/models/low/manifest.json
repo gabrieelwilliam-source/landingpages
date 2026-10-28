@@ -1,0 +1,59 @@
+{
+  "purpose": "Original low detail character variants; same rigs and authored clips",
+  "assets": [
+    {
+      "name": "gabriel-rigged.glb",
+      "bytes": 108960,
+      "sha256": "f79542e4a49650b5a7afaed35c833558635ca6be9ae2adf51486f72c1f7e8141",
+      "triangles": 4686
+    },
+    {
+      "name": "npc-0.glb",
+      "bytes": 102008,
+      "sha256": "8be50a92f445b969dbfd198b041c768f49bb7765a956ecf29ff5a3a5556b5949",
+      "triangles": 4068
+    },
+    {
+      "name": "npc-1.glb",
+      "bytes": 101792,
+      "sha256": "76d90ff6f9020960dd58ea16ca8a34abd9c9291a22c5acc34b8a4bd598488736",
+      "triangles": 4068
+    },
+    {
+      "name": "npc-2.glb",
+      "bytes": 101572,
+      "sha256": "b1de7f7951292af10d9d3ed1ac4825d49528746ee5c2a5a63ded68b66fa44f64",
+      "triangles": 3967
+    },
+    {
+      "name": "npc-3.glb",
+      "bytes": 102256,
+      "sha256": "b8ba8cfb0f693670704a9c6bdeb64cc931020d878026a0c98637a6debb0d1871",
+      "triangles": 4068
+    },
+    {
+      "name": "npc-4.glb",
+      "bytes": 101060,
+      "sha256": "29b783f666134d9fed94ff9bb6289e16b7bbf2d3556c6a3d2e73a15ab7d9bf0b",
+      "triangles": 3987
+    },
+    {
+      "name": "npc-5.glb",
+      "bytes": 101688,
+      "sha256": "fae6fed70f5ff34b73b50604cefdbf34f294b3fd298b61aca5c8c1636eb3b291",
+      "triangles": 3967
+    },
+    {
+      "name": "npc-6.glb",
+      "bytes": 102004,
+      "sha256": "b7c30dae4edc0039f3108f7b9ca44dcfeb8439aae488899bbf84aa93c6b0c30c",
+      "triangles": 3967
+    },
+    {
+      "name": "npc-7.glb",
+      "bytes": 101220,
+      "sha256": "ce996c7daf4c5a7fe8c17d80f92a9a7e81cf18c1d2215c678f43b8732be38ee7",
+      "triangles": 3967
+    }
+  ]
+}

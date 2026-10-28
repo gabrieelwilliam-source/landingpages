@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checks": [
+    "iniciador Node sem dependências",
+    "exportação HTTP com prefixo correto",
+    "rig de 16 ossos",
+    "LOD leve e completo",
+    "recepcionista HTML",
+    "modo clássico",
+    "zero erros de recursos e execução"
+  ],
+  "viewport": [
+    1440,
+    900
+  ],
+  "published": false
+}

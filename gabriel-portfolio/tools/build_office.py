@@ -11,6 +11,7 @@ CENTRES=[0,12,26,44,62,80]
 EDGES=[-7,7,19,36,54,72,92]
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 colliders=[]
+camera_obstacles=[]
 
 def cylinder(name,loc,r,depth,material):
  bpy.ops.mesh.primitive_cylinder_add(vertices=16,radius=r,depth=depth,location=loc)
@@ -22,20 +23,34 @@ def texture_material(name,color,kind):
  size=256; pixels=[]; rough=[]; rng=random.Random(name)
  for y in range(size):
   for x in range(size):
-   if kind=='wood':
+   if kind=='fabric':
+    grain=math.sin(x*1.55)*math.cos(y*1.55)*.07+rng.uniform(-.025,.025)
+   elif kind=='wood':
     grain=math.sin(x*.32+math.sin(y*.03)*1.8)*.12+math.sin(x*1.5+y*.006)*.05+rng.uniform(-.025,.025)
    else:
-    vein=abs(math.sin(x*.024+y*.036+math.sin(y*.057)*.75+math.sin(x*.05)*.36))
-    grain=(max(0,1-vein*12)*1.25)+rng.uniform(-.04,.04)
+    vein=abs(math.sin(x*.024+y*.036+math.sin(y*.057+x*.019)*1.2+math.sin(x*.05-y*.035)*.6+math.sin(x*.13+y*.11)*.12))
+    grain=(max(0,1-vein*16)*.5)+rng.uniform(-.04,.04)
    rgb=[max(0,min(1,c*(1+grain))) for c in color]
    pixels.extend([12.92*c if c<=.0031308 else 1.055*c**(1/2.4)-.055 for c in rgb]+[1])
-   v=(.24+grain*.08) if kind=='stone' else .68+grain*.15
+   v=(.24+grain*.08) if kind=='stone' else (.92+grain*.1) if kind=='fabric' else .68+grain*.15
    rough.extend([v,v,v,1])
  for title,data,socket in [('surface',pixels,'Base Color'),('roughness',rough,'Roughness')]:
   image=bpy.data.images.new(name+' '+title,width=size,height=size);image.pixels=data;image.pack()
   if title=='roughness': image.colorspace_settings.name='Non-Color'
   node=material.node_tree.nodes.new('ShaderNodeTexImage');node.image=image
   material.node_tree.links.new(node.outputs['Color'],p.inputs[socket])
+ # Tangent-space micro-normal map from the same original procedural height field.
+ normal_pixels=[]
+ for y in range(size):
+  for x in range(size):
+   a=pixels[(y*size+(x+1)%size)*4];b=pixels[(y*size+(x-1)%size)*4]
+   c=pixels[(((y+1)%size)*size+x)*4];d=pixels[(((y-1)%size)*size+x)*4]
+   nx=(b-a)*(.8 if kind=='wood' else .35);ny=(d-c)*.35
+   v=Vector((nx,ny,1)).normalized();normal_pixels.extend((v.x*.5+.5,v.y*.5+.5,v.z*.5+.5,1))
+ image=bpy.data.images.new(name+' micro normal',width=size,height=size);image.colorspace_settings.name='Non-Color';image.pixels=normal_pixels;image.pack()
+ node=material.node_tree.nodes.new('ShaderNodeTexImage');node.image=image
+ normal=material.node_tree.nodes.new('ShaderNodeNormalMap');normal.inputs['Strength'].default_value=.4
+ material.node_tree.links.new(node.outputs['Color'],normal.inputs['Color']);material.node_tree.links.new(normal.outputs['Normal'],p.inputs['Normal'])
  return material
 
 def chair(x,y,angle=0):
@@ -50,6 +65,7 @@ def chair(x,y,angle=0):
   cylinder('Caster',(x+math.cos(a)*.31,y+math.sin(a)*.31,.06),.045,.06,metal)
  part('Stitched seat',(0,0,.52),(.58,.58,.14),fabric,.07)
  part('Sculpted chair back',(0,.26,.91),(.6,.13,.73),fabric,.065)
+ part('Lumbar chair cushion',(0,.175,.78),(.48,.08,.22),fabric,.035)
  for dx in [-.34,.34]:
   part('Arm support',(dx,0,.65),(.035,.035,.28),metal,.01)
   part('Armrest',(dx,-.03,.78),(.07,.35,.055),fabric,.025)
@@ -70,12 +86,16 @@ def desk(x,y):
  cube('Monitor screen',(x,y+.173,1.31),(1.33,.014,.73),screen,.012)
  cylinder('Monitor neck',(x,y+.23,1.01),.025,.28,metal)
  cube('Monitor foot',(x,y+.23,.86),(.4,.26,.025),metal,.01)
- cube('Keyboard',(x,y-.35,.86),(.62,.21,.024),keys,.012)
+ cube('Keyboard',(x,y-.48,.86),(.62,.21,.024),keys,.012)
  for i in range(9):
-  for j in range(3):cube('Key cap',(x-.26+i*.064,y-.41+j*.053,.879),(.05,.038,.009),metal,.002,1)
- ell('Mouse',(x+.5,y-.34,.89),(.065,.1,.025),metal)
+  for j in range(3):cube('Key cap',(x-.26+i*.064,y-.54+j*.053,.879),(.05,.038,.009),metal,.002,1)
+ ell('Mouse',(x+.5,y-.47,.89),(.065,.1,.025),metal)
  cylinder('Ceramic cup',(x-.92,y-.25,.96),.07,.2,ivory)
- chair(x,y-1.03)
+ cube('Desk writing pad',(x-.72,y-.15,.86),(.35,.42,.012),linen,.008,1)
+ if y>0:
+  cube('Desk notebook',(x+.86,y-.16,.875),(.32,.40,.026),fabric,.008)
+  curve('Desk pen',[(x+.8,y-.26,.897),(x+.91,y-.03,.897)],.005,brass)
+ chair(x,y-1.2,math.pi)
  curve('Task lamp',[(x+1,y+.35,.85),(x+1,y+.35,1.6),(x+.55,y+.35,1.73)],.018,brass)
  cube('Task lamp shade',(x+.55,y+.35,1.71),(.35,.1,.045),glow,.02)
 
@@ -84,6 +104,8 @@ def sofa(x,y):
  for i in range(3):
   cube('Lounge cushion',(x+(i-1)*.83,y,.46),(.8,.91,.26),linen,.10)
   cube('Back cushion',(x+(i-1)*.83,y+.4,.84),(.8,.25,.7),linen,.09)
+ for i in [-1,1]:
+  cushion=cube('Loose lounge pillow',(x+i*.86,y+.2,.92),(.48,.19,.46),fabric,.095,4);cushion.rotation_euler.y=i*.15
  for dx in [-1.36,1.36]: cube('Lounge arm',(x+dx,y,.66),(.22,1.1,.6),linen,.09)
  for dx in [-1.1,1.1]:cube('Lounge foot',(x+dx,y,.09),(.06,.65,.16),brass,.012)
 
@@ -96,7 +118,7 @@ def plant(x,y,height=2.9):
   a=random.random()*math.tau; h=random.uniform(height-1.6,height); r=math.sqrt(random.random())*.95*math.sqrt(max(.05,1-((h-height+.8)/.85)**2))
   px=x+math.cos(a)*r;py=y+math.sin(a)*r
   if j%22==0:curve('Tree branch',[(x,y,h-.35),(px,py,h)],.011,wood)
-  length=random.uniform(.09,.18); w=length*.28
+  length=random.uniform(.11,.24); w=length*.32
   start=len(vertices)
   vertices.extend([(px,py,h),(px+math.cos(a)*length*.5-math.sin(a)*w,py+math.sin(a)*length*.5+math.cos(a)*w,h+.04),(px+math.cos(a)*length,py+math.sin(a)*length,h+.07),(px+math.cos(a)*length*.5+math.sin(a)*w,py+math.sin(a)*length*.5-math.cos(a)*w,h+.04)])
   vertices.append((px+math.cos(a)*length*.5,py+math.sin(a)*length*.5,h+.095))
@@ -119,15 +141,15 @@ for index in range(6):
  ivory=mat('Ivory ceramic',(.63,.59,.5),rough=.55)
  metal=mat('Blackened steel',(.028,.035,.043),.65,.35)
  brass=mat('Satin bronze',(.38,.24,.10),.68,.34)
- fabric=mat('Midnight woven upholstery',(.055,.085,.105),rough=.95)
- linen=mat('Sand boucle upholstery',(.38,.32,.24),rough=.96)
+ fabric=texture_material('Midnight woven upholstery',(.055,.085,.105),'fabric')
+ linen=texture_material('Sand boucle upholstery',(.38,.32,.24),'fabric')
  keys=mat('Keyboard aluminium',(.18,.2,.22),.6,.45)
  glass=mat('Office clear glazing',(.18,.28,.32),.15,.2)
  glass.diffuse_color=(.18,.28,.32,.12);p=glass.node_tree.nodes.get('Principled BSDF');p.inputs['Alpha'].default_value=.12;glass.surface_render_method='DITHERED'
  leaf=mat('Olive foliage',(.075,.12,.055),rough=.95);leaf.use_backface_culling=False
  soil=mat('Soil',(.025,.019,.012))
  glow=mat('Architectural warm diffuser',(.9,.62,.28),rough=.5)
- p=glow.node_tree.nodes.get('Principled BSDF');p.inputs['Emission Color'].default_value=(1,.64,.32,1);p.inputs['Emission Strength'].default_value=2
+ p=glow.node_tree.nodes.get('Principled BSDF');p.inputs['Emission Color'].default_value=(1,.64,.32,1);p.inputs['Emission Strength'].default_value=1.25
  screen=mat('Monitor idle display',(.025,.07,.09),.1,.4)
  p=screen.node_tree.nodes.get('Principled BSDF');p.inputs['Emission Color'].default_value=(.015,.07,.1,1);p.inputs['Emission Strength'].default_value=.5
  d=CENTRES[index];lo=EDGES[index]-d;hi=EDGES[index+1]-d;mid=(lo+hi)/2;length=hi-lo
@@ -150,6 +172,13 @@ for index in range(6):
  for y in [lo,hi]:
   cube('Structural ceiling rib',(0,y,5.35),(16.4,.3,.5),metal,.025)
   for side in [-1,1]:cube('Structural column',(side*7.9,y,2.65),(.24,.34,5.3),metal,.025)
+ # Each functional area has its own side bay and visual threshold.
+ if index in [1,2,3,4,5]:
+  for side in [-1,1]:
+   cube('Side bay stone return',(side*5.2,lo+.05,2.15),(5.6,.18,4.3),stone,.025)
+   cube('Side bay bronze vertical',(side*2.38,lo-.07,2.15),(.025,.025,4.15),brass,.004,1)
+ if index in [2,4]:
+  cube('Central acoustic ceiling cloud',(0,mid,5.37),(5.7,length-.6,.16),fabric,.045)
  # Finely spaced walnut fins on the interior wall.
  for j in range(int(length/.32)):
   cube('Walnut acoustic fin',(-8.19,lo+.16+j*.32,2.9),(.11,.065,4.9),wood,.008,1)
@@ -167,13 +196,16 @@ for index in range(6):
   for side in [-1,1]:
    cube('Rug stitched border',(rx+side*1.75,ry,.018),(.025,3.45,.006),linen,0)
  if index==0:
-  cube('Reception stone counter',(-4.9,3,.6),(3.8,1.3,1.2),stone,.12)
-  cube('Reception walnut top',(-4.9,3,1.23),(3.95,1.4,.10),wood,.05)
+  cube('Reception stone counter',(-4.9,3,.5),(3.8,1.3,1.0),stone,.12)
+  cube('Reception walnut top',(-4.9,3,1.05),(3.95,1.4,.08),wood,.05)
   cube('Reception recessed warm light',(-4.9,2.34,.12),(3.4,.025,.025),glow,.006,1)
   curve('Reception bronze reveal',[(-6.6,2.32,.75),(-3.2,2.32,.75)],.014,brass)
   sofa(5.2,4);plant(6.9,7,3.5);plant(-6.7,-1,3)
   cylinder('Coffee table',(5.2,2,.36),.66,.09,wood);cylinder('Coffee pedestal',(5.2,2,.19),.18,.3,metal)
   pendant(-4.9,3);pendant(4.8,3,1.8)
+  cube('Reception workstation',(-6.12,3.28,1.30),(.62,.06,.38),metal,.025)
+  cylinder('Reception monitor stand',(-6.12,3.28,1.13),.025,.18,metal)
+  chair(-4.9,4.15)
   # Feature panel is offset: the long view through the office remains open.
   cube('Brand stone feature',(-5.5,5.9,2.6),(4.5,.22,4.5),stone,.04)
  elif index==1:
@@ -216,14 +248,28 @@ for index in range(6):
   sofa(-5.1,5);plant(-6.8,8,3.4);plant(6.9,-4,3.3)
   cube('Meeting screen stone surround',(-4.5,9,2.4),(4.2,.23,3.8),stone,.04)
   cube('Meeting screen',(-4.5,8.85,2.4),(3.5,.03,2),screen,.025)
+ # Triplanar-style metre UV projection, baked to ordinary glTF UVs.
+ for obj in bpy.context.scene.objects:
+  if obj.type!='MESH' or not any(m.node_tree and any(n.type=='TEX_IMAGE' for n in m.node_tree.nodes) for m in obj.data.materials):continue
+  uv=obj.data.uv_layers.active or obj.data.uv_layers.new(name='MetreUV')
+  for polygon in obj.data.polygons:
+   axis=max(range(3),key=lambda k:abs(polygon.normal[k]))
+   for loop_index in polygon.loop_indices:
+    v=obj.matrix_world@obj.data.vertices[obj.data.loops[loop_index].vertex_index].co
+    u,vv=((v.y+d,v.z) if axis==0 else (v.x,v.z) if axis==1 else (v.x,v.y+d))
+    uv.data[loop_index].uv=(u*.48,vv*.48)
+ # Camera-only overhead obstacles have a bottom height, allowing movement underneath.
+ for obj in bpy.context.scene.objects:
+  if obj.type=='MESH' and obj.name.startswith('Suspended luminaire'):
+   camera_obstacles.append({'name':obj.name,'x':round(obj.location.x,3),'d':round(d+obj.location.y,3),'w':round(obj.dimensions.x/2+.28,3),'h':round(obj.dimensions.y/2+.28,3),'bottom':round(obj.location.z-obj.dimensions.z/2,3),'top':round(obj.location.z+obj.dimensions.z/2,3)})
  # Export the same furniture footprints used by the movement engine.
  for o in bpy.context.scene.objects:
-  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand stone feature','Meeting screen stone surround')):
+  if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand stone feature','Meeting screen stone surround','Side bay stone return')):
    colliders.append({'name':o.name,'x':round(o.location.x,3),'d':round(d+o.location.y,3),'w':round(max(.3,o.dimensions.x/2)+.28,3),'h':round(max(.3,o.dimensions.y/2)+.28,3),'top':round(o.location.z+o.dimensions.z/2,3)})
  if index==5:
   cube('End facade glazing',(0,hi,2.85),(16.5,.025,5.45),glass,0)
   for x in range(-8,9,2):cube('End facade mullion',(x,hi-.03,2.85),(.055,.10,5.5),brass,.008,1)
  export('environment-'+str(index))
 with open(os.path.join(ROOT,'src','data','office-layout.json'),'w') as f:
- json.dump({'halfWidth':7.65,'length':90,'centres':CENTRES,'boundaries':EDGES,'colliders':colliders},f,indent=2)
+ json.dump({'halfWidth':7.65,'length':90,'centres':CENTRES,'boundaries':EDGES,'colliders':colliders,'cameraCeiling':4.95,'cameraObstacles':camera_obstacles},f,indent=2)
 print('CONNECTED OFFICE COMPLETE; character preserved')

@@ -31,7 +31,8 @@ export default function Experience() {
   const rememberSection = useCallback((id: string) => {
     section.current = id;
   }, []);
-  function explore() {
+  function explore(navigation?:NavigationMode) {
+    if(navigation)setNavigationMode(navigation);
     history.replaceState(null, "", location.pathname + location.search);
     const i = environments.findIndex((e) => e.id === section.current);
     setEntry(

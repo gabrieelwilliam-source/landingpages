@@ -1,0 +1,35 @@
+✔ cast has eight fictional identities and a useful scripted role in every sector (2.12167ms)
+✔ NPC routines are deterministic, periodic and remain inside the facade (24.291831ms)
+✔ walking actors follow closed local routes rather than teleporting between workstations (4.947569ms)
+✔ guide curve and reconnect segments clear physical furniture and the glass facade (6.040011ms)
+✔ a reconnect route goes around an occupied local point (1.186393ms)
+✔ visitor movement stops at people and nearby activation respects distance (0.329295ms)
+✔ camera clipping includes a standing person as well as architecture (0.396466ms)
+✔ all four simulations expose three real local state transitions, reset and no overrun (0.431419ms)
+✔ contact CTA accepts configured public channels and rejects unsafe or invented destinations (0.468044ms)
+✔ overhead light bounds stop the camera while leaving the floor route open (0.384538ms)
+✔ geometry LOD follows explicit quality and distance while high keeps the protagonist detailed (0.250156ms)
+✔ forward and back traverse both environments with bounded depth (18.834647ms)
+✔ diagonal input does not increase speed (0.322725ms)
+✔ facade boundary and workstation chairs match the connected office (0.608685ms)
+✔ release decelerates and delta cap prevents tab-resume jumps (0.441754ms)
+✔ cinematic easing has stable endpoints and a symmetric midpoint (0.194753ms)
+✔ sector boundary allows off-centre walking without invisible causeway barriers (0.197136ms)
+✔ central guided lane remains clear of the actual furniture footprints (0.408054ms)
+✔ wheel normalization treats pixel, line and page devices consistently (0.14651ms)
+✔ scroll converges, reverses and honours the endpoints without overshoot (2.770435ms)
+✔ scroll progress preserves lateral stance and does not simulate a walking avatar (0.460953ms)
+✔ reduced-motion scroll goes directly to the selected point (0.248023ms)
+✔ scroll transforms all chapters around an anchored avatar; walking translates the avatar (1.257621ms)
+✔ batching Meshopt quantized furniture preserves metre-scale placement and source data (36.998415ms)
+✔ camera-relative movement rotates forward and strafe without increasing diagonal speed (1.450821ms)
+✔ camera segment stops before a tall display but clears low furniture (0.288714ms)
+✔ camera remains inside the building envelope and every collision has a real height (0.448194ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 136.541452

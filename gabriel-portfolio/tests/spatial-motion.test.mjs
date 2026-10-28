@@ -152,6 +152,6 @@ test("camera remains inside the building envelope and every collision has a real
   assert.ok(office.colliders.every(box=>Number.isFinite(box.top)&&box.top>0));
   const safe=safeCamera({x:0,y:1.35,d:40},{x:100,y:100,d:100},{...office,colliders:[]});
   assert.equal(safe.x,office.halfWidth);
-  assert.equal(safe.y,5.2);
+  assert.equal(safe.y,office.cameraCeiling ?? 5.2);
   assert.equal(safe.d,91.6);
 });

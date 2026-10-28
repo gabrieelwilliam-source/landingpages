@@ -17,11 +17,24 @@ import {
 } from "./spatial-motion.mjs";
 import { automationConcepts, spatialExhibits } from "@/data/site";
 import office from "@/data/office-layout.json";
+import {actors,crowdLimit,npcRoutine,crowdSafeMove,nearbyTarget,characterDetail} from "./office/npc.mjs";
+import {guideX,reconnectPath} from "./office/motion.mjs";
+import lowManifest from "../../public/models/low/manifest.json";
 import modelManifest from "../../public/models/manifest.json";
 export type NavigationMode = "walk" | "scroll";
-export type GraphicQuality = "auto" | "low" | "high";
+export type GraphicQuality = "auto" | "low" | "medium" | "high";
 
 export type SpatialSnapshot = {
+  avatarLod: "low"|"high";
+  npcCount: number;
+  npcsLoaded: number;
+  npcLoadError:boolean;
+  npcStates: {id:string;x:number;d:number;clip:string;time:number;lod:string}[];
+  nearby: string | null;
+  cameraDistance: number;
+  cameraShoulder: number;
+  reconnecting: boolean;
+  guideUnavailable:boolean;
   rigBones: number;
   animation: string;
   navigationMode: NavigationMode;
@@ -108,7 +121,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   sun.shadow.bias = -0.0005;
   scene.add(sun, sun.target);
   const ceilingLights = [-4, 4].map(x => {
-    const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 24 : 32, 20, 2);
+    const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 30 : 40, 20, 2);
     lamp.position.set(x, 4.2, -3);
     scene.add(lamp);
     return lamp;
@@ -119,7 +132,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const probe = new RoomEnvironment();
     const env = pmrem.fromScene(probe, 0.04, 0.1, 100, {size: softwareRenderer ? 64 : 128});
     scene.environment = env.texture;
-    scene.environmentIntensity = 0.4;
+    scene.environmentIntensity = 0.55;
     probe.dispose();
     pmrem.dispose();
     resources.push(env.texture);
@@ -173,6 +186,23 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     floorOcclusion.setMatrixAt(i, footprint.matrix);
   });
   world.add(floorOcclusion);
+  // Restrained indirect light approximation at the facade base; no screen-space reflections.
+  const wash=document.createElement('canvas');wash.width=64;wash.height=8;
+  const washContext=wash.getContext('2d')!;
+  const washGradient=washContext.createLinearGradient(0,0,64,0);
+  washGradient.addColorStop(0,'rgba(255,201,133,.34)');washGradient.addColorStop(1,'rgba(255,201,133,0)');
+  washContext.fillStyle=washGradient;washContext.fillRect(0,0,64,8);
+  const washTexture=new T.CanvasTexture(wash);washTexture.colorSpace=T.SRGBColorSpace;resources.push(washTexture);
+  const washMaterial=new T.MeshBasicMaterial({map:washTexture,transparent:true,depthWrite:false,opacity:.28,side:T.DoubleSide});
+  const lightWashes=new T.InstancedMesh(new T.PlaneGeometry(1,1),washMaterial,12);
+  const washTransform=new T.Object3D();let washIndex=0;
+  for(let i=0;i<6;i++)for(const side of [-1,1]){
+    const lower=office.boundaries[i],upper=office.boundaries[i+1];
+    washTransform.position.set(side*7.45,.032,-(lower+upper)/2);
+    washTransform.rotation.set(-Math.PI/2,0,side>0?Math.PI:0);
+    washTransform.scale.set(1.4,upper-lower,1);washTransform.updateMatrix();lightWashes.setMatrixAt(washIndex++,washTransform.matrix);
+  }
+  world.add(lightWashes);
   const loaded = Array(6).fill(false) as boolean[];
   const loading = new Set<number>();
   const roomNodes = new Map<number, T.Group>();
@@ -180,14 +210,14 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     avatarReady = false,
     announced = false;
   let mixer: T.AnimationMixer | null = null;
-  const actions: Record<string, T.AnimationAction> = {};
+  let actions: Record<string, T.AnimationAction> = {};
   let animationName = "Idle",
     rigBones = 0;
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   // Content versions prevent browsers from reusing the previous character/rooms.
   const modelUrl = (name: string) => {
-    const hash = modelManifest.assets.find(asset => asset.name === name)?.sha256;
+    const hash = (name.startsWith("low/")?lowManifest:modelManifest).assets.find(asset => asset.name === name.replace(/^low\//,""))?.sha256;
     return `${base}/models/${name}?v=${hash?.slice(0, 12) || "local"}`;
   };
   // Original generated vista; the photograph used for Gabriel is never loaded.
@@ -259,6 +289,36 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     mats.set(material.uuid, material);
     root.add(new T.Mesh(geometry, material));
   }
+  type RigVariant={scene:T.Group;mixer:T.AnimationMixer;actions:Record<string,T.AnimationAction>};
+  function rigVariant(scene:T.Group,clips:T.AnimationClip[]):RigVariant{
+    register(scene);const mixer=new T.AnimationMixer(scene),actions:Record<string,T.AnimationAction>={};
+    clips.forEach(clip=>{actions[clip.name]=mixer.clipAction(clip);});return {scene,mixer,actions};
+  }
+  let heroHigh:RigVariant|null=null,heroLow:RigVariant|null=null,avatarLod:'low'|'high'='high';
+  type CastNode = {high:RigVariant;low?:RigVariant;detail:'low'|'high';definition: typeof actors[number]; root:T.Group; mixer:T.AnimationMixer; actions:Record<string,T.AnimationAction>; clip:string; time:number; x:number; d:number; active:boolean; gait:number};
+  const cast = new Map<string,CastNode>(), castLoading = new Set<string>(), castFailed = new Set<string>();
+  function loadCast(area:number) {
+    actors.slice(0,crowdLimit(quality,softwareRenderer)).filter(a=>a.area===area).forEach(definition=>{
+      if(cast.has(definition.id)||castLoading.has(definition.id)||castFailed.has(definition.id))return;
+      castLoading.add(definition.id);
+      loader.load(modelUrl(`npc-${definition.model}.glb`),g=>{
+        if(disposed)return;
+        const high=rigVariant(g.scene,g.animations),root=new T.Group();root.add(g.scene);
+        const initial=npcRoutine(definition,0);
+        root.position.set(initial.x,0,-initial.d);root.rotation.y=initial.yaw;
+        root.scale.setScalar([.98,1,1.015,.97,1.01,1.025,1,1.02][definition.model]);
+        world.add(root);
+        const node:CastNode={high,detail:'high',definition,root,mixer:high.mixer,actions:high.actions,clip:'',time:0,x:initial.x,d:initial.d,active:false,gait:0};
+        cast.set(definition.id,node);
+        loader.load(modelUrl(`low/npc-${definition.model}.glb`),low=>{
+          if(disposed)return;node.low=rigVariant(low.scene,low.animations);low.scene.visible=false;root.add(low.scene);assetDirty=true;pendingPublish=true;
+        },undefined,()=>{ /* The validated full-detail character remains the fallback. */ });
+        castLoading.delete(definition.id);assetDirty=true;pendingPublish=true;
+      },undefined,()=>{castLoading.delete(definition.id);castFailed.add(definition.id);npcLoadError=true;pendingPublish=true;});
+    });
+  }
+  let npcLoadError=false;
+  function castBodies(){return [...cast.values()].filter(n=>n.active).map(n=>({id:n.definition.id,x:n.x,d:n.d}));}
   function loadRoom(index: number) {
     if (loaded[index] || loading.has(index)) return;
     loading.add(index);
@@ -365,6 +425,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
                 new T.PlaneGeometry(index === 0 ? 3.3 : 1.1, ((index === 0 ? 3.3 : 1.1) * image.height) / image.width),
                 new T.MeshBasicMaterial({
                   map: t,
+                  toneMapped: false,
                   transparent: true,
                   side: T.DoubleSide,
                 }),
@@ -391,9 +452,9 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     modelUrl("gabriel-rigged.glb"),
     (g) => {
       if (disposed) return;
-      g.scene.scale.setScalar(1.08);
+      g.scene.scale.setScalar(1.0);
       g.scene.rotation.y = Math.PI;
-      register(g.scene);
+      heroHigh=rigVariant(g.scene,g.animations);
       avatar.add(g.scene);
       const bones = new Set<string>();
       g.scene.traverse((o) => {
@@ -401,9 +462,10 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
           o.skeleton.bones.forEach((b) => bones.add(b.uuid));
       });
       rigBones = bones.size;
-      mixer = new T.AnimationMixer(g.scene);
-      for (const clip of g.animations)
-        actions[clip.name] = mixer.clipAction(clip);
+      mixer = heroHigh.mixer;actions=heroHigh.actions;
+      loader.load(modelUrl('low/gabriel-rigged.glb'),low=>{
+        if(disposed)return;low.scene.rotation.y=Math.PI;heroLow=rigVariant(low.scene,low.animations);low.scene.visible=false;avatar.add(low.scene);assetDirty=true;pendingPublish=true;
+      },undefined,()=>{ /* Full detail remains usable when the optional low variant fails. */ });
       actions.Idle?.play();
       actions.Walk?.setEffectiveTimeScale(1.5);
       avatarReady = true;
@@ -444,6 +506,11 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     guidedActive = false;
   let anchor = { x: state.x, d: state.distance };
   let cameraYaw = 0, cameraPitch = 0;
+  let cameraDistance=host.clientWidth<700?6.5:5.4,cameraShoulder=-1.2;
+  let reconnect: {path:{x:number;d:number}[];index:number;modeAfter:NavigationMode;destination?:number} | null=null;
+  let guideUnavailable=false;
+  let gaitDistance=0,moveAge=0,stopAge=1,gesture=0,lastRender=0,npcTick=0;
+  let wasMoving=false;
   const input = { x: 0, forward: 0 };
   const look = new T.Vector3(),
     desired = new T.Vector3(),
@@ -506,7 +573,19 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const previousX = state.x,
       previousD = state.distance;
     if (!paused && !hidden) {
-      if (transition) {
+      if(reconnect){
+        const target=reconnect.path[reconnect.index];
+        if(!target){
+          const next=reconnect;pendingPublish=true;assetDirty=true;reconnect=null;navigationMode=next.modeAfter;anchor={x:state.x,d:state.distance};scrollTarget=state.distance;cameraYaw=0;cameraPitch=0;if(next.destination!==undefined)transition={from:state.distance,fromX:state.x,to:destinations[next.destination],elapsed:0};
+        }else{
+          const dx=target.x-state.x,dd=target.d-state.distance,dist=Math.hypot(dx,dd);
+          if(dist<.11){state={...state,x:target.x,distance:target.d,vx:0,vz:0};reconnect.index++;}
+          else for(let time=elapsed;time>0;time-=.04){
+            const old=state;
+            state=crowdSafeMove(old,advance(old,{x:dx/dist,forward:dd/dist},Math.min(time,.04),1.65),castBodies());
+          }
+        }
+      } else if (transition) {
         transition.elapsed += elapsed;
         const t = reduced ? 1 : Math.min(transition.elapsed / 1.65, 1),
           ease = easeJourney((t - 0.2) / 0.8);
@@ -536,10 +615,12 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
           guidedActive = false;
       } else {
         for (let time = elapsed; time > 0; time -= 0.04)
-          state = advance(state, cameraInput(input, cameraYaw), Math.min(time, 0.04));
+          {const previous=state;state=crowdSafeMove(previous,advance(state, cameraInput(input, cameraYaw), Math.min(time, 0.04)),castBodies());}
       }
     }
+    if(navigationMode==='scroll'&&!reconnect)state.x=guideX(state.distance);
     const area = areaAt(state.distance);
+    loadCast(area);if(area<5)loadCast(area+1);if(area>0)loadCast(area-1);
     loadRoom(area);
     if (state.distance > destinations[Math.min(5, area + 1)] - 24)
       loadRoom(Math.min(5, area + 1));
@@ -551,18 +632,62 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       node.visible = destinations[i]-state.distance > -behind && destinations[i]-state.distance < ahead;
     });
     const scrollMode = navigationMode === "scroll";
+    world.position.x = scrollMode ? anchor.x-state.x : 0;
     world.position.z = journeyFrame(
       state.distance,
       anchor.d,
       navigationMode,
     ).worldZ;
+    const allowed=new Set(actors.slice(0,crowdLimit(quality,softwareRenderer)).map(a=>a.id));
+    let crowdAnimated=false;
+    cast.forEach(n=>{
+      const visible=allowed.has(n.definition.id)&&Math.abs(n.d-state.distance)<(quality==='high'?35:23);
+      const overlap=Math.hypot(n.x-state.x,n.d-state.distance)<.65;
+      n.active=visible&&!overlap;n.root.visible=n.active;
+      if(!n.active)return;
+      const detail=characterDetail(quality,softwareRenderer,Math.hypot(n.x-state.x,n.d-state.distance))==='low'&&n.low?'low':'high';
+      if(detail!==n.detail){
+        n.high.scene.visible=detail==='high';if(n.low)n.low.scene.visible=detail==='low';
+        const oldTime=n.actions[n.clip]?.time||0;const model=detail==='low'?n.low!:n.high;n.mixer=model.mixer;n.actions=model.actions;n.mixer.stopAllAction();if(n.actions[n.clip]){n.actions[n.clip].reset().play();n.actions[n.clip].time=oldTime;}n.detail=detail;assetDirty=true;pendingPublish=true;
+      }
+      const candidate=npcRoutine(n.definition,n.time+(!paused&&!hidden&&!reduced?elapsed:0));
+      const stepDistance=Math.hypot(candidate.x-n.x,candidate.d-n.d);
+      const obstructed=stepDistance>.001 && (Math.hypot(candidate.x-state.x,candidate.d-state.distance)<.85 || castBodies().some(b=>b.id!==n.definition.id&&Math.hypot(candidate.x-b.x,candidate.d-b.d)<.8));
+      if(!obstructed){
+        if(!paused&&!hidden&&!reduced)n.time+=elapsed;
+        n.x=candidate.x;n.d=candidate.d;n.root.position.set(n.x,0,-n.d);const turn=Math.atan2(Math.sin(candidate.yaw-n.root.rotation.y),Math.cos(candidate.yaw-n.root.rotation.y));n.root.rotation.y+=turn*(reduced?1:1-Math.exp(-6*elapsed));
+      }
+      const clip=obstructed?'Idle':candidate.clip;
+      if(n.clip!==clip&&n.actions[clip]){
+        const initial=!n.clip;n.actions[n.clip]?.fadeOut(.22);const action=n.actions[clip].reset();if(!initial)action.fadeIn(.22);action.play();n.clip=clip;
+      }
+      const action=n.actions[n.clip];
+      if(action){
+        action.paused=true;
+        const duration=action.getClip().duration;
+        if(clip==='Walk'){if(!obstructed)n.gait+=stepDistance;action.time=(n.gait/1.15*duration)%duration;}
+        else if(clip==='StandUp'||clip==='SitDown')action.time=Math.min(duration,candidate.phase/2*duration);
+        else action.time=(candidate.phase*.55+n.definition.offset*.07)%duration;
+      }
+      n.mixer.update(!paused&&!hidden&&!reduced?elapsed:0);
+      if(!paused&&!hidden&&!reduced)crowdAnimated=true;
+    });
     const moving =
       navigationMode === "walk" &&
       !transition &&
       !paused &&
       Math.abs(state.x - previousX) + Math.abs(state.distance - previousD) >
         0.00001;
-    const nextAnimation = moving && !reduced ? "Walk" : "Idle";
+    if(moving){moveAge=wasMoving?moveAge+elapsed:0;stopAge=0;gaitDistance+=Math.hypot(state.x-previousX,state.distance-previousD);}
+    else{stopAge=wasMoving?0:stopAge+elapsed;moveAge=0;}
+    if(!paused&&!hidden)gesture=Math.max(0,gesture-elapsed);
+    const detail=characterDetail(quality,softwareRenderer)==='low'&&heroLow?'low':'high';
+    if(detail!==avatarLod&&heroHigh){
+      heroHigh.scene.visible=detail==='high';if(heroLow)heroLow.scene.visible=detail==='low';
+      const oldTime=actions[animationName]?.time||0;const model=detail==='low'?heroLow!:heroHigh;mixer=model.mixer;actions=model.actions;mixer.stopAllAction();if(actions[animationName]){actions[animationName].reset().play();actions[animationName].time=oldTime;}mixer.update(0);avatarLod=detail;assetDirty=true;pendingPublish=true;
+    }
+    const nextAnimation = reduced?'Idle':gesture>0?'Interact':moving?(moveAge<.22?'Start':'Walk'):stopAge<.25?'Stop':'Idle';
+    wasMoving=moving;
     if (nextAnimation !== animationName && actions[nextAnimation]) {
       actions[animationName]?.fadeOut(0.2);
       actions[nextAnimation].reset().fadeIn(0.2).play();
@@ -573,6 +698,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         moving && Math.abs(state.vx) > 0.1 ? 0.2 : 0,
       );
     }
+    if(actions.Walk){actions.Walk.paused=true;actions.Walk.time=(gaitDistance/1.15*actions.Walk.getClip().duration)%actions.Walk.getClip().duration;}
     if (!paused && !hidden && mixer && !reduced) mixer.update(elapsed);
     avatar.position.set(
       scrollMode ? anchor.x : state.x,
@@ -589,25 +715,24 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const focusX = scrollMode ? anchor.x : state.x;
     const focusD = scrollMode ? anchor.d : state.distance;
     const yaw = scrollMode ? 0 : cameraYaw;
-    const offsetX = host.clientWidth < 700 ? -1.3 : -1.2;
-    const offsetZ = shortView ? 7.5 : host.clientWidth < 700 ? 6.5 : 5.4;
+    const offsetX = cameraShoulder;
+    const offsetZ = shortView ? Math.max(6.5,cameraDistance) : cameraDistance;
     desired.set(
       focusX*.6 + offsetX*Math.cos(yaw) + offsetZ*Math.sin(yaw),
       (shortView ? 2.7 : 2.4) + (scrollMode ? 0 : cameraPitch*3),
       -focusD + offsetZ*Math.cos(yaw) - offsetX*Math.sin(yaw),
     );
-    const cameraFocus = {x: focusX, y: 1.35, d: focusD};
-    if (!scrollMode) {
-      const safe = safeCamera(cameraFocus, {x: desired.x, y: desired.y, d: -desired.z}, office);
-      desired.set(safe.x, safe.y, -safe.d);
+    const cameraOffice={...office,colliders:[...office.colliders,...office.cameraObstacles,...castBodies().map(n=>({x:n.x,d:n.d,w:.5,h:.5,top:1.85}))]};
+    const cameraFocus={x:state.x,y:1.35,d:state.distance};
+    function clipWorldCamera(vector:T.Vector3){
+      const safe=safeCamera(cameraFocus,{x:vector.x-world.position.x,y:vector.y,d:-vector.z+world.position.z},cameraOffice);
+      vector.set(safe.x+world.position.x,safe.y,-safe.d+world.position.z);
     }
+    clipWorldCamera(desired);
     const cameraMoving = camera.position.distanceToSquared(desired) > 0.00005;
     if (!paused && !hidden) {
       camera.position.lerp(desired, reduced ? 1 : 1 - Math.exp(-5.4 * elapsed));
-      if (!scrollMode) {
-        const safe = safeCamera(cameraFocus, {x: camera.position.x, y: camera.position.y, d: -camera.position.z}, office);
-        camera.position.set(safe.x, safe.y, -safe.d);
-      }
+      clipWorldCamera(camera.position);
       look.set(focusX*.5 - 8*Math.sin(yaw), shortView ? 1.1 : 1.5, -focusD - 8*Math.cos(yaw));
       sun.position.set(20, 8, (scrollMode ? -anchor.d : -state.distance) - 4);
       ceilingLights.forEach((lamp, i) => {
@@ -625,12 +750,13 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
           (moving ||
             transition ||
             assetDirty ||
-            (!paused && mixer !== null && !reduced) ||
+            ((!paused && mixer !== null && !reduced || crowdAnimated) && (!softwareRenderer || now-lastRender>500)) ||
             cameraMoving ||
             previousX !== state.x ||
             previousD !== state.distance)))
     ) {
       renderer.render(scene, camera);
+      lastRender=now;
       assetDirty = false;
     }
     if (
@@ -642,12 +768,12 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       previousD !== state.distance
     )
       pendingPublish = true;
-    if (wasTransition !== !!transition) pendingPublish = true;
+    if (wasTransition !== !!transition || (crowdAnimated && now-npcTick>400)) {pendingPublish = true;npcTick=now;}
     if (first || (pendingPublish && now - lastPublish > 100)) {
       lastPublish = now;
       pendingPublish = false;
       const hotspots = spatialExhibits.flatMap((e) => {
-        if (!loaded[e.area] || Math.abs(e.position[2] - state.distance) > 17)
+        if (!loaded[e.area] || Math.hypot(e.position[0]-state.x,e.position[2]-state.distance) > (scrollMode?7:3.8))
           return [];
         projected
           .set(
@@ -671,7 +797,15 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
           },
         ];
       });
+      const targets=[...spatialExhibits.map(e=>({id:e.id,x:e.position[0],d:e.position[2]})),...castBodies().map(n=>({...n,id:'npc-'+n.id}))];
+      const range=scrollMode?6.5:3.8;
+      const near=nearbyTarget(state,targets.filter(t=>t.id.startsWith('npc-')),range)||nearbyTarget(state,targets,range);
       options.onUpdate({
+        avatarLod,
+        npcCount:[...cast.values()].filter(n=>n.active).length,
+        npcsLoaded:cast.size,npcLoadError,
+        npcStates:[...cast.values()].filter(n=>n.active).map(n=>({id:n.definition.id,x:n.x,d:n.d,clip:n.clip,time:n.time,lod:n.detail})),
+        nearby:near?.id||null,cameraDistance,cameraShoulder,reconnecting:!!reconnect,guideUnavailable,
         rigBones,
         animation: animationName,
         navigationMode,
@@ -704,11 +838,20 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   raf = requestAnimationFrame(update);
   return {
     setNavigationMode(mode: NavigationMode) {
-      if (mode === navigationMode) return;
-      if (mode === "scroll") { anchor = { x: state.x, d: state.distance }; cameraYaw = 0; cameraPitch = 0; }
+      if(mode===navigationMode&&!reconnect)return;
+      if(mode==='walk'&&reconnect){reconnect=null;pendingPublish=true;return;}
+      guideUnavailable=false;
+      if (mode === "scroll") {
+        const path=reconnectPath(state,office,castBodies());
+        if(path.length>1 && Math.abs(state.x-guideX(state.distance))>.12){
+          reconnect={path,index:1,modeAfter:'scroll'};transition=null;guidedActive=false;input.x=0;input.forward=0;state.vx=0;state.vz=0;pendingPublish=true;return;
+        }
+        if(!path.length){guideUnavailable=true;pendingPublish=true;return;}
+        anchor = { x: state.x, d: state.distance }; cameraYaw = 0; cameraPitch = 0;
+      }
       else {
-        camera.position.z -= world.position.z;
-        world.position.z = 0;
+        camera.position.z -= world.position.z;camera.position.x-=world.position.x;
+        world.position.z = 0;world.position.x=0;reconnect=null;
       }
       navigationMode = mode;
       input.x = 0;
@@ -728,6 +871,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         !Number.isFinite(pixels)
       )
         return;
+      if(reconnect)return;
       if (transition) {
         transition = null;
         scrollTarget = state.distance;
@@ -744,7 +888,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       pendingPublish = true;
     },
     setInput(x: number, forward: number) {
-      if (navigationMode !== "walk") return;
+      if (navigationMode !== "walk" || reconnect) return;
       input.x = x;
       input.forward = forward;
       if (x || forward) transition = null;
@@ -761,9 +905,14 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         state.vz = 0;
       }
     },
+    setCamera(distance:number,shoulder:number){
+      cameraDistance=Math.max(3.8,Math.min(8.5,distance));cameraShoulder=Math.max(-1.3,Math.min(1.3,shoulder));assetDirty=true;pendingPublish=true;
+    },
+    interact(){if(!paused){gesture=.9;assetDirty=true;pendingPublish=true;}},
     setQuality(value: GraphicQuality) {
       quality = value;
-      renderer.setPixelRatio(value === "low" ? (softwareRenderer ? .45 : .7) : value === "high" ? Math.min(devicePixelRatio, 1.75) : softwareRenderer ? .7 : Math.min(devicePixelRatio, 1.5));
+      renderer.setPixelRatio(value === "low" ? (softwareRenderer ? .45 : .7) : value === "medium" ? Math.min(devicePixelRatio,1.15) : value === "high" ? Math.min(devicePixelRatio, 1.75) : softwareRenderer ? .7 : Math.min(devicePixelRatio, 1.5));
+      scene.environmentIntensity=value === "high" ? 0.65 : 0.55;
       const shadows = value !== "low" && host.clientWidth > 700 && !softwareRenderer;
       const changedShadows = renderer.shadowMap.enabled !== shadows;
       renderer.shadowMap.enabled = shadows;
@@ -788,10 +937,17 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       reduced = value;
     },
     goTo(index: number) {
+      transition=null;guideUnavailable=false;
       cameraYaw = 0; cameraPitch = 0;
+      reconnect=null;
       guidedActive = false;
       scrollTarget = state.distance;
       loadRoom(index);
+      if(Math.abs(state.x-guideX(state.distance))>.15){
+        const path=reconnectPath(state,office,castBodies());
+        if(!path.length){guideUnavailable=true;pendingPublish=true;return;}
+        reconnect={path,index:1,modeAfter:navigationMode,destination:index};pendingPublish=true;return;
+      }
       transition = {
         from: state.distance,
         fromX: state.x,
@@ -828,6 +984,8 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
       textures.forEach((t) => t.dispose());
       mats.forEach((m) => m.dispose());
       mixer?.stopAllAction();
+      for(const model of [heroHigh,heroLow])if(model){model.mixer.stopAllAction();model.mixer.uncacheRoot(model.scene);}
+      cast.forEach(n=>{for(const model of [n.high,n.low])if(model){model.mixer.stopAllAction();model.mixer.uncacheRoot(model.scene);}});
       renderer.dispose();
       renderer.forceContextLoss();
       renderer.domElement.remove();

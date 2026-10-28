@@ -19,3 +19,15 @@ Three.js, React, Next.js, glTF-Transform e Meshoptimizer possuem licença MIT; c
 A distribuição dos GLBs utiliza `EXT_meshopt_compression` e `EXT_texture_webp` e o decoder Meshopt distribuído com Three.js. Os arquivos não dependem de CDN, token ou serviço pago. `node tools/verify-assets.mjs` valida compressão, skin, nomes das animações e integridade do logo. Não há promessa de fidelidade facial fotográfica: o modelo atual é uma interpretação estilizada da referência.
 
 Na revisão gráfica de 28/10, o personagem passou a ter mochila, costuras, capuz e detalhes do rosto/barba, com uma paleta original por vértice e uma única primitiva skinned. A conversão para Lambert preserva essas cores em renderizadores por software. O exterior substitui os antigos blocos distantes; interiores, mobiliário e personagem continuam sendo geometria 3D navegável.
+
+## Revisão para aprovação — pacote zAIon Studio Referências, 28/10/2026
+
+Nenhum novo asset de terceiros foi incorporado. Gabriel e os oito modelos `public/models/npc-0.glb` a `npc-7.glb` são modelagens originais, com identidade fictícia para o elenco. `tools/build_character.py` inclui superfícies contínuas de roupa, rosto e calças, rig autoral e onze poses/ações: Idle, Walk, Turn, Start, Stop, Interact, Sit, Type, Talk, StandUp, SitDown. `Sit` é uma pose mantida; os demais clips contêm transformações que variam. `tools/build_cast.sh` reconstrói o conjunto; não há Mixamo, captura de movimento ou modelos pessoais fotogramétricos.
+
+As superfícies de pedra, nogueira e tecidos dos interiores têm mapas originais baseColor, roughness e normal, em WebP embutido nos GLBs. O metal usa fator de metalicidade onde apropriado. UVs em escala métrica, oclusão de contato e uma aproximação de luz indireta completam a cena. A iluminação de ambiente utiliza a reflection probe `RoomEnvironment` do Three.js; não foi baixado um HDRI de terceiros.
+
+A biblioteca gratuita Universal Base Characters, por Quaternius, foi consultada como alternativa: https://quaternius.com/packs/universalbasecharacters.html . A página declara licença CC0 e uso pessoal/comercial gratuito. **Não foi incorporada**; nenhum modelo, animação ou textura dessa biblioteca integra esta entrega. O elenco mantém a geometria e o rig autorais do projeto. Esta consulta não torna fotorrealista a modelagem entregue.
+
+A vista `public/environment/city-dusk.webp` é a ilustração exterior gerada na etapa anterior. Nenhum moodboard foi convertido em fundo do interior, material de marca ou rosto. A foto original permanece fora de public, Git e ZIP. O logo do novo pacote foi comparado byte a byte ao existente e coincide; seu SHA-256 continua validado pelo verificador. As imagens de revisão são screenshots reais do navegador, identificadas separadamente dos concept arts.
+
+`public/models/low/*.glb`: nove variantes LOD derivadas unicamente dos personagens autorais, por `tools/build-character-lods.mjs`, usando glTF-Transform/Meshoptimizer. Mantêm rig, cores e ações; sem nova fonte externa ou mudança de licença.

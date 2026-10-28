@@ -1,8 +1,8 @@
-# Portfólio Gabriel — fluxo autorizado de revisão
+# Site zAIon — fluxo autorizado de publicação
 
 O usuário autorizou continuamente a publicação das alterações deste portfólio para testar, na conversa de 27/10/2026: “sempre publique, porque preciso testar”. Após implementar e validar uma alteração, publique-a no mesmo GitHub Pages de testes, sem pedir novamente autorização de publicação. Uma instrução posterior do usuário pode suspender ou mudar esse fluxo.
 
-Destino: https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . O usuário confirmou que esse endereço pode ser público. A autorização refere-se a este portfólio e ao mesmo destino de testes; não autoriza publicar a foto pessoal, dados privados, alterar outros projetos, conectar serviços pagos ou mexer na produção/n8n da zAIon.
+Destino: https://gabrieelwilliam-source.github.io/Site-zAIon/gabriel/ . O usuário confirmou que esse endereço pode ser público. A autorização refere-se a este portfólio e ao mesmo destino de testes; não autoriza publicar a foto pessoal, dados privados, alterar outros projetos, conectar serviços pagos ou mexer na produção/n8n da zAIon.
 
 Aproveite o checkout existente. Cada tarefa da nuvem já é isolada; não crie worktree sem solicitação. Preserve a landing page FR da raiz.
 
@@ -17,3 +17,8 @@ A foto de referência está fora de `public/` e ignorada pelo Git. O formulário
 
 ## Revisão atual de redesign
 A etapa inicial do pacote Gabriel_3D_Redesign_Pacote_CodeX foi entregue sem publicação. Depois de receber a revisão, o usuário autorizou explicitamente: “pode publicar”. A publicação desta revisão no mesmo GitHub Pages de testes está autorizada. Preserve o backup, valide a exportação e confirme o deploy público. Não publicar a foto pessoal nem alterar outros projetos.
+
+## Preferência atual — 28/10/2026: SEMPRE publicar
+Após receber a revisão local, o usuário instruiu: “quero que você SEMPRE publique” e confirmou renomear repositório e endereço para `Site-zAIon`. A suspensão de publicação da etapa anterior terminou. Após implementar e validar cada alteração deste projeto, publique automaticamente, sem pedir nova autorização, salvo instrução posterior explícita do usuário em contrário.
+
+Repositório atual: `gabrieelwilliam-source/Site-zAIon`. Nome exibido: `Site zAIon`. O prefixo do Pages é `/Site-zAIon/gabriel`; o checkout existente pode continuar em `/workspace/landingpages` para preservar o ambiente. Não alterar a landing page FR da raiz, foto privada, integrações ou produção n8n. Relatórios/ZIPs anteriores que dizem “sem publicação” são registros históricos da entrega anterior, não a instrução vigente.

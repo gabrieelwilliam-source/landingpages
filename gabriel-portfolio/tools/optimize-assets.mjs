@@ -19,7 +19,7 @@ const io = new NodeIO()
   .registerExtensions(ALL_EXTENSIONS)
   .registerDependencies({ "meshopt.encoder": MeshoptEncoder });
 for (const name of await readdir(dir)) {
-  if (!name.endsWith(".glb") || (process.env.OFFICE_ONLY === "true" && !name.startsWith("environment-")) || (process.env.CHARACTER_ONLY === "true" && name !== "gabriel-rigged.glb")) continue;
+  if (!name.endsWith(".glb") || (process.env.OFFICE_ONLY === "true" && !name.startsWith("environment-")) || (process.env.CHARACTER_ONLY === "true" && name !== "gabriel-rigged.glb") || (process.env.CAST_ONLY === "true" && !name.startsWith("npc-"))) continue;
   const path = dir + "/" + name,
     old = (await stat(path)).size;
   const doc = await io.read(path);
@@ -29,11 +29,11 @@ for (const name of await readdir(dir)) {
     join(),
     prune(),
     textureCompress({ encoder: sharp, targetFormat: "webp", quality: 85 }),
-    ...(name.startsWith("environment")
+    ...((name.startsWith("environment") || name.startsWith("npc-"))
       ? [
           simplify({
             simplifier: MeshoptSimplifier,
-            ratio: 0.7,
+            ratio: name.startsWith("npc-") ? 0.65 : 0.7,
             error: 0.003,
             lockBorder: false,
           }),

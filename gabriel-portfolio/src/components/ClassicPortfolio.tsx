@@ -1,13 +1,17 @@
 "use client";
 import { useEffect } from "react";
 import ProjectGallery from "./ProjectGallery";
+import actors from "@/data/studio-actors.json";
+import StudioAssistant from "./StudioAssistant";
+import AutomationDemo from "./AutomationDemo";
+import BriefingAssistant from "./BriefingAssistant";
 import ContactForm from "./ContactForm";
 import { chapters, services, spatialExhibits, automationConcepts } from "@/data/site";
 export default function ClassicPortfolio({
   onExplore,
   onSection,
 }: {
-  onExplore: () => void;
+  onExplore: (mode?:"walk"|"scroll") => void;
   onSection: (id: string) => void;
 }) {
   useEffect(() => {
@@ -54,7 +58,7 @@ export default function ClassicPortfolio({
           frente de desenvolvimento web do ecossistema zAIon.
         </p>
         <div className="hero-actions">
-          <button className="primary" onClick={onExplore}>
+          <button className="primary" onClick={()=>onExplore()}>
             Entrar na jornada 3D →
           </button>
           <a className="outline" href="#projetos">
@@ -103,7 +107,7 @@ export default function ClassicPortfolio({
                   ))}
                 </div>
               )}
-              {c.id === "projetos" && <ProjectGallery />}
+              {c.id === "projetos" && <div id="studio-projects"><ProjectGallery /></div>}
               {c.id === "processo" && (
                 <div className="steps">
                   {[
@@ -127,16 +131,21 @@ export default function ClassicPortfolio({
                   src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/brand/zaion-original.png`}
                   alt="zAIon Automações — logo original"
                 />
-                <h3>Automações em demonstração</h3>
+                <AutomationDemo/><h3>Automações em demonstração</h3>
                 <p>Diagramas ilustrativos locais. Sem integração, envio ou operação real comprovada.</p>
                 {automationConcepts.map(concept => <article className="mini-card" key={concept.title}><h4>{concept.title}</h4><p>{concept.steps.join(" → ")}</p></article>)}
                 </div>
               )}
-              {c.id === "contato" && <ContactForm />}
+              {c.id === "contato" && <><BriefingAssistant/><ContactForm /></>}
             </div>
           </section>
         ))}
       </div>
+      <section className="content-section studio-classic-cast" aria-label="Equipe virtual demonstrativa">
+        <div className="section-content"><h2>Orientações do estúdio</h2><p>Personagens fictícios. Conteúdo roteirizado, disponível também sem navegar pelo 3D.</p>
+        {actors.slice(0,6).map(actor=><details key={actor.id}><summary>{actor.name} · {actor.role}</summary><StudioAssistant compact actor={actor} onGuided={()=>onExplore("scroll")} onFree={()=>onExplore("walk")}/></details>)}
+        </div>
+      </section>
       <footer>
         <strong>
           Gabriel<span className="dot">.</span>
@@ -144,7 +153,7 @@ export default function ClassicPortfolio({
         <span>Desenvolvimento web · by zAIon</span>
         <a href="#inicio">Voltar ao início ↑</a>
       </footer>
-      <button className="classic-return" onClick={onExplore}>
+      <button className="classic-return" onClick={()=>onExplore()}>
         Voltar à jornada 3D →
       </button>
     </main>

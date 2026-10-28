@@ -1,0 +1,7 @@
+
+> gabriel-web-portfolio@0.1.0 test:pages
+> node scripts/test-pages.mjs
+
+PASS: static Pages, 360px; navigation, assets, both input modes, 3D rooms, classic mode, favicon, no runtime errors
+PASS: static Pages, 768px; navigation, assets, both input modes, 3D rooms, classic mode, favicon, no runtime errors
+PASS: static Pages, 1440px; navigation, assets, both input modes, 3D rooms, classic mode, favicon, no runtime errors

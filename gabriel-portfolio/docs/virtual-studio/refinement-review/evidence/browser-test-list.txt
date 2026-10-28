@@ -1,0 +1,23 @@
+Listing tests:
+  camera-gallery.spec.ts:10:5 › orbit, camera-relative walking, pause, reset and accessible project filters
+  camera-gallery.spec.ts:61:5 › touch orbits without moving the visitor and reset is available on mobile
+  contact-draft.spec.ts:3:5 › contact draft survives panels and mode changes, clears explicitly and never sends
+  full-studio.spec.ts:6:5 › fictional receptionist animates, pauses and opens a useful keyboard interaction
+  full-studio.spec.ts:19:5 › all six sectors have a scripted interaction and render real inhabited interiors
+  full-studio.spec.ts:33:5 › all four automation demos change local state and never send requests
+  full-studio.spec.ts:44:5 › distance, shoulder and obstacle-aware reconnect preserve anchored reversible scroll
+  full-studio.spec.ts:55:5 › briefing assistant preserves an existing draft and the classic mode exposes the same content
+  full-studio.spec.ts:62:5 › close reception view and real touch interaction remain usable on mobile
+  full-studio.spec.ts:74:5 › quality swaps actual skinned LODs and preserves the active rig
+  office-visual.spec.ts:4:5 › office graphic tiers change raster budget and all six interiors render
+  portfolio.spec.ts:14:7 › six chapters, layout and accessibility 360
+  portfolio.spec.ts:14:7 › six chapters, layout and accessibility 390
+  portfolio.spec.ts:14:7 › six chapters, layout and accessibility 1280
+  portfolio.spec.ts:14:7 › six chapters, layout and accessibility 1440
+  portfolio.spec.ts:40:5 › scroll moves world while avatar and camera stay anchored; guided walking moves avatar
+  portfolio.spec.ts:68:5 › all six architectural destinations, panels, concepts, navigation history and pause
+  portfolio.spec.ts:118:5 › reduced motion defaults to classic and WebGL failure recovers
+  portfolio.spec.ts:144:5 › mobile touch moves the world, native contact and reading without JS remain available
+  portfolio.spec.ts:181:5 › record measured animation performance during active scene scrolling
+  portfolio.spec.ts:251:5 › portrait dialogs scroll independently and landscape keeps controls and original logo usable
+Total: 21 tests in 5 files

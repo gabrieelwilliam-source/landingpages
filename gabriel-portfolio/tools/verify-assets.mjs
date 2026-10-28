@@ -37,11 +37,12 @@ for (const name of (await readdir(root))
   if (name.startsWith("environment")) {
     assert.ok(json.extensionsUsed.includes("EXT_texture_webp"));
     assert.ok(json.images.every((img) => img.mimeType === "image/webp"));
+    assert.ok(json.materials.filter(material => material.normalTexture && material.pbrMetallicRoughness?.baseColorTexture && material.pbrMetallicRoughness?.metallicRoughnessTexture).length >= 3, "stone/wood/fabric retain full original PBR maps");
   }
-  if (name === "gabriel-rigged.glb") {
+  if (name === "gabriel-rigged.glb" || name.startsWith("npc-")) {
     assert.equal(entry.skins, 1);
     assert.ok(json.skins[0].joints.length >= 16);
-    assert.deepEqual(entry.animations.sort(), ["Idle", "Turn", "Walk"]);
+    assert.deepEqual(entry.animations.sort(), ["Idle","Walk","Turn","Start","Stop","Interact","Sit","Type","Talk","StandUp","SitDown"].sort());
     assert.ok(
       json.meshes.some((m) =>
         m.primitives.some(
@@ -70,7 +71,12 @@ for (const name of (await readdir(root))
           .some((w) => w > 0),
       ),
     );
+    for (const primitive of primitives) {
+      const weights = primitive.getAttribute("WEIGHTS_0");
+      for (let i=0;i<weights.getCount();i++) assert.ok(Math.abs(weights.getElement(i,[]).reduce((a,b)=>a+b,0)-1)<.002, "skin weights remain normalized after remeshing and compression");
+    }
     for (const clip of doc.getRoot().listAnimations()) {
+      if (clip.getName() === "Sit") continue; // An intentionally held seated pose, not a motion clip.
       assert.ok(
         clip.listChannels().some((channel) => {
           const output = channel.getSampler()?.getOutput();
@@ -85,7 +91,24 @@ for (const name of (await readdir(root))
   }
   entries.push(entry);
 }
-assert.equal(entries.length, 7);
+assert.equal(entries.length, 15);
+const lowRoot=new URL("low/",root);
+const lowManifest=JSON.parse(await readFile(new URL("manifest.json",lowRoot),"utf8"));
+assert.equal(lowManifest.assets.length,9);
+for(const asset of lowManifest.assets){
+ const path=new URL(asset.name,lowRoot),bytes=await readFile(path);
+ assert.equal(createHash("sha256").update(bytes).digest("hex"),asset.sha256);
+ const doc=await io.read(path.pathname),meshes=doc.getRoot().listMeshes().flatMap(m=>m.listPrimitives());
+ const triangles=meshes.reduce((n,p)=>n+p.getIndices().getCount()/3,0),full=entries.find(e=>e.name===asset.name);
+ assert.ok(triangles<7000&&triangles<full.triangles*.25,"low variants reduce real geometry without changing the rig");
+ assert.equal(doc.getRoot().listSkins().length,1);assert.equal(doc.getRoot().listSkins()[0].listJoints().length,16);
+ assert.deepEqual(doc.getRoot().listAnimations().map(a=>a.getName()).sort(),full.animations);
+ for(const primitive of meshes){
+  assert.ok(primitive.getAttribute("COLOR_0"));const weights=primitive.getAttribute("WEIGHTS_0");
+  for(let i=0;i<weights.getCount();i++)assert.ok(Math.abs(weights.getElement(i,[]).reduce((a,b)=>a+b,0)-1)<.002);
+ }
+}
+console.log("PASS: 9 low-detail variants, <7000 triangles each, same skeletons, clips and normalized weights.");
 await writeFile(
   new URL("manifest.json", root),
   JSON.stringify(
@@ -104,7 +127,7 @@ await writeFile(
   ),
 );
 console.log(
-  "PASS: 6 scenes, skinned human, 16+ bones, Idle/Walk/Turn, Meshopt compression, original logo checksum.",
+  "PASS: 6 scenes, Gabriel + 8 distinct fictional humans, 16+ bones each, 11 verified poses/actions, Meshopt, original logo.",
   entries.reduce((n, e) => n + e.bytes, 0),
   "bytes",
 );

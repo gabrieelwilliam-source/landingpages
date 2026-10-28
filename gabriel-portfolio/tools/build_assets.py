@@ -53,9 +53,9 @@ def export(name):
  bpy.ops.object.select_all(action='DESELECT')
  pieces=[o for o in bpy.context.scene.objects if o.type in {'MESH','CURVE'}]
  for o in pieces:o.select_set(True)
- if pieces and name!='gabriel-rigged':
+ if pieces and not (name=='gabriel-rigged' or name.startswith('npc-')):
   bpy.context.view_layer.objects.active=pieces[0];bpy.ops.object.convert(target='MESH');bpy.ops.object.join()
- if name=='gabriel-rigged':
+ if name=='gabriel-rigged' or name.startswith('npc-'):
   bpy.context.view_layer.objects.active=pieces[0];bpy.ops.object.join()
  bpy.ops.export_scene.gltf(filepath=OUT+'/'+name+'.glb',export_format='GLB',export_animations=True,export_skins=True,export_yup=True,export_extras=True)
 clean()

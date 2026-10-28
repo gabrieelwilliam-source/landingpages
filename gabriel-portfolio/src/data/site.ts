@@ -111,6 +111,7 @@ export const profile = {
   role: "Desenvolvimento web e experiências digitais",
   location: "Joinville, SC",
   affiliation: "by zAIon",
+  contactUrl: null as string | null,
   email: null as string | null,
   whatsapp: null as string | null,
   linkedin: null as string | null,

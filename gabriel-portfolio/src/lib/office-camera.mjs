@@ -10,7 +10,7 @@ export function cameraInput(input, yaw) {
 export function safeCamera(origin, wanted, office) {
   const target = {
     x: Math.max(-office.halfWidth, Math.min(office.halfWidth, wanted.x)),
-    y: Math.max(1.15, Math.min(5.2, wanted.y)),
+    y: Math.max(1.15, Math.min(office.cameraCeiling ?? 5.2, wanted.y)),
     d: Math.max(office.boundaries[0] + .4, Math.min(office.boundaries.at(-1) - .4, wanted.d)),
   };
   const delta = { x: target.x-origin.x, y: target.y-origin.y, d: target.d-origin.d };
@@ -18,7 +18,7 @@ export function safeCamera(origin, wanted, office) {
   for (const box of office.colliders) {
     // Walking footprints include a 28cm body margin; the camera uses 12cm.
     const w = Math.max(.12, box.w-.16), h = Math.max(.12, box.h-.16);
-    const low = {x: box.x-w, y: -.12, d: box.d-h};
+    const low = {x: box.x-w, y: (box.bottom ?? 0)-.12, d: box.d-h};
     const high = {x: box.x+w, y: box.top+.12, d: box.d+h};
     let enter = 0, exit = 1, hit = true;
     for (const axis of ["x", "y", "d"]) {

@@ -1,4 +1,4 @@
-# Gabriel — Web & Digital | by zAIon
+# Site zAIon — Virtual Studio do Gabriel
 
 Jornada arquitetônica 3D com seis momentos: Portal, Átrio de Ideias, Ateliê Digital, Galeria de Projetos, Laboratório/Processo + zAIon e Destino/Contato. Aproveita a base existente Next.js/TypeScript/Three.js e mantém o modo clássico completo.
 
@@ -63,14 +63,14 @@ npm run assets:build
 node tools/verify-assets.mjs
 ```
 
-O primeiro comando regenera os GLBs brutos e depois os comprime com Meshopt. Não execute somente o otimizador sobre os GLBs já comprimidos. `tools/build_assets.py` contém as utilidades originais, `tools/build_office.py` reconstrói a arquitetura e `tools/build_character.py` reconstrói o personagem; `public/models/manifest.json` registra peso, ossos, clips e SHA-256. O peso atualizado dos sete modelos está no manifesto. As texturas de superfície usam WebP embutido. O avatar tem 16 ossos e clips Idle, Walk e Turn; é estilizado, sem escaneamento facial ou mocap externo.
+O primeiro comando regenera os GLBs brutos e depois os comprime com Meshopt. Não execute somente o otimizador sobre os GLBs já comprimidos. `tools/build_assets.py` contém as utilidades originais, `tools/build_office.py` reconstrói a arquitetura e `tools/build_character.py` reconstrói o personagem; `public/models/manifest.json` registra peso, ossos, clips e SHA-256. Os manifestos registram o peso dos modelos completos e das variantes leves. As texturas de superfície usam WebP embutido. O avatar tem 16 ossos e clips Idle, Walk e Turn; é estilizado, sem escaneamento facial ou mocap externo.
 
 ## Estado de publicação
 
 O usuário autorizou publicar esta revisão após receber o pacote de revisão. Destino de testes:
-https://gabrieelwilliam-source.github.io/landingpages/gabriel/
+https://gabrieelwilliam-source.github.io/Site-zAIon/gabriel/
 
-`npm run build:pages` gera `.next-pages/` com prefixo `/landingpages/gabriel`; `npm run test:pages` valida a exportação. Antes de substituir `../gabriel/`, arquive a versão anterior fora do checkout. Publique somente esse destino, preservando a landing page FR, `.nojekyll` e a configuração existente do Pages. Confirme o build e os arquivos públicos por HTTPS; um push sozinho não comprova deploy.
+`npm run build:pages` gera `.next-pages/` com prefixo `/Site-zAIon/gabriel`; `npm run test:pages` valida a exportação. Antes de substituir `../gabriel/`, arquive a versão anterior fora do checkout. Publique somente esse destino, preservando a landing page FR, `.nojekyll` e a configuração existente do Pages. Confirme o build e os arquivos públicos por HTTPS; um push sozinho não comprova deploy.
 
 A revisão mantém as limitações artísticas e de desempenho documentadas. `RELATORIO_REDESIGN.md` registra a etapa de revisão anterior à autorização; suas menções a “não publicado” descrevem aquele momento.
 
@@ -86,7 +86,7 @@ A foto original permanece fora de `public/` e ignorada pelo Git. O personagem at
 ### Revisão do escritório contínuo
 O cenário atual tem seis setores conectados em `public/models/environment-*.glb`, gerados por `tools/build_office.py`. Para reconstruir apenas o escritório mantendo o avatar existente: `npm run assets:build` (requer Blender). O comando gera também `src/data/office-layout.json`, fonte das colisões; não edite suas medidas independentemente dos modelos. Refaça build e testes depois de modificar os assets. `public/models/manifest.json` registra integridade, tamanho e compressão.
 
-Gráficos: Automático ajusta a resolução conforme os frames; Leve reduz resolução e sombras; Alto aumenta a resolução em relação a Leve. GPUs compatíveis usam PBR; renderizadores por software mantêm texturas e iluminação com Lambert e sombras de contato leves. Alto em software não ativa os efeitos de GPU. O modo clássico segue disponível. A visita mantém scroll reversível e atalhos; esta revisão não adiciona NPCs ou converte o percurso em spline.
+Gráficos: Automático ajusta a resolução conforme os frames; Leve reduz resolução e sombras; Alto aumenta a resolução em relação a Leve. GPUs compatíveis usam PBR; renderizadores por software mantêm texturas e iluminação com Lambert e sombras de contato leves. Alto em software não ativa os efeitos de GPU. O modo clássico segue disponível. A visita mantém scroll reversível e atalhos; a descrição desta etapa é histórica; a revisão completa abaixo acrescenta NPCs, curva de guia e reconexão.
 
 Relatório e capturas atuais: `docs/virtual-studio/office-review/`.
 
@@ -99,3 +99,19 @@ A galeria tem filtros por tipo, prévias e detalhes dos conceitos, no modo clás
 ### Refinamento visual de 28/10/2026
 
 Para reconstruir somente o personagem: `npm run assets:character`. Mantém uma primitiva com cores por vértice, 16 ossos e Idle/Walk/Turn. Para os interiores: `npm run assets:build`. A vista ilustrativa `public/environment/city-dusk.webp` é um asset local gerado por IA, não uma foto privada; veja LICENSE_ASSETS.md. O modo por software preserva os mapas e cores, com Lambert; materiais PBR e sombras dinâmicas ficam disponíveis em hardware.
+
+## Revisão completa do estúdio — publicação autorizada
+
+A entrega local foi revisada pelo usuário, que agora instruiu **SEMPRE publicar** após as alterações validadas. A revisão completa e as próximas alterações deste projeto devem ser publicadas no mesmo Pages sem nova confirmação, salvo instrução posterior contrária. Repositório: `gabrieelwilliam-source/Site-zAIon`; nome exibido: `Site zAIon`. A instrução anterior de não publicar permanece apenas como histórico nos relatórios daquele momento.
+
+- Dados e papéis do elenco fictício: `src/data/studio-actors.json`; orientações são roteiros locais, sem funcionários reais alegados.
+- Regenerar o elenco: `npm run assets:cast` (Blender 4.3.2 e Node). Regenerar interiores: `npm run assets:build`. Execute separadamente, pois o verificador exige todos os arquivos já comprimidos. Scripts abortam se Blender encontrar erro de Python.
+- `npm test` inclui movimento, rotas, NPCs, simulações e configuração do contato. Em ambiente que não permite processos de teste isolados: `node --test --test-isolation=none tests/*.test.mjs`.
+- O laboratório tem quatro simulações locais por etapas. A sala de reunião oferece briefing que acrescenta texto ao rascunho sem substituir o que já foi escrito. O rascunho segue somente em memória durante a visita; não persiste após recarregar.
+- Para habilitar um CTA oficial, definir somente um endereço público verdadeiro em `profile.contactUrl`, em `src/data/site.ts` (HTTPS, mailto ou tel). O valor atual é null. O link não envia automaticamente o rascunho. Não colocar tokens/endpoints privados nesse campo.
+- Em Caminhar, WASD/setas movem, arraste ou I/J/K/L orientam a câmera, E abre a interação próxima, R recentra. Câmera e ajuda permite distância e ombro. No Scroll, mundo e progresso avançam em profundidade e retornam, mantendo Gabriel ancorado. Voltar ao guia percorre uma rota livre antes de retomar o scroll. Pausa, movimento reduzido e qualidades Baixa/Média/Alta/Automática permanecem disponíveis.
+- As mesmas orientações e funcionalidades estão no modo clássico; as fichas de personagens encaminham às seções compartilhadas para evitar formulários/simuladores duplicados.
+
+Veja `docs/virtual-studio/refinement-review/RELATORIO.md` e a galeria de capturas reais desse diretório para evidências e limites.
+
+As variantes leves de Gabriel e dos oito NPCs são geradas com `npm run assets:lod` e incorporadas por `assets:cast`/`assets:character`. Baixa e Automática por software usam geometria reduzida; Média/Alta mantêm o protagonista completo. NPCs podem reduzir detalhe à distância. Os arquivos completos continuam disponíveis; o manifesto da pasta low registra os hashes e os triângulos.

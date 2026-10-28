@@ -5,6 +5,10 @@ import { environments, spatialExhibits, services, projects, automationConcepts }
 import NavigationModes from "./ui/NavigationModes";
 import ContactForm from "./ContactForm";
 import ProjectGallery from "./ProjectGallery";
+import actors from "@/data/studio-actors.json";
+import StudioAssistant from "./StudioAssistant";
+import AutomationDemo from "./AutomationDemo";
+import BriefingAssistant from "./BriefingAssistant";
 import {
   normalizeWheel,
   areaAt,
@@ -40,6 +44,7 @@ export default function SpatialJourney({
     stage = useRef<HTMLDivElement>(null),
     engine = useRef<SpatialEngine | null>(null);
   const [snapshot, setSnapshot] = useState<SpatialSnapshot>({
+    avatarLod:"high",npcCount:0,npcsLoaded:0,npcLoadError:false,npcStates:[],nearby:null,cameraDistance:5.4,cameraShoulder:-1.2,reconnecting:false,guideUnavailable:false,
     rigBones: 0,
     animation: "Idle",
     avatarZ: -initialDistance,
@@ -67,6 +72,8 @@ export default function SpatialJourney({
     [reduced, setReduced] = useState(false),
     [started, setStarted] = useState(false);
   const [quality, setQuality] = useState<GraphicQuality>("auto");
+  const [help,setHelp]=useState(false);
+  const [cameraDistance,setCameraDistance]=useState(5.4),[cameraShoulder,setCameraShoulder]=useState(-1.2);
   const [exhibit, setExhibit] = useState<string | null>(null);
   const dialog = useRef<HTMLDialogElement>(null),
     returnFocus = useRef<HTMLElement | null>(null),
@@ -80,7 +87,8 @@ export default function SpatialJourney({
   const positionCallback = useRef(onPosition);
   positionCallback.current = onPosition;
   const current = environments[snapshot.area],
-    active = spatialExhibits.find((e) => e.id === exhibit);
+    activeActor=actors.find(a=>'npc-'+a.id===exhibit),
+    active = spatialExhibits.find((e) => e.id === exhibit) || (activeActor?{id:'npc-'+activeActor.id,title:`${activeActor.name} · ${activeActor.role}`,label:activeActor.role,body:'',area:activeActor.area,position:[activeActor.x,1.4,activeActor.d]}:undefined);
   const clearInput = useCallback(() => {
     keys.current.clear();
     orbitDrag.current = null;
@@ -136,6 +144,7 @@ export default function SpatialJourney({
                 );
               });
               setSnapshot({ ...next, hotspots });
+              if(next.guideUnavailable&&navigationRef.current!==next.navigationMode)onNavigationChange(next.navigationMode);
               positionCallback.current(next.distance);
               if (lastArea.current !== next.area) {
                 lastArea.current = next.area;
@@ -232,6 +241,9 @@ export default function SpatialJourney({
   function keyboard(e: React.KeyboardEvent, down: boolean) {
     if (e.target !== stage.current || e.ctrlKey || e.metaKey || e.altKey)
       return;
+    if (down && !e.repeat && e.key.toLowerCase()==='e' && snapshot.nearby && !paused) {
+      e.preventDefault();openExhibit(snapshot.nearby);return;
+    }
     if (navigationMode === "scroll") {
       const steps: Record<string, number> = {
         ArrowDown: 100,
@@ -317,6 +329,7 @@ export default function SpatialJourney({
   function closeExhibit() {
     setExhibit(null);
     setPaused(pauseBeforeDialog.current);
+    if(!pauseBeforeDialog.current){engine.current?.setPaused(false);engine.current?.interact();}
     requestAnimationFrame(() => {
       const target = returnFocus.current;
       (target?.isConnected ? target : stage.current)?.focus({
@@ -341,7 +354,7 @@ export default function SpatialJourney({
   return (
     <main
       ref={shell}
-      className={`spatial-shell ${reduced ? "motion-reduced" : ""} navigation-${navigationMode}`}
+      className={`spatial-shell ${started ? "explored" : ""} ${help ? "help-open" : ""} ${reduced ? "motion-reduced" : ""} navigation-${navigationMode}`}
     >
       <a
         className="skip-link"
@@ -448,6 +461,14 @@ export default function SpatialJourney({
           orbitDrag.current = null;
           drag.current = null;
         }}
+        data-avatar-lod={snapshot.avatarLod}
+        data-npc-count={snapshot.npcCount}
+        data-npcs-loaded={snapshot.npcsLoaded}
+        data-npc-states={JSON.stringify(snapshot.npcStates)}
+        data-reconnecting={snapshot.reconnecting}
+        data-nearby={snapshot.nearby||''}
+        data-camera-distance={snapshot.cameraDistance}
+        data-camera-shoulder={snapshot.cameraShoulder}
         data-rig-bones={snapshot.rigBones}
         data-animation={snapshot.animation}
         data-avatar-z={snapshot.avatarZ.toFixed(3)}
@@ -509,6 +530,7 @@ export default function SpatialJourney({
               {spatialExhibits.find((e) => e.area === snapshot.area)!.label}{" "}
               <span aria-hidden="true">→</span>
             </button>
+            <button className="spatial-text-link studio-area-assistant" disabled={!ready} onClick={()=>openExhibit('npc-'+actors.find(a=>a.area===snapshot.area)!.id)}>Orientação do ambiente →</button>
             {snapshot.area === 3 && <button className="spatial-text-link" disabled={!ready} onClick={() => openExhibit("galeria")}>Filtrar projetos →</button>}
             {snapshot.area === 0 && (
               <div className="portal-actions" data-spatial-blocker>
@@ -575,6 +597,20 @@ export default function SpatialJourney({
               Próximo →
             </button>
           </nav>
+          <div className="studio-tools" data-spatial-blocker>
+            <button className="spatial-button" aria-expanded={help} aria-controls="studio-options" onClick={()=>setHelp(v=>!v)}>Câmera e ajuda</button>
+            {help&&<section id="studio-options" aria-label="Ajustes da visita">
+              <h2>Explorar o estúdio</h2>
+              <p>WASD/setas: caminhar. Arraste: olhar. I/J/K/L: orientar a câmera. E: interagir por proximidade. R: recentrar. P/Esc: pausa. No Scroll, role ou deslize para avançar e retornar.</p>
+              <label>Distância da câmera<input aria-label="Distância da câmera" type="range" min="3.8" max="8.5" step=".1" value={cameraDistance} onChange={e=>{const value=Number(e.target.value);setCameraDistance(value);engine.current?.setCamera(value,cameraShoulder)}}/></label>
+              <label>Ombro da câmera<select aria-label="Ombro da câmera" value={cameraShoulder} onChange={e=>{const value=Number(e.target.value);setCameraShoulder(value);engine.current?.setCamera(cameraDistance,value)}}><option value={-1.2}>Esquerdo</option><option value={0}>Central</option><option value={1.2}>Direito</option></select></label>
+              <p>Equipe fictícia e simulações locais. Nenhuma conversa com IA ao vivo.</p>
+            </section>}
+          </div>
+          {snapshot.nearby&&ready&&!paused&&<button className="studio-nearby" data-spatial-blocker onClick={()=>openExhibit(snapshot.nearby!)}><kbd>E</kbd> {snapshot.nearby.startsWith('npc-')?'Conversar com '+actors.find(a=>'npc-'+a.id===snapshot.nearby)?.name:'Abrir '+spatialExhibits.find(e=>e.id===snapshot.nearby)?.label}</button>}
+          {snapshot.reconnecting&&<p className="studio-route-status" role="status">Reconectando à visita por um caminho livre…</p>}
+          {snapshot.guideUnavailable&&<p className="studio-route-status" role="status">O caminho está bloqueado. Caminhe para uma área livre e tente novamente.</p>}
+          {snapshot.npcLoadError&&<p className="studio-load-note" role="status">Um personagem não carregou. A orientação continua disponível nos painéis e no modo clássico.</p>}
           <div className="spatial-compass" aria-hidden="true">
             <span>N</span>
             <i />
@@ -607,7 +643,8 @@ export default function SpatialJourney({
                   setQuality(next); engine.current?.setQuality(next);
                 }}>
                   <option value="auto">Automático</option>
-                  <option value="low">Leve</option>
+                  <option value="low">Baixa</option>
+                  <option value="medium">Média</option>
                   <option value="high">Alto</option>
                 </select>
               </label>
@@ -782,7 +819,8 @@ export default function SpatialJourney({
           )}
           <h2 id="exhibit-title">{active.title}</h2>
           <p>{active.body}</p>
-          {active.id === "contato" && <ContactForm />}
+          {active.id === "contato" && <><BriefingAssistant/><ContactForm /></>}
+          {activeActor&&<StudioAssistant actor={activeActor} onGuided={()=>{dialog.current?.close();closeExhibit();onNavigationChange("scroll")}} onFree={()=>{dialog.current?.close();closeExhibit();onNavigationChange("walk")}} onClassic={()=>onClassic(current.id)} onProjects={()=>setExhibit("galeria")}/>}
           {active.id === "galeria" && <ProjectGallery />}
           {active.id === "servicos" && (
             <div className="exhibit-services">
@@ -812,6 +850,7 @@ export default function SpatialJourney({
               <dd>Next.js, TypeScript, CSS autoral</dd>
             </dl>
           )}
+          {active.id === "processo" && <AutomationDemo/>}
           {active.id === "processo" && <section aria-label="Fluxos conceituais locais">
             <h3>Automações em demonstração</h3>
             <p>Diagramas ilustrativos locais. Sem integração, envio ou operação real comprovada.</p>
