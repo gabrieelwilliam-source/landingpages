@@ -228,6 +228,8 @@ if npc_index is None:
  native_wardrobe(ROOT)
  from groom_avatar import groom_avatar
  groom_avatar(ROOT)
+ from bake_skin_atlas import bake_skin_atlas
+ bake_skin_atlas()
 # Convert detailed curves and bind them to the appropriate deforming bone.
 for o in list(bpy.context.scene.objects):
  if o.type=='CURVE':

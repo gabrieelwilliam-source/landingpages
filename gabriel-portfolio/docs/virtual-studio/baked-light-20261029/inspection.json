@@ -1,0 +1,68 @@
+{
+  "method": "Actual GLB, fixed PBR studio illumination in WebGL/SwiftShader; no physical GPU performance claim",
+  "metrics": [
+    {
+      "variant": "before",
+      "pose": "face",
+      "drawCalls": 5,
+      "triangles": 42973,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "before",
+      "pose": "body",
+      "drawCalls": 7,
+      "triangles": 51484,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "before",
+      "pose": "back",
+      "drawCalls": 7,
+      "triangles": 51484,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "after",
+      "pose": "face",
+      "drawCalls": 5,
+      "triangles": 42974,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "after",
+      "pose": "body",
+      "drawCalls": 7,
+      "triangles": 51485,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "after",
+      "pose": "back",
+      "drawCalls": 7,
+      "triangles": 51485,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "low",
+      "pose": "face",
+      "drawCalls": 1,
+      "triangles": 6739,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "low",
+      "pose": "body",
+      "drawCalls": 1,
+      "triangles": 6739,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "low",
+      "pose": "back",
+      "drawCalls": 1,
+      "triangles": 6739,
+      "renderer": "WebKit WebGL"
+    }
+  ]
+}

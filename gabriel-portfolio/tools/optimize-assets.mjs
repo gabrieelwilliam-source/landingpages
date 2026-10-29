@@ -19,7 +19,7 @@ const io = new NodeIO()
   .registerExtensions(ALL_EXTENSIONS)
   .registerDependencies({ "meshopt.encoder": MeshoptEncoder });
 for (const name of await readdir(dir)) {
-  if (!name.endsWith(".glb") || (process.env.OFFICE_ONLY === "true" && !name.startsWith("environment-")) || (process.env.CHARACTER_ONLY === "true" && name !== "gabriel-rigged.glb") || (process.env.CAST_ONLY === "true" && !name.startsWith("npc-"))) continue;
+  if (!name.endsWith(".glb") || (process.env.ASSET_NAME && name!==process.env.ASSET_NAME) || (process.env.OFFICE_ONLY === "true" && !name.startsWith("environment-")) || (process.env.CHARACTER_ONLY === "true" && name !== "gabriel-rigged.glb") || (process.env.CAST_ONLY === "true" && !name.startsWith("npc-"))) continue;
   const path = dir + "/" + name,
     old = (await stat(path)).size;
   const doc = await io.read(path);
@@ -48,6 +48,7 @@ for (const name of await readdir(dir)) {
       : []),
     meshopt({ encoder: MeshoptEncoder, level: "high" }),
   );
+  for(const material of doc.getRoot().listMaterials())if(material.getExtras().zaionIndirectLight)material.setExtras({...material.getExtras(),zaionLightmapUV:material.getEmissiveTextureInfo().getTexCoord()});
   await io.write(path, doc);
   console.log(
     name,

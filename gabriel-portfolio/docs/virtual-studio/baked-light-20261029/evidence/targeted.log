@@ -1,0 +1,15 @@
+
+> site-zaion@0.1.0 test:e2e
+> playwright test tests/baked-lighting.spec.ts
+
+[WebServer] (node:86957) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:86973) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/baked-lighting.spec.ts:3:35 › baked indirect UV maps survive software fallback, quality and room loading (5.2s)
+  ✓  2 tests/baked-lighting.spec.ts:3:35 › baked indirect UV maps survive PBR shader, quality and room loading (26.6s)
+
+  2 passed (33.5s)

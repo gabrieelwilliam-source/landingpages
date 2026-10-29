@@ -39,3 +39,8 @@ A vista `public/environment/city-dusk.webp` é a ilustração exterior gerada na
 Vidros internos, acabamentos azul-marinho/azul-real, ajustes de pedra e latão, acessórios e desenhos de editor de código são originais deste projeto. Nenhum asset externo novo foi incorporado. Telas de código são ilustrações estáticas locais, sem dados de clientes. Logo na reunião e recepção usa o mesmo PNG original, sem redesenho. Gabriel recebeu cor de roupa e ajustes nas ações autorais; variantes dos funcionários preservadas. As mesmas permissões e restrições da tabela acima continuam aplicáveis.
 
 Refinamento adicional do elenco nesta etapa: planos faciais e mãos remesclados, mechas autorais de barba/cabelo, dobras esculpidas e atlas procedural de micro-normal/rugosidade 256×256, diferenciando regiões da pele, olhos, tecidos e acessórios. Tudo gerado por `tools/build_character.py`, sem amostragem da fotografia, texturas compradas ou biblioteca de personagens de terceiros. Uma primitiva skinned por personagem e LODs abaixo de 7 mil triângulos são verificados automaticamente.
+
+
+## Luz indireta e atlas compacto — 29/10/2026
+
+Os seis setores incluem mapas autorais de luz indireta difusa, calculados offline com Blender/Cycles CPU sobre a cena existente, sem HDRI comprado. O runtime interpreta o transporte glTF marcado como lightMap e mantém UVs de detalhe/AO separados. O fallback Lambert também preserva a luz. O sheen dos estofados CC0 foi adaptado à paleta azul-marinho/areia. `tools/bake_skin_atlas.py` reprojeta a pele CC0 já creditada apenas na cabeça/mãos em 1024²/512²/256², sem pixels da foto pessoal. Nenhuma nova fonte externa, compra, assinatura ou serviço pago. Ferramentas gratuitas; licenças dos dados e crédito de Elvaerwyn continuam válidos.

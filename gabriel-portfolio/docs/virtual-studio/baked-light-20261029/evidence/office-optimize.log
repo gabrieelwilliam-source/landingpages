@@ -1,0 +1,66 @@
+prune: Removed types... Accessor (44)
+prune: Removed types... Accessor (28)
+prune: Removed types... Accessor (62)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_1; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (22)
+environment-0.glb 2734088 -> 245240 skins 0 animations []
+prune: Removed types... Accessor (40)
+prune: Removed types... Accessor (26)
+prune: Removed types... Accessor (52)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_1; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (18)
+environment-1.glb 2956940 -> 253920 skins 0 animations []
+prune: Removed types... Accessor (58)
+prune: Removed types... Accessor (32)
+prune: Removed types... Accessor (65)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_1; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (23)
+environment-2.glb 5082584 -> 463500 skins 0 animations []
+prune: Removed types... Accessor (40)
+prune: Removed types... Accessor (23)
+prune: Removed types... Accessor (48)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_1; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (18)
+environment-3.glb 2105836 -> 213036 skins 0 animations []
+prune: Removed types... Accessor (60)
+prune: Removed types... Accessor (34)
+prune: Removed types... Accessor (69)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_1; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (25)
+environment-4.glb 4161460 -> 377368 skins 0 animations []
+prune: Removed types... Accessor (48)
+prune: Removed types... Accessor (28)
+prune: Removed types... Accessor (60)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_1; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (22)
+environment-5.glb 3401276 -> 320100 skins 0 animations []

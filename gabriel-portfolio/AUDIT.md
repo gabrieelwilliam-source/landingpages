@@ -1,3 +1,11 @@
+# Auditoria incremental — luz indireta e atlas compacto, 29/10/2026
+
+O excesso de luz ambiente e o sheen laranja herdado dos estofados reduziam a leitura da paleta e do volume. A revisão corrige o sheen, equilibra fontes locais e acrescenta mapas de indireta difusa nos seis setores. O atlas CC0 de corpo inteiro carregado só para cabeça/mãos foi reprojetado, reduzindo a estimativa de mapas do avatar em 21 MiB. Sem compra ou uso da foto pessoal.
+
+O otimizador remove UVs não usados e pode renumerar o mapa para 0/1/2: o metadado agora acompanha o canal exportado, e o verificador impede sobreposição com mapas de detalhe. Testes validam os três canais, conversão idempotente e emissão legítima. A contagem de diagnóstico usa a fonte da textura, evitando contar clones de UV como novas imagens. **38 unitários, 31 E2E e 2 revalidações de iluminação** aprovados. [Relatório/evidências e limites](docs/virtual-studio/baked-light-20261029/README.md). Etapa local sem publicação.
+
+---
+
 # Auditoria incremental — acabamento gráfico, 29/10/2026
 
 A inspeção confirmou quatro defeitos: barba uniforme com borda rígida, recortes irregulares de cabelo, capuz muito aberto e banco esticado com pouca massa de sofá. A revisão introduz scalp recortado da anatomia, barba em camadas, pelos curtos CC0, micro-superfície de pele e sofá modular com apoios. Um erro de bake ignorava o fator de cor PBR no LOD; há correção e teste para materiais compartilhados/alpha opaco. A primeira iluminação de preenchimento aumentava o custo no caminho software; a versão final restringe a luz ao PBR e revalida os perfis.

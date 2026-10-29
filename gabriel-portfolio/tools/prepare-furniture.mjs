@@ -14,6 +14,7 @@ for(const kind of ['lounge-chair','lounge-bench']){
  doc.getRoot().listExtensionsUsed().filter(e=>e.extensionName==='KHR_materials_variants').forEach(e=>e.dispose());
  for(const m of doc.getRoot().listMaterials()){
   if(m.getName().includes('fabric'))m.setBaseColorFactor(kind==='lounge-chair'?[.025,.055,.14,1]:[.54,.49,.41,1]).setMetallicFactor(0).setRoughnessFactor(.86);
+  if(m.getName().includes('fabric')){const sheen=m.getExtension('KHR_materials_sheen');if(sheen)sheen.setSheenColorFactor(kind==='lounge-chair'?[.03,.06,.13]:[.42,.40,.34]).setSheenRoughnessFactor(.85);}
   if(m.getName().includes('wood'))m.setBaseColorFactor([.08,.042,.022,1]).setMetallicFactor(0).setRoughnessFactor(.65);
   for(const info of [m.getBaseColorTextureInfo(),m.getNormalTextureInfo(),m.getMetallicRoughnessTextureInfo()]){
    const transform=info?.getExtension('KHR_texture_transform');if(transform){const [x,y]=transform.getScale();transform.setScale([x*1.15,y*1.5])}

@@ -320,7 +320,7 @@ for index in ([int(os.environ['OFFICE_PREVIEW_SECTOR'])] if os.environ.get('OFFI
  bpy.context.view_layer.update()
  # Triplanar-style metre UV projection, baked to ordinary glTF UVs.
  for obj in bpy.context.scene.objects:
-  if obj.type!='MESH' or not any(m.node_tree and any(n.type=='TEX_IMAGE' for n in m.node_tree.nodes) for m in obj.data.materials):continue
+  if obj.type!='MESH':continue
   uv=obj.data.uv_layers.active or obj.data.uv_layers.new(name='SurfaceUV')
   uv.name='SurfaceUV'
   for polygon in obj.data.polygons:
@@ -339,6 +339,8 @@ for index in ([int(os.environ['OFFICE_PREVIEW_SECTOR'])] if os.environ.get('OFFI
  for o in bpy.context.scene.objects:
   if o.type=='MESH' and o.name.startswith(('Solid walnut desk','Lounge plinth','Reception stone counter','Gallery freestanding','Meeting table','Stone planter','Chair gas lift','Library shelving','Lab vertical','Brand navy feature','Meeting screen stone surround','Side bay clear glass return','Meeting inner glass')):
    colliders.append({'name':o.name,'x':round(o.location.x,3),'d':round(d+o.location.y,3),'w':round((o.dimensions.x/2 if o.name.startswith(('Side bay','Meeting inner glass')) else max(.3,o.dimensions.x/2))+.28,3),'h':round((o.dimensions.y/2 if o.name.startswith(('Side bay','Meeting inner glass')) else max(.3,o.dimensions.y/2))+.28,3),'top':1.30 if o.name.startswith('Chair gas lift') else round(o.location.z+o.dimensions.z/2,3)})
+ from bake_office_light import bake_office_light
+ bake_office_light(index)
  for obj in list(bpy.context.scene.objects):
   if obj.get('physicsOnly'):bpy.data.objects.remove(obj,do_unlink=True)
  export('environment-'+str(index))

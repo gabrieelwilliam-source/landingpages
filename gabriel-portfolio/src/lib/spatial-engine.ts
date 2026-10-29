@@ -1,3 +1,4 @@
+import {applyOfficeLightmap} from './office-lightmaps.mjs';
 import * as T from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
@@ -32,6 +33,7 @@ export type SpatialSnapshot = {
   npcStates: {id:string;x:number;d:number;clip:string;time:number;lod:string}[];
   nearby: string | null;
   furnitureLoaded:number;
+  bakedLightmaps:number;
   cameraFov:number;
   cameraDistance: number;
   cameraShoulder: number;
@@ -111,8 +113,8 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
   const camera = new T.PerspectiveCamera(50, 1, 0.1, 500);
-  scene.add(new T.HemisphereLight("#e9dfcf", "#534238", softwareRenderer ? 1.10 : .9));
-  const sun = new T.DirectionalLight("#ffd3a0", 1.8);
+  scene.add(new T.HemisphereLight("#e9dfcf", "#534238", softwareRenderer ? 1.10 : .45));
+  const sun = new T.DirectionalLight("#ffd3a0", softwareRenderer ? 1.8 : 1.5);
   sun.position.set(18, 9, -32);
   sun.castShadow = true;
   sun.shadow.mapSize.set(softwareRenderer ? 512 : 1024, softwareRenderer ? 512 : 1024);
@@ -123,11 +125,11 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   sun.shadow.bias = -0.0005;
   scene.add(sun, sun.target);
   // Broad window bounce reveals cloth and facial volume without another shadow map.
-  const windowFill=new T.DirectionalLight('#c6d7ef',.38);
+  const windowFill=new T.DirectionalLight('#c6d7ef',.22);
   windowFill.position.set(-5.5,4.2,3);windowFill.target.position.set(0,1.32,0);
   if(!softwareRenderer)scene.add(windowFill,windowFill.target);
   const ceilingLights = [-4, 4].map(x => {
-    const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 20 : 25, 20, 2);
+    const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 20 : 55, 20, 2);
     lamp.position.set(x, 4.2, -3);
     scene.add(lamp);
     return lamp;
@@ -138,7 +140,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const probe = new RoomEnvironment();
     const env = pmrem.fromScene(probe, 0.04, 0.1, 100, {size: softwareRenderer ? 64 : 128});
     scene.environment = env.texture;
-    scene.environmentIntensity = 0.40;
+    scene.environmentIntensity = 0.24;
     probe.dispose();
     pmrem.dispose();
     resources.push(env.texture);
@@ -251,6 +253,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         const surfaces=Array.isArray(o.material)?o.material:[o.material];
         surfaces.forEach(material=>{material.alphaToCoverage=!softwareRenderer&&host.clientWidth>700&&material.alphaTest>0;});
         surfaces.forEach(material=>{
+          if(material instanceof T.MeshStandardMaterial)applyOfficeLightmap(material);
           if(material instanceof T.MeshStandardMaterial&&material.name.includes('limestone'))material.roughness=Math.max(.66,material.roughness);
         });
         if (softwareRenderer) {
@@ -265,6 +268,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
               vertexColors: material.vertexColors,
               map: material.map,
               aoMap:material.aoMap,aoMapIntensity:material.aoMapIntensity,alphaTest:material.alphaTest,
+              lightMap:material.lightMap,lightMapIntensity:material.lightMapIntensity,
               emissive: material.emissive,
               emissiveMap: material.emissiveMap,
               emissiveIntensity: material.emissiveIntensity,
@@ -291,7 +295,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     root.traverse(o => {
       if (o instanceof T.Mesh && !(o instanceof T.SkinnedMesh) &&
           o.material instanceof T.MeshLambertMaterial && !o.material.map &&
-          !o.material.transparent && o.material.emissive.getHex() === 0) meshes.push(o);
+          !o.material.lightMap && !o.material.transparent && o.material.emissive.getHex() === 0) meshes.push(o);
     });
     const pieces = meshes.map(mesh => {
       const geometry = furnitureGeometry(mesh.geometry, new T.Matrix4().multiplyMatrices(inverse, mesh.matrixWorld));
@@ -855,6 +859,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         npcsLoaded:cast.size,npcLoadError,
         npcStates:[...cast.values()].filter(n=>n.active).map(n=>({id:n.definition.id,x:n.x,d:n.d,clip:n.clip,time:n.time,lod:n.detail})),
         nearby:near?.id||null,furnitureLoaded:furniturePool.size,cameraFov:camera.fov,cameraDistance,cameraShoulder,reconnecting:!!reconnect,guideUnavailable,
+        bakedLightmaps:new Set([...mats.values()].flatMap(m=>('lightMap' in m&&m.lightMap instanceof T.Texture)?[m.lightMap.source.uuid]:[])).size,
         rigBones,
         animation: animationName,
         navigationMode,
@@ -962,7 +967,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     setQuality(value: GraphicQuality) {
       quality = value;
       renderer.setPixelRatio(value === "low" ? (softwareRenderer ? .45 : .7) : value === "medium" ? Math.min(devicePixelRatio,1.15) : value === "high" ? Math.min(devicePixelRatio, 1.75) : softwareRenderer ? .7 : Math.min(devicePixelRatio, 1.5));
-      scene.environmentIntensity=value === "high" ? 0.44 : 0.38;
+      scene.environmentIntensity=value === "high" ? 0.28 : 0.24;
       const shadows = value !== "low" && host.clientWidth > 700 && !softwareRenderer;
       const changedShadows = renderer.shadowMap.enabled !== shadows;
       renderer.shadowMap.enabled = shadows;

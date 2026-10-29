@@ -40,6 +40,12 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
     assert.ok(json.materials.some(m=>m.name.startsWith("Floor stone")&&m.occlusionTexture?.texCoord===1),"floor contact AO must retain its independent UV channel");
     const sceneDoc=await io.read(new URL(name,root).pathname),floor=sceneDoc.getRoot().listMaterials().find(m=>m.getName().startsWith("Floor stone"));
     const stats=await sharp(floor.getOcclusionTexture().getImage()).stats();
+    const baked=sceneDoc.getRoot().listMaterials().filter(m=>m.getExtras().zaionIndirectLight);
+    assert.ok(baked.length>=4,'floor, walls, ceiling and auxiliary surfaces retain baked indirect lighting');
+    const maps=new Set();for(const m of baked){assert.ok(m.getEmissiveTexture(),'marked glTF materials transport an RGB lightmap');const uv=m.getEmissiveTextureInfo().getTexCoord();assert.ok(uv>=0&&uv<=3,'irradiance retains a valid packed atlas UV');for(const detail of [[m.getBaseColorTexture(),m.getBaseColorTextureInfo()],[m.getNormalTexture(),m.getNormalTextureInfo()],[m.getMetallicRoughnessTexture(),m.getMetallicRoughnessTextureInfo()],[m.getOcclusionTexture(),m.getOcclusionTextureInfo()]])if(detail[0])assert.notEqual(uv,detail[1].getTexCoord(),'baked lighting must not reuse tiled/detail UVs');assert.equal(m.getExtras().zaionLightmapUV,uv,'metadata follows UV compaction');assert.ok(sceneDoc.getRoot().listMeshes().flatMap(mesh=>mesh.listPrimitives()).filter(p=>p.getMaterial()===m).every(p=>p.getAttribute('TEXCOORD_'+uv)),'all lightmapped primitives retain the referenced UV stream');maps.add(m.getEmissiveTexture());}
+    assert.equal(maps.size,1,'one shared indirect lightmap per sector');
+    const light=[...maps][0];assert.deepEqual(light.getSize(),[512,512]);const irradiance=await sharp(light.getImage()).stats();
+    assert.ok(irradiance.channels[0].max-irradiance.channels[0].min>32&&irradiance.channels[0].mean>1,'indirect lightmaps must contain real nonempty irradiance');
     assert.ok(stats.channels[0].max-stats.channels[0].min>64,"floor AO must contain spatial contact shadows, not a blank bake");
     assert.ok(json.materials.filter(material => material.normalTexture && material.pbrMetallicRoughness?.baseColorTexture && material.pbrMetallicRoughness?.metallicRoughnessTexture).length >= 2, "architectural stone and wood retain full PBR maps; upholstered assets are shared separately");
   }
@@ -75,6 +81,9 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
       const groom=json.materials.find(m=>m.name==='Gabriel layered groom'),skin=json.materials.find(m=>m.name==='CC0 adult male skin');
       assert.equal(groom?.alphaMode,'MASK','layered grooming uses stable cutout transparency');
       assert.ok(skin?.normalTexture&&skin?.pbrMetallicRoughness?.metallicRoughnessTexture,'skin micro-normal and roughness maps survive export');
+      const packedSkin=doc.getRoot().listMaterials().find(m=>m.getName()==='CC0 adult male skin');
+      assert.deepEqual(packedSkin.getBaseColorTexture().getSize(),[1024,1024],'head/hands skin uses its compact used-surface atlas');
+      assert.deepEqual(packedSkin.getNormalTexture().getSize(),[512,512]);assert.deepEqual(packedSkin.getMetallicRoughnessTexture().getSize(),[256,256]);
       const material=doc.getRoot().listMaterials()[0];
       assert.ok(material.getBaseColorTexture(), 'hero retains its original skin/textile albedo');
       assert.ok(doc.getRoot().listMeshes().flatMap(m=>m.listPrimitives()).some(p=>{const c=p.getAttribute('COLOR_0');return Array.from({length:c.getCount()},(_,i)=>c.getElement(i,[])[0]).some(v=>v<.2)}),'hero palette must retain authored colours alongside native PBR maps');

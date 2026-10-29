@@ -1,0 +1,21 @@
+{
+  "method": "RGBA8 + full mip-chain estimate, avatar only; excludes driver, render targets, CPU images and other assets",
+  "metrics": [
+    {
+      "name": "before",
+      "textureCount": 12,
+      "rgbaMipMiB": 55.333333333333336
+    },
+    {
+      "name": "after",
+      "textureCount": 12,
+      "rgbaMipMiB": 34.333333333333336
+    },
+    {
+      "name": "low",
+      "textureCount": 0,
+      "rgbaMipMiB": 0
+    }
+  ],
+  "newOfficeMaps": "Six shared 512x512 RGB irradiance maps: <=8 MiB RGBA8 with mipmaps if all sectors are loaded."
+}

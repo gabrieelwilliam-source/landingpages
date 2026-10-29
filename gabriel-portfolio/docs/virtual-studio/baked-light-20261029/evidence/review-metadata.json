@@ -1,0 +1,27 @@
+{
+  "branch": "visual-polish",
+  "baseRevision": "70a65e994aecb8969dcbc82ac3da21afdd659ca7",
+  "date": "2026-10-29",
+  "published": false,
+  "tools": {
+    "Blender": "4.3.2 / Cycles CPU",
+    "runtime": "existing Three.js / TypeScript",
+    "texturePipeline": "existing Sharp / glTF-Transform / Meshopt",
+    "newPaidAssetsOrServices": false,
+    "newDependencies": false
+  },
+  "preservedData": {
+    "src/data/office-layout.json": {
+      "sha256": "574f3aea56f50514551787f9809a2e272cacc54569252eb075762b3dbf354541",
+      "unchanged": true
+    },
+    "src/data/studio-actors.json": {
+      "sha256": "64d7cb2c44d1c6865de0cb0b14a35d9e87161ae07aed2558e46d0b59cbe87258",
+      "unchanged": true
+    }
+  },
+  "backup": {
+    "path": "/workspace/artifacts/landingpages-before-baked-light-20261029.tar.gz",
+    "sha256": "9f5ab5d2d819789560e6063da1afae1779f28a72a5c9ed653c64dcf5336887b0"
+  }
+}

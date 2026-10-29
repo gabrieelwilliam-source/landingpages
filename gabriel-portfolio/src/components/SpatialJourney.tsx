@@ -47,6 +47,7 @@ export default function SpatialJourney({
   const [snapshot, setSnapshot] = useState<SpatialSnapshot>({
     furnitureLoaded:0,cameraFov:50,avatarLod:"high",npcCount:0,npcsLoaded:0,npcLoadError:false,npcStates:[],nearby:null,cameraDistance:5.4,cameraShoulder:-1.2,reconnecting:false,guideUnavailable:false,
     rigBones: 0,
+    bakedLightmaps: 0,
     animation: "Idle",
     avatarZ: -initialDistance,
     worldZ: 0,
@@ -492,6 +493,7 @@ export default function SpatialJourney({
         data-area={current.id}
         data-loaded={snapshot.loaded.filter(Boolean).length}
         data-draw-calls={snapshot.drawCalls}
+        data-baked-lightmaps={snapshot.bakedLightmaps}
         data-triangles={snapshot.triangles}
       >
         <div ref={host} className="world-canvas" />

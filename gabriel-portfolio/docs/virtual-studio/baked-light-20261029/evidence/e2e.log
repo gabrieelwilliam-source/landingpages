@@ -1,0 +1,44 @@
+
+> site-zaion@0.1.0 test:e2e
+> playwright test
+
+[WebServer] (node:84429) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 31 tests using 1 worker
+
+(node:84445) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/baked-lighting.spec.ts:3:35 › baked indirect UV maps survive software fallback, quality and room loading (5.4s)
+  ✓   2 tests/baked-lighting.spec.ts:3:35 › baked indirect UV maps survive PBR shader, quality and room loading (27.2s)
+  ✓   3 tests/camera-gallery.spec.ts:11:5 › orbit, camera-relative walking, pause, reset and accessible project filters (11.0s)
+  ✓   4 tests/camera-gallery.spec.ts:63:5 › touch orbits without moving the visitor and reset is available on mobile (3.9s)
+  ✓   5 tests/contact-draft.spec.ts:4:5 › contact draft survives panels and mode changes, clears explicitly and never sends (8.8s)
+  ✓   6 tests/full-studio.spec.ts:8:5 › fictional receptionist animates, pauses and opens a useful keyboard interaction (7.7s)
+  ✓   7 tests/full-studio.spec.ts:21:5 › all six sectors have a scripted interaction and render real inhabited interiors (24.4s)
+  ✓   8 tests/full-studio.spec.ts:35:5 › all four automation demos change local state and never send requests (4.2s)
+  ✓   9 tests/full-studio.spec.ts:46:5 › distance, shoulder and obstacle-aware reconnect preserve anchored reversible scroll (13.8s)
+  ✓  10 tests/full-studio.spec.ts:57:5 › briefing assistant preserves an existing draft and the classic mode exposes the same content (4.3s)
+  ✓  11 tests/full-studio.spec.ts:64:5 › close reception view and real touch interaction remain usable on mobile (34.7s)
+  ✓  12 tests/full-studio.spec.ts:85:5 › quality swaps actual skinned LODs and preserves the active rig (8.8s)
+  ✓  13 tests/full-studio.spec.ts:94:5 › advanced options stay in a secondary menu on desktop and mobile (8.2s)
+  ✓  14 tests/full-studio.spec.ts:107:5 › a nearby development monitor opens the existing project demonstration (6.9s)
+  ✓  15 tests/full-studio.spec.ts:116:5 › detailed characters remain inspectable with the closer collision-aware camera (18.5s)
+  ✓  16 tests/full-studio.spec.ts:129:5 › supported furniture, adjustable FOV and menu scrolling preserve the scene position (3.3s)
+  ✓  17 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (portrait) (5.9s)
+  ✓  18 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (landscape) (9.0s)
+  ✓  19 tests/mobile-joystick.spec.ts:30:5 › two fingers steer and look independently; cancel, pause and mode changes release movement (6.6s)
+  ✓  20 tests/office-visual.spec.ts:5:5 › office graphic tiers change raster budget and all six interiors render (1.1m)
+  ✓  21 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 360 (4.2s)
+  ✓  22 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 390 (4.2s)
+  ✓  23 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 1280 (7.9s)
+  ✓  24 tests/portfolio.spec.ts:15:7 › six chapters, layout and accessibility 1440 (9.4s)
+  ✓  25 tests/portfolio.spec.ts:43:5 › scroll moves world while avatar and camera stay anchored; guided walking moves avatar (12.7s)
+  ✓  26 tests/portfolio.spec.ts:72:5 › all six architectural destinations, panels, concepts, navigation history and pause (40.5s)
+  ✓  27 tests/portfolio.spec.ts:116:5 › reduced motion defaults to classic and WebGL failure recovers (530ms)
+  ✓  28 tests/portfolio.spec.ts:142:5 › mobile touch moves the world, native contact and reading without JS remain available (3.6s)
+  ✓  29 tests/portfolio.spec.ts:180:5 › record measured animation performance during active scene scrolling (7.3s)
+  ✓  30 tests/portfolio.spec.ts:250:5 › portrait dialogs scroll independently and landscape keeps controls and original logo usable (8.3s)
+  ✓  31 tests/progressive-hero.spec.ts:3:5 › mobile starts and walks while the full PBR hero is still downloading (10.6s)
+
+  31 passed (6.5m)

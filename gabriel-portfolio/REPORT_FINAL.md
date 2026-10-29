@@ -1,3 +1,15 @@
+# Revisão mais recente — luz indireta e atlas compacto, 29/10/2026
+
+Continuação local sobre `70a65e9`, branch `visual-polish`. [Comparador real](docs/virtual-studio/baked-light-20261029/index.html) e [relatório completo](docs/virtual-studio/baked-light-20261029/README.md).
+
+Seis setores com mapas de luz indireta difusa em Cycles CPU, preservando detalhe e AO; PBR recalibrado e sheen dos estofados corrigido. Pele da cabeça/mãos reprojetada para atlas compacto, sem pixels da foto privada. Ferramentas gratuitas, nenhuma dependência/compra nova. Memória estimada dos mapas do avatar **55,3 → 34,3 MiB RGBA8+mips**; até 8 MiB adicionais para os seis mapas de luz se todos carregados. Não é medição da memória total/GPU. Completo **51.485 triângulos / 1.144.236 bytes / sete materiais**; leve **6.739 / 123.196 bytes / um material sem mapas**.
+
+Lint/build/typecheck e integridade aprovados; **38 unitários / 31 E2E completos / 2 E2E finais de iluminação**. Exportação estática aprovada em **360, 768 e 1440 px**; capturas reais e pacote documentados no relatório atual. Rig, 11 ações, colisões, seis setores, elenco, analógico e velocidade preservados. Ainda há diferenças em relação às referências; não houve teste em GPU/telefone físicos. Sem push/publicação ou alterações em `../gabriel/`, landing page FR e n8n. Backup integral e licenças no relatório.
+
+---
+
+## Histórico anterior
+
 # Revisão mais recente — acabamento gráfico, 29/10/2026
 
 Branch `visual-polish`, revisão local sobre `3f56847`. [Comparador real antes/depois](docs/virtual-studio/grooming-light-20261029/index.html) e [relatório, custos e evidências](docs/virtual-studio/grooming-light-20261029/README.md).

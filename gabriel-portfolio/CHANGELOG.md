@@ -1,3 +1,11 @@
+## 2026-10-29 — luz indireta e atlas compacto (revisão local)
+
+- Seis setores com bake difuso indireto em Cycles CPU, lightMap no PBR/Lambert e UVs de detalhe preservados.
+- Correção do sheen azul-marinho/areia e recalibração das fontes de luz PBR.
+- Atlas CC0 de pele para cabeça/mãos em 1024/512/256 px; estimativa dos mapas do avatar reduzida em 21 MiB.
+- Validação de canais UV após compressão, conversão idempotente e testes reais de qualidade/carregamento.
+- Ferramentas gratuitas, mesmos controles e conteúdo. Relatório: docs/virtual-studio/baked-light-20261029/.
+
 # Changelog
 
 ## 2026-10-27 — Reconstrução para revisão, sem publicação

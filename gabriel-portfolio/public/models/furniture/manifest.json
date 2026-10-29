@@ -3,8 +3,8 @@
     {
       "name": "lounge-chair.glb",
       "triangles": 8075,
-      "bytes": 404224,
-      "sha256": "54852416ad69903e8249023d51f255e1abeb15cffacfab6d1173c5f6eb596a74",
+      "bytes": 404228,
+      "sha256": "2308a6b71441c30b0777051787e3fd89b9ff05091740338d8371075f1f1e99d9",
       "bounds": {
         "min": [
           -0.4760320425033569,
@@ -23,8 +23,8 @@
     {
       "name": "lounge-bench.glb",
       "triangles": 8688,
-      "bytes": 386408,
-      "sha256": "611b0577bc8964747ad3e50e856c58309cb97bb1d7a6cfbd51843aa9bd640360",
+      "bytes": 386412,
+      "sha256": "88a94560ce7194ac4ea6c446d4f20ae7bcc08d056802cb19bbb6b3ab749abd46",
       "bounds": {
         "min": [
           -1.3650000095367432,

@@ -1,0 +1,5 @@
+{
+  "result": "PASS",
+  "method": "Same runtime/camera/lighting; only room-0 GLB replaced by previous asset in before route. PBR path on SwiftShader, no physical GPU claim.",
+  "errors": []
+}
