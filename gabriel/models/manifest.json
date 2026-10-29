@@ -8,8 +8,8 @@
   "assets": [
     {
       "name": "environment-0.glb",
-      "bytes": 254356,
-      "sha256": "4833666e1d17c786af45abf4590a748e86a4d61afb6f59085728f8d3dfcc81dc",
+      "bytes": 245240,
+      "sha256": "ed3d904d413df3cad3b75477f197a1ac176ea252974771b35c6aa82dd0a4d370",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -19,8 +19,8 @@
     },
     {
       "name": "environment-1.glb",
-      "bytes": 340756,
-      "sha256": "acdcb9ca04e0a091a814e4bc4c245a537c494fe0d339daf9cbdfebbfcf86303d",
+      "bytes": 253920,
+      "sha256": "8f3540e9ab1178bd0a226fd889206e7bc046c104c3a08a11a1ac74732ae78a73",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -30,8 +30,8 @@
     },
     {
       "name": "environment-2.glb",
-      "bytes": 464308,
-      "sha256": "211f9dcb198e847c58e7cb91c469575d53ff628595c36afab3bd808eeb5e3c71",
+      "bytes": 463500,
+      "sha256": "7a4868dbec46f2b964825109d38c19c7bb7b63aa275bbafbce609a23c6649ff6",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -41,8 +41,8 @@
     },
     {
       "name": "environment-3.glb",
-      "bytes": 257020,
-      "sha256": "c8505c065650f47699d9e357c536bbece385cc14f5be5d692cadc59c5e20583a",
+      "bytes": 213036,
+      "sha256": "fafc0713e0912a96179908a1e8e561e4ae5fe970c57600b6990dbeeaac0abcbf",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -52,8 +52,8 @@
     },
     {
       "name": "environment-4.glb",
-      "bytes": 352900,
-      "sha256": "7dda35dc0f21f6075b1bedd16c0dbc06b197c309f03ae0a5c8836460387cb254",
+      "bytes": 377368,
+      "sha256": "ed46c84a4bad3854ac7c4e566c1ea3fa164b75f3eabf3d2fcf2dfa479b5b08a7",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -63,8 +63,8 @@
     },
     {
       "name": "environment-5.glb",
-      "bytes": 345872,
-      "sha256": "f39f97140307582ca12abced4b213ae909968b05fe2e1033036f6b8f6eaffc7f",
+      "bytes": 320100,
+      "sha256": "00596872dd0ed2ae7617e7fb56ffdce27d831482b3476313689cf46ab753bd8a",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -73,9 +73,31 @@
       ]
     },
     {
+      "name": "furniture/lounge-bench.glb",
+      "bytes": 386412,
+      "sha256": "88a94560ce7194ac4ea6c446d4f20ae7bcc08d056802cb19bbb6b3ab749abd46",
+      "meshes": 1,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
+      "name": "furniture/lounge-chair.glb",
+      "bytes": 404228,
+      "sha256": "2308a6b71441c30b0777051787e3fd89b9ff05091740338d8371075f1f1e99d9",
+      "meshes": 4,
+      "skins": 0,
+      "animations": [],
+      "textureFormats": [
+        "image/webp"
+      ]
+    },
+    {
       "name": "gabriel-rigged.glb",
-      "bytes": 587852,
-      "sha256": "b35f18747472bf64e79d29148bcfc2c308e25cd1a6eb841121dbdabef5dffa1b",
+      "bytes": 1453348,
+      "sha256": "a83fad57ae403a4e3fc2bb5d7daef622cc95406e9f2cf34688254733c01534db",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -94,13 +116,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 60660,
+      "triangles": 55313,
       "bones": 16
     },
     {
       "name": "npc-0.glb",
-      "bytes": 334424,
-      "sha256": "e80bb0b4aae49844da417dc49ad771ad393558ea1b4bd2dfd31a363d6964e182",
+      "bytes": 364160,
+      "sha256": "97b435dba3b0064f4702d9a71f9a106352ac2d294206374f6b5b644c251dc17c",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -119,13 +141,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 28306,
+      "triangles": 32892,
       "bones": 16
     },
     {
       "name": "npc-1.glb",
-      "bytes": 333268,
-      "sha256": "1724e02aae99491d45e6f59ac660bd03c325dde87a38c673c7dc40d56ea09023",
+      "bytes": 363284,
+      "sha256": "aef2258756fbfa49676660099497cb2de5f4fd72445b4a254f82550250ae007b",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -144,13 +166,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 28306,
+      "triangles": 32892,
       "bones": 16
     },
     {
       "name": "npc-2.glb",
-      "bytes": 329972,
-      "sha256": "6b49cfed3cacff4ca58789030947e495ac08c795068cbc8152bacfe8ac004526",
+      "bytes": 364584,
+      "sha256": "1f03a0385a46a967a456d2558297e651696986bf747ce56c6327fba412a6374c",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -169,13 +191,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 27740,
+      "triangles": 32891,
       "bones": 16
     },
     {
       "name": "npc-3.glb",
-      "bytes": 336348,
-      "sha256": "1ff1234e3a22213c50425bdd4b805a4e8602ef519b0935aa9ca2fc449eb9664a",
+      "bytes": 367244,
+      "sha256": "31f1d34441d604bb230f62f8337def200b4dc84d195c31e51c9bcc2f635df3bf",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -194,13 +216,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 28306,
+      "triangles": 32892,
       "bones": 16
     },
     {
       "name": "npc-4.glb",
-      "bytes": 327264,
-      "sha256": "6e12fc074be834ceedbfc8b39330d6e09b54b2b6e01523e04c411187eaa071fb",
+      "bytes": 361900,
+      "sha256": "b85a7fd82bdafd32c571d3f7f719e1c65c0810806fe30b76bf7099736488d934",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -219,13 +241,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 27740,
+      "triangles": 32892,
       "bones": 16
     },
     {
       "name": "npc-5.glb",
-      "bytes": 330584,
-      "sha256": "752ba4ac20be77deb7525b67f2511291b80beba6ce3693c93d2c4e3298430fc5",
+      "bytes": 365524,
+      "sha256": "25a4503f4be60a954c6705513c7f8f8c3f12da49769b89e4738d4894c54e6cae",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -244,13 +266,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 27740,
+      "triangles": 32891,
       "bones": 16
     },
     {
       "name": "npc-6.glb",
-      "bytes": 332196,
-      "sha256": "d24c1ee21b456ee7835810e2c6de35acd23d242a4073c16adbe256a0bc789e52",
+      "bytes": 367536,
+      "sha256": "1490e954c8fc4fe89e933a9a8967a5a458ca0defca4c229b786ea41b84ff5158",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -269,13 +291,13 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 27740,
+      "triangles": 32891,
       "bones": 16
     },
     {
       "name": "npc-7.glb",
-      "bytes": 327968,
-      "sha256": "c68a2d9aacf2e243d2b90826c499686e6f63e8d0ddaee76a609e46f5f353ff54",
+      "bytes": 363108,
+      "sha256": "be16b256316a131030eeec5639fd3d0d11c34253cca686141eedc9c2721c898a",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -294,9 +316,9 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 27740,
+      "triangles": 32891,
       "bones": 16
     }
   ],
-  "totalBytes": 5255088
+  "totalBytes": 7034492
 }
