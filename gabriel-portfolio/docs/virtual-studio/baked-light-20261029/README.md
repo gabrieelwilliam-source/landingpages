@@ -57,3 +57,7 @@ Backup integral anterior, incluindo Git/ignorados/não rastreados: `/workspace/a
 Pacote de revisão: `/workspace/artifacts/zAIon-Luz-Precalculada-Revisao-20261029.zip`. Extraia inteiro e execute `node INICIAR-REVISAO.mjs`; Node.js é gratuito. Código-fonte, exportação e licenças incluídos. Veja o registro final de validação do pacote nas evidências.
 
 Capturas finais: recepção antes/depois, personagem PBR próximo, lounge, entrada desktop, entrada móvel com analógico e seis setores. A entrada móvel registra o perfil automático/software real, cuja resolução e detalhe são reduzidos. No menu, Alto preserva o modelo completo; a disponibilidade e o desempenho do PBR dependem do dispositivo.
+
+## Pacote verificado
+
+O ZIP foi extraído e iniciado por `node INICIAR-REVISAO.mjs` em localhost. Chromium com viewport/toque de 390 × 844 confirmou mapa de luz carregado, modo Caminhar inicial, movimento real pelo analógico, parada/Idle ao soltar, Scroll ↔ Caminhar, contato clássico e créditos CC BY do moletom. Nenhum erro de execução ou resposta HTTP de erro. [Registro](evidence/zip-smoke.json) e [captura](evidence/zip-smoke.png). O empacotador validou CRC e SHA-256 de todas as entradas. O commit exato do código-fonte consta em `VERSAO.json` no ZIP. Fotos/moodboards privados, backups, credenciais, Git e node_modules excluídos.
