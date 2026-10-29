@@ -1,0 +1,8 @@
+# Assets do escritório — procedência e uso declarado
+
+Arquivos fornecidos pelo titular do projeto. Em 29/10/2026, ele declarou ter comprado os arquivos e autorizou uso no próprio site e publicação desta integração. Não forneceu páginas de produto, autores ou textos das licenças. A classificação é **aquisição e autorização declaradas pelo titular**, sem verificação independente dos termos. Não se atribui CC0, domínio público ou autorização de revenda a estes modelos. Preservar esta nota e acrescentar créditos/termos originais quando fornecidos.
+
+- `fan-palm.glb`: derivado de `free_livistona_chinensis_fan_palm.usdz`, SHA-256 original `96ac759dc78db1e2ddd519a26ed21d024b345553277d577f5dea6f6c36940b28`. OpenUSD → Blender → GLB; unidades, pivô, UVs, normais originais, alpha cutout e mapas PBR preservados. Variante web: 5.274 triângulos, texturas WebP de até 512 px, Meshopt. Palmeira e vaso, autor não informado.
+- `office-chair.glb`: derivado do grupo `Armchair_279 [7026700]` de `chairs_set_1.fbx`, SHA-256 original `85a7d4bd192f8679e2fe31e929d994a74fdce22be6478b35fc5d2db7755b620e`. Malha original preservada com reparo de vértices/normais, escala e orientação; novos materiais azul-marinho/grafite e micro-normal de tecido gerado neste projeto. 9.290 triângulos, Meshopt. Autor não informado.
+
+Os arquivos originais e `.blend` completos estão no backup de trabalho fora do Git. O groom `gb_nomadwaveundercut.mhpkg` não foi incorporado: pacote Unreal 5.7 com 72.358 fios, 625.667 pontos, zero hair-card meshes no manifesto e uma cabeça feminina de demonstração. Não houve conversão para GLB nem alteração do personagem Gabriel.

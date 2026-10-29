@@ -59,3 +59,8 @@ Os seis setores incluem mapas autorais de luz indireta difusa, calculados offlin
 ## Rosto e fibras curvas — 29/10/2026
 
 `tools/refine_face_depth.py` contém ajustes locais autorais de forma sobre a cabeça CC0 existente, sem textura da foto privada. `tools/groom_texture.py` gera fios curvos, variações e grisalhos com NumPy; sobrancelhas/bigode agora usam fios curtos modelados, em vez do recorte de sobrancelha CC0 usado na etapa anterior. O atlas de grooming desta etapa é autoral; os créditos da anatomia/pele/olhos e do moletom **Elvaerwyn, CC BY** permanecem. Nenhum novo asset externo, compra, assinatura, serviço pago ou instalação. Blender/Cycles, Python e Three.js são as ferramentas gratuitas já presentes.
+
+
+## Assets externos do escritório — 29/10/2026
+
+Palmeira Livistona e cadeira de trabalho fornecidas pelo titular, com aquisição e uso/publicação declarados por ele. Autores e termos de licença não informados; sem atribuição de CC0 ou autorização de revenda. Procedência, hashes e transformações em `tools/vendor/external-office/ORIGEM.md`. O pacote Unreal de cabelo não foi incorporado.

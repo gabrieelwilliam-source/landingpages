@@ -1,15 +1,17 @@
 {
-  "version": "site-zaion-rosto-barba-20261029",
-  "sourceRevision": "404ce163383d8fdd281fb55afbc471b0e51b6dc6",
-  "reviewRevision": "a07fdec868d73607a95b17641499e58b9ba95b2a",
-  "preparedAt": "2026-10-29T09:00:58.310367-03:00",
-  "indexSha256": "4a380f53ff030e5a4d8637ef6d3c3b18a2c4b9513f4f2ebebc2879911b994af1",
+  "version": "site-zaion-office-assets-20261029",
+  "sourceBase": "4242e155553dd3e946ba133ffab3c42eebb4f84b",
+  "preparedAt": "2026-10-29T13:33:21.915134-03:00",
+  "indexSha256": "122d147c8c7dc16bb106555b05cd18c77757b8b5d28772bbe478946763c6ab64",
   "heroSha256": "a83fad57ae403a4e3fc2bb5d7daef622cc95406e9f2cf34688254733c01534db",
   "lowHeroSha256": "1c7f469b52d0c17a131b05c621c61f875cd50dcb71e07e032974233d8875c624",
-  "exportManifestSha256": "84baaf1432f7b23594297848dce395604cd34657273d283ba6efba07e0db12ef",
+  "roomHashes": {
+    "0": "81690fa47c2ba7947d46e7ad81fdd76ca44b17fb32b28fc67e3f5a90fe484e2d",
+    "2": "7e66503eafe7894881f16ab8ea8a016e95341895a98496de38f25a65f0b26679"
+  },
+  "exportManifestSha256": "bf7141a519b7cf27f423ca801ec791386fcd17edfb0176d0785ab7be894e4011",
   "exportFiles": 73,
   "siteName": "Site zAIon",
   "repository": "gabrieelwilliam-source/landingpages",
-  "requestedRepository": "gabrieelwilliam-source/Site-zAIon",
-  "renamePending": true
+  "acquisitionStatus": "Declared purchased and authorized for this site by project owner; license terms not independently reviewed"
 }

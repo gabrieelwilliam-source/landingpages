@@ -8,8 +8,8 @@
   "assets": [
     {
       "name": "environment-0.glb",
-      "bytes": 245240,
-      "sha256": "ed3d904d413df3cad3b75477f197a1ac176ea252974771b35c6aa82dd0a4d370",
+      "bytes": 450260,
+      "sha256": "81690fa47c2ba7947d46e7ad81fdd76ca44b17fb32b28fc67e3f5a90fe484e2d",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -30,8 +30,8 @@
     },
     {
       "name": "environment-2.glb",
-      "bytes": 463500,
-      "sha256": "7a4868dbec46f2b964825109d38c19c7bb7b63aa275bbafbce609a23c6649ff6",
+      "bytes": 608276,
+      "sha256": "7e66503eafe7894881f16ab8ea8a016e95341895a98496de38f25a65f0b26679",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -320,5 +320,5 @@
       "bones": 16
     }
   ],
-  "totalBytes": 7034492
+  "totalBytes": 7384288
 }
