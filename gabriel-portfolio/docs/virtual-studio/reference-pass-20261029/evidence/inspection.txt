@@ -1,0 +1,1 @@
+PASS: fixed-camera actual GLB face/body/back inspection

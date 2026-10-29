@@ -25,11 +25,11 @@ export function heroPhysicalPositions(doc,primitive){
 }
 
 // Face and scalp use their own error budget; whole-body simplification erases eyelids/nose.
-export function splitHeroFace(doc,primitive){
+export function splitHeroFace(doc,primitive,region='face'){
  const positions=heroPhysicalPositions(doc,primitive),indices=primitive.getIndices(),face=[],body=[];
  const array=indices.getArray();
  for(let i=0;i<array.length;i+=3){const t=[array[i],array[i+1],array[i+2]];
-  const facial=t.every(v=>positions[v*3+1]>1.56&&(positions[v*3+2]>.025||positions[v*3+1]>1.76));
+  const facial=t.every(v=>region==='face'?positions[v*3+1]>1.56&&(positions[v*3+2]>.025||positions[v*3+1]>1.76):positions[v*3+1]<.17||(positions[v*3+1]>.80&&positions[v*3+1]<.98&&Math.abs(positions[v*3])>.235));
   (facial?face:body).push(...t);
  }
  const facePrimitive=primitive.clone();

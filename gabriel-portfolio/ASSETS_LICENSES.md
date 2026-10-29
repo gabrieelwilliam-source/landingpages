@@ -23,3 +23,7 @@ As revisões e os hashes dos dados-fonte constam em `tools/vendor/sources-lock.j
 ## Refinamento do personagem principal — 28/10/2026
 
 O grooming, as pálpebras, a roupa/mochila, o ajuste de cor e o orçamento de simplificação facial desta revisão são código e geometria autorais em `tools/refine_hero.py` e `tools/strip-hero-microgeometry.mjs`. A cabeça e as mãos continuam derivadas dos dados CC0 já creditados acima. Não houve nova fonte externa, compra ou textura pessoal. A foto é apenas referência privada e não integra Git, public ou o pacote.
+
+### Materiais procedurais — 29/10/2026
+
+`tools/human_albedo.py` gera um atlas original de pele/tecido; não utiliza pixels da fotografia nem das artes conceituais. O LOD incorpora a cor às cores dos vértices e remove a textura. A anatomia CC0 e os demais créditos permanecem. Nenhuma compra, download novo ou serviço pago nesta etapa.

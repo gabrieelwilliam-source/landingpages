@@ -36,6 +36,7 @@ def refine_hero(materials,detail,cube):
  # A front jaw curtain follows cheek/chin contours, with an actual mouth opening.
  # It is deliberately not a solid cone encircling the neck.
  rows=[(1.35,.030,-.105,-.075),(1.365,.054,-.125,-.055),(1.39,.076,-.145,-.030),(1.41,.087,-.155,-.009),(1.46,.100,-.157,.002),(1.51,.104,-.147,.008),(1.55,.103,-.135,.005),(1.58,.099,-.123,-.003),(1.61,.094,-.111,-.018),(1.64,.085,-.094,-.034)]
+ rows=[(1.40+(z-1.35)*(.24/.29),w,front,edge) for z,w,front,edge in rows]
  def at(z,t):
   for a,b in zip(rows,rows[1:]):
    if a[0]<=z<=b[0]:
@@ -51,19 +52,20 @@ def refine_hero(materials,detail,cube):
   for j in range(n):
    t=-math.pi/2+j*math.pi/(n-1)
    top=1.574+.066*smooth((abs(math.sin(t))-.25)/.60)
-   z=1.35+(top-1.35)*u
-   p=at(z,t);p.y+=.0007*math.sin(j*2.7+z*85);verts.append(p)
+   z=1.40+(top-1.40)*u
+   p=at(z,t);p.z-=.010*math.cos(t)**2*(1-u)**2;p.x*=.88 if z<1.53 else 1;p.y-=.014*smooth((1.53-z)/.10);p.y+=.0007*math.sin(j*2.7+z*85);verts.append(p)
  for row in range(10):
   for j in range(n-1):
    a=row*n+j;faces.append((a,a+1,a+1+n,a+n))
  mesh=bpy.data.meshes.new('Contoured beard');mesh.from_pydata(verts,[],faces);mesh.update()
  obj=bpy.data.objects.new('Contoured beard with open mouth',mesh);bpy.context.collection.objects.link(obj);mesh.materials.append(beard);obj.vertex_groups.new(name='head').add(list(range(len(verts))),1,'REPLACE')
  for p in mesh.polygons:p.use_smooth=True
- for j in range(300):
+ for j in range(170):
   t=rng.uniform(-1.48,1.48);top=min(rng.uniform(1.52,1.64),1.573+.066*smooth((abs(math.sin(t))-.25)/.60))
-  bottom=max(1.352,top-rng.uniform(.065,.19));points=[]
+  bottom=max(1.402,top-rng.uniform(.065,.19));points=[]
   for k in range(4):
    u=k/3;p=at(top*(1-u)+bottom*u,t+math.sin(u*5+j)*.018)
+   p.x*=.88 if p.z<1.53 else 1;p.y-=.014*smooth((1.53-p.z)/.10)
    p.y-=.0018+math.sin(u*8+j)*.001;p.x+=math.sin(j+u*7)*.0008;points.append(p)
   detail('Contoured beard fibre',points,rng.uniform(.00035,.0006),grey if j%6==0 else hair if j%3==0 else beard,'head')
  # Two moustache fans remain above the lips, following the actual facial surface.
@@ -115,9 +117,19 @@ def refine_hero(materials,detail,cube):
  for o in bpy.context.scene.objects:
   if o.name.startswith('Continuous tailored jacket'):
    for v in o.data.vertices:
+    if v.co.y<-.055:
+     v.co.y-=.003*math.sin(v.co.z*70+abs(v.co.x)*22)*smooth((1.16-v.co.z)/.12)
     v.co.z-=.035*smooth((abs(v.co.x)-.18)/.055)*smooth((v.co.z-1.40)/.06)
     if abs(v.co.x)>.23:
      side=-1 if v.co.x<0 else 1;v.co.x=side*(.27+(abs(v.co.x)-.27)*.87)
+  if o.name.startswith('Continuous tailored trousers'):
+   for v in o.data.vertices:
+    if v.co.z<.82:
+     side=-1 if v.co.x<0 else 1;v.co.x=side*(.105+(abs(v.co.x)-.105)*.88)
+  if o.name.startswith('Sneaker'):
+   for v in o.data.vertices:v.co.z=max(v.co.z,-.027)
+  if o.name.startswith('Anatomical eye'):
+   o.scale.z*=.80
   if o.name.startswith('Knitted cuff'):
    o.scale.x*=.91;o.scale.y*=.91
  print('HERO REFINEMENT: contoured open-mouth beard, cropped fibres, fitted clothing and flat webbing')

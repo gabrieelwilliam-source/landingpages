@@ -1,0 +1,40 @@
+Hero LOD: removed 6752 micro-fibre triangles; preserved beard/scalp silhouettes and eyes
+Hero LOD region budgets 2968 1025 2711
+prune: Removed types... Texture (3), Accessor (22)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (3)
+gabriel-rigged 6704 triangles 128896 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-0 4603 triangles 102292 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-1 4603 triangles 102280 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-2 4602 triangles 102368 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-3 4603 triangles 102452 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-4 4600 triangles 102124 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-5 4603 triangles 102472 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-6 4603 triangles 102924 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-7 4603 triangles 102304 bytes
+PASS: 9 low-detail variants, <7000 triangles each, same skeletons, clips and normalized weights.
+PASS: 6 scenes, Gabriel + 8 distinct fictional humans, 16+ bones each, 11 verified poses/actions, Meshopt, original logo. 5926212 bytes

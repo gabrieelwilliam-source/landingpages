@@ -1,0 +1,37 @@
+> site-zaion@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.28
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.4s
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10)
+   Generating static pages (4/10)
+   Generating static pages (7/10)
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    17.2 kB         123 kB
+├ ○ /_not-found                            995 B         104 kB
+├ ○ /creditos                              165 B         106 kB
+├ ● /projetos/[slug]                       165 B         106 kB
+├   ├ /projetos/conceito-landing
+├   ├ /projetos/conceito-portfolio
+├   └ /projetos/conceito-site
+├ ○ /robots.txt                            127 B         103 kB
+└ ○ /sitemap.xml                           127 B         103 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/255-b1e2483a7e02feee.js       46.6 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          2.06 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)

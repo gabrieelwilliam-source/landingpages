@@ -1,4 +1,5 @@
 import {stripHeroMicrogeometry,splitHeroFace} from './strip-hero-microgeometry.mjs';
+import {bakeHeroAlbedo} from './bake-hero-albedo.mjs';
 import {NodeIO} from '@gltf-transform/core';
 import {ALL_EXTENSIONS} from '@gltf-transform/extensions';
 import {simplify,meshopt,prune,weld,simplifyPrimitive,joinPrimitives,compactPrimitive} from '@gltf-transform/functions';
@@ -12,17 +13,19 @@ const root=new URL('../public/models/',import.meta.url);const output=new URL('lo
 const names=['gabriel-rigged',...Array.from({length:8},(_,i)=>'npc-'+i)],entries=[];
 for(const name of names){
  const doc=await io.read(new URL(name+'.glb',root).pathname);
- if(name==='gabriel-rigged')stripHeroMicrogeometry(doc);
+ if(name==='gabriel-rigged'){await bakeHeroAlbedo(doc);stripHeroMicrogeometry(doc);}
  // Distant models omit micro-surface atlases and their UV seams, retaining vertex colours and skinning.
  for(const material of doc.getRoot().listMaterials())material.setNormalTexture(null).setMetallicRoughnessTexture(null).setRoughnessFactor(.86);
  for(const mesh of doc.getRoot().listMeshes())for(const primitive of mesh.listPrimitives()){primitive.setAttribute('TEXCOORD_0',null);primitive.setAttribute('TANGENT',null)}
  await doc.transform(weld());
  if(name==='gabriel-rigged'){
   for(const mesh of doc.getRoot().listMeshes())for(const body of mesh.listPrimitives()){
-   const face=splitHeroFace(doc,body);compactPrimitive(body);compactPrimitive(face);
-   simplifyPrimitive(face,{simplifier:MeshoptSimplifier,ratio:.18,error:.005,lockBorder:true});
+   const face=splitHeroFace(doc,body),ends=splitHeroFace(doc,body,'extremities');compactPrimitive(body);compactPrimitive(face);compactPrimitive(ends);
+   simplifyPrimitive(face,{simplifier:MeshoptSimplifier,ratio:.14,error:.007,lockBorder:true});
+   simplifyPrimitive(ends,{simplifier:MeshoptSimplifier,ratio:.12,error:.006,lockBorder:true});
    simplifyPrimitive(body,{simplifier:MeshoptSimplifier,ratio:.045,error:.015,lockBorder:true});
-   const merged=joinPrimitives([body,face]);mesh.removePrimitive(body).addPrimitive(merged);body.dispose();face.dispose();
+   console.log("Hero LOD region budgets",face.getIndices().getCount()/3,ends.getIndices().getCount()/3,body.getIndices().getCount()/3);
+   const merged=joinPrimitives([body,face,ends]);mesh.removePrimitive(body).addPrimitive(merged);body.dispose();face.dispose();ends.dispose();
   }
  }else await doc.transform(simplify({simplifier:MeshoptSimplifier,ratio:.14,error:.015,lockBorder:false}));
  await doc.transform(prune(),meshopt({encoder:MeshoptEncoder,level:'high'}));

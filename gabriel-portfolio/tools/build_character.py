@@ -251,6 +251,9 @@ for title,data in [('roughness',rough),('normal',normal)]:
  else:
   bump=surface.node_tree.nodes.new('ShaderNodeNormalMap');bump.inputs['Strength'].default_value=.45
   surface.node_tree.links.new(tex.outputs['Color'],bump.inputs['Color']);surface.node_tree.links.new(bump.outputs['Normal'],p.inputs['Normal'])
+if npc_index is None:
+ from human_albedo import add_human_albedo
+ add_human_albedo(surface)
 for o in list(bpy.context.scene.objects):
  if o.type!='MESH':continue
  original=o.data.materials[0]
@@ -262,7 +265,10 @@ for o in list(bpy.context.scene.objects):
   for li in polygon.loop_indices:
    co=o.matrix_world@o.data.vertices[o.data.loops[li].vertex_index].co
    u,v=((co.y,co.z) if axis==0 else (co.x,co.z) if axis==1 else (co.x,co.y))
-   uv.data[li].uv=((tile%4+.03+(u*18%1)*.94)/4,(tile//4+.03+(v*18%1)*.94)/2)
+   if npc_index is None and o.name.startswith('MakeHuman CC0 anatomical head'):
+    u=(math.atan2(co.x,-co.y)+math.pi)/math.tau;v=max(0,min(1,(co.z-1.50)/.34))
+    uv.data[li].uv=((3+.03+u*.94)/4,(1+.03+v*.94)/2)
+   else:uv.data[li].uv=((tile%4+.03+(u*18%1)*.94)/4,(tile//4+.03+(v*18%1)*.94)/2)
  if npc_index is not None and o.vertex_groups.get('head'):
   width=[.93,1.0,1.05,.95,1.03,1.0,1.08,.98][npc_index]
   o.location.x*=width

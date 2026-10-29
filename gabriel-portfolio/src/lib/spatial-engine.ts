@@ -111,7 +111,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
   const camera = new T.PerspectiveCamera(50, 1, 0.1, 500);
-  scene.add(new T.HemisphereLight("#dbe4ee", "#756352", softwareRenderer ? 1.05 : .9));
+  scene.add(new T.HemisphereLight("#e9dfcf", "#534238", softwareRenderer ? 1.05 : .9));
   const sun = new T.DirectionalLight("#ffd3a0", 1.8);
   sun.position.set(18, 9, -32);
   sun.castShadow = true;

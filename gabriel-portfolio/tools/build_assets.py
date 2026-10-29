@@ -57,7 +57,7 @@ def export(name):
   bpy.context.view_layer.objects.active=pieces[0];bpy.ops.object.convert(target='MESH');bpy.ops.object.join()
  if name=='gabriel-rigged' or name.startswith('npc-'):
   bpy.context.view_layer.objects.active=pieces[0];bpy.ops.object.join()
- bpy.ops.export_scene.gltf(filepath=OUT+'/'+name+'.glb',export_format='GLB',export_animations=True,export_skins=True,export_yup=True,export_extras=True)
+ bpy.ops.export_scene.gltf(filepath=OUT+'/'+name+'.glb',export_format='GLB',export_animations=True,export_skins=True,export_yup=True,export_extras=True,export_vertex_color='ACTIVE' if name=='gabriel-rigged' or name.startswith('npc-') else 'MATERIAL')
 clean()
 skin=mat('Warm skin',(.63,.43,.32),rough=.75);cloth=mat('Midnight cotton',(.025,.035,.045),rough=.92);denim=mat('Charcoal denim',(.06,.07,.085),rough=.88);shoe=mat('Suede',(.025,.027,.03));sole=mat('Rubber sole',(.2,.22,.23));hair=mat('Short hair',(.09,.07,.055));beard=mat('Full beard',(.13,.105,.08));grey=mat('Silver beard strands',(.32,.29,.24));eye=mat('Blue grey iris',(.16,.33,.4),rough=.35);white=mat('Eyes',(.7,.72,.69));black=mat('Pupil',(.008,.012,.016));bronze=mat('Zip',(.3,.25,.16),.7,.38)
 loft('Jacket',[(0,0,.9,.16,.105),(0,0,.96,.19,.12),(0,0,1.14,.18,.12),(0,0,1.32,.23,.135),(0,0,1.43,.255,.125),(0,0,1.49,.19,.095),(0,0,1.52,.09,.075)],cloth,'spine')

@@ -145,3 +145,5 @@ Em dispositivos com ponteiro de toque, a visita abre em Caminhar com analógico 
 ### Refinamento do personagem principal
 
 Grooming e roupa em `tools/refine_hero.py`, sobre a anatomia CC0 existente. Reconstrução: `npm run assets:character`. O LOD remove microfios desconectados e simplifica rosto/corpo separadamente antes de reunir em um draw call. Comparador e capturas em `docs/virtual-studio/hero-refinement/`. A versão continua local, sem publicação.
+
+Revisão de 29/10/2026: [aproximação às referências](docs/virtual-studio/reference-pass-20261029/index.html), com atlas autoral de pele/tecido, simplificação por região e comparativo. Continua sem publicação; as limitações em relação à referência estão documentadas.

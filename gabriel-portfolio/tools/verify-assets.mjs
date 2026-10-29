@@ -62,6 +62,12 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
     assert.ok(entry.triangles < (name === "gabriel-rigged.glb" ? 65000 : 45000), "detailed human geometry budget");
     entry.bones = json.skins[0].joints.length;
     const doc = await io.read(new URL(name, root).pathname);
+    if(name === 'gabriel-rigged.glb'){
+      const material=doc.getRoot().listMaterials()[0];
+      assert.ok(material.getBaseColorTexture(), 'hero retains its original skin/textile albedo');
+      const color=doc.getRoot().listMeshes()[0].listPrimitives()[0].getAttribute('COLOR_0');
+      assert.ok(Array.from({length:color.getCount()},(_,i)=>color.getElement(i,[])[0]).some(v=>v<.2),'hero palette must not be replaced by fake white vertex colours');
+    }
     const primitives = doc
       .getRoot()
       .listMeshes()
