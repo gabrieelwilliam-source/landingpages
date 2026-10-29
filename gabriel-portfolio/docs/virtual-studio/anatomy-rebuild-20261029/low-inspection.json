@@ -1,0 +1,26 @@
+{
+  "method": "Actual GLB, fixed PBR studio illumination in WebGL/SwiftShader; no physical GPU performance claim",
+  "metrics": [
+    {
+      "variant": "low",
+      "pose": "face",
+      "drawCalls": 1,
+      "triangles": 6867,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "low",
+      "pose": "body",
+      "drawCalls": 1,
+      "triangles": 6867,
+      "renderer": "WebKit WebGL"
+    },
+    {
+      "variant": "low",
+      "pose": "back",
+      "drawCalls": 1,
+      "triangles": 6867,
+      "renderer": "WebKit WebGL"
+    }
+  ]
+}

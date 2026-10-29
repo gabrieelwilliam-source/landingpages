@@ -501,37 +501,29 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         ),
     );
   }
-  loader.load(
-    modelUrl("gabriel-rigged.glb"),
-    (g) => {
-      if (disposed){releaseDetached(g.scene);return;}
-      g.scene.scale.setScalar(1.0);
-      g.scene.rotation.y = Math.PI;
-      heroHigh=rigVariant(g.scene,g.animations);
-      avatar.add(g.scene);
-      const bones = new Set<string>();
-      g.scene.traverse((o) => {
-        if (o instanceof T.SkinnedMesh)
-          o.skeleton.bones.forEach((b) => bones.add(b.uuid));
-      });
-      rigBones = bones.size;
-      mixer = heroHigh.mixer;actions=heroHigh.actions;
-      loader.load(modelUrl('low/gabriel-rigged.glb'),low=>{
-        if(disposed)return;low.scene.rotation.y=Math.PI;heroLow=rigVariant(low.scene,low.animations);low.scene.visible=false;avatar.add(low.scene);assetDirty=true;pendingPublish=true;
-      },undefined,()=>{ /* Full detail remains usable when the optional low variant fails. */ });
-      actions.Idle?.play();
-      actions.Walk?.setEffectiveTimeScale(1.5);
-      avatarReady = true;
-      assetDirty = true;
-      pendingPublish = true;
-      loadRoom(Math.min(5, areaAt(options.initialDistance) + 1));
-    },
-    undefined,
-    () =>
-      options.onError(
-        "O personagem não carregou. Reabra a jornada ou continue no modo clássico.",
-      ),
-  );
+  // Load the compact rig in parallel: mobile can move before the PBR variant arrives.
+  let highFailed=false,lowFailed=false;
+  function attachHero(g:{scene:T.Group;animations:T.AnimationClip[]},detail:'high'|'low'){
+    if(disposed){releaseDetached(g.scene);return;}
+    g.scene.rotation.y=Math.PI;
+    const variant=rigVariant(g.scene,g.animations),first=!avatarReady;
+    if(detail==='high')heroHigh=variant;else heroLow=variant;
+    g.scene.visible=first;avatar.add(g.scene);
+    const bones=new Set<string>();g.scene.traverse(o=>{if(o instanceof T.SkinnedMesh)o.skeleton.bones.forEach(b=>bones.add(b.uuid));});rigBones=bones.size;
+    variant.actions.Walk?.setEffectiveTimeScale(1.5);
+    if(first){
+      avatarLod=detail;mixer=variant.mixer;actions=variant.actions;actions.Idle?.play();avatarReady=true;
+      loadRoom(Math.min(5,areaAt(options.initialDistance)+1));
+    }
+    assetDirty=true;pendingPublish=true;
+  }
+  function heroLoadFailed(detail:'high'|'low'){
+    if(disposed)return;
+    if(detail==='high')highFailed=true;else lowFailed=true;
+    if(highFailed&&lowFailed)options.onError('O personagem não carregou. Reabra a jornada ou continue no modo clássico.');
+  }
+  loader.load(modelUrl('low/gabriel-rigged.glb'),g=>attachHero(g,'low'),undefined,()=>heroLoadFailed('low'));
+  loader.load(modelUrl('gabriel-rigged.glb'),g=>attachHero(g,'high'),undefined,()=>heroLoadFailed('high'));
   loadRoom(areaAt(options.initialDistance));
   let state = {
     x: 0,
@@ -732,10 +724,10 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     if(locomotion){moveAge=wasMoving?moveAge+elapsed:0;stopAge=0;gaitDistance+=virtualWalking?(state.distance-previousD):Math.hypot(state.x-previousX,state.distance-previousD);}
     else{stopAge=wasMoving?0:stopAge+elapsed;moveAge=0;}
     if(!paused&&!hidden)gesture=Math.max(0,gesture-elapsed);
-    const detail=characterDetail(quality,softwareRenderer)==='low'&&heroLow?'low':'high';
-    if(detail!==avatarLod&&heroHigh){
-      heroHigh.scene.visible=detail==='high';if(heroLow)heroLow.scene.visible=detail==='low';
-      const oldTime=actions[animationName]?.time||0;const model=detail==='low'?heroLow!:heroHigh;mixer=model.mixer;actions=model.actions;mixer.stopAllAction();if(actions[animationName]){actions[animationName].reset().play();actions[animationName].time=oldTime;}mixer.update(0);avatarLod=detail;assetDirty=true;pendingPublish=true;
+    const detail=heroLow&&(characterDetail(quality,softwareRenderer)==='low'||!heroHigh)?'low':'high';
+    if(detail!==avatarLod&&(detail==='low'?heroLow:heroHigh)){
+      if(heroHigh)heroHigh.scene.visible=detail==='high';if(heroLow)heroLow.scene.visible=detail==='low';
+      const oldTime=actions[animationName]?.time||0;const model=(detail==='low'?heroLow:heroHigh)!;mixer=model.mixer;actions=model.actions;mixer.stopAllAction();if(actions[animationName]){actions[animationName].reset().play();actions[animationName].time=oldTime;}mixer.update(0);avatarLod=detail;assetDirty=true;pendingPublish=true;
     }
     const nextAnimation = reduced?'Idle':gesture>0?'Interact':locomotion?(moveAge<.22?'Start':'Walk'):stopAge<.25?'Stop':'Idle';
     wasMoving=locomotion;

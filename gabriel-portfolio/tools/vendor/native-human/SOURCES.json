@@ -1,0 +1,265 @@
+[
+  {
+    "file": "bluegreen_eye.png",
+    "bytes": 697879,
+    "sha256": "653b3154e67f67e118c22acd19c472aa7543e0c229209f687c3f7f669f191fd9",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "eyes/materials/bluegreen_eye.png",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "bluegrey-eye-adapted.png",
+    "bytes": 231565,
+    "sha256": "7a0d605f73d630f2b93030ff6a18b2daf9008c7ea6b8545e002489847a9da2c9",
+    "derivedFrom": "bluegreen_eye.png",
+    "recipe": "node tools/prepare-native-textures.mjs",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "caucasian-male-young.target",
+    "bytes": 396479,
+    "sha256": "70e228ba7164737dae664454394536fc5935fa48d333c1a97d77e2dc6eacc5f5",
+    "source": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/macrodetails/caucasian-male-young.target",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "default.mhskel",
+    "bytes": 117790,
+    "sha256": "99f179bce0aa850b45d4191a1d0d234c5851f881c057439470ded3bddf729a24",
+    "source": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/rigs/default.mhskel",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "elvs_hooded_sweat_jacket1.mhclo",
+    "bytes": 671469,
+    "sha256": "0bcba0098a56c32f66b9f22ae37e8d0329e1cd515c44ce384edbaf848ef6fcb0",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+    "member": "clothes/elvs_hooded_sweat_jacket1/elvs_hooded_sweat_jacket1.mhclo",
+    "license": "CC BY (original header; publisher guide references 2.5 SE)",
+    "author": "Elvaerwyn"
+  },
+  {
+    "file": "eyebrow001.mhclo",
+    "bytes": 9141,
+    "sha256": "54c8892c2ba577f4152d779ce1f20f7cd323beb8cbd9cb701796165c221b4f5b",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "eyebrows/eyebrow001/eyebrow001.mhclo",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "eyebrow001.mhmat",
+    "bytes": 1098,
+    "sha256": "976e5f4f1d3922d7a11c6e2db233f8b4584b068d00619d5749687e81c92d61fc",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "eyebrows/eyebrow001/eyebrow001.mhmat",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "eyebrow001.obj",
+    "bytes": 8227,
+    "sha256": "88b13146395133f3901715e11706cdfd293e5d6087ad7c5e01efe1485a26b513",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "eyebrows/eyebrow001/eyebrow001.obj",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "eyebrow001.png",
+    "bytes": 89619,
+    "sha256": "9940f7d0b1b223709a19b05156ba6f6e9e4dbdbced02d7574f4d51d72c58967b",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "eyebrows/eyebrow001/eyebrow001.png",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "high-poly.mhclo",
+    "bytes": 72490,
+    "sha256": "b183cfe37120ab726f9b3f2ea6cd3a64c44ce7b4bd91a77c841cf70c04f83a0d",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "eyes/high-poly/high-poly.mhclo",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "high-poly.obj",
+    "bytes": 100882,
+    "sha256": "da2493215b708a344c33dc72f2a9a5b8fa985dcc5a70ad3b208995cf871da8e1",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "eyes/high-poly/high-poly.obj",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "hoodietex1.png",
+    "bytes": 243913,
+    "sha256": "8c186f1c37094c46b8fcc84aa9d3896b91b863093df084056dd676ca6d3302b0",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+    "member": "clothes/elvs_hooded_sweat_jacket1/hoodietex1.png",
+    "license": "CC BY (original header; publisher guide references 2.5 SE)",
+    "author": "Elvaerwyn"
+  },
+  {
+    "file": "ladieshoodiedown1.mhmat",
+    "bytes": 827,
+    "sha256": "b3a4cc7eaa937e26d36230de0684c1e18b95b15e7faa9e4020db7baafb158ce0",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+    "member": "clothes/elvs_hooded_sweat_jacket1/ladieshoodiedown1.mhmat",
+    "license": "CC BY (original header; publisher guide references 2.5 SE)",
+    "author": "Elvaerwyn"
+  },
+  {
+    "file": "ladieshoodiedown1.obj",
+    "bytes": 936824,
+    "sha256": "e53204f19be28c005c920748322fc2aa42e7ebdb84a4ab72f48e7a244b71aa64",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+    "member": "clothes/elvs_hooded_sweat_jacket1/ladieshoodiedown1.obj",
+    "license": "CC BY (original header; publisher guide references 2.5 SE)",
+    "author": "Elvaerwyn"
+  },
+  {
+    "file": "male_casualsuit01.mhclo",
+    "bytes": 570419,
+    "sha256": "78503ed7f56c149843d85e06e1164bc6871ce7319b2ef689237046352cc90de4",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/male_casualsuit01/male_casualsuit01.mhclo",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "male_casualsuit01.mhmat",
+    "bytes": 1345,
+    "sha256": "043b25cefd398261b893d3dae58c81fc3e9633a25a01eafe66963591f5ad6eb6",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/male_casualsuit01/male_casualsuit01.mhmat",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "male_casualsuit01.obj",
+    "bytes": 699545,
+    "sha256": "001921d237e408c35103720d046aa37f9c5512db1a179a5ede6a065cd504ba89",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/male_casualsuit01/male_casualsuit01.obj",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "male_casualsuit01_diffuse.png",
+    "bytes": 5531728,
+    "sha256": "3fd0bba5dcbdea0ac427f644a6c7c298938f7369b8f96626621ce1e88989394e",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/male_casualsuit01/male_casualsuit01_diffuse.png",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "normalshoodie.png",
+    "bytes": 256592,
+    "sha256": "ef106c733e71e5c262b128748a212358b3402d402bc8bb6786d7ab0dca6a4876",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip",
+    "member": "clothes/elvs_hooded_sweat_jacket1/normalshoodie.png",
+    "license": "CC BY (original header; publisher guide references 2.5 SE)",
+    "author": "Elvaerwyn"
+  },
+  {
+    "file": "shoes05.mhclo",
+    "bytes": 110217,
+    "sha256": "75fc467264b085d7a05ce0c9b5628bb364b246392c59524c556fa09f92b6cb16",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/shoes05/shoes05.mhclo",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "shoes05.mhmat",
+    "bytes": 1184,
+    "sha256": "e59a9cc4d4c9a56cf9025beb26ca549986c97065cdb675d4f59bd9c5a27dbe8d",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/shoes05/shoes05.mhmat",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "shoes05.obj",
+    "bytes": 125457,
+    "sha256": "5726aabac42ff489998d0a769545dea013961bbb71b9c6024d75170181a98818",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/shoes05/shoes05.obj",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "shoes05_diffuse.png",
+    "bytes": 1291907,
+    "sha256": "7fe5ea2600f6578cdf017da3392ae13aedabea8e8cc1dd6302a8f57e8fb7e5af",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "clothes/shoes05/shoes05_diffuse.png",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "short01.mhclo",
+    "bytes": 201588,
+    "sha256": "ae1ffaa98da5753b803b3a173bede4895d2215e6bb94763f3765a71f0e984f35",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "hair/short01/short01.mhclo",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "short01.mhmat",
+    "bytes": 1314,
+    "sha256": "01e2e12ce3f3d3c859225456660acadcdd27d4f4b4d888bcbd6f11998cadd975",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "hair/short01/short01.mhmat",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "short01.obj",
+    "bytes": 194450,
+    "sha256": "d998d8416f9b5d5591f1d756f4d292288d000a6951bc0f4d2e8e72727bbc44fa",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "hair/short01/short01.obj",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "short01_diffuse.png",
+    "bytes": 2354146,
+    "sha256": "f34a0957184e3d1e911ed59245f874f8d4843f61ee44ff49f43edb4be0196949",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "hair/short01/short01_diffuse.png",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "universal-male-young-averagemuscle-averageweight.target",
+    "bytes": 604,
+    "sha256": "4ba5396ddabda448ece15650a566fbebfbb10239256ccb201e8f883429e12249",
+    "source": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/macrodetails/universal-male-young-averagemuscle-averageweight.target",
+    "license": "CC0-1.0"
+  },
+  {
+    "file": "young_caucasian_male.mhmat",
+    "bytes": 1462,
+    "sha256": "6eda60b07ff2afbde078a2535ef3913593d84e9de92b2eb76c30f396a181fe2e",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "skins/young_caucasian_male/young_caucasian_male.mhmat",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  },
+  {
+    "file": "young_lightskinned_male_diffuse.png",
+    "bytes": 3693828,
+    "sha256": "862a26e335e958b70534cb5f0d7c47ef30ab148a56c42b3e9da969cf76f12963",
+    "archive": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "member": "skins/young_caucasian_male/young_lightskinned_male_diffuse.png",
+    "license": "CC0-1.0",
+    "author": "Data Collection AB, Joel Palmius, Jonas Hauquier"
+  }
+]

@@ -1,0 +1,45 @@
+
+> site-zaion@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ analog dead zone prevents drift while allowing proportional forward and reverse (1.143329ms)
+✔ diagonal and off-base movement keep unit speed and thumb inside the circle (0.349665ms)
+✔ invalid pointer coordinates cannot introduce non-finite movement (0.951801ms)
+✔ cast has eight fictional identities and a useful scripted role in every sector (1.698754ms)
+✔ NPC routines are deterministic, periodic and remain inside the facade (31.00585ms)
+✔ walking actors follow closed local routes rather than teleporting between workstations (3.563227ms)
+✔ guide curve and reconnect segments clear physical furniture and the glass facade (4.096058ms)
+✔ a reconnect route goes around an occupied local point (1.195157ms)
+✔ visitor movement stops at people and nearby activation respects distance (0.339761ms)
+✔ camera clipping includes a standing person as well as architecture (0.344698ms)
+✔ all four simulations expose three real local state transitions, reset and no overrun (0.367893ms)
+✔ contact CTA accepts configured public channels and rejects unsafe or invented destinations (0.289616ms)
+✔ overhead light bounds stop the camera while leaving the floor route open (0.377738ms)
+✔ geometry LOD follows explicit quality and distance while high keeps the protagonist detailed (0.181693ms)
+✔ transparent sector returns retain physical collisions and monitors clip the camera at screen height (0.235974ms)
+✔ every walking staff route clears the furniture and glass, with continuous chair exits (3.961725ms)
+✔ compacted plan keeps a clear arrival and supported luminaires above people and camera (0.258608ms)
+✔ forward and back traverse both environments with bounded depth (24.554514ms)
+✔ diagonal input does not increase speed (0.461033ms)
+✔ facade boundary and workstation chairs match the connected office (1.432113ms)
+✔ release decelerates and delta cap prevents tab-resume jumps (0.41216ms)
+✔ cinematic easing has stable endpoints and a symmetric midpoint (0.182744ms)
+✔ sector boundary allows off-centre walking without invisible causeway barriers (0.195594ms)
+✔ central guided lane remains clear of the actual furniture footprints (0.324758ms)
+✔ wheel normalization treats pixel, line and page devices consistently (0.181753ms)
+✔ scroll converges, reverses and honours the endpoints without overshoot (2.917697ms)
+✔ scroll progress preserves lateral stance and does not simulate a walking avatar (0.447082ms)
+✔ reduced-motion scroll goes directly to the selected point (0.930849ms)
+✔ scroll transforms all chapters around an anchored avatar; walking translates the avatar (1.007935ms)
+✔ batching Meshopt quantized furniture preserves metre-scale placement and source data (36.794152ms)
+✔ camera-relative movement rotates forward and strafe without increasing diagonal speed (1.916021ms)
+✔ camera segment stops before a tall display but clears low furniture (0.454253ms)
+✔ camera remains inside the building envelope and every collision has a real height (0.43938ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 151.867425

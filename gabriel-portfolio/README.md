@@ -147,3 +147,17 @@ Em dispositivos com ponteiro de toque, a visita abre em Caminhar com analógico 
 Grooming e roupa em `tools/refine_hero.py`, sobre a anatomia CC0 existente. Reconstrução: `npm run assets:character`. O LOD remove microfios desconectados e simplifica rosto/corpo separadamente antes de reunir em um draw call. Comparador e capturas em `docs/virtual-studio/hero-refinement/`. A versão continua local, sem publicação.
 
 Revisão de 29/10/2026: [aproximação às referências](docs/virtual-studio/reference-pass-20261029/index.html), com atlas autoral de pele/tecido, simplificação por região e comparativo. Continua sem publicação; as limitações em relação à referência estão documentadas.
+
+
+## Anatomia e materiais nativos — revisão local de 29/10/2026
+
+O personagem principal combina dados humanos CC0 e moletom CC BY de Elvaerwyn com o rig e animações autorais já existentes. Créditos completos em `ASSETS_LICENSES.md`, `tools/vendor/native-human/PROVENANCE.md`, `SOURCES.json` e na rota `/creditos`. Os arquivos vendorizados permitem reconstruir sem consultar a internet; nenhum retrato pessoal é incorporado.
+
+- `npm run assets:character`: prepara a textura adaptada dos olhos, ajusta malhas/roupas no Blender, preserva UVs nativas, exporta PBR e reconstrói os LODs.
+- `npm run assets:build`: reconstrói os seis setores, incluindo o bake de oclusão estática do piso em Cycles CPU, comprime e valida os GLBs. Exige Blender 4.3.2.
+- `OFFICE_PREVIEW_SECTOR=0 OFFICE_OUTPUT=/tmp/zaion-office-preview blender -b --python-exit-code 1 --python tools/build_office.py`: protótipo de um setor fora dos assets finais; não regrava a planta.
+- `CHROMIUM_PATH=/usr/bin/chromium node scripts/inspect-hero.mjs docs/virtual-studio/anatomy-rebuild-20261029 /caminho/avatar-anterior.glb`: inspeção WebGL com câmera/luz fixas para antes/depois e LOD.
+
+O modelo leve e o detalhado carregam em paralelo. A primeira variante disponível permite navegar; quando chega a qualidade escolhida, a troca preserva ação e tempo do rig. Há teste real de download do PBR bloqueado com movimento no analógico. O perfil leve mantém um material e menos de 7 mil triângulos. O modelo completo usa até oito materiais para preservar as texturas licenciadas. A medição por software não comprova desempenho em telefone físico.
+
+Comparador desta etapa: `docs/virtual-studio/anatomy-rebuild-20261029/index.html`. Entrega local na branch `visual-polish`, sem publicação.

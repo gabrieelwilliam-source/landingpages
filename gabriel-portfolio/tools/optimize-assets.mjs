@@ -23,12 +23,15 @@ for (const name of await readdir(dir)) {
   const path = dir + "/" + name,
     old = (await stat(path)).size;
   const doc = await io.read(path);
+  for(const material of doc.getRoot().listMaterials())if(material.getName().startsWith('Floor stone'))material.setOcclusionStrength(.72);
+  for(const material of doc.getRoot().listMaterials())if(material.getName().startsWith('CC0')&&/iris|hair|eyebrow/.test(material.getName()))material.setAlphaMode('MASK').setAlphaCutoff(.5);
   await doc.transform(
     dedup(),
     weld(),
     join(),
     prune(),
     textureCompress({ encoder: sharp, targetFormat: "webp", quality: 85 }),
+    ...(name==='gabriel-rigged.glb'?[simplify({simplifier:MeshoptSimplifier,ratio:.78,error:.0015,lockBorder:false})]:[]),
     ...((name.startsWith("environment") || name.startsWith("npc-"))
       ? [
           simplify({

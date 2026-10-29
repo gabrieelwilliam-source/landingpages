@@ -1,3 +1,19 @@
+# Revisão mais recente — base humana e materiais nativos, 29/10/2026
+
+Implementação local na branch `visual-polish`, sem publicação. [Comparador real antes/depois](docs/virtual-studio/anatomy-rebuild-20261029/index.html) e [relatório desta etapa](docs/virtual-studio/anatomy-rebuild-20261029/README.md).
+
+Gabriel usa agora morfologia adulta, pele/olhos/cabelo/sobrancelhas/mãos com UVs nativas e figurino modelado e texturizado: moletom de Elvaerwyn CC BY, jeans/tênis CC0. As fontes e hashes estão em `tools/vendor/native-human/`; créditos no site e em `ASSETS_LICENSES.md`. Barba, mochila, rig e animações do projeto adaptados, sem pixels da foto pessoal. Piso dos seis setores com oclusão de contato pré-calculada em 512px/UV independente e balcão de mármore escuro. Câmera, analógico, velocidade, colisões, galeria, oito NPCs fictícios, simulações e rascunho sem envio preservados.
+
+Completo: **53.950 triângulos / 1.131.040 bytes / 8 materiais**. Leve: **6.867 triângulos / 123.216 bytes / 1 material**. Mesmo rig de 16 ossos e 11 ações. Carregamento paralelo permite caminhar na variante leve enquanto a detalhada baixa; a troca mantém a animação em curso. As costuras da roupa leve são unidas antes da simplificação; olhos protegidos e maior orçamento para rosto/barba.
+
+Validação: lint, build, typecheck, **33 unitários e 29 E2E** na rodada completa; **5 E2E direcionados** após o ajuste final do LOD; GLBs, fontes, pesos, cores, UVs, bake não vazio, compressão, logo e hashes aprovados. Exportação estática em **360, 768 e 1440 px**, capturas desktop/mobile e caminho PBR aprovados. A ampliação do LOD e o custo de materiais são expostos no comparador. Não foi feita validação em telefone/GPU físicos; permanecem diferenças de identidade facial, grooming, mobiliário e iluminação em relação às referências.
+
+Backup integral anterior: `/workspace/artifacts/landingpages-before-anatomy-rebuild-20261029.tar.gz`, SHA-256 `22fe78372f81f8b6a2c3e71059ee02a7fcd068d0b3b4e45aa58ebd1c6fcb0969`. Pacote desta revisão: `/workspace/artifacts/zAIon-Nova-Base-3D-Revisao-20261029.zip`. A revisão exata está no `VERSAO.json` do ZIP. Preservados `../gabriel/`, `../index.html` e `../.nojekyll`; nenhum push ou acesso a produção/n8n.
+
+---
+
+## Histórico de revisões anteriores
+
 # zAIon Virtual Studio — Polimento Visual Profissional
 
 28/10/2026 · branch local `visual-polish` · sem publicação.

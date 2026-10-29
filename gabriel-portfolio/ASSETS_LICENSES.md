@@ -27,3 +27,16 @@ O grooming, as pálpebras, a roupa/mochila, o ajuste de cor e o orçamento de si
 ### Materiais procedurais — 29/10/2026
 
 `tools/human_albedo.py` gera um atlas original de pele/tecido; não utiliza pixels da fotografia nem das artes conceituais. O LOD incorpora a cor às cores dos vértices e remove a textura. A anatomia CC0 e os demais créditos permanecem. Nenhuma compra, download novo ou serviço pago nesta etapa.
+
+## Base humana e figurino texturizados — 29/10/2026
+
+Esta etapa acrescenta as fontes abaixo ao personagem Gabriel. Os registros anteriores descrevem seus respectivos estados históricos; as roupas do protagonista agora também incluem os assets licenciados desta tabela.
+
+| Componente | Autor / fonte | Licença e alterações |
+|---|---|---|
+| Morfologia adulta, pele masculina genérica, olhos, cabelo curto, sobrancelhas, jeans e tênis | MakeHuman system assets; © 2020 Data Collection AB, Joel Palmius, Jonas Hauquier. [Distribuição oficial](https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip); targets e esqueleto de dados no commit `a8bc2d54ff0ac92e78ff71431b1023eda42bf482`. | CC0 1.0, declarações originais preservadas. Recorte, UVs originais, cores adaptadas, ajuste de escala/rig, cabelo, retargeting e compressão. Não é foto nem escaneamento de Gabriel. Nenhum código do aplicativo MakeHuman importado. |
+| Moletom `elvs_hooded_sweat_jacket1` | **Elvaerwyn**, [asset original](http://www.makehumancommunity.org/node/1450), [distribuição oficial shirts02](https://files2.makehumancommunity.org/asset_packs/shirts02/shirts02_ccby.zip). | **CC BY**, conforme cabeçalho original. O guia do editor aponta para [CC BY 2.5 SE](https://creativecommons.org/licenses/by/2.5/se/deed.en). Modelagem e texturas adaptadas: ajuste da silhueta, mangas, capuz, skinning, resolução e compressão. Crédito obrigatório preservado também no site. Sem endosso do autor. |
+| Barba, mochila, animações e adaptação | Criações e código deste projeto. | Geometria/grooming e rig originais. Pele e roupas usam as fontes creditadas acima. |
+| AO do piso e mármore da recepção | Geração própria a partir da cena do escritório. | Sombra estática em 512px por setor e textura procedural. Nenhuma textura da referência copiada. |
+
+Fontes individuais, membros dos ZIPs e hashes: `tools/vendor/native-human/SOURCES.json`; avisos e guia de licença preservados na mesma pasta. A página `/creditos` integra a exportação e o pacote. O LOD herda as atribuições das malhas de origem. A fotografia pessoal e os moodboards permanecem privados.

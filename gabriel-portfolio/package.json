@@ -12,7 +12,7 @@
     "build:pages": "GITHUB_PAGES=true next build",
     "test:pages": "node scripts/test-pages.mjs",
     "lint": "eslint src tests scripts",
-    "assets:character": "blender -b --python-exit-code 1 --python tools/build_character.py && CHARACTER_ONLY=true node tools/optimize-assets.mjs && node tools/build-character-lods.mjs && node tools/verify-assets.mjs",
+    "assets:character": "node tools/prepare-native-textures.mjs && blender -b --python-exit-code 1 --python tools/build_character.py && CHARACTER_ONLY=true node tools/optimize-assets.mjs && node tools/build-character-lods.mjs && node tools/verify-assets.mjs",
     "assets:build": "blender -b --python-exit-code 1 --python tools/build_office.py && OFFICE_ONLY=true node tools/optimize-assets.mjs && node tools/verify-assets.mjs",
     "assets:cast": "sh tools/build_cast.sh",
     "preview:review": "node scripts/serve-review.mjs",

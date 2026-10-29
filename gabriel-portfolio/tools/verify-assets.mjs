@@ -1,6 +1,7 @@
 import { readFile, readdir, writeFile, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
+import sharp from "sharp";
 import { NodeIO } from "@gltf-transform/core";
 import { ALL_EXTENSIONS } from "@gltf-transform/extensions";
 import { MeshoptDecoder } from "meshoptimizer";
@@ -35,6 +36,10 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
   if (name.startsWith("environment")) {
     assert.ok(json.extensionsUsed.includes("EXT_texture_webp"));
     assert.ok(json.images.every((img) => img.mimeType === "image/webp"));
+    assert.ok(json.materials.some(m=>m.name.startsWith("Floor stone")&&m.occlusionTexture?.texCoord===1),"floor contact AO must retain its independent UV channel");
+    const sceneDoc=await io.read(new URL(name,root).pathname),floor=sceneDoc.getRoot().listMaterials().find(m=>m.getName().startsWith("Floor stone"));
+    const stats=await sharp(floor.getOcclusionTexture().getImage()).stats();
+    assert.ok(stats.channels[0].max-stats.channels[0].min>64,"floor AO must contain spatial contact shadows, not a blank bake");
     assert.ok(json.materials.filter(material => material.normalTexture && material.pbrMetallicRoughness?.baseColorTexture && material.pbrMetallicRoughness?.metallicRoughnessTexture).length >= 2, "architectural stone and wood retain full PBR maps; upholstered assets are shared separately");
   }
   if(name.startsWith('furniture/')){
@@ -56,7 +61,7 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
     );
     assert.ok(json.materials.some(m=>m.normalTexture&&m.pbrMetallicRoughness?.metallicRoughnessTexture), "human micro-normal and region-specific roughness atlas survive export");
     const characterPrimitives = json.meshes.flatMap(m => m.primitives);
-    assert.equal(characterPrimitives.length, 1, "avatar must remain one skinned draw call");
+    assert.ok(characterPrimitives.length <= (name==='gabriel-rigged.glb'?8:1), 'main PBR avatar <=8 material draws; NPCs one draw');
     assert.ok(characterPrimitives.every(p => p.attributes.COLOR_0 !== undefined), "original colour palette must survive compression");
     entry.triangles = characterPrimitives.reduce((n,p) => n + json.accessors[p.indices].count / 3, 0);
     assert.ok(entry.triangles < (name === "gabriel-rigged.glb" ? 65000 : 45000), "detailed human geometry budget");
@@ -65,8 +70,7 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
     if(name === 'gabriel-rigged.glb'){
       const material=doc.getRoot().listMaterials()[0];
       assert.ok(material.getBaseColorTexture(), 'hero retains its original skin/textile albedo');
-      const color=doc.getRoot().listMeshes()[0].listPrimitives()[0].getAttribute('COLOR_0');
-      assert.ok(Array.from({length:color.getCount()},(_,i)=>color.getElement(i,[])[0]).some(v=>v<.2),'hero palette must not be replaced by fake white vertex colours');
+      assert.ok(doc.getRoot().listMeshes().flatMap(m=>m.listPrimitives()).some(p=>{const c=p.getAttribute('COLOR_0');return Array.from({length:c.getCount()},(_,i)=>c.getElement(i,[])[0]).some(v=>v<.2)}),'hero palette must retain authored colours alongside native PBR maps');
     }
     const primitives = doc
       .getRoot()

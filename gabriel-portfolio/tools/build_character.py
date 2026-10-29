@@ -219,20 +219,23 @@ sys.path.insert(0,os.path.join(ROOT,'tools'))
 from import_human import import_anatomical_surfaces
 import_anatomical_surfaces(ROOT,skin,hair,eye,white,black,npc_index)
 if npc_index is None:
+ from native_avatar import native_head,native_wardrobe
+ native_head(ROOT)
  from refine_hero import refine_hero,hero_color
  for material,color in [(skin,(.46,.31,.245)),(cloth,(.032,.052,.086)),(seam,(.055,.078,.108)),(lining,(.09,.11,.14)),(beard,(.057,.038,.024)),(grey,(.25,.22,.175))]:
   material.diffuse_color=(*color,1)
  refine_hero((skin,hair,beard,grey,cloth,seam,lining,trim),detail,cube)
+ native_wardrobe(ROOT)
 # Convert detailed curves and bind them to the appropriate deforming bone.
 for o in list(bpy.context.scene.objects):
  if o.type=='CURVE':
   bone_name=o['skinBone'];bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o;bpy.ops.object.convert(target='MESH')
   o.vertex_groups.new(name=bone_name).add(list(range(len(o.data.vertices))),1,'REPLACE')
-# Bake material colours into the geometry: one skinned draw call, no portrait texture.
+# Bake material colours into the geometry: shared skinned legacy palette, no portrait texture.
 surface=bpy.data.materials.new('Gabriel original vertex palette');surface.use_nodes=True
 p=surface.node_tree.nodes.get('Principled BSDF');p.inputs['Roughness'].default_value=.86
 vc=surface.node_tree.nodes.new('ShaderNodeVertexColor');vc.layer_name='SurfaceColor';surface.node_tree.links.new(vc.outputs['Color'],p.inputs['Base Color'])
-# Original procedural micro-surface atlas. No portrait image or downloaded skin is used.
+# Original procedural micro-surface atlas. Native skin and clothing retain their separate licensed materials.
 size=256;rough=[];normal=[];noise=random.Random(804)
 roughness=[.72,.92,.86,.28,.90,.48,.88,.76]
 for y in range(size):
@@ -254,18 +257,27 @@ for title,data in [('roughness',rough),('normal',normal)]:
 if npc_index is None:
  from human_albedo import add_human_albedo
  add_human_albedo(surface)
+heroMouth=next((obj.get('mouthZ',1.592) for obj in bpy.context.scene.objects if obj.name.startswith('MakeHuman CC0 anatomical head')),1.592)
 for o in list(bpy.context.scene.objects):
  if o.type!='MESH':continue
+ if o.get('preservePBR'):
+  if o.data.uv_layers.active:o.data.uv_layers.active.name='SurfaceUV'
+  continue
  original=o.data.materials[0]
  color=original.diffuse_color[:3]
  tile=0 if original in [skin,skin_shadow,lip] else 3 if original in [eye,white,black] else 4 if original in [hair,beard,grey] else 5 if original==trim else 2 if original==denim else 6 if original in [shoe,sole] else 1
- uv=o.data.uv_layers.active or o.data.uv_layers.new(name='HumanMicroUV')
+ uv=o.data.uv_layers.active or o.data.uv_layers.new(name='SurfaceUV')
+ uv.name='SurfaceUV'
  for polygon in o.data.polygons:
   axis=max(range(3),key=lambda k:abs(polygon.normal[k]))
   for li in polygon.loop_indices:
    co=o.matrix_world@o.data.vertices[o.data.loops[li].vertex_index].co
    u,v=((co.y,co.z) if axis==0 else (co.x,co.z) if axis==1 else (co.x,co.y))
-   if npc_index is None and o.name.startswith('MakeHuman CC0 anatomical head'):
+   if npc_index is None and o.name.startswith(('Contoured beard','Natural moustache fibre')):
+    mouth=heroMouth
+    u=max(0,min(1,(co.x+.12)/.24));v=max(0,min(1,(co.z-(1.385+mouth-1.592))/.235))
+    uv.data[li].uv=((.03+u*.94)/4,(1+.03+v*.94)/2)
+   elif npc_index is None and o.name.startswith('MakeHuman CC0 anatomical head'):
     u=(math.atan2(co.x,-co.y)+math.pi)/math.tau;v=max(0,min(1,(co.z-1.50)/.34))
     uv.data[li].uv=((3+.03+u*.94)/4,(1+.03+v*.94)/2)
    else:uv.data[li].uv=((tile%4+.03+(u*18%1)*.94)/4,(tile//4+.03+(v*18%1)*.94)/2)

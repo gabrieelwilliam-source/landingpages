@@ -1,6 +1,6 @@
 # Assets, autoria e permissões
 
-**Etapa atual de Polimento Profissional:** cabeça/mãos agora usam dados CC0 MakeHuman e os assentos estofados usam SheenChair CC0. Consulte `ASSETS_LICENSES.md` e `/creditos` para autoria, revisão exata e adaptações. Os registros abaixo descrevem etapas anteriores e os demais assets preservados.
+**Etapa atual de Polimento Profissional (incluindo a base texturizada de 29/10):** cabeça/mãos agora usam dados CC0 MakeHuman e os assentos estofados usam SheenChair CC0. O protagonista também usa pele/olhos/cabelo/jeans/tênis CC0 e moletom CC BY de Elvaerwyn. Consulte `ASSETS_LICENSES.md` e `/creditos` para autoria, revisão exata e adaptações. Os registros abaixo descrevem etapas anteriores e os demais assets preservados.
 
 Revisão de 28/10/2026. Este documento identifica as fontes; não transfere direitos de marcas ou arquivos pessoais.
 

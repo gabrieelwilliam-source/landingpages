@@ -13,6 +13,12 @@ def add_human_albedo(material):
    if tile in [1,2,6]:
     weave=math.sin(x*math.pi)*math.sin(y*math.pi)+math.sin(x*1.7+y*.17)*.3
     value=.90+noise*.027+weave*.035;rgb=(value,value,value)
+   elif tile==4:
+    phase=u+.014*math.sin(v*20+u*18)+.006*math.sin(v*65+u*50)
+    fine=math.sin(phase*math.tau*96);clump=math.sin((u+.025*math.sin(v*16+u*9))*math.tau*9)
+    value=.82+.10*clump+.08*fine+noise*.015
+    silver=max(0,(math.sin(phase*math.tau*37)-.95)/.05)*.18
+    rgb=tuple(value*(c*(1-silver)+.32*silver) for c in (.22,.15,.095))
    elif tile==7:
     # Undo the UV tile padding and reconstruct cylindrical facial coordinates.
     a=((u-.03)/.94-.5)*math.tau;z=1.50+(v-.03)/.94*.34

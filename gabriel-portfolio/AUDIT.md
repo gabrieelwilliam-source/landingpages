@@ -1,3 +1,11 @@
+# Auditoria incremental — 29/10/2026
+
+A revisão atual substitui a roupa procedural do protagonista por malhas e texturas licenciadas, preserva UVs nativas e introduz oclusão estática no piso. Fontes, licenças, custos e evidências: [relatório atual](docs/virtual-studio/anatomy-rebuild-20261029/README.md). O rig e as funcionalidades existentes foram preservados. A inspeção visual encontrou olhos apagados e fendas no primeiro LOD; a versão entregue preserva a íris, une costuras e reserva geometria para rosto/barba. Completo 53.950 triângulos; leve 6.867. Full PBR até oito materiais; leve um material. Não se afirma igualdade ao concept art ou FPS em hardware físico.
+
+33 unitários / 29 E2E completos; após o LOD final, cinco E2E direcionados, exportação em três larguras e capturas de entrada. Sem publicação. O histórico abaixo documenta o baseline e revisões anteriores.
+
+---
+
 # Auditoria — Polimento Visual Profissional
 
 Base: commit `cd9cdb55738e596e0aac917fcac55b72a50b8701`, versão pública anterior. Revisão local na branch `visual-polish`, sem publicação. Backup integral anterior a alterações: `/workspace/artifacts/landingpages-before-professional-polish-20261028.tar.gz`; SHA em arquivo adjacente.

@@ -8,8 +8,8 @@
   "assets": [
     {
       "name": "environment-0.glb",
-      "bytes": 191360,
-      "sha256": "1fc8bb0e3c3706b951ade6fd896c24777e3a06236d228aee1ae16817b38b7653",
+      "bytes": 209380,
+      "sha256": "1e63f2c30b2deaa4cd4c98d8bd5ab270b50faa0d25c98ae3cee7755175acb358",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -19,8 +19,8 @@
     },
     {
       "name": "environment-1.glb",
-      "bytes": 224032,
-      "sha256": "09b397f6e03884203e2b688b29d9195d8926706409ee196382226d10f5f4843b",
+      "bytes": 229668,
+      "sha256": "ff270e2f5ecac73730446b85779daedb1df47e0d33895e82d083b2c7e397b370",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -30,8 +30,8 @@
     },
     {
       "name": "environment-2.glb",
-      "bytes": 399936,
-      "sha256": "40f1e409563adc0a2b991f757d6526e6ea37499e7d5b9785ed92087c2c9586a8",
+      "bytes": 417288,
+      "sha256": "75736b4f70439857ea46454cbe07ddc06d7a2ef6d829db53550e0e8ae14eaa20",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -41,8 +41,8 @@
     },
     {
       "name": "environment-3.glb",
-      "bytes": 177644,
-      "sha256": "5becb2dfd62cc09a7e1980e8980cfcb3d608303a364a2e202360d96c25b6ae6f",
+      "bytes": 184836,
+      "sha256": "dea54c7690d349aca581fd9f9e1db6aaf07688b1c31b5e39c4cd37b089b0c7f8",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -52,8 +52,8 @@
     },
     {
       "name": "environment-4.glb",
-      "bytes": 323900,
-      "sha256": "afee7a1e069c8a316cc2b3c2cff444de9de5862540d0eaf8d0d00bd96a26b5b5",
+      "bytes": 339052,
+      "sha256": "26dbe1a4595d2f62edcb7bbd2a80b46d2545e010a39cf980ec4f1b054b3776be",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -63,8 +63,8 @@
     },
     {
       "name": "environment-5.glb",
-      "bytes": 267672,
-      "sha256": "332bea8e0923e79a174e68d6f0b649d60a3976332c3bf9140b1d52833a3529a4",
+      "bytes": 287936,
+      "sha256": "cdbebb93457fca4b505458b5b1d4cac9cf49d9d18f8641eab42aa9a79ef467d0",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -96,8 +96,8 @@
     },
     {
       "name": "gabriel-rigged.glb",
-      "bytes": 609400,
-      "sha256": "465924cd498b11226b893b6c6ea21c621b6f22f89f2205180815ad73928bb9ad",
+      "bytes": 1131040,
+      "sha256": "fdd30b0e47c6165089a901b072abc63c47819f23cc85c86de0d74d6ba782a739",
       "meshes": 1,
       "skins": 1,
       "animations": [
@@ -116,7 +116,7 @@
       "textureFormats": [
         "image/webp"
       ],
-      "triangles": 61344,
+      "triangles": 53950,
       "bones": 16
     },
     {
@@ -320,5 +320,5 @@
       "bones": 16
     }
   ],
-  "totalBytes": 5926212
+  "totalBytes": 6531468
 }

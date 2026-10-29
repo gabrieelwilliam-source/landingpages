@@ -51,30 +51,30 @@ def refine_hero(materials,detail,cube):
   u=row/10
   for j in range(n):
    t=-math.pi/2+j*math.pi/(n-1)
-   top=1.574+.066*smooth((abs(math.sin(t))-.25)/.60)
+   top=1.594+.050*smooth((abs(math.sin(t))-.25)/.60)
    z=1.40+(top-1.40)*u
-   p=at(z,t);p.z-=.010*math.cos(t)**2*(1-u)**2;p.x*=.88 if z<1.53 else 1;p.y-=.014*smooth((1.53-z)/.10);p.y+=.0007*math.sin(j*2.7+z*85);verts.append(p)
+   p=at(z,t);p.z-=.010*math.cos(t)**2*(1-u)**2;p.x*=.88 if z<1.53 else 1;p.y-=.014*smooth((1.53-z)/.10);p.y+=.0025*math.sin(j*1.4+z*32);p.z+=.003*math.sin(j*2.7)*(1-u)**3;verts.append(p)
  for row in range(10):
   for j in range(n-1):
    a=row*n+j;faces.append((a,a+1,a+1+n,a+n))
  mesh=bpy.data.meshes.new('Contoured beard');mesh.from_pydata(verts,[],faces);mesh.update()
  obj=bpy.data.objects.new('Contoured beard with open mouth',mesh);bpy.context.collection.objects.link(obj);mesh.materials.append(beard);obj.vertex_groups.new(name='head').add(list(range(len(verts))),1,'REPLACE')
  for p in mesh.polygons:p.use_smooth=True
- for j in range(170):
-  t=rng.uniform(-1.48,1.48);top=min(rng.uniform(1.52,1.64),1.573+.066*smooth((abs(math.sin(t))-.25)/.60))
+ for j in range(105):
+  t=rng.uniform(-1.48,1.48);top=min(rng.uniform(1.52,1.64),1.593+.050*smooth((abs(math.sin(t))-.25)/.60))
   bottom=max(1.402,top-rng.uniform(.065,.19));points=[]
   for k in range(4):
    u=k/3;p=at(top*(1-u)+bottom*u,t+math.sin(u*5+j)*.018)
    p.x*=.88 if p.z<1.53 else 1;p.y-=.014*smooth((1.53-p.z)/.10)
    p.y-=.0018+math.sin(u*8+j)*.001;p.x+=math.sin(j+u*7)*.0008;points.append(p)
-  detail('Contoured beard fibre',points,rng.uniform(.00035,.0006),grey if j%6==0 else hair if j%3==0 else beard,'head')
+  detail('Contoured beard fibre',points,rng.uniform(.00035,.0006),grey if j%13==0 else hair if j%3==0 else beard,'head')
  # Two moustache fans remain above the lips, following the actual facial surface.
  for side in [-1,1]:
   for j in range(34):
    x=side*(.004+j*.00095);points=[]
    for k in range(3):
     u=k/2;points.append(surface(x+side*u*.005,1.612-abs(x)*.16-u*(.005+rng.random()*.002),.0015))
-   detail('Natural moustache fibre',points,.00035,grey if j%11==0 else beard,'head')
+   detail('Natural moustache fibre',points,.00055,grey if j%17==0 else beard,'head')
   for j in range(38):
    x=side*.036+(j-18.5)*.0011;z=1.712+.004*math.cos((j-18.5)/21)
    detail('Groomed eyebrow',[surface(x,z,.001),surface(x+side*.0018,z+.002+rng.random()*.0015,.0015)],.00028,hair,'head')
@@ -152,5 +152,5 @@ def hero_color(name,v,color):
   return tuple(c*(1-shade)+h*shade for c,h in zip(base,(.048,.032,.022)))
  if 'beard' in name.lower() or 'moustache' in name.lower():
   grain=.87+.13*math.sin(v.x*167+v.z*79)*math.sin(v.z*213)
-  return tuple(c*grain for c in color)
+  return (.68,.61,.55)
  return color

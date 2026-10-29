@@ -2,7 +2,8 @@
 No external textures or reference photographs are embedded in the assets.
 Run: blender -b --python tools/build_office.py
 """
-import bpy, math, os, random, json
+import bpy, math, os, random, json, sys
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from mathutils import Vector
 # Reuse geometry utilities only; preserve the existing skinned Gabriel asset.
 source=open(os.path.join(os.path.dirname(__file__),'build_assets.py')).read()
@@ -10,6 +11,7 @@ exec(source.split('\nclean()\nskin=')[0])
 PLAN=json.load(open(os.path.join(os.path.dirname(__file__),'..','src','data','office-plan.json')))
 CENTRES=PLAN['referenceCentres'];EDGES=list(PLAN['referenceBoundaries']);SCALE=PLAN['depthScale'];EDGES[0]=-PLAN['entranceDepth']/SCALE
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if os.environ.get('OFFICE_OUTPUT'):OUT=os.environ['OFFICE_OUTPUT'];os.makedirs(OUT,exist_ok=True)
 colliders=[]
 camera_obstacles=[]
 furniture=[]
@@ -30,7 +32,7 @@ def cylinder(name,loc,r,depth,material):
  return finish(bpy.context.object,name,material)
 
 def texture_material(name,color,kind):
- material=mat(name,color,rough=.38 if kind=='stone' else .66)
+ material=mat(name,color,rough=.32 if kind=='marble' else .38 if kind=='stone' else .66)
  p=material.node_tree.nodes.get('Principled BSDF')
  size=256; pixels=[]; rough=[]; rng=random.Random(name)
  for y in range(size):
@@ -41,7 +43,7 @@ def texture_material(name,color,kind):
     grain=math.sin(x*.32+math.sin(y*.03)*1.8)*.12+math.sin(x*1.5+y*.006)*.05+rng.uniform(-.025,.025)
    else:
     vein=abs(math.sin(x*.024+y*.036+math.sin(y*.057+x*.019)*1.2+math.sin(x*.05-y*.035)*.6+math.sin(x*.13+y*.11)*.12))
-    grain=(max(0,1-vein*24)*.015)+rng.uniform(-.018,.018)
+    grain=(max(0,1-vein*(15 if kind=='marble' else 24))*(4.5 if kind=='marble' else .015))+rng.uniform(-.018,.018)
    rgb=[max(0,min(1,c*(1+grain))) for c in color]
    pixels.extend([12.92*c if c<=.0031308 else 1.055*c**(1/2.4)-.055 for c in rgb]+[1])
    v=(.66+grain*.8+rng.uniform(-.018,.018)) if kind=='stone' else (.92+grain*.1) if kind=='fabric' else .68+grain*.15
@@ -161,7 +163,7 @@ def pendant(x,y,length=2.6):
  cube('Diffuser',(x,y,4.772),(length-.08,.045,.012),glow,.004)
  fixtures.append({'area':index,'x':x,'d':round((CENTRES[index]+y)*SCALE,3),'bottom':4.766,'top':4.843,'ceiling':5.61,'suspensions':2})
 
-for index in range(6):
+for index in ([int(os.environ['OFFICE_PREVIEW_SECTOR'])] if os.environ.get('OFFICE_PREVIEW_SECTOR') else range(6)):
  clean();random.seed(280+index)
  stone=texture_material('Honed graphite limestone',(.105,.11,.12),'stone')
  wood=texture_material('Quarter sawn walnut',(.11,.055,.026),'wood')
@@ -234,7 +236,8 @@ for index in range(6):
   for side in [-1,1]:
    cube('Rug stitched border',(rx+side*1.75,ry,.018),(.025,3.45,.006),linen,0)
  if index==0:
-  cube('Reception stone counter',(-4.9,3,.5),(3.8,1.3,1.0),stone,.12)
+  marble=texture_material('Reception dark veined marble',(.027,.030,.034),'marble')
+  cube('Reception stone counter',(-4.9,3,.5),(3.8,1.3,1.0),marble,.12)
   cube('Reception walnut top',(-4.9,3,1.05),(3.95,1.4,.08),wood,.05)
   cube('Reception recessed warm light',(-4.9,2.34,.12),(3.4,.025,.025),glow,.006,1)
   curve('Reception bronze reveal',[(-6.6,2.32,.75),(-3.2,2.32,.75)],.014,brass)
@@ -318,13 +321,16 @@ for index in range(6):
  # Triplanar-style metre UV projection, baked to ordinary glTF UVs.
  for obj in bpy.context.scene.objects:
   if obj.type!='MESH' or not any(m.node_tree and any(n.type=='TEX_IMAGE' for n in m.node_tree.nodes) for m in obj.data.materials):continue
-  uv=obj.data.uv_layers.active or obj.data.uv_layers.new(name='MetreUV')
+  uv=obj.data.uv_layers.active or obj.data.uv_layers.new(name='SurfaceUV')
+  uv.name='SurfaceUV'
   for polygon in obj.data.polygons:
    axis=max(range(3),key=lambda k:abs(polygon.normal[k]))
    for loop_index in polygon.loop_indices:
     v=obj.matrix_world@obj.data.vertices[obj.data.loops[loop_index].vertex_index].co
     u,vv=((v.y+d,v.z) if axis==0 else (v.x,v.z) if axis==1 else (v.x,v.y+d))
     uv.data[loop_index].uv=(u*.48,vv*.48)
+ from office_ao import bake_floor_ao
+ bake_floor_ao()
  # Camera-only overhead obstacles have a bottom height, allowing movement underneath.
  for obj in bpy.context.scene.objects:
   if obj.type=='MESH' and obj.name.startswith(('Suspended luminaire','Monitor frame','Reception workstation')):
@@ -336,6 +342,7 @@ for index in range(6):
  for obj in list(bpy.context.scene.objects):
   if obj.get('physicsOnly'):bpy.data.objects.remove(obj,do_unlink=True)
  export('environment-'+str(index))
+if os.environ.get('OFFICE_PREVIEW_SECTOR'):raise SystemExit(0)
 with open(os.path.join(ROOT,'src','data','office-layout.json'),'w') as f:
  json.dump({'halfWidth':PLAN['halfWidth'],'length':PLAN['referenceLength']*SCALE,'centres':[round(v*SCALE,3) for v in CENTRES],'boundaries':[round(v*SCALE,3) for v in EDGES],'depthScale':SCALE,'colliders':colliders,'cameraCeiling':4.65,'cameraObstacles':camera_obstacles,'furniture':furniture,'seats':seat_spots,'fixtures':fixtures},f,indent=2)
 # Generate actual actor positions from the source layout and physical seat anchors.
