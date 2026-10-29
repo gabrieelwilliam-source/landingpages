@@ -54,3 +54,8 @@ Amostra curta de animação ativa da revisão final em 1000×760, com SwiftShade
 
 
 Após a correção final de olhos/cabelo/costuras no LOD, **cinco E2E direcionados aprovados** (troca de qualidade, analógico retrato/paisagem, desempenho e upgrade durante caminhada). `npm run build:pages` e `npm run test:pages` aprovados em **360, 768 e 1440 px**. Capturas finais de entrada desktop/móvel e PBR aprovadas. O comparador expõe também a ampliação do modelo leve.
+
+
+## Conferência do ZIP
+
+Pacote extraído em diretório separado e iniciado com `node INICIAR-REVISAO.mjs`. Chromium 390×844 com toque: analógico move e para ao soltar; troca Scroll/Caminhar e modo clássico funcionam; formulário local e página de créditos com Elvaerwyn/CC BY carregam, sem erros HTTP ou de runtime. Evidência: `evidence/zip-smoke.json` e `package-mobile.png`. CRC e SHA-256 de cada entrada verificados; o hash do ZIP fica no arquivo adjacente `anatomy-rebuild-package.json` fora do pacote, para evitar autorreferência.
