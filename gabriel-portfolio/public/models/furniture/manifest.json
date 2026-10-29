@@ -18,27 +18,27 @@
         ]
       },
       "source": "Wayfair LLC / Eric Chadwick, SheenChair, CC0",
-      "adaptation": "Scale, navy/sand palette, physically dielectric wood/fabric, UV density, 512px WebP and Meshopt"
+      "adaptation": "Scale, navy palette, dielectric wood/fabric, UV density, 512px WebP and Meshopt"
     },
     {
       "name": "lounge-bench.glb",
-      "triangles": 8787,
-      "bytes": 410704,
-      "sha256": "71f59b2df7796017312f73e39f7a8a7e92b4bcb8cc73c671b35e1a726547663a",
+      "triangles": 8688,
+      "bytes": 386408,
+      "sha256": "611b0577bc8964747ad3e50e856c58309cb97bb1d7a6cfbd51843aa9bd640360",
       "bounds": {
         "min": [
-          -1.366004991531372,
-          0.00028189402095391003,
-          -0.4146728538815549
+          -1.3650000095367432,
+          -0.00007705330983309722,
+          -0.4146340539856913
         ],
         "max": [
-          1.361367407441139,
-          1.0293687637753282,
-          0.4403054290358594
+          1.3650000095367432,
+          1.0294529688371767,
+          0.4402666142388346
         ]
       },
       "source": "Wayfair LLC / Eric Chadwick, SheenChair, CC0",
-      "adaptation": "Scale, navy/sand palette, physically dielectric wood/fabric, UV density, 512px WebP and Meshopt"
+      "adaptation": "Three separate licensed upholstery seats, original rounded arms/pillows and supported walnut base; cream palette, UV density, 512px WebP and Meshopt"
     }
   ]
 }

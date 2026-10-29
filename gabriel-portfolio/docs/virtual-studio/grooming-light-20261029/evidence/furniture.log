@@ -1,0 +1,16 @@
+
+> site-zaion@0.1.0 assets:furniture
+> node tools/prepare-furniture.mjs
+
+prune: Removed types... TextureInfo (10), Material (2), Texture (1), Accessor (1)
+prune: Removed types... Accessor (19)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (9)
+lounge-chair 8075 404224
+prune: Removed types... Node (4), Mesh (4), Primitive (17), Accessor (75)
+prune: Removed types... TextureInfo (25), Material (5), Texture (2)
+prune: Removed types... Accessor (13)
+quantize: Skipping TEXCOORD_0; out of [0,1] range.
+prune: Removed types... Accessor (6)
+lounge-bench 8688 386408

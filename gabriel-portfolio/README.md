@@ -161,3 +161,10 @@ O personagem principal combina dados humanos CC0 e moletom CC BY de Elvaerwyn co
 O modelo leve e o detalhado carregam em paralelo. A primeira variante disponível permite navegar; quando chega a qualidade escolhida, a troca preserva ação e tempo do rig. Há teste real de download do PBR bloqueado com movimento no analógico. O perfil leve mantém um material e menos de 7 mil triângulos. O modelo completo usa até oito materiais para preservar as texturas licenciadas. A medição por software não comprova desempenho em telefone físico.
 
 Comparador desta etapa: `docs/virtual-studio/anatomy-rebuild-20261029/index.html`. Entrega local na branch `visual-polish`, sem publicação.
+
+
+## Acabamento gráfico — 29/10/2026
+
+Revisão atual: `docs/virtual-studio/grooming-light-20261029/index.html` e `README.md` da mesma pasta. `tools/groom_avatar.py` cria scalp ajustado à anatomia, base arredondada e 88 mechas de barba, pele com micro-normal/rugosidade e atlas compartilhado com recorte de pelos curtos CC0. O código é chamado por `npm run assets:character`. `tools/modular-sofa.mjs`, chamado por `npm run assets:furniture`, combina três estofados CC0 e gera braços/encosto/pés de apoio. As dimensões físicas e o rig anterior são mantidos.
+
+A luz nova atua no PBR; o fallback mantém o orçamento de luzes simples. O LOD continua sem mapas e em um material. Um teste específico verifica que o bake móvel preserva o fator de cor de materiais compartilhados e não aplica alpha de material opaco. 34 unitários / 29 E2E completos, cinco revalidações finais e exportação em três larguras. Entrega local, sem publicação. Créditos/licenças completos em `ASSETS_LICENSES.md` e `/creditos`.

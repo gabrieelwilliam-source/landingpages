@@ -3,9 +3,9 @@
   "assets": [
     {
       "name": "gabriel-rigged.glb",
-      "bytes": 123216,
-      "sha256": "c9634c74d84f8dbe5e5b58545b752bea213c9f2bcff9a1bc18b93bc9744e7745",
-      "triangles": 6867
+      "bytes": 123096,
+      "sha256": "3130fa37231bd7d43475c77c683bd7242efe0a1730a4c2ad6b133ced19a9236d",
+      "triangles": 6726
     },
     {
       "name": "npc-0.glb",

@@ -40,3 +40,12 @@ Esta etapa acrescenta as fontes abaixo ao personagem Gabriel. Os registros anter
 | AO do piso e mármore da recepção | Geração própria a partir da cena do escritório. | Sombra estática em 512px por setor e textura procedural. Nenhuma textura da referência copiada. |
 
 Fontes individuais, membros dos ZIPs e hashes: `tools/vendor/native-human/SOURCES.json`; avisos e guia de licença preservados na mesma pasta. A página `/creditos` integra a exportação e o pacote. O LOD herda as atribuições das malhas de origem. A fotografia pessoal e os moodboards permanecem privados.
+
+
+## Grooming, materiais e sofá modular — 29/10/2026
+
+Esta etapa substitui o cabelo/sobrancelhas nativos da revisão anterior por **geometria e atlas RGBA de composição autoral**, em `tools/groom_avatar.py`: couro cabeludo recortado da anatomia CC0 com linha de entradas, estopa/base de barba arredondada, 88 mechas curvas, bigode e sobrancelhas. A anatomia abaixo continua CC0; nenhum pixel da foto de Gabriel é usado. A textura CC0 `eyebrow001.png` é recortada e incorporada ao atlas compartilhado para as sobrancelhas e o bigode. As malhas antigas de cabelo/sobrancelhas permanecem como fonte histórica; não são usadas no GLB atual.
+
+Pele e íris continuam derivadas das fontes CC0 acima. Novos mapas de micro-normal/rugosidade são procedurais; a íris foi dessaturada e escurecida com Sharp. Os hashes do arquivo derivado e das fontes foram atualizados. O moletom continua **Elvaerwyn, CC BY**, com um ajuste suave de caimento do capuz. A cor do material PBR é incorporada corretamente ao LOD com teste de regressão, incluindo materiais compartilhados e alpha opaco.
+
+O sofá de três lugares usa **três conjuntos de estofado do SheenChair**, © 2020 Wayfair LLC / Eric Chadwick, CC0, com escala individual; não estica uma única cadeira. Braços e encosto de apoio arredondados, almofadas e base de nogueira com quatro pés são geometria complementar autoral (`tools/modular-sofa.mjs`). Os materiais/têxteis continuam derivados do asset CC0. Oclusão original mantida apenas nos estofados de origem; partes novas não reutilizam o AO específico da cadeira. As dimensões permanecem dentro do espaço de circulação existente. Nenhuma compra ou nova fonte externa.

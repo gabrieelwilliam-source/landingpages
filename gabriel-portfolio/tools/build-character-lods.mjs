@@ -23,7 +23,9 @@ for(const name of names){
    const xyz=heroPhysicalPositions(doc,primitive),colors=primitive.getAttribute('COLOR_0');
    for(let i=0;i<colors.getCount();i++){
     const x=xyz[i*3],height=xyz[i*3+1],front=smooth((xyz[i*3+2]+.015)/.045),line=1.675*(1-front)+(1.775+.018*Math.exp(-(((Math.abs(x)-.065)/.025)**2)))*front;
-    const mask=smooth((height-line)/.010),c=colors.getElement(i,[]);for(let k=0;k<3;k++)c[k]=c[k]*(1-mask)+[.012,.009,.007][k]*mask;colors.setElement(i,c);
+    const mask=smooth((height-line)/.010),c=colors.getElement(i,[]);for(let k=0;k<3;k++)c[k]=c[k]*(1-mask)+[.012,.009,.007][k]*mask;
+    const browLine=1.712+.002*Math.sin((Math.abs(x)-.011)/.052*Math.PI),brow=smooth(1-Math.abs(height-browLine)/.006)*smooth((Math.abs(x)-.007)/.008)*smooth((.075-Math.abs(x))/.012)*smooth((xyz[i*3+2]-.065)/.03)*.8;
+    for(let k=0;k<3;k++)c[k]=c[k]*(1-brow)+[.04,.032,.025][k]*brow;colors.setElement(i,c);
    }
   }
   // Retain the iris/sclera topology: generic face simplification erases the pupil.
@@ -57,7 +59,7 @@ for(const name of names){
    heroEyes=mesh.listPrimitives().find(p=>p.getMaterial().getName()==='Protected iris topology');
    for(const body of [...mesh.listPrimitives()].filter(p=>p!==heroEyes)){
    const face=splitHeroFace(doc,body),ends=splitHeroFace(doc,body,'extremities');compactPrimitive(body);compactPrimitive(face);compactPrimitive(ends);
-   simplifyPrimitive(face,{simplifier:MeshoptSimplifier,ratio:.28,error:.004,lockBorder:true});
+   simplifyPrimitive(face,{simplifier:MeshoptSimplifier,ratio:.24,error:.004,lockBorder:true});
    simplifyPrimitive(ends,{simplifier:MeshoptSimplifier,ratio:.12,error:.006,lockBorder:true});
    simplifyPrimitive(body,{simplifier:MeshoptSimplifier,ratio:.04,error:.025,lockBorder:true});
    console.log("Hero LOD region budgets",face.getIndices().getCount()/3,ends.getIndices().getCount()/3,body.getIndices().getCount()/3);

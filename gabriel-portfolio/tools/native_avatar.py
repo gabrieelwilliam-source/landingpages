@@ -80,27 +80,18 @@ def native_head(root):
   return head_transform(shaped[index])
  head['mouthZ']=landmark((0,-.12,1.592)).z
  head['browZ']=landmark((.034,-.10,1.712)).z
+ # A neutral closed-lip rest expression, preserving the authored skin UVs.
+ mouth=float(head['mouthZ'])
+ for vertex in head.data.vertices:
+  q=vertex.co;weight=math.exp(-((q.x/.043)**4+((q.z-mouth)/.023)**4))*max(0,min(1,(-q.y-.07)/.035))
+  q.z-=.30*(q.z-mouth)*weight
+ head.data.update()
  sub=head.modifiers.new('Adult facial contours','SUBSURF');sub.levels=1;bpy.context.view_layer.objects.active=head;bpy.ops.object.modifier_apply(modifier=sub.name)
  dec=head.modifiers.new('Realtime facial topology','DECIMATE');dec.ratio=.60;bpy.ops.object.modifier_apply(modifier=dec.name)
  v,uv,faces,groups=read_obj(os.path.join(folder,'high-poly.obj'));fit=fitted(folder,'high-poly.mhclo',base,shaped)
  positions=[head_transform(p) for p in fit]
  for p in positions:p.x*=1.06
  create('CC0 fitted blue grey eyes',positions,uv,faces,material('CC0 bluegreen iris and sclera',os.path.join(folder,'bluegrey-eye-adapted.png'),.28),lambda i:{'head':1})
- for stem,texture,label in [('short01','short01_diffuse.png','CC0 close-cropped hair'),('eyebrow001','eyebrow001.png','CC0 fitted eyebrow')]:
-  verts,uvs,fs,gs=read_obj(os.path.join(folder,stem+'.obj'));points=fitted(folder,stem+'.mhclo',base,shaped);coords=[]
-  for p in points:
-   q=head_transform(p)
-   if stem=='short01':
-    hit,nearest,normal,face=head.closest_point_on_mesh(q)
-    if hit:q=nearest+(q-nearest)*.16+normal*.0015
-   q.x*=1.06;coords.append(q)
-  obj=create(label,coords,uvs,fs,material(label,os.path.join(folder,texture),.88),lambda i:{'head':1})
-  if stem=='short01':
-   attr=obj.data.color_attributes['SurfaceColor']
-   for loop in obj.data.loops:
-    q=obj.data.vertices[loop.vertex_index].co
-    front=max(0,min(1,(-q.y+.015)/.045));hairline=1.675*(1-front)+(1.775+.018*math.exp(-((abs(q.x)-.065)/.025)**2))*front
-    alpha=max(0,min(1,(q.z-hairline)/.014));attr.data[loop.index].color=(1,1,1,alpha)
  print('NATIVE HEAD: adult male macro anatomy, authored UV skin, fitted eye meshes')
 
 def native_wardrobe(root):
@@ -134,6 +125,10 @@ def native_wardrobe(root):
   v,uv,faces,groups=read_obj(os.path.join(folder,obj));fit=fitted(folder,mhclo,base,shaped)
   if kind=='pants':faces=[f for f in faces if all(fit[i].y<1.7 for i,t in f)]
   posed=[pose(p,kind) for p in fit]
+  if kind=='hoodie':
+   for p,weights in posed:
+    drape=smooth((p.z-1.43)/.10)*smooth((p.y+.06)/.08)*smooth((weights.get('spine',0)-.4)/.5)*smooth((abs(p.x)-.105)/.15)
+    p.z-=.035*drape;p.x*=1-.055*drape;p.y+=.010*drape
   mat=material('Elvaerwyn hooded sweatshirt (CC BY)' if kind=='hoodie' else 'MakeHuman CC0 tailored jeans',os.path.join(folder,tex),.94,os.path.join(folder,'normalshoodie.png') if kind=='hoodie' else None)
   create('Licensed fitted '+kind,[p for p,w in posed],uv,faces,mat,lambda i:posed[i][1])
  for o in list(bpy.context.scene.objects):

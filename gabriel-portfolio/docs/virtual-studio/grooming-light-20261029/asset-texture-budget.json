@@ -1,0 +1,26 @@
+{
+  "method": "RGBA8 + full mip-chain upper estimate for hero GLB only; excludes render targets, driver allocation, other scene assets and decoded CPU images; not measured GPU memory",
+  "metrics": [
+    {
+      "variant": "before",
+      "textureCount": 11,
+      "estimatedRgbaMiB": 34.5,
+      "estimatedRgbaMipMiB": 46,
+      "materialDraws": 8
+    },
+    {
+      "variant": "after",
+      "textureCount": 12,
+      "estimatedRgbaMiB": 41.5,
+      "estimatedRgbaMipMiB": 55.333333333333336,
+      "materialDraws": 7
+    },
+    {
+      "variant": "low",
+      "textureCount": 0,
+      "estimatedRgbaMiB": 0,
+      "estimatedRgbaMipMiB": 0,
+      "materialDraws": 1
+    }
+  ]
+}

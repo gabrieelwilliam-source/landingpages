@@ -25,6 +25,10 @@ for (const name of await readdir(dir)) {
   const doc = await io.read(path);
   for(const material of doc.getRoot().listMaterials())if(material.getName().startsWith('Floor stone'))material.setOcclusionStrength(.72);
   for(const material of doc.getRoot().listMaterials())if(material.getName().startsWith('CC0')&&/iris|hair|eyebrow/.test(material.getName()))material.setAlphaMode('MASK').setAlphaCutoff(.5);
+  for(const material of doc.getRoot().listMaterials()){
+    if(material.getName()==='Gabriel layered groom')material.setAlphaMode('MASK').setAlphaCutoff(.38);
+    if(material.getName()==='CC0 adult male skin')material.setBaseColorFactor([.84,.80,.77,1]);
+  }
   await doc.transform(
     dedup(),
     weld(),

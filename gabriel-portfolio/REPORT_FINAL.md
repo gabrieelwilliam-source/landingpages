@@ -1,3 +1,19 @@
+# Revisão mais recente — acabamento gráfico, 29/10/2026
+
+Branch `visual-polish`, revisão local sobre `3f56847`. [Comparador real antes/depois](docs/virtual-studio/grooming-light-20261029/index.html) e [relatório, custos e evidências](docs/virtual-studio/grooming-light-20261029/README.md).
+
+Gabriel recebeu scalp ajustado à anatomia, barba arredondada com 88 mechas em camadas, textura CC0 de pelos curtos para sobrancelhas/bigode, pele com micro-normal/rugosidade, íris menos saturada, lábios em repouso e capuz com caimento suavizado. O escritório recebeu luz de preenchimento no PBR e sofá de três lugares com estofados independentes, braços, almofadas, encosto apoiado e quatro pés de nogueira. Mesmos limites de circulação, rig, animações, analógico, câmera, galeria, NPCs fictícios e rascunho local.
+
+Modelo completo: **51.484 triângulos / 1.190.256 bytes / sete materiais**, versus 53.950 / 1.131.040 / oito antes. Leve: **6.726 triângulos / 123.096 bytes / um material sem mapas**. Sofá: **8.688 triângulos / 386.408 bytes**, no mesmo volume físico. Memória teórica dos mapas do avatar completo sobe de ~46,0 para ~55,3 MiB RGBA8 com mipmaps; método/limites estão no relatório. Não se promete fotorealismo idêntico às referências nem FPS em hardware físico.
+
+Validação: lint/build/typecheck, **34 unitários e 29 E2E completos**, **cinco E2E finais direcionados**, assets/fontes e exportação estática em **360, 768 e 1440 px** aprovados. Capturas de personagem, sofá, PBR, entrada móvel/desktop e seis setores reais; não são os concept arts. A luz extra é omitida do fallback por software. Nenhum teste foi removido ou limite elevado para aceitar os assets.
+
+Backup integral anterior: `/workspace/artifacts/landingpages-before-grooming-light-20261029.tar.gz`, SHA-256 `7f8025726e4bfc2bd7dfcf346f3d7dfb0e9ab3afec638a06cd3c379d630272d0`. Pacote: `/workspace/artifacts/zAIon-Acabamento-Grafico-Revisao-20261029.zip`; commit exato no `VERSAO.json`. Nada foi enviado/push, publicado ou copiado para `../gabriel/`; landing page FR e produção/n8n preservados.
+
+---
+
+## Histórico anterior
+
 # Revisão mais recente — base humana e materiais nativos, 29/10/2026
 
 Implementação local na branch `visual-polish`, sem publicação. [Comparador real antes/depois](docs/virtual-studio/anatomy-rebuild-20261029/index.html) e [relatório desta etapa](docs/virtual-studio/anatomy-rebuild-20261029/README.md).

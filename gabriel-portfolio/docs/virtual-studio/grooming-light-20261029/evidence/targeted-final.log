@@ -1,0 +1,18 @@
+
+> site-zaion@0.1.0 test:e2e
+> playwright test tests/progressive-hero.spec.ts tests/mobile-joystick.spec.ts tests/full-studio.spec.ts tests/portfolio.spec.ts --grep starts and walks|moves proportionally|quality swaps|record measured animation
+
+[WebServer] (node:80369) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:80385) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/full-studio.spec.ts:85:5 › quality swaps actual skinned LODs and preserves the active rig (7.7s)
+  ✓  2 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (portrait) (5.7s)
+  ✓  3 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (landscape) (7.9s)
+  ✓  4 tests/portfolio.spec.ts:180:5 › record measured animation performance during active scene scrolling (7.1s)
+  ✓  5 tests/progressive-hero.spec.ts:3:5 › mobile starts and walks while the full PBR hero is still downloading (10.3s)
+
+  5 passed (40.7s)

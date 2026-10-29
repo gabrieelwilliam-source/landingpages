@@ -226,6 +226,8 @@ if npc_index is None:
   material.diffuse_color=(*color,1)
  refine_hero((skin,hair,beard,grey,cloth,seam,lining,trim),detail,cube)
  native_wardrobe(ROOT)
+ from groom_avatar import groom_avatar
+ groom_avatar(ROOT)
 # Convert detailed curves and bind them to the appropriate deforming bone.
 for o in list(bpy.context.scene.objects):
  if o.type=='CURVE':

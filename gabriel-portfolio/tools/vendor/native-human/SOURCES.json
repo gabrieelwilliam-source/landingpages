@@ -10,8 +10,8 @@
   },
   {
     "file": "bluegrey-eye-adapted.png",
-    "bytes": 231565,
-    "sha256": "7a0d605f73d630f2b93030ff6a18b2daf9008c7ea6b8545e002489847a9da2c9",
+    "bytes": 203254,
+    "sha256": "40889eabd17751165893c4f3c84986f8d143f38a9eb2fb9cb45bf03c54f5deae",
     "derivedFrom": "bluegreen_eye.png",
     "recipe": "node tools/prepare-native-textures.mjs",
     "license": "CC0-1.0"

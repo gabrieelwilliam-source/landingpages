@@ -1,3 +1,11 @@
+# Auditoria incremental — acabamento gráfico, 29/10/2026
+
+A inspeção confirmou quatro defeitos: barba uniforme com borda rígida, recortes irregulares de cabelo, capuz muito aberto e banco esticado com pouca massa de sofá. A revisão introduz scalp recortado da anatomia, barba em camadas, pelos curtos CC0, micro-superfície de pele e sofá modular com apoios. Um erro de bake ignorava o fator de cor PBR no LOD; há correção e teste para materiais compartilhados/alpha opaco. A primeira iluminação de preenchimento aumentava o custo no caminho software; a versão final restringe a luz ao PBR e revalida os perfis.
+
+Custos: personagem completo 51.484 triângulos/sete materiais; leve 6.726/um sem mapas. A estimativa de textura completa sobe ~9,3 MiB RGBA8+mips, exposta no [relatório atual](docs/virtual-studio/grooming-light-20261029/README.md). 34 unitários, 29 E2E completos, cinco direcionados após acabamento final, exportação em três larguras e capturas reais. Persistem diferenças de identidade, grooming, arquitetura e luz; não há medição em telefone/GPU físicos. Sem publicação.
+
+---
+
 # Auditoria incremental — 29/10/2026
 
 A revisão atual substitui a roupa procedural do protagonista por malhas e texturas licenciadas, preserva UVs nativas e introduz oclusão estática no piso. Fontes, licenças, custos e evidências: [relatório atual](docs/virtual-studio/anatomy-rebuild-20261029/README.md). O rig e as funcionalidades existentes foram preservados. A inspeção visual encontrou olhos apagados e fendas no primeiro LOD; a versão entregue preserva a íris, une costuras e reserva geometria para rosto/barba. Completo 53.950 triângulos; leve 6.867. Full PBR até oito materiais; leve um material. Não se afirma igualdade ao concept art ou FPS em hardware físico.

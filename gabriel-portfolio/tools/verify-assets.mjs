@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import sharp from "sharp";
 import { NodeIO } from "@gltf-transform/core";
+import {getBounds} from "@gltf-transform/functions";
 import { ALL_EXTENSIONS } from "@gltf-transform/extensions";
 import { MeshoptDecoder } from "meshoptimizer";
 await MeshoptDecoder.ready;
@@ -45,6 +46,9 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
   if(name.startsWith('furniture/')){
     assert.ok(json.materials.some(m=>m.normalTexture&&m.occlusionTexture),'licensed upholstery keeps its normal and AO maps');
     const tris=json.meshes.flatMap(m=>m.primitives).reduce((n,p)=>n+json.accessors[p.indices].count/3,0);assert.ok(tris<10000,'shared furniture realtime budget');
+    const furnitureDoc=await io.read(new URL(name,root).pathname),bounds=getBounds(furnitureDoc.getRoot().listScenes()[0]);
+    assert.ok(bounds.max[0]-bounds.min[0] <= (name.includes('bench')?2.77:1.00) && bounds.max[2]-bounds.min[2]<=.90,'upholstery must remain inside its existing collision footprint');
+    assert.ok(bounds.min[1]>-.025&&bounds.min[1]<.025&&bounds.max[1]<1.07,'furniture remains grounded and at the existing human scale');
   }
   if (name === "gabriel-rigged.glb" || name.startsWith("npc-")) {
     assert.equal(entry.skins, 1);
@@ -68,6 +72,9 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
     entry.bones = json.skins[0].joints.length;
     const doc = await io.read(new URL(name, root).pathname);
     if(name === 'gabriel-rigged.glb'){
+      const groom=json.materials.find(m=>m.name==='Gabriel layered groom'),skin=json.materials.find(m=>m.name==='CC0 adult male skin');
+      assert.equal(groom?.alphaMode,'MASK','layered grooming uses stable cutout transparency');
+      assert.ok(skin?.normalTexture&&skin?.pbrMetallicRoughness?.metallicRoughnessTexture,'skin micro-normal and roughness maps survive export');
       const material=doc.getRoot().listMaterials()[0];
       assert.ok(material.getBaseColorTexture(), 'hero retains its original skin/textile albedo');
       assert.ok(doc.getRoot().listMeshes().flatMap(m=>m.listPrimitives()).some(p=>{const c=p.getAttribute('COLOR_0');return Array.from({length:c.getCount()},(_,i)=>c.getElement(i,[])[0]).some(v=>v<.2)}),'hero palette must retain authored colours alongside native PBR maps');

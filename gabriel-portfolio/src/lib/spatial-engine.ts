@@ -105,13 +105,13 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   }
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.94;
+  renderer.toneMappingExposure = softwareRenderer ? .94 : .90;
   renderer.shadowMap.enabled = host.clientWidth > 700 && !softwareRenderer;
   renderer.shadowMap.type = softwareRenderer ? T.BasicShadowMap : T.PCFSoftShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
   const camera = new T.PerspectiveCamera(50, 1, 0.1, 500);
-  scene.add(new T.HemisphereLight("#e9dfcf", "#534238", softwareRenderer ? 1.05 : .9));
+  scene.add(new T.HemisphereLight("#e9dfcf", "#534238", softwareRenderer ? 1.10 : .9));
   const sun = new T.DirectionalLight("#ffd3a0", 1.8);
   sun.position.set(18, 9, -32);
   sun.castShadow = true;
@@ -122,6 +122,10 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   sun.shadow.camera.bottom = -18;
   sun.shadow.bias = -0.0005;
   scene.add(sun, sun.target);
+  // Broad window bounce reveals cloth and facial volume without another shadow map.
+  const windowFill=new T.DirectionalLight('#c6d7ef',.38);
+  windowFill.position.set(-5.5,4.2,3);windowFill.target.position.set(0,1.32,0);
+  if(!softwareRenderer)scene.add(windowFill,windowFill.target);
   const ceilingLights = [-4, 4].map(x => {
     const lamp = new T.PointLight("#ffd5a5", softwareRenderer ? 20 : 25, 20, 2);
     lamp.position.set(x, 4.2, -3);
@@ -134,7 +138,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const probe = new RoomEnvironment();
     const env = pmrem.fromScene(probe, 0.04, 0.1, 100, {size: softwareRenderer ? 64 : 128});
     scene.environment = env.texture;
-    scene.environmentIntensity = 0.32;
+    scene.environmentIntensity = 0.40;
     probe.dispose();
     pmrem.dispose();
     resources.push(env.texture);
@@ -245,6 +249,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         o.receiveShadow = true;
         // Honed stone: keep the probe highlight broad and restrained at close range.
         const surfaces=Array.isArray(o.material)?o.material:[o.material];
+        surfaces.forEach(material=>{material.alphaToCoverage=!softwareRenderer&&host.clientWidth>700&&material.alphaTest>0;});
         surfaces.forEach(material=>{
           if(material instanceof T.MeshStandardMaterial&&material.name.includes('limestone'))material.roughness=Math.max(.66,material.roughness);
         });
@@ -782,6 +787,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         lamp.position.z = -destinations[area] + world.position.z - (i ? 3 : -3);
       });
       sun.target.position.set(0, 0, scrollMode ? -anchor.d : -state.distance);
+      windowFill.position.set(focusX-5.5,4.2,-focusD+3);windowFill.target.position.set(focusX,1.32,-focusD);
       scene.add(sun.target);
       camera.lookAt(look);
     }
@@ -956,7 +962,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     setQuality(value: GraphicQuality) {
       quality = value;
       renderer.setPixelRatio(value === "low" ? (softwareRenderer ? .45 : .7) : value === "medium" ? Math.min(devicePixelRatio,1.15) : value === "high" ? Math.min(devicePixelRatio, 1.75) : softwareRenderer ? .7 : Math.min(devicePixelRatio, 1.5));
-      scene.environmentIntensity=value === "high" ? 0.36 : 0.30;
+      scene.environmentIntensity=value === "high" ? 0.44 : 0.38;
       const shadows = value !== "low" && host.clientWidth > 700 && !softwareRenderer;
       const changedShadows = renderer.shadowMap.enabled !== shadows;
       renderer.shadowMap.enabled = shadows;

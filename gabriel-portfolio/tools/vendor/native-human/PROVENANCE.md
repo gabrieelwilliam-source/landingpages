@@ -15,3 +15,8 @@ Original: **Elvaerwyn, elvs_hooded_sweat_jacket1**, http://www.makehumancommunit
 Adaptations: body morph fitting, sleeve retargeting, hood adjustment, vertex skin weights, resized PBR albedo/normal maps, simplification and glTF/Meshopt export. Original OBJ, textures, metadata and author/license header retained. Attribution is included in the site `/creditos`, root `ASSETS_LICENSES.md`, source and review package.
 
 The original image and mesh files are data with their respective asset licenses. They are not the AGPL application. Public portrait and concept art are excluded from this directory and from the delivered site.
+
+
+### Grooming revision, 2026-10-29
+
+The current GLB replaces the formerly fitted short01 hair/eyebrow001 meshes with original clipped-scalp/layered-beard/brow geometry and a shared RGBA atlas (procedural scalp/beard, cropped CC0 eyebrow001.png for brows/moustache) (`tools/groom_avatar.py`). The older CC0 source files are retained for reproducibility of the preceding revision. Generic skin and eye data remain licensed sources; subtle normal/roughness maps are procedural. The adapted eye image now also reduces brightness, with its recipe and current hash in SOURCES.json.
