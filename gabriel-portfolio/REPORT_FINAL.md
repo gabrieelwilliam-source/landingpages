@@ -8,7 +8,7 @@ Modelo completo: **51.484 triângulos / 1.190.256 bytes / sete materiais**, vers
 
 Validação: lint/build/typecheck, **34 unitários e 29 E2E completos**, **cinco E2E finais direcionados**, assets/fontes e exportação estática em **360, 768 e 1440 px** aprovados. Capturas de personagem, sofá, PBR, entrada móvel/desktop e seis setores reais; não são os concept arts. A luz extra é omitida do fallback por software. Nenhum teste foi removido ou limite elevado para aceitar os assets.
 
-Backup integral anterior: `/workspace/artifacts/landingpages-before-grooming-light-20261029.tar.gz`, SHA-256 `7f8025726e4bfc2bd7dfcf346f3d7dfb0e9ab3afec638a06cd3c379d630272d0`. Pacote: `/workspace/artifacts/zAIon-Acabamento-Grafico-Revisao-20261029.zip`; commit exato no `VERSAO.json`. Nada foi enviado/push, publicado ou copiado para `../gabriel/`; landing page FR e produção/n8n preservados.
+Backup integral anterior: `/workspace/artifacts/landingpages-before-grooming-light-20261029.tar.gz`, SHA-256 `7f8025726e4bfc2bd7dfcf346f3d7dfb0e9ab3afec638a06cd3c379d630272d0`. Pacote: `/workspace/artifacts/zAIon-Acabamento-Grafico-Revisao-20261029.zip`; commit exato no `VERSAO.json`. Pacote extraído e testado pelo iniciador em Chromium móvel: analógico, parada ao soltar, modos, contato local e créditos, sem erros; evidência em `docs/virtual-studio/grooming-light-20261029/evidence/zip-smoke.json`. CRC e hashes de todas as entradas aprovados. Nada foi enviado/push, publicado ou copiado para `../gabriel/`; landing page FR e produção/n8n preservados.
 
 ---
 

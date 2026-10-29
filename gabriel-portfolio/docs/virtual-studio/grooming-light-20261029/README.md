@@ -65,3 +65,8 @@ Estimativa dos mapas do avatar completo em RGBA8 com mipmaps: **46,0 → 55,3 Mi
 | Reprodução idêntica das referências | Parcial; diferenças de identidade, grooming, arquitetura e luz expostas. |
 | FPS em telefone/GPU físicos | Pendente; apenas software e emulação neste ambiente. |
 | Publicação | Não executada, conforme etapa de revisão local. |
+
+
+## Verificação do pacote
+
+ZIP extraído em pasta separada e aberto por `node INICIAR-REVISAO.mjs`. Teste real em Chromium 390×844 com toque: analógico move e para ao soltar; troca Scroll/Caminhar, modo clássico, contato local e créditos de Elvaerwyn/CC BY funcionam, sem erros HTTP ou de runtime. Evidência: `evidence/zip-smoke.json` e `package-mobile.png`. CRC e SHA-256 de cada entrada verificados. O hash final fica em `grooming-light-package.json` ao lado do ZIP, fora dele, para evitar autorreferência.

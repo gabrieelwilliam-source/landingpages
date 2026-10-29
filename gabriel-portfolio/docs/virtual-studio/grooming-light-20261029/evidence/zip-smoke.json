@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "starter": "node INICIAR-REVISAO.mjs",
+  "mobileInitialMode": "walk",
+  "analogMoves": true,
+  "releaseStops": true,
+  "modeSwitch": true,
+  "classicContact": true,
+  "licensedHoodieCredit": true,
+  "errors": []
+}
