@@ -1,3 +1,13 @@
+# Publicação autorizada — 29/10/2026
+
+O usuário autorizou publicar a revisão concluída de rosto/barba (`a07fdec`). A revisão e seus testes permanecem documentados abaixo; as entregas “sem publicação” descrevem o período anterior a esta autorização. Destino real confirmado: https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . GitHub Pages usa `main` → `/`; configuração preservada.
+
+A exportação preparada contém os mesmos modelos completos/LODs dos manifestos validados, com confirmação de SHA-256. A publicação conserva a landing page FR, foto privada, demais projetos e n8n. Backup integral anterior: `/workspace/artifacts/landingpages-before-publish-face-depth-20261029.tar.gz`, SHA-256 `22a229020d849a57877198c7f6560bc68ee7a57be2a7ac79be4f6a75ac7fd92f`. A versão anterior de `gabriel/` é arquivada separadamente antes de copiar a exportação.
+
+A preparação não é prova de deploy: a confirmação final deve verificar o build do Pages e `version.json`, HTML e modelos por HTTPS. O registro de confirmação fica em `/workspace/artifacts/publish-face-depth-20261029/`. Repositório/endereço `Site-zAIon` continuam pendentes; o nome exibido é Site zAIon.
+
+---
+
 # Revisão mais recente — rosto, barba e leitura no celular, 29/10/2026
 
 Continuação local sobre `8c4f222`, branch `visual-polish`. [Comparador de GLBs reais](docs/virtual-studio/face-depth-20261029/index.html) e [relatório com custos, capturas e limites](docs/virtual-studio/face-depth-20261029/README.md).

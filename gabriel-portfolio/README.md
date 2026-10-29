@@ -178,3 +178,8 @@ A luz nova atua no PBR; o fallback mantém o orçamento de luzes simples. O LOD 
 ## Rosto, barba e leitura móvel — revisão local de 29/10/2026
 
 [Comparador e relatório atuais](docs/virtual-studio/face-depth-20261029/index.html). Ajustes locais de rosto, sobrancelhas/bigode com fios modelados, barba de fibras curvas e ponta arredondada, couro cabeludo com densidade recortada. O LOD remove os fios pequenos e preserva a raiz suave da pele; a luz ambiente existente do software/móvel foi calibrada sem novo passe. `npm run assets:character` reconstrói o personagem. Mantém ferramentas/asset sourcing gratuitos, navegação, rig e exportação existentes. Etapa local sem publicação.
+
+
+## Publicação autorizada — 29/10/2026
+
+Após a revisão de rosto/barba, o usuário autorizou: “pode publicar quando terminar”. A revisão está autorizada para o Pages de testes existente: https://gabrieelwilliam-source.github.io/landingpages/gabriel/ . A configuração real do repositório e do Pages foi reconferida antes da publicação; a renomeação para `Site-zAIon` ainda não ocorreu. Os registros de revisão local/ZIP anteriores mantêm o estado histórico em que foram entregues. A versão pública é identificada por `gabriel/version.json`, incluindo revisão-fonte e hashes dos arquivos centrais.

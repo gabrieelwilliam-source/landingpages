@@ -26,3 +26,8 @@ Nome exibido: `Site zAIon`. A integração GitHub recusou a renomeação com HTT
 ## Etapa vigente — Polimento Visual Profissional, 28/10/2026
 
 O pacote `PROMPT_CODEX.md`/`zAIon_Polimento_Visual_Profissional_Codex.zip` estabelece revisão local, sem publicação. Nesta etapa, desenvolver na branch `visual-polish`, validar e entregar pacote/relatório local. Não copiar a exportação para `../gabriel/`, não enviar para main e não publicar. A preferência anterior de publicação automática fica suspensa nesta revisão, até nova instrução do usuário. Manter foto privada, logo original, navegação e a landing page FR.
+
+
+## Autorização posterior — 29/10/2026: publicar a revisão concluída
+
+O usuário instruiu na conversa: “pode publicar quando terminar”. A suspensão da etapa Polimento Visual terminou para esta revisão. Publicar a revisão final validada no GitHub Pages de testes existente, preservando backup integral, landing page FR, foto privada e produção/n8n. Não pedir novamente confirmação para essa publicação. Conferir `main`, exportação, build do Pages e versão efetiva por HTTPS. Os relatórios/ZIPs de revisão que dizem “sem publicação” são registros históricos anteriores a esta autorização. O repositório real e o prefixo permanecem `gabrieelwilliam-source/landingpages` e `/landingpages/gabriel` enquanto a renomeação não tiver sido efetivada.
