@@ -1,0 +1,70 @@
+{
+  "before": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 1144236,
+    "sha256": "344412fc18cabd8328c20950778f3de51f7cdd269adfb60d0ac9d77d38b2c878",
+    "meshes": 1,
+    "skins": 1,
+    "animations": [
+      "Idle",
+      "Interact",
+      "Sit",
+      "SitDown",
+      "StandUp",
+      "Start",
+      "Stop",
+      "Talk",
+      "Turn",
+      "Type",
+      "Walk"
+    ],
+    "textureFormats": [
+      "image/webp"
+    ],
+    "triangles": 51485,
+    "bones": 16
+  },
+  "after": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 1453348,
+    "sha256": "a83fad57ae403a4e3fc2bb5d7daef622cc95406e9f2cf34688254733c01534db",
+    "meshes": 1,
+    "skins": 1,
+    "animations": [
+      "Idle",
+      "Interact",
+      "Sit",
+      "SitDown",
+      "StandUp",
+      "Start",
+      "Stop",
+      "Talk",
+      "Turn",
+      "Type",
+      "Walk"
+    ],
+    "textureFormats": [
+      "image/webp"
+    ],
+    "triangles": 55313,
+    "bones": 16
+  },
+  "lowBefore": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 123196,
+    "sha256": "17f5996ed3eb29058fe78970ce4be19275f9d9d0f83a963f5fea451eef8de5c2",
+    "triangles": 6739
+  },
+  "lowAfter": {
+    "name": "gabriel-rigged.glb",
+    "bytes": 123888,
+    "sha256": "1c7f469b52d0c17a131b05c621c61f875cd50dcb71e07e032974233d8875c624",
+    "triangles": 6882
+  },
+  "textureMaps": "Unchanged dimensions/number of maps: ~34.3 MiB estimated RGBA8+mips for the full avatar; not whole-app or driver VRAM. Low avatar has no maps.",
+  "materials": {
+    "full": 7,
+    "low": 1
+  },
+  "physicalDeviceValidated": false
+}

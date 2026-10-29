@@ -1,3 +1,11 @@
+# Auditoria incremental — rosto e leitura no celular, 29/10/2026
+
+A inspeção encontrou sobrancelhas finas/angulosas, bigode recortado, raiz rígida da barba e fios repetitivos. O refinamento troca faixas por fios modelados, gera fibras curvas irregulares/grisalhos, arredonda a parte inferior e ajusta a forma da face sobre os dados CC0 existentes. A primeira densidade do couro cabeludo ficou pontilhada demais; as capturas finais usam densidade mais alta e fundo de raiz discreto. A luz hemisférica do software foi calibrada sem novo passe.
+
+Os fios pequenos da região de olhos/boca passam a ser removidos no LOD sem apagar a íris, lábios ou barba conectada; um teste de topologia cobre esse limite. O tile de scalp é marcado para virar superfície opaca no bake de cor móvel, evitando bordas de simplificação por vazios entre fios; outro teste preserva a transparência das demais áreas. 40 unitários, 31 E2E completos e seis E2E após acabamento final aprovados. Detalhe, custos, medições e limitações no [relatório atual](docs/virtual-studio/face-depth-20261029/README.md). A foto não integra o produto; ferramentas/novos assets autorais gratuitos. Sem publicação.
+
+---
+
 # Auditoria incremental — luz indireta e atlas compacto, 29/10/2026
 
 O excesso de luz ambiente e o sheen laranja herdado dos estofados reduziam a leitura da paleta e do volume. A revisão corrige o sheen, equilibra fontes locais e acrescenta mapas de indireta difusa nos seis setores. O atlas CC0 de corpo inteiro carregado só para cabeça/mãos foi reprojetado, reduzindo a estimativa de mapas do avatar em 21 MiB. Sem compra ou uso da foto pessoal.

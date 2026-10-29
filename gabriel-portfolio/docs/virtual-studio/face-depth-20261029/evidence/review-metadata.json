@@ -1,0 +1,18 @@
+{
+  "baseRevision": "8c4f2225dd45e14ff95d7ac2fb4820d2606da43b",
+  "branch": "visual-polish",
+  "published": false,
+  "paidAssetsOrServicesAdded": false,
+  "newDependencies": false,
+  "backupSHA256": "6a3cfdd7fa6c4daf5af8a599dc81a080ab734935d5d753e532a71c1ff17f4101",
+  "preserved": {
+    "src/data/office-layout.json": "574f3aea56f50514551787f9809a2e272cacc54569252eb075762b3dbf354541",
+    "src/data/studio-actors.json": "64d7cb2c44d1c6865de0cb0b14a35d9e87161ae07aed2558e46d0b59cbe87258",
+    "public/models/environment-0.glb": "ed3d904d413df3cad3b75477f197a1ac176ea252974771b35c6aa82dd0a4d370",
+    "public/models/environment-1.glb": "8f3540e9ab1178bd0a226fd889206e7bc046c104c3a08a11a1ac74732ae78a73",
+    "public/models/environment-2.glb": "7a4868dbec46f2b964825109d38c19c7bb7b63aa275bbafbce609a23c6649ff6",
+    "public/models/environment-3.glb": "fafc0713e0912a96179908a1e8e561e4ae5fe970c57600b6990dbeeaac0abcbf",
+    "public/models/environment-4.glb": "ed46c84a4bad3854ac7c4e566c1ea3fa164b75f3eabf3d2fcf2dfa479b5b08a7",
+    "public/models/environment-5.glb": "00596872dd0ed2ae7617e7fb56ffdce27d831482b3476313689cf46ab753bd8a"
+  }
+}

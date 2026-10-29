@@ -226,6 +226,8 @@ if npc_index is None:
   material.diffuse_color=(*color,1)
  refine_hero((skin,hair,beard,grey,cloth,seam,lining,trim),detail,cube)
  native_wardrobe(ROOT)
+ from refine_face_depth import refine_face_depth
+ refine_face_depth()
  from groom_avatar import groom_avatar
  groom_avatar(ROOT)
  from bake_skin_atlas import bake_skin_atlas

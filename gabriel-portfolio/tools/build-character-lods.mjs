@@ -1,4 +1,4 @@
-import {stripHeroMicrogeometry,splitHeroFace,heroPhysicalPositions} from './strip-hero-microgeometry.mjs';
+import {stripHeroMicrogeometry,splitHeroFace} from './strip-hero-microgeometry.mjs';
 import {bakeHeroAlbedo} from './bake-hero-albedo.mjs';
 import {NodeIO} from '@gltf-transform/core';
 import {ALL_EXTENSIONS} from '@gltf-transform/extensions';
@@ -17,17 +17,8 @@ for(const name of names){
  if(name==='gabriel-rigged'){
   await bakeHeroAlbedo(doc);
   stripHeroMicrogeometry(doc);
-  // A fitted buzz cut survives on the scalp colours when hair cards are removed.
-  const smooth=v=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v)};
-  for(const mesh of doc.getRoot().listMeshes())for(const primitive of mesh.listPrimitives())if(primitive.getMaterial()?.getName()==='CC0 adult male skin'){
-   const xyz=heroPhysicalPositions(doc,primitive),colors=primitive.getAttribute('COLOR_0');
-   for(let i=0;i<colors.getCount();i++){
-    const x=xyz[i*3],height=xyz[i*3+1],front=smooth((xyz[i*3+2]+.015)/.045),line=1.675*(1-front)+(1.775+.018*Math.exp(-(((Math.abs(x)-.065)/.025)**2)))*front;
-    const mask=smooth((height-line)/.010),c=colors.getElement(i,[]);for(let k=0;k<3;k++)c[k]=c[k]*(1-mask)+[.012,.009,.007][k]*mask;
-    const browLine=1.712+.002*Math.sin((Math.abs(x)-.011)/.052*Math.PI),brow=smooth(1-Math.abs(height-browLine)/.006)*smooth((Math.abs(x)-.007)/.008)*smooth((.075-Math.abs(x))/.012)*smooth((xyz[i*3+2]-.065)/.03)*.8;
-    for(let k=0;k<3;k++)c[k]=c[k]*(1-brow)+[.04,.032,.025][k]*brow;colors.setElement(i,c);
-   }
-  }
+  // The source skin already carries soft scalp/brow/moustache roots. Preserve
+  // those colours instead of repainting hard outlines after the albedo bake.
   // Retain the iris/sclera topology: generic face simplification erases the pupil.
   for(const mesh of doc.getRoot().listMeshes())for(const primitive of [...mesh.listPrimitives()]){
    const materialName=primitive.getMaterial()?.getName()||'';

@@ -1,3 +1,19 @@
+# Revisão mais recente — rosto, barba e leitura no celular, 29/10/2026
+
+Continuação local sobre `8c4f222`, branch `visual-polish`. [Comparador de GLBs reais](docs/virtual-studio/face-depth-20261029/index.html) e [relatório com custos, capturas e limites](docs/virtual-studio/face-depth-20261029/README.md).
+
+Ajustes discretos na anatomia do rosto CC0, sobrancelhas/bigode com fios curtos modelados, barba de fibras curvas/grisalhos e ponta arredondada, raiz mais suave e cabelo curto com densidade calibrada. A luz ambiente já existente do software/móvel revela melhor as sombras, sem novas luzes ou passes. Ferramentas gratuitas; nenhuma compra, nova dependência ou foto pessoal incorporada.
+
+Completo: **55.313 triângulos / 1.453.348 bytes / sete materiais**. Leve: **6.882 / 123.888 bytes / um material sem mapas**. O completo ganhou detalhe e aumentou de peso; mapas continuam nas mesmas dimensões (~34,3 MiB estimados RGBA8+mipmaps, não VRAM total). O orçamento de 65 mil/7 mil triângulos não foi elevado. Dois testes protegem a remoção de pelos finos e a superfície contínua de couro cabeludo do LOD.
+
+Lint, build, TypeScript, integridade/fontes, **40 unitários / 31 E2E completos**, mais **seis E2E revalidados após o ajuste final de densidade** aprovados. Exportação estática aprovada em **360, 768 e 1440 px**; capturas reais, medições por perfil e pacote no relatório atual. Planta, rig/11 ações, seis setores, oito NPCs fictícios, analógico, velocidade e contato local preservados. Nenhum push, publicação ou alteração em `../gabriel/`, FR ou produção/n8n. Backup integral anterior e atribuições no relatório.
+
+Persistem diferenças de identidade facial, grooming e iluminação em relação às referências. Emulação por SwiftShader/toque não comprova FPS ou qualidade em dispositivos físicos. A medição curta do viewport móvel registrou ~19,3 FPS em Automático e ~24,8 em Leve; o desktop software ficou muito abaixo dos alvos. As metas de FPS não estão homologadas; dados brutos e condições no relatório. O comparador mostra o modelo efetivamente executado, sem substituir a captura pelo concept art.
+
+---
+
+## Histórico anterior
+
 # Revisão mais recente — luz indireta e atlas compacto, 29/10/2026
 
 Continuação local sobre `70a65e9`, branch `visual-polish`. [Comparador real](docs/virtual-studio/baked-light-20261029/index.html) e [relatório completo](docs/virtual-studio/baked-light-20261029/README.md).

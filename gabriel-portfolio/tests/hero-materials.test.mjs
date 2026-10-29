@@ -20,3 +20,15 @@ test('mobile albedo retains material tint and shared-material primitives without
  }
  assert.equal(material.getBaseColorTexture(),null);assert.deepEqual(material.getBaseColorFactor(),[1,1,1,1]);
 });
+
+test('mobile scalp flattens sparse cutout pixels without losing ordinary groom transparency',async()=>{
+ const doc=new Document(),buffer=doc.createBuffer(),image=await sharp({create:{width:2,height:2,channels:4,background:{r:100,g:70,b:45,alpha:0}}}).png().toBuffer();
+ const texture=doc.createTexture().setImage(image).setMimeType('image/png'),material=doc.createMaterial('Gabriel layered groom').setBaseColorTexture(texture).setAlphaMode('MASK').setExtras({zaionOpaqueLodTile:2});
+ const primitive=doc.createPrimitive().setMaterial(material).setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint16Array([0,1,2,3,4,5])).setBuffer(buffer))
+  .setAttribute('POSITION',doc.createAccessor().setType('VEC3').setArray(new Float32Array([0,0,0,1,0,0,0,1,0,2,0,0,3,0,0,2,1,0])).setBuffer(buffer))
+  .setAttribute('TEXCOORD_0',doc.createAccessor().setType('VEC2').setArray(new Float32Array([.2,.7,.3,.7,.2,.8,.7,.2,.8,.2,.7,.3])).setBuffer(buffer))
+  .setAttribute('COLOR_0',doc.createAccessor().setType('VEC4').setArray(new Float32Array(24).fill(1)).setBuffer(buffer));
+ doc.createMesh().addPrimitive(primitive);await bakeHeroAlbedo(doc);
+ assert.deepEqual(Array.from(primitive.getIndices().getArray()),[0,1,2],'the scalp shell stays connected while transparent non-scalp cards are removed');
+ assert.equal(primitive.getAttribute('COLOR_0').getElement(0,[])[3],1);assert.equal(primitive.getAttribute('COLOR_0').getElement(3,[])[3],0);
+});

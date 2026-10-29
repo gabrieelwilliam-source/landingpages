@@ -54,3 +54,8 @@ O sofá de três lugares usa **três conjuntos de estofado do SheenChair**, © 2
 ## Luz indireta e atlas compacto — 29/10/2026
 
 Os seis setores incluem mapas autorais de luz indireta difusa, calculados offline com Blender/Cycles CPU sobre a cena existente, sem HDRI comprado. O runtime interpreta o transporte glTF marcado como lightMap e mantém UVs de detalhe/AO separados. O fallback Lambert também preserva a luz. O sheen dos estofados CC0 foi adaptado à paleta azul-marinho/areia. `tools/bake_skin_atlas.py` reprojeta a pele CC0 já creditada apenas na cabeça/mãos em 1024²/512²/256², sem pixels da foto pessoal. Nenhuma nova fonte externa, compra, assinatura ou serviço pago. Ferramentas gratuitas; licenças dos dados e crédito de Elvaerwyn continuam válidos.
+
+
+## Rosto e fibras curvas — 29/10/2026
+
+`tools/refine_face_depth.py` contém ajustes locais autorais de forma sobre a cabeça CC0 existente, sem textura da foto privada. `tools/groom_texture.py` gera fios curvos, variações e grisalhos com NumPy; sobrancelhas/bigode agora usam fios curtos modelados, em vez do recorte de sobrancelha CC0 usado na etapa anterior. O atlas de grooming desta etapa é autoral; os créditos da anatomia/pele/olhos e do moletom **Elvaerwyn, CC BY** permanecem. Nenhum novo asset externo, compra, assinatura, serviço pago ou instalação. Blender/Cycles, Python e Three.js são as ferramentas gratuitas já presentes.

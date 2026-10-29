@@ -80,6 +80,7 @@ for (const name of [...(await readdir(root)).filter(n=>n.endsWith(".glb")),...(a
     if(name === 'gabriel-rigged.glb'){
       const groom=json.materials.find(m=>m.name==='Gabriel layered groom'),skin=json.materials.find(m=>m.name==='CC0 adult male skin');
       assert.equal(groom?.alphaMode,'MASK','layered grooming uses stable cutout transparency');
+      assert.equal(groom.extras?.zaionOpaqueLodTile,2,'sparse scalp carries its explicit opaque-LOD atlas tile contract');
       assert.ok(skin?.normalTexture&&skin?.pbrMetallicRoughness?.metallicRoughnessTexture,'skin micro-normal and roughness maps survive export');
       const packedSkin=doc.getRoot().listMaterials().find(m=>m.getName()==='CC0 adult male skin');
       assert.deepEqual(packedSkin.getBaseColorTexture().getSize(),[1024,1024],'head/hands skin uses its compact used-surface atlas');

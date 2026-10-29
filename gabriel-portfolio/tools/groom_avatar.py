@@ -3,7 +3,7 @@
 One shared RGBA atlas/material, skin-bound geometry, deterministic seed. Hair cards
 break up the silhouette; a connected undercoat preserves it in the mobile LOD.
 """
-import bpy, math, os, numpy as np
+import bpy, math, numpy as np
 from mathutils import Vector
 
 def smooth(v):
@@ -13,39 +13,30 @@ def atlas(root):
  size=512;rng=np.random.default_rng(77311)
  v,u=np.mgrid[0:1:complex(size),0:1:complex(size)]
  image=np.ones((size*2,size*2,4),dtype=np.float32)
- phase=u+.028*np.sin(v*26+u*20)+.008*np.sin(v*76+u*31)
- fibre=.5+.5*np.sin(phase*math.tau*77)
- clump=.5+.5*np.sin((u+.025*np.sin(v*13))*math.tau*11)
- silver=np.maximum(0,(np.sin((phase+.007)*math.tau*29)-.75)/.25)*.35
- noise=rng.uniform(-.012,.012,u.shape)
- for channel,(brown,grey) in enumerate(zip((.13,.105,.085),(.40,.39,.36))):
-  image[:size,:size,channel]=(brown*(1-silver)+grey*silver)*(.72+.17*fibre+.11*clump)+noise
+ from groom_texture import curved_fibres
+ image[:size,:size,:3]=curved_fibres(size)
+ root=np.clip((1-v)/.095,0,1)
+ image[:size,:size,3]=np.clip(root+rng.uniform(-.13,.13,u.shape),0,1)*np.clip(v/.025,0,1)
  # Fine bundles: feathered root and tips, with separate filaments inside each card.
- bundle=.5+.5*np.sin((u+.045*np.sin(v*18+u*11))*math.tau*9)
+ bundle=.5+.5*np.sin((u+.075*np.sin(v*23+u*11))*math.tau*13)
  alpha=np.clip((bundle-.23)*2.2,0,1)*np.sin(math.pi*u)**.55
  alpha*=np.clip(v/.13,0,1)*np.clip((1-v)/.12,0,1)
  wisp_silver=(np.floor(u*9)%5==1).astype(np.float32)*.55
- for channel,(brown,grey) in enumerate(zip((.12,.095,.073),(.38,.37,.34))):
+ for channel,(brown,grey) in enumerate(zip((.065,.044,.029),(.31,.29,.255))):
   image[:size,size:,channel]=(brown*(1-wisp_silver)+grey*wisp_silver)*(.8+.2*bundle)
  image[:size,size:,3]=alpha
  # Very short scalp hair, a fine irregular stubble instead of a solid shiny cap.
  grain=rng.uniform(0,1,u.shape);stubble=.78+.22*grain
  for channel,value in enumerate((.092,.078,.065)):
   image[size:,:size,channel]=value*stubble+np.where(grain>.985,.09,0)
- # Real short hair detail from the licensed CC0 brow image; crop one feathered brow.
- source=bpy.data.images.load(os.path.join(root,'tools/vendor/native-human/eyebrow001.png'),check_existing=True)
- pixels=np.asarray(source.pixels[:],dtype=np.float32).reshape(source.size[1],source.size[0],4)
- crop=pixels[252:367,6:506]
- yy,xx=np.mgrid[0:crop.shape[0]-1:complex(size),0:crop.shape[1]-1:complex(size)]
- x0=np.floor(xx).astype(int);y0=np.floor(yy).astype(int);x1=np.minimum(x0+1,crop.shape[1]-1);y1=np.minimum(y0+1,crop.shape[0]-1)
- wx=(xx-x0)[:,:,None];wy=(yy-y0)[:,:,None]
- strip=(crop[y0,x0]*(1-wx)+crop[y0,x1]*wx)*(1-wy)+(crop[y1,x0]*(1-wx)+crop[y1,x1]*wx)*wy
- strip[:,:,:3]*=1.45
- strip[:,:,3]=np.clip(strip[:,:,3]*4,0,1)
- image[size:,size:,:]=strip
- im=bpy.data.images.new('Layered grooming and CC0 short-hair atlas',width=size*2,height=size*2,alpha=True)
+ # Fourth tile keeps an opaque brown tone for geometric short facial hairs.
+ image[size:,size:,:]=image[size:,:size,:]
+ # A sparse cutout scalp reveals the softly shaded skin between the short hairs.
+ # Fine geometric brows/moustache use the opaque fourth tile instead.
+ image[size:,:size,3]=np.clip((grain-.02)/.18,0,1)
+ im=bpy.data.images.new('Original curved-fibre grooming atlas',width=size*2,height=size*2,alpha=True)
  im.pixels.foreach_set(np.clip(image,0,1).ravel());im.pack()
- m=bpy.data.materials.new('Gabriel layered groom');m.use_nodes=True
+ m=bpy.data.materials.new('Gabriel layered groom');m['zaionOpaqueLodTile']=2;m.use_nodes=True
  p=m.node_tree.nodes.get('Principled BSDF');p.inputs['Roughness'].default_value=.82
  p.inputs['Specular IOR Level'].default_value=.28
  tex=m.node_tree.nodes.new('ShaderNodeTexImage');tex.image=im
@@ -85,20 +76,20 @@ def groom_avatar(root):
   hit,p,n,f=head.ray_cast(Vector((x,-1,z)),Vector((0,1,0)))
   return Vector((x,p.y-offset if hit else -.095,z))
  def beard(t,progress):
-  s=math.sin(t);root_z=mouth-.012+.076*smooth((abs(s)-.15)/.75)
-  bottom=mouth-.18+.025*abs(s)**1.7+.002*math.sin(s*17)
-  width=.105*(1-progress)+.065*progress+.018*math.sin(progress*math.pi)
+  s=math.sin(t);root_z=mouth-.010+.071*smooth((abs(s)-.10)/.78)
+  bottom=mouth-.176+.031*abs(s)**4+.003*math.sin(s*23)
+  width=.105*(1-progress)+.076*progress+.014*math.sin(progress*math.pi)
   root=skin_point(.105*s,root_z)
   tip_y=-.118+.102*(1-math.cos(t))
   p=Vector((width*s,root.y*(1-progress)+tip_y*progress-.025*math.sin(progress*math.pi),root_z*(1-progress)+bottom*progress))
-  p.y+=.0015*math.sin(t*24+progress*19)
+  p.y+=.0020*math.sin(t*31+progress*29)+.0009*math.sin(t*61-progress*49)
   if p.z>mouth-.055:
    surface=skin_point(p.x,p.z,.004);p.y=min(p.y,surface.y)
   return p
  # Connected rounded undercoat: less conical, with a feather fringe layered above it.
- points=[];uv=[];faces=[];cols=48;rows=12
+ points=[];uv=[];faces=[];cols=64;rows=14
  for row in range(rows+1):
-  progress=row/rows
+  progress=.025+.975*row/rows
   for col in range(cols+1):
    t=-1.52+3.04*col/cols;points.append(beard(t,progress));uv.append(tile(col/cols,1-progress,0))
  for row in range(rows):
@@ -107,31 +98,48 @@ def groom_avatar(root):
  mesh('Rounded beard undercoat',points,uv,faces)
  # Curved ribbons follow the undercoat. Irregular lengths and tips break its outline.
  rng=np.random.default_rng(5410)
- for j in range(88):
-  t=-1.50+3*j/87+rng.uniform(-.012,.012);start=rng.uniform(-.035,.04);end=rng.uniform(.88,1.055);width=rng.uniform(.0025,.0048)
-  points=[];uv=[];faces=[];segments=6
+ for j in range(128):
+  t=-1.50+3*j/127+rng.uniform(-.016,.016);start=rng.uniform(-.02,.58);end=rng.uniform(max(.78,start+.25),1.06);width=rng.uniform(.0016,.0035)
+  points=[];uv=[];faces=[];segments=8
   for k in range(segments+1):
-   v=k/segments;progress=start*(1-v)+end*v;p=beard(t+.014*math.sin(v*7+j),progress)
+   v=k/segments;progress=start*(1-v)+end*v;p=beard(t+.025*math.sin(v*11+j),progress)
    p.y-=.0025+.002*math.sin(v*math.pi);p.x+=.0008*math.sin(j+v*15)
    for side in [-1,1]:points.append(p+Vector((side*width*(.75+.25*math.sin(v*math.pi)),0,0)));uv.append(tile((side+1)/2,1-v,1))
   for k in range(segments):
    a=k*2;faces.append([(i,i) for i in (a,a+1,a+3,a+2)])
   mesh('Layered beard wisp '+str(j),points,uv,faces)
- # Fuller fitted moustache and brows, with visible feathered ends.
+ # Short root fringe breaks the cheek edge without extending a solid sheet.
+ points=[];uv=[];faces=[]
+ for j in range(86):
+  t=rng.uniform(-1.48,1.48);base=len(points);start=rng.uniform(-.010,.035);end=rng.uniform(.055,.11);width=rng.uniform(.00009,.00018)
+  for k in range(4):
+   f=k/3;p=beard(t+.022*math.sin(f*5+j),start+(end-start)*f);p.y-=.0015
+   for edge in [-1,1]:points.append(p+Vector((edge*width*(.25+.75*math.sin(math.pi*f)),0,0)));uv.append(tile(.2+(edge+1)*.2,.45,3))
+  for k in range(3):
+   i=base+k*2;faces.append([(n,n) for n in (i,i+1,i+3,i+2)])
+ mesh('Fine beard root fringe',points,uv,faces)
+ # Short tapered geometric hairs avoid opaque, angular brow/moustache cards.
+ # Skin below carries a soft root shadow, and the mobile LOD drops these fibres.
  for side in [-1,1]:
-  for kind in ['moustache','eyebrow']:
-   points=[];uv=[];faces=[];segments=14
-   for j in range(segments+1):
-    t=j/segments
-    x=side*(.0005+t*.038) if kind=='moustache' else side*(.011+t*.052)
-    z=mouth+.015-.004*t if kind=='moustache' else brow-.004+.003*math.sin(t*math.pi)-.002*t
-    half=(.014 if kind=='moustache' else .0078)*math.sin(math.pi*(.07+.86*t))
-    for band in range(5):
-     delta=half*(band/2-1);points.append(skin_point(x,z+delta,.004));uv.append(tile(t,band/4,3))
-   for j in range(segments):
-    for band in range(4):
-     a=j*5+band;faces.append([(i,i) for i in (a,a+1,a+6,a+5)])
-   mesh('Fitted feathered '+kind+str(side),points,uv,faces)
+  for kind,count in [('moustache',115),('eyebrow',105)]:
+   points=[];uv=[];faces=[]
+   for hair in range(count):
+    t=(hair+rng.uniform(-.25,.25))/(count-1)
+    if kind=='eyebrow':
+     x=side*(.010+t*.055);center=brow+.001+.003*math.sin(math.pi*t)-.004*t
+     root_z=center-rng.uniform(.001,.0045)*math.sin(math.pi*t);length=rng.uniform(.0028,.0064)*(.55+.45*math.sin(math.pi*t));dx=side*rng.uniform(.001,.0035)
+    else:
+     x=side*(.002+t*.036);root_z=mouth+.022-.007*t+rng.uniform(-.001,.001);length=rng.uniform(.011,.018)*(.75+.25*math.sin(math.pi*t));dx=side*(.002+.004*t)
+    width=rng.uniform(.00012,.00022);base=len(points);segments=4
+    for k in range(segments+1):
+     f=k/segments
+     z=root_z+length*f*(1-.18*f) if kind=='eyebrow' else root_z-length*f
+     p=skin_point(x+dx*f,z,.0018+.0005*math.sin(math.pi*f))
+     for edge in [-1,1]:
+      points.append(p+Vector((edge*width*(1-.88*f),0,0)));uv.append(tile(.25+.5*(edge+1)/2,.35+.25*f,3))
+    for k in range(segments):
+     i=base+k*2;faces.append([(j,j) for j in (i,i+1,i+3,i+2)])
+   mesh('Fine surface '+kind+' fibres '+str(side),points,uv,faces)
  # Clip the actual anatomical scalp along a curved receding hairline. No cap/skin overlap.
  def hairline(p):
   front=smooth((-p.y+.015)/.045)
@@ -152,4 +160,4 @@ def groom_avatar(root):
    ids.append(len(points));points.append(q);uv.append(tile((math.atan2(p.x,-p.y)/math.tau+.5),max(0,min(1,(p.z-1.66)/.18)),2));alphas.append(smooth((distance+.0003)/.0015))
   for j in range(1,len(ids)-1):faces.append([(i,i) for i in (ids[0],ids[j],ids[j+1])])
  mesh('Fitted close-cropped scalp',points,uv,faces,alphas)
- print('GROOM: clipped anatomical scalp, rounded undercoat, 88 layered wisps and fitted brows/moustache; one shared RGBA material')
+ print('GROOM: clipped anatomical scalp, feathered undercoat, 128 curved partial wisps and short geometric brows/moustache; one shared RGBA material')

@@ -1,0 +1,49 @@
+Hero LOD: removed 1 micro-fibre triangles; preserved beard/scalp silhouettes and eyes
+✔ mobile grooming removes separate brow hairs while retaining the beard silhouette, iris and lips (7.823351ms)
+✔ mobile albedo retains material tint and shared-material primitives without applying tint twice (7.475529ms)
+✔ mobile scalp flattens sparse cutout pixels without losing ordinary groom transparency (2.894872ms)
+✔ analog dead zone prevents drift while allowing proportional forward and reverse (0.241293ms)
+✔ diagonal and off-base movement keep unit speed and thumb inside the circle (0.254492ms)
+✔ invalid pointer coordinates cannot introduce non-finite movement (0.277877ms)
+✔ marked glTF irradiance preserves UV0, colour space and PBR maps without self-emission (0.783418ms)
+✔ marked glTF irradiance preserves UV1, colour space and PBR maps without self-emission (0.227282ms)
+✔ marked glTF irradiance preserves UV2, colour space and PBR maps without self-emission (0.255954ms)
+✔ real screen and fixture emission remains unchanged (0.303657ms)
+✔ cast has eight fictional identities and a useful scripted role in every sector (0.296907ms)
+✔ NPC routines are deterministic, periodic and remain inside the facade (20.451335ms)
+✔ walking actors follow closed local routes rather than teleporting between workstations (2.811917ms)
+✔ guide curve and reconnect segments clear physical furniture and the glass facade (3.567824ms)
+✔ a reconnect route goes around an occupied local point (1.062787ms)
+✔ visitor movement stops at people and nearby activation respects distance (0.297036ms)
+✔ camera clipping includes a standing person as well as architecture (0.374654ms)
+✔ all four simulations expose three real local state transitions, reset and no overrun (0.337507ms)
+✔ contact CTA accepts configured public channels and rejects unsafe or invented destinations (0.189205ms)
+✔ overhead light bounds stop the camera while leaving the floor route open (0.25318ms)
+✔ geometry LOD follows explicit quality and distance while high keeps the protagonist detailed (0.110056ms)
+✔ transparent sector returns retain physical collisions and monitors clip the camera at screen height (0.215944ms)
+✔ every walking staff route clears the furniture and glass, with continuous chair exits (4.104821ms)
+✔ compacted plan keeps a clear arrival and supported luminaires above people and camera (0.254903ms)
+✔ forward and back traverse both environments with bounded depth (15.985331ms)
+✔ diagonal input does not increase speed (0.577037ms)
+✔ facade boundary and workstation chairs match the connected office (0.817138ms)
+✔ release decelerates and delta cap prevents tab-resume jumps (0.403657ms)
+✔ cinematic easing has stable endpoints and a symmetric midpoint (0.110737ms)
+✔ sector boundary allows off-centre walking without invisible causeway barriers (0.100581ms)
+✔ central guided lane remains clear of the actual furniture footprints (0.221353ms)
+✔ wheel normalization treats pixel, line and page devices consistently (0.182033ms)
+✔ scroll converges, reverses and honours the endpoints without overshoot (2.161279ms)
+✔ scroll progress preserves lateral stance and does not simulate a walking avatar (0.291919ms)
+✔ reduced-motion scroll goes directly to the selected point (0.161192ms)
+✔ scroll transforms all chapters around an anchored avatar; walking translates the avatar (0.995476ms)
+✔ batching Meshopt quantized furniture preserves metre-scale placement and source data (2.319918ms)
+✔ camera-relative movement rotates forward and strafe without increasing diagonal speed (1.845595ms)
+✔ camera segment stops before a tall display but clears low furniture (0.258228ms)
+✔ camera remains inside the building envelope and every collision has a real height (0.254233ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 194.660074

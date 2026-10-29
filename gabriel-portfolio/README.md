@@ -173,3 +173,8 @@ A luz nova atua no PBR; o fallback mantém o orçamento de luzes simples. O LOD 
 ## Luz pré-calculada e otimização de pele — revisão local de 29/10/2026
 
 [Comparador e relatório atuais](docs/virtual-studio/baked-light-20261029/index.html). Os seis setores agora usam luz difusa indireta calculada offline com Blender/Cycles gratuito. O PBR e o fallback preservam o mapa; telas continuam emissoras. O atlas de pele ocupa 21 MiB a menos na estimativa RGBA8+mipmaps, sem mudar a identidade/animações. `assets:build` inclui o bake de luz, `assets:character` inclui o atlas de pele e `assets:furniture` corrige o sheen dos tecidos. Veja o relatório para UVs, transporte glTF, custos, testes e limites. Não há dependências/serviços pagos. Esta etapa continua local, sem publicação, conforme a regra vigente em AGENTS.md.
+
+
+## Rosto, barba e leitura móvel — revisão local de 29/10/2026
+
+[Comparador e relatório atuais](docs/virtual-studio/face-depth-20261029/index.html). Ajustes locais de rosto, sobrancelhas/bigode com fios modelados, barba de fibras curvas e ponta arredondada, couro cabeludo com densidade recortada. O LOD remove os fios pequenos e preserva a raiz suave da pele; a luz ambiente existente do software/móvel foi calibrada sem novo passe. `npm run assets:character` reconstrói o personagem. Mantém ferramentas/asset sourcing gratuitos, navegação, rig e exportação existentes. Etapa local sem publicação.

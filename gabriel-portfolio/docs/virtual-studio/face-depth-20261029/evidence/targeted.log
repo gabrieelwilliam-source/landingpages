@@ -1,0 +1,19 @@
+
+> site-zaion@0.1.0 test:e2e
+> playwright test tests/baked-lighting.spec.ts tests/progressive-hero.spec.ts tests/mobile-joystick.spec.ts
+
+[WebServer] (node:105010) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:105026) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/baked-lighting.spec.ts:3:35 › baked indirect UV maps survive software fallback, quality and room loading (5.2s)
+  ✓  2 tests/baked-lighting.spec.ts:3:35 › baked indirect UV maps survive PBR shader, quality and room loading (27.3s)
+  ✓  3 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (portrait) (6.1s)
+  ✓  4 tests/mobile-joystick.spec.ts:5:41 › mobile analog moves proportionally and stops on release (landscape) (8.5s)
+  ✓  5 tests/mobile-joystick.spec.ts:30:5 › two fingers steer and look independently; cancel, pause and mode changes release movement (6.8s)
+  ✓  6 tests/progressive-hero.spec.ts:3:5 › mobile starts and walks while the full PBR hero is still downloading (10.9s)
+
+  6 passed (1.1m)

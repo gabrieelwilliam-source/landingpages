@@ -1,0 +1,553 @@
+
+> site-zaion@0.1.0 assets:character
+> node tools/prepare-native-textures.mjs && blender -b --python-exit-code 1 --python tools/build_character.py && CHARACTER_ONLY=true node tools/optimize-assets.mjs && node tools/build-character-lods.mjs && node tools/verify-assets.mjs
+
+Blender 4.3.2
+Fra:1 Mem:146.85M (Peak 146.85M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack stitched edge
+Fra:1 Mem:146.85M (Peak 146.85M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack stitched edge.001
+Fra:1 Mem:146.85M (Peak 146.85M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack pocket zipper
+Fra:1 Mem:146.88M (Peak 146.88M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fitted close-cropped scalp
+Fra:1 Mem:147.19M (Peak 147.19M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | MakeHuman CC0 anatomical head
+Fra:1 Mem:147.63M (Peak 147.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface eyebrow fibres 1
+Fra:1 Mem:148.34M (Peak 148.34M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CC0 fitted blue grey eyes
+Fra:1 Mem:148.70M (Peak 148.70M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface moustache fibres 1
+Fra:1 Mem:149.13M (Peak 149.13M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface eyebrow fibres -1
+Fra:1 Mem:149.34M (Peak 149.34M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface moustache fibres -1
+Fra:1 Mem:149.46M (Peak 149.46M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine beard root fringe
+Fra:1 Mem:149.49M (Peak 149.49M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Tailored backpack
+Fra:1 Mem:149.63M (Peak 149.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fabric backpack pocket
+Fra:1 Mem:149.62M (Peak 149.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 127
+Fra:1 Mem:149.65M (Peak 149.65M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 126
+Fra:1 Mem:149.65M (Peak 149.65M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 125
+Fra:1 Mem:149.66M (Peak 149.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 124
+Fra:1 Mem:149.66M (Peak 149.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 123
+Fra:1 Mem:149.66M (Peak 149.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 122
+Fra:1 Mem:149.66M (Peak 149.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 121
+Fra:1 Mem:149.67M (Peak 149.67M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 120
+Fra:1 Mem:149.67M (Peak 149.67M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 119
+Fra:1 Mem:149.67M (Peak 149.67M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Flat woven backpack strap
+Fra:1 Mem:149.67M (Peak 149.67M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 118
+Fra:1 Mem:150.01M (Peak 150.01M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 117
+Fra:1 Mem:150.01M (Peak 150.01M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Flat woven backpack strap.001
+Fra:1 Mem:150.01M (Peak 150.01M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 116
+Fra:1 Mem:150.02M (Peak 150.02M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Zipper pull
+Fra:1 Mem:150.02M (Peak 150.02M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 115
+Fra:1 Mem:150.02M (Peak 150.02M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 114
+Fra:1 Mem:150.02M (Peak 150.02M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 113
+Fra:1 Mem:150.03M (Peak 150.03M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 112
+Fra:1 Mem:150.05M (Peak 150.05M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 111
+Fra:1 Mem:150.05M (Peak 150.05M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 110
+Fra:1 Mem:150.06M (Peak 150.06M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 109
+Fra:1 Mem:150.06M (Peak 150.06M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Licensed fitted hoodie
+Fra:1 Mem:150.06M (Peak 150.06M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 108
+Fra:1 Mem:150.29M (Peak 150.29M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 107
+Fra:1 Mem:150.29M (Peak 150.29M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 106
+Fra:1 Mem:150.29M (Peak 150.29M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 105
+Fra:1 Mem:150.30M (Peak 150.30M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 104
+Fra:1 Mem:150.30M (Peak 150.30M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 103
+Fra:1 Mem:150.30M (Peak 150.30M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 102
+Fra:1 Mem:150.30M (Peak 150.30M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 101
+Fra:1 Mem:150.31M (Peak 150.31M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 100
+Fra:1 Mem:150.31M (Peak 150.31M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 99
+Fra:1 Mem:150.31M (Peak 150.31M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 98
+Fra:1 Mem:150.31M (Peak 150.31M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 97
+Fra:1 Mem:150.31M (Peak 150.31M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 96
+Fra:1 Mem:150.32M (Peak 150.32M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 95
+Fra:1 Mem:150.32M (Peak 150.32M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 94
+Fra:1 Mem:150.32M (Peak 150.32M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 93
+Fra:1 Mem:150.32M (Peak 150.32M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 92
+Fra:1 Mem:150.48M (Peak 150.48M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 91
+Fra:1 Mem:150.80M (Peak 150.80M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 90
+Fra:1 Mem:150.80M (Peak 150.80M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 89
+Fra:1 Mem:150.80M (Peak 150.80M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 88
+Fra:1 Mem:150.95M (Peak 150.95M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 87
+Fra:1 Mem:150.96M (Peak 150.96M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 86
+Fra:1 Mem:150.96M (Peak 150.96M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 85
+Fra:1 Mem:150.96M (Peak 150.96M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 84
+Fra:1 Mem:150.96M (Peak 150.96M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 83
+Fra:1 Mem:150.97M (Peak 150.97M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 82
+Fra:1 Mem:150.97M (Peak 150.97M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 81
+Fra:1 Mem:151.08M (Peak 151.08M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 80
+Fra:1 Mem:151.03M (Peak 151.08M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 79
+Fra:1 Mem:151.19M (Peak 151.19M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 78
+Fra:1 Mem:151.19M (Peak 151.19M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 77
+Fra:1 Mem:151.19M (Peak 151.19M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 76
+Fra:1 Mem:151.20M (Peak 151.20M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 75
+Fra:1 Mem:151.20M (Peak 151.20M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 74
+Fra:1 Mem:151.20M (Peak 151.20M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 73
+Fra:1 Mem:151.20M (Peak 151.20M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 72
+Fra:1 Mem:151.20M (Peak 151.20M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 71
+Fra:1 Mem:151.21M (Peak 151.21M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 70
+Fra:1 Mem:151.21M (Peak 151.21M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 69
+Fra:1 Mem:151.21M (Peak 151.21M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 68
+Fra:1 Mem:151.21M (Peak 151.21M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 67
+Fra:1 Mem:151.22M (Peak 151.22M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 66
+Fra:1 Mem:151.26M (Peak 151.26M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 65
+Fra:1 Mem:151.26M (Peak 151.26M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 64
+Fra:1 Mem:151.26M (Peak 151.26M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 63
+Fra:1 Mem:151.26M (Peak 151.26M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 62
+Fra:1 Mem:151.26M (Peak 151.26M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 61
+Fra:1 Mem:151.27M (Peak 151.27M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 60
+Fra:1 Mem:151.27M (Peak 151.27M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 59
+Fra:1 Mem:151.27M (Peak 151.27M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 58
+Fra:1 Mem:151.27M (Peak 151.27M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 57
+Fra:1 Mem:151.28M (Peak 151.28M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 56
+Fra:1 Mem:151.46M (Peak 151.46M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 55
+Fra:1 Mem:151.47M (Peak 151.47M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 54
+Fra:1 Mem:151.47M (Peak 151.47M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 53
+Fra:1 Mem:151.47M (Peak 151.47M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 52
+Fra:1 Mem:151.47M (Peak 151.47M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 51
+Fra:1 Mem:151.48M (Peak 151.48M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 50
+Fra:1 Mem:151.48M (Peak 151.48M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 49
+Fra:1 Mem:151.48M (Peak 151.48M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 48
+Fra:1 Mem:151.48M (Peak 151.48M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 47
+Fra:1 Mem:151.48M (Peak 151.48M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 46
+Fra:1 Mem:151.49M (Peak 151.49M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 45
+Fra:1 Mem:151.49M (Peak 151.49M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 44
+Fra:1 Mem:151.57M (Peak 151.57M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 43
+Fra:1 Mem:151.57M (Peak 151.57M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 42
+Fra:1 Mem:151.57M (Peak 151.57M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 41
+Fra:1 Mem:151.57M (Peak 151.57M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 40
+Fra:1 Mem:151.58M (Peak 151.58M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 39
+Fra:1 Mem:151.58M (Peak 151.58M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 38
+Fra:1 Mem:151.58M (Peak 151.58M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 37
+Fra:1 Mem:151.58M (Peak 151.58M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 36
+Fra:1 Mem:151.58M (Peak 151.58M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 35
+Fra:1 Mem:151.59M (Peak 151.59M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 34
+Fra:1 Mem:151.59M (Peak 151.59M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 33
+Fra:1 Mem:151.59M (Peak 151.59M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 32
+Fra:1 Mem:151.59M (Peak 151.59M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 31
+Fra:1 Mem:151.60M (Peak 151.60M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 30
+Fra:1 Mem:151.60M (Peak 151.60M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 29
+Fra:1 Mem:151.60M (Peak 151.60M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 28
+Fra:1 Mem:151.60M (Peak 151.60M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 27
+Fra:1 Mem:151.60M (Peak 151.60M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 26
+Fra:1 Mem:151.61M (Peak 151.61M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 25
+Fra:1 Mem:151.61M (Peak 151.61M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 24
+Fra:1 Mem:151.61M (Peak 151.61M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 23
+Fra:1 Mem:151.61M (Peak 151.61M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 22
+Fra:1 Mem:151.62M (Peak 151.62M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 21
+Fra:1 Mem:151.62M (Peak 151.62M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 20
+Fra:1 Mem:151.62M (Peak 151.62M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 19
+Fra:1 Mem:151.62M (Peak 151.62M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 18
+Fra:1 Mem:151.62M (Peak 151.62M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 17
+Fra:1 Mem:151.63M (Peak 151.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 16
+Fra:1 Mem:151.63M (Peak 151.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 15
+Fra:1 Mem:151.63M (Peak 151.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 14
+Fra:1 Mem:151.63M (Peak 151.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 13
+Fra:1 Mem:151.63M (Peak 151.63M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 12
+Fra:1 Mem:151.64M (Peak 151.64M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 11
+Fra:1 Mem:151.64M (Peak 151.64M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 10
+Fra:1 Mem:151.64M (Peak 151.64M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 9
+Fra:1 Mem:151.64M (Peak 151.64M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 8
+Fra:1 Mem:151.65M (Peak 151.65M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 7
+Fra:1 Mem:151.65M (Peak 151.65M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 6
+Fra:1 Mem:151.65M (Peak 151.65M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 5
+Fra:1 Mem:151.65M (Peak 151.65M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 4
+Fra:1 Mem:151.65M (Peak 151.65M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 3
+Fra:1 Mem:151.66M (Peak 151.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 2
+Fra:1 Mem:151.66M (Peak 151.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 1
+Fra:1 Mem:151.66M (Peak 151.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 0
+Fra:1 Mem:151.66M (Peak 151.66M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Rounded beard undercoat
+Fra:1 Mem:151.84M (Peak 151.84M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CC0 fitted sneakers
+Fra:1 Mem:152.18M (Peak 152.18M) | Time:498131:42:53.83 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Licensed fitted pants
+Fra:1 Mem:157.09M (Peak 158.33M) | Time:498131:42:53.86 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:157.09M (Peak 158.33M) | Time:498131:42:53.86 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Original curved-fibre grooming atlas
+Fra:1 Mem:161.10M (Peak 165.09M) | Time:498131:42:53.87 | Mem:4.00M, Peak:4.00M | Scene | Updating Images | Loading shoes05_diffuse.png
+Fra:1 Mem:169.10M (Peak 169.10M) | Time:498131:42:53.87 | Mem:4.00M, Peak:4.00M | Scene | Updating Images | Loading young_lightskinned_male_diffuse.png
+Fra:1 Mem:197.10M (Peak 201.10M) | Time:498131:42:53.87 | Mem:8.00M, Peak:8.00M | Scene | Updating Images | Loading male_casualsuit01_diffuse.png
+Fra:1 Mem:201.10M (Peak 205.10M) | Time:498131:42:53.87 | Mem:12.00M, Peak:12.00M | Scene | Updating Images | Loading normalshoodie.png
+Fra:1 Mem:202.10M (Peak 205.10M) | Time:498131:42:53.87 | Mem:13.00M, Peak:13.00M | Scene | Updating Images | Loading hoodietex1.png
+Fra:1 Mem:210.10M (Peak 210.10M) | Time:498131:42:53.87 | Mem:13.00M, Peak:13.00M | Scene | Updating Images | Loading Original subtle skin micro normal
+Fra:1 Mem:214.10M (Peak 218.10M) | Time:498131:42:53.88 | Mem:17.00M, Peak:17.00M | Scene | Updating Images | Loading bluegrey-eye-adapted.png
+Fra:1 Mem:215.10M (Peak 218.10M) | Time:498131:42:53.88 | Mem:18.00M, Peak:18.00M | Scene | Updating Images | Loading CC0 skin atlas COLOR
+Fra:1 Mem:219.10M (Peak 223.10M) | Time:498131:42:53.88 | Mem:22.00M, Peak:22.00M | Scene | Updating Images | Loading Original subtle skin roughness
+Fra:1 Mem:114.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack stitched edge
+Fra:1 Mem:114.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | MakeHuman CC0 anatomical head
+Fra:1 Mem:114.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack stitched edge.001
+Fra:1 Mem:114.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack pocket zipper
+Fra:1 Mem:115.05M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Tailored backpack
+Fra:1 Mem:115.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fabric backpack pocket
+Fra:1 Mem:115.14M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Flat woven backpack strap
+Fra:1 Mem:115.15M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Flat woven backpack strap.001
+Fra:1 Mem:115.18M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Zipper pull
+Fra:1 Mem:115.15M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Licensed fitted hoodie
+Fra:1 Mem:115.36M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Licensed fitted pants
+Fra:1 Mem:118.60M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CC0 fitted sneakers
+Fra:1 Mem:119.02M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fitted close-cropped scalp
+Fra:1 Mem:119.20M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Rounded beard undercoat
+Fra:1 Mem:120.66M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface eyebrow fibres 1
+Fra:1 Mem:120.76M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface moustache fibres 1
+Fra:1 Mem:120.87M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface eyebrow fibres -1
+Fra:1 Mem:120.89M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 0
+Fra:1 Mem:120.91M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 1
+Fra:1 Mem:120.92M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface moustache fibres -1
+Fra:1 Mem:121.00M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine beard root fringe
+Fra:1 Mem:121.06M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 127
+Fra:1 Mem:121.06M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 126
+Fra:1 Mem:121.06M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 125
+Fra:1 Mem:121.06M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 124
+Fra:1 Mem:121.06M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 123
+Fra:1 Mem:121.06M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 122
+Fra:1 Mem:121.06M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 121
+Fra:1 Mem:121.07M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 120
+Fra:1 Mem:121.07M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 119
+Fra:1 Mem:121.07M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 118
+Fra:1 Mem:121.07M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 117
+Fra:1 Mem:121.07M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 116
+Fra:1 Mem:121.07M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 115
+Fra:1 Mem:121.07M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 114
+Fra:1 Mem:121.08M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 113
+Fra:1 Mem:121.08M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 112
+Fra:1 Mem:121.08M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 111
+Fra:1 Mem:121.08M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 110
+Fra:1 Mem:121.08M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 109
+Fra:1 Mem:121.08M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 108
+Fra:1 Mem:121.08M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 107
+Fra:1 Mem:121.09M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 106
+Fra:1 Mem:121.09M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 105
+Fra:1 Mem:121.09M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 104
+Fra:1 Mem:121.09M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 103
+Fra:1 Mem:121.09M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 102
+Fra:1 Mem:121.09M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 101
+Fra:1 Mem:121.10M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 100
+Fra:1 Mem:121.10M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 99
+Fra:1 Mem:121.10M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 98
+Fra:1 Mem:121.10M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 97
+Fra:1 Mem:121.10M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 96
+Fra:1 Mem:121.10M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 95
+Fra:1 Mem:121.10M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 94
+Fra:1 Mem:121.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 93
+Fra:1 Mem:121.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 92
+Fra:1 Mem:121.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 91
+Fra:1 Mem:121.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 90
+Fra:1 Mem:121.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 89
+Fra:1 Mem:121.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 88
+Fra:1 Mem:121.11M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 87
+Fra:1 Mem:121.12M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 86
+Fra:1 Mem:121.43M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 85
+Fra:1 Mem:121.43M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 84
+Fra:1 Mem:121.43M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 83
+Fra:1 Mem:121.43M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 82
+Fra:1 Mem:121.43M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 81
+Fra:1 Mem:121.43M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 80
+Fra:1 Mem:121.43M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 79
+Fra:1 Mem:121.44M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 78
+Fra:1 Mem:121.44M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 77
+Fra:1 Mem:121.44M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 76
+Fra:1 Mem:121.44M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 75
+Fra:1 Mem:121.44M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 74
+Fra:1 Mem:121.44M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 73
+Fra:1 Mem:121.44M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 72
+Fra:1 Mem:121.45M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 71
+Fra:1 Mem:121.45M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 70
+Fra:1 Mem:121.45M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 69
+Fra:1 Mem:121.45M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 68
+Fra:1 Mem:121.45M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 67
+Fra:1 Mem:121.45M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 66
+Fra:1 Mem:121.45M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 65
+Fra:1 Mem:121.46M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 64
+Fra:1 Mem:121.46M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 63
+Fra:1 Mem:121.46M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 62
+Fra:1 Mem:121.46M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 61
+Fra:1 Mem:121.46M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 60
+Fra:1 Mem:121.46M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 59
+Fra:1 Mem:121.47M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 58
+Fra:1 Mem:121.47M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 57
+Fra:1 Mem:121.47M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 56
+Fra:1 Mem:121.47M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 55
+Fra:1 Mem:121.47M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 54
+Fra:1 Mem:121.47M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 53
+Fra:1 Mem:121.47M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 52
+Fra:1 Mem:121.48M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 51
+Fra:1 Mem:121.48M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 50
+Fra:1 Mem:121.48M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 49
+Fra:1 Mem:121.48M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 48
+Fra:1 Mem:121.48M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 47
+Fra:1 Mem:121.48M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 46
+Fra:1 Mem:121.48M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 45
+Fra:1 Mem:121.49M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 44
+Fra:1 Mem:121.49M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 43
+Fra:1 Mem:121.49M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 42
+Fra:1 Mem:121.49M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 41
+Fra:1 Mem:121.49M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 40
+Fra:1 Mem:121.49M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 39
+Fra:1 Mem:121.49M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 38
+Fra:1 Mem:121.50M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 37
+Fra:1 Mem:121.50M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 36
+Fra:1 Mem:121.50M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 35
+Fra:1 Mem:121.50M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 34
+Fra:1 Mem:121.50M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 33
+Fra:1 Mem:121.50M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 32
+Fra:1 Mem:121.50M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 31
+Fra:1 Mem:121.51M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 30
+Fra:1 Mem:121.51M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 29
+Fra:1 Mem:121.51M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 28
+Fra:1 Mem:121.51M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 27
+Fra:1 Mem:121.51M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 26
+Fra:1 Mem:121.51M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 25
+Fra:1 Mem:121.51M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 24
+Fra:1 Mem:121.52M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 23
+Fra:1 Mem:121.52M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 22
+Fra:1 Mem:121.52M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 21
+Fra:1 Mem:121.52M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 20
+Fra:1 Mem:121.52M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 19
+Fra:1 Mem:121.52M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 18
+Fra:1 Mem:121.52M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 17
+Fra:1 Mem:121.53M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 16
+Fra:1 Mem:121.53M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 15
+Fra:1 Mem:121.53M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 14
+Fra:1 Mem:121.53M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 13
+Fra:1 Mem:121.53M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 12
+Fra:1 Mem:121.53M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 11
+Fra:1 Mem:121.53M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 10
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 9
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 8
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 7
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 6
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 5
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 4
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 3
+Fra:1 Mem:121.55M (Peak 340.28M) | Time:498131:42:55.11 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 2
+Fra:1 Mem:121.55M (Peak 340.28M) | Time:498131:42:55.14 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.14 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Original curved-fibre grooming atlas
+Fra:1 Mem:121.54M (Peak 340.28M) | Time:498131:42:55.14 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading young_lightskinned_male_diffuse.png
+Fra:1 Mem:125.54M (Peak 340.28M) | Time:498131:42:55.14 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Original subtle skin roughness
+Fra:1 Mem:125.54M (Peak 340.28M) | Time:498131:42:55.14 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Original subtle skin micro normal
+Fra:1 Mem:170.56M (Peak 340.28M) | Time:498131:42:55.14 | Mem:1.00M, Peak:1.00M | Scene | Updating Images | Loading CC0 skin atlas NORMAL
+Fra:1 Mem:171.56M (Peak 340.28M) | Time:498131:42:55.14 | Mem:2.00M, Peak:2.00M | Scene | Updating Images | Loading bluegrey-eye-adapted.png
+Fra:1 Mem:172.56M (Peak 340.28M) | Time:498131:42:55.14 | Mem:3.00M, Peak:3.00M | Scene | Updating Images | Loading hoodietex1.png
+Fra:1 Mem:176.56M (Peak 340.28M) | Time:498131:42:55.14 | Mem:7.00M, Peak:7.00M | Scene | Updating Images | Loading normalshoodie.png
+Fra:1 Mem:177.56M (Peak 340.28M) | Time:498131:42:55.14 | Mem:8.00M, Peak:8.00M | Scene | Updating Images | Loading male_casualsuit01_diffuse.png
+Fra:1 Mem:181.56M (Peak 340.28M) | Time:498131:42:55.14 | Mem:12.00M, Peak:12.00M | Scene | Updating Images | Loading shoes05_diffuse.png
+Fra:1 Mem:105.78M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack stitched edge
+Fra:1 Mem:105.78M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack stitched edge.001
+Fra:1 Mem:105.78M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Backpack pocket zipper
+Fra:1 Mem:105.80M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fitted close-cropped scalp
+Fra:1 Mem:106.10M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface eyebrow fibres 1
+Fra:1 Mem:106.18M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface moustache fibres 1
+Fra:1 Mem:106.27M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface eyebrow fibres -1
+Fra:1 Mem:106.35M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine surface moustache fibres -1
+Fra:1 Mem:106.44M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fine beard root fringe
+Fra:1 Mem:106.49M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 127
+Fra:1 Mem:106.49M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 126
+Fra:1 Mem:106.49M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 125
+Fra:1 Mem:106.49M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 124
+Fra:1 Mem:106.50M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 123
+Fra:1 Mem:106.50M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 122
+Fra:1 Mem:106.50M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 121
+Fra:1 Mem:106.50M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 120
+Fra:1 Mem:106.50M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 119
+Fra:1 Mem:106.50M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 118
+Fra:1 Mem:106.50M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 117
+Fra:1 Mem:106.51M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 116
+Fra:1 Mem:106.51M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 115
+Fra:1 Mem:106.51M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 114
+Fra:1 Mem:106.51M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 113
+Fra:1 Mem:106.51M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 112
+Fra:1 Mem:106.51M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 111
+Fra:1 Mem:106.51M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 110
+Fra:1 Mem:106.52M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 109
+Fra:1 Mem:106.52M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 108
+Fra:1 Mem:106.52M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 107
+Fra:1 Mem:106.52M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 106
+Fra:1 Mem:106.52M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 105
+Fra:1 Mem:106.52M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 104
+Fra:1 Mem:106.52M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 103
+Fra:1 Mem:106.53M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 102
+Fra:1 Mem:106.53M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 101
+Fra:1 Mem:106.53M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 100
+Fra:1 Mem:106.53M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 99
+Fra:1 Mem:106.53M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 98
+Fra:1 Mem:106.53M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 97
+Fra:1 Mem:106.53M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 96
+Fra:1 Mem:106.54M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 95
+Fra:1 Mem:106.54M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 94
+Fra:1 Mem:106.54M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 93
+Fra:1 Mem:106.54M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 92
+Fra:1 Mem:106.54M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 91
+Fra:1 Mem:106.54M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 90
+Fra:1 Mem:106.54M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 89
+Fra:1 Mem:106.55M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 88
+Fra:1 Mem:106.55M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 87
+Fra:1 Mem:106.55M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 86
+Fra:1 Mem:106.55M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 85
+Fra:1 Mem:106.55M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 84
+Fra:1 Mem:106.55M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 83
+Fra:1 Mem:106.55M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 82
+Fra:1 Mem:106.56M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 81
+Fra:1 Mem:106.56M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 80
+Fra:1 Mem:106.56M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 79
+Fra:1 Mem:106.56M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 78
+Fra:1 Mem:106.56M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 77
+Fra:1 Mem:106.56M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 76
+Fra:1 Mem:106.56M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 75
+Fra:1 Mem:106.57M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 74
+Fra:1 Mem:106.57M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 73
+Fra:1 Mem:106.57M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 72
+Fra:1 Mem:106.57M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 71
+Fra:1 Mem:106.57M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 70
+Fra:1 Mem:106.57M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 69
+Fra:1 Mem:106.57M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 68
+Fra:1 Mem:106.58M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 67
+Fra:1 Mem:106.58M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 66
+Fra:1 Mem:106.58M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 65
+Fra:1 Mem:106.58M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 64
+Fra:1 Mem:106.58M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 63
+Fra:1 Mem:106.58M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 62
+Fra:1 Mem:106.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 61
+Fra:1 Mem:106.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 60
+Fra:1 Mem:106.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 59
+Fra:1 Mem:106.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 58
+Fra:1 Mem:106.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 57
+Fra:1 Mem:106.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 56
+Fra:1 Mem:106.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 55
+Fra:1 Mem:106.60M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 54
+Fra:1 Mem:106.60M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 53
+Fra:1 Mem:106.60M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 52
+Fra:1 Mem:106.60M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 51
+Fra:1 Mem:106.60M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 50
+Fra:1 Mem:106.60M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 49
+Fra:1 Mem:106.60M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 48
+Fra:1 Mem:106.61M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 47
+Fra:1 Mem:106.61M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 46
+Fra:1 Mem:106.61M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 45
+Fra:1 Mem:106.61M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 44
+Fra:1 Mem:106.61M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 43
+Fra:1 Mem:106.61M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 42
+Fra:1 Mem:106.61M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 41
+Fra:1 Mem:106.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 40
+Fra:1 Mem:106.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 39
+Fra:1 Mem:106.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 38
+Fra:1 Mem:106.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 37
+Fra:1 Mem:106.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 36
+Fra:1 Mem:106.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 35
+Fra:1 Mem:106.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 34
+Fra:1 Mem:106.63M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 33
+Fra:1 Mem:106.63M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 32
+Fra:1 Mem:106.63M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 31
+Fra:1 Mem:106.63M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 30
+Fra:1 Mem:106.63M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 29
+Fra:1 Mem:106.63M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 28
+Fra:1 Mem:106.63M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 27
+Fra:1 Mem:106.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 26
+Fra:1 Mem:106.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 25
+Fra:1 Mem:106.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 24
+Fra:1 Mem:106.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 23
+Fra:1 Mem:106.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 22
+Fra:1 Mem:106.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 21
+Fra:1 Mem:106.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 20
+Fra:1 Mem:106.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 19
+Fra:1 Mem:106.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 18
+Fra:1 Mem:106.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 17
+Fra:1 Mem:106.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 16
+Fra:1 Mem:106.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 15
+Fra:1 Mem:106.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 14
+Fra:1 Mem:106.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 13
+Fra:1 Mem:106.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 12
+Fra:1 Mem:106.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 11
+Fra:1 Mem:106.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 10
+Fra:1 Mem:106.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 9
+Fra:1 Mem:106.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 8
+Fra:1 Mem:106.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 7
+Fra:1 Mem:106.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 6
+Fra:1 Mem:106.67M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 5
+Fra:1 Mem:106.67M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 4
+Fra:1 Mem:106.67M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 3
+Fra:1 Mem:106.67M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 2
+Fra:1 Mem:106.67M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 1
+Fra:1 Mem:106.67M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Layered beard wisp 0
+Fra:1 Mem:106.67M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Rounded beard undercoat
+Fra:1 Mem:106.79M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CC0 fitted sneakers
+Fra:1 Mem:106.97M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Licensed fitted pants
+Fra:1 Mem:107.47M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Licensed fitted hoodie
+Fra:1 Mem:109.59M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | MakeHuman CC0 anatomical head
+Fra:1 Mem:111.49M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | CC0 fitted blue grey eyes
+Fra:1 Mem:111.62M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Tailored backpack
+Fra:1 Mem:111.64M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Fabric backpack pocket
+Fra:1 Mem:111.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Flat woven backpack strap
+Fra:1 Mem:111.65M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Flat woven backpack strap.001
+Fra:1 Mem:111.66M (Peak 340.28M) | Time:498131:42:55.51 | Mem:0.00M, Peak:0.00M | Scene | Synchronizing object | Zipper pull
+Fra:1 Mem:113.22M (Peak 340.28M) | Time:498131:42:55.53 | Mem:0.00M, Peak:0.00M | Scene | Initializing
+Fra:1 Mem:113.21M (Peak 340.28M) | Time:498131:42:55.53 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Original curved-fibre grooming atlas
+Fra:1 Mem:117.21M (Peak 340.28M) | Time:498131:42:55.53 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading young_lightskinned_male_diffuse.png
+Fra:1 Mem:153.21M (Peak 340.28M) | Time:498131:42:55.54 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Original subtle skin micro normal
+Fra:1 Mem:161.21M (Peak 340.28M) | Time:498131:42:55.54 | Mem:0.00M, Peak:0.00M | Scene | Updating Images | Loading Original subtle skin roughness
+Fra:1 Mem:162.23M (Peak 340.28M) | Time:498131:42:55.54 | Mem:1.00M, Peak:1.00M | Scene | Updating Images | Loading CC0 skin atlas ROUGHNESS
+Fra:1 Mem:162.48M (Peak 340.28M) | Time:498131:42:55.54 | Mem:1.25M, Peak:1.25M | Scene | Updating Images | Loading bluegrey-eye-adapted.png
+Fra:1 Mem:160.48M (Peak 340.28M) | Time:498131:42:55.54 | Mem:5.25M, Peak:5.25M | Scene | Updating Images | Loading hoodietex1.png
+Fra:1 Mem:167.48M (Peak 340.28M) | Time:498131:42:55.54 | Mem:6.25M, Peak:6.25M | Scene | Updating Images | Loading normalshoodie.png
+Fra:1 Mem:168.48M (Peak 340.28M) | Time:498131:42:55.54 | Mem:7.25M, Peak:7.25M | Scene | Updating Images | Loading male_casualsuit01_diffuse.png
+Fra:1 Mem:168.48M (Peak 340.28M) | Time:498131:42:55.54 | Mem:11.25M, Peak:11.25M | Scene | Updating Images | Loading shoes05_diffuse.png
+NATIVE HEAD: adult male macro anatomy, authored UV skin, fitted eye meshes
+HERO REFINEMENT: contoured open-mouth beard, cropped fibres, fitted clothing and flat webbing
+FACE LANDMARKS 1.5971683263778687 1.7158781290054321
+NATIVE WARDROBE: authored cloth topology, barycentric morph fitting, bone-space retargeting
+FACE DEPTH: subtle nose/cheek/brow sculpt; soft scalp/beard roots, existing UVs and eye fit preserved
+GROOM: clipped anatomical scalp, feathered undercoat, 128 curved partial wisps and short geometric brows/moustache; one shared RGBA material
+Info: Baking map saved to internal image, save it externally or pack it
+Info: Baking map saved to internal image, save it externally or pack it
+Info: Baking map saved to internal image, save it externally or pack it
+SKIN ATLAS: existing skin reprojected to 1024 albedo, 512 normal, 256 roughness; same geometry, weights and colours
+ERROR Draco mesh compression is not available because library could not be found at /usr/bin/4.3/python/lib/python3.13/site-packages/libextern_draco.so
+11:42:57 | INFO: Starting glTF 2.0 export
+11:42:57 | INFO: Extracting primitive: MakeHuman CC0 anatomical head.001
+11:42:57 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+11:42:57 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+11:42:58 | INFO: Primitives created: 7
+11:42:59 | INFO: Finished glTF 2.0 export in 1.7328407764434814 s
+
+CHARACTER COMPLETE: original vertex palette, skinned mesh, 16 bones, Idle/Walk/Turn
+
+Blender quit
+prune: Removed types... Accessor (49)
+prune: Removed types... Skin (1), Accessor (29)
+gabriel-rigged.glb 11101336 -> 1453348 skins 1 animations [
+  'Idle',    'Interact',
+  'Sit',     'SitDown',
+  'StandUp', 'Start',
+  'Stop',    'Talk',
+  'Turn',    'Type',
+  'Walk'
+]
+Hero LOD: removed 2295 micro-fibre triangles; preserved beard/scalp silhouettes and eyes
+prune: Removed types... Accessor (9)
+Hero LOD region budgets 3652 1062 1420
+prune: Removed types... TextureInfo (40), Material (8), Texture (12), Accessor (69)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (3)
+gabriel-rigged 6882 triangles 123888 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-0 4603 triangles 102292 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-1 4603 triangles 102280 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-2 4602 triangles 102368 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-3 4603 triangles 102452 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-4 4600 triangles 102124 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-5 4603 triangles 102472 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-6 4603 triangles 102924 bytes
+prune: Removed types... Texture (2), Accessor (1)
+prune: Removed types... Accessor (6)
+prune: Removed types... Skin (1), Accessor (2)
+npc-7 4603 triangles 102304 bytes
+PASS: 9 low-detail variants, <7000 triangles each, same skeletons, clips and normalized weights.
+PASS: 6 scenes, Gabriel + 8 distinct fictional humans, 16+ bones each, 11 verified poses/actions, Meshopt, original logo. 7034492 bytes

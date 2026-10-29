@@ -1,3 +1,12 @@
+## 2026-10-29 — rosto, barba e leitura no celular (revisão local)
+
+- Ajustes locais no rosto CC0 e grooming de sobrancelhas/bigode com fios modelados.
+- Fibras curvas autorais, grisalhos, raiz e formato inferior da barba refinados.
+- Recorte de densidade no couro cabeludo e preservação da raiz suave no LOD.
+- Luz ambiente do software/móvel ajustada sem acrescentar luzes ou passes.
+- Teste de LOD confirma a remoção de fios junto dos olhos/boca sem apagar íris, lábios e barba.
+- Fontes gratuitas e mesmas funções existentes. Evidências: docs/virtual-studio/face-depth-20261029/.
+
 ## 2026-10-29 — luz indireta e atlas compacto (revisão local)
 
 - Seis setores com bake difuso indireto em Cycles CPU, lightMap no PBR/Lambert e UVs de detalhe preservados.
