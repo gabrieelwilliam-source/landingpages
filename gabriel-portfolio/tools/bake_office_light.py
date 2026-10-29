@@ -35,17 +35,17 @@ def bake_office_light(sector):
   target=m.node_tree.nodes.new('ShaderNodeTexImage');target.image=image;m.node_tree.nodes.active=target
  # A common sunset direction and actual pendant positions; no purchased HDRI.
  world=bpy.data.worlds.new('Office bake sky');world.use_nodes=True
- bg=world.node_tree.nodes.get('Background');bg.inputs['Color'].default_value=(.24,.29,.38,1);bg.inputs['Strength'].default_value=.35;scene.world=world
+ bg=world.node_tree.nodes.get('Background');bg.inputs['Color'].default_value=(.24,.29,.38,1);bg.inputs['Strength'].default_value=.60;scene.world=world
  lights=[]
  def light(name,kind,loc,energy,color):
   data=bpy.data.lights.new(name,kind);data.energy=energy;data.color=color;o=bpy.data.objects.new(name,data);scene.collection.objects.link(o);o.location=loc;lights.append(o);return o
  sun=light('Bake sunset','SUN',(20,4,8),2.0,(1,.72,.48));sun.rotation_euler=Vector((-20,-4,-8)).to_track_quat('-Z','Y').to_euler();sun.data.angle=.12
  for fixture in list(scene.objects):
   if fixture.type=='MESH' and fixture.name.startswith('Suspended luminaire'):
-   lamp=light('Bake pendant','AREA',(fixture.location.x,fixture.location.y,4.70),230,(1,.73,.46));lamp.data.shape='RECTANGLE';lamp.data.size=max(.8,fixture.dimensions.x);lamp.data.size_y=.28
+   lamp=light('Bake pendant','AREA',(fixture.location.x,fixture.location.y,4.70),340,(1,.73,.46));lamp.data.shape='RECTANGLE';lamp.data.size=max(.8,fixture.dimensions.x);lamp.data.size_y=.28
  # Soft warm bounce near the reception feature, baked without adding runtime lamps.
  if sector==0:
-  lamp=light('Bake reception wash','AREA',(-5.5,3.7,3.8),110,(1,.70,.40));lamp.data.shape='RECTANGLE';lamp.data.size=3.4;lamp.data.size_y=.7;lamp.rotation_euler=Vector((0,1,-.65)).to_track_quat('-Z','Y').to_euler()
+  lamp=light('Bake reception wash','AREA',(-5.5,3.7,3.8),175,(1,.70,.40));lamp.data.shape='RECTANGLE';lamp.data.size=3.4;lamp.data.size_y=.7;lamp.rotation_euler=Vector((0,1,-.65)).to_track_quat('-Z','Y').to_euler()
  scene.render.engine='CYCLES';scene.cycles.device='CPU';scene.cycles.samples=samples;scene.cycles.max_bounces=4;scene.cycles.diffuse_bounces=3;scene.cycles.glossy_bounces=2;scene.cycles.transparent_max_bounces=8
  bpy.context.view_layer.objects.active=obj;obj.select_set(True)
  bpy.ops.object.bake(type='DIFFUSE',pass_filter={'INDIRECT'},use_clear=True,margin=3,uv_layer='BakedIndirectUV')

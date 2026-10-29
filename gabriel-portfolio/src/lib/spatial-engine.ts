@@ -1,3 +1,4 @@
+import {prepareOfficeTextures} from './office-textures.mjs';
 import {applyOfficeLightmap} from './office-lightmaps.mjs';
 import * as T from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
@@ -107,14 +108,14 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
   }
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = softwareRenderer ? .94 : .90;
+  renderer.toneMappingExposure = softwareRenderer ? 1.0 : .98;
   renderer.shadowMap.enabled = host.clientWidth > 700 && !softwareRenderer;
   renderer.shadowMap.type = softwareRenderer ? T.BasicShadowMap : T.PCFSoftShadowMap;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
   const camera = new T.PerspectiveCamera(50, 1, 0.1, 500);
   // Lift shadow detail on mobile/software with the existing light, not another pass.
-  scene.add(new T.HemisphereLight("#e9dfcf", softwareRenderer ? "#8a7d6d" : "#534238", softwareRenderer ? 1.25 : .45));
+  scene.add(new T.HemisphereLight("#e1e9f4", softwareRenderer ? "#9c9489" : "#756451", softwareRenderer ? 1.55 : .70));
   const sun = new T.DirectionalLight("#ffd3a0", softwareRenderer ? 1.8 : 1.5);
   sun.position.set(18, 9, -32);
   sun.castShadow = true;
@@ -141,11 +142,12 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     const probe = new RoomEnvironment();
     const env = pmrem.fromScene(probe, 0.04, 0.1, 100, {size: softwareRenderer ? 64 : 128});
     scene.environment = env.texture;
-    scene.environmentIntensity = 0.24;
+    scene.environmentIntensity = 0.34;
     probe.dispose();
     pmrem.dispose();
     resources.push(env.texture);
   }
+  const textureAnisotropy = softwareRenderer ? 1 : Math.min(renderer.capabilities.getMaxAnisotropy(),host.clientWidth<700?4:8);
   const mats = new Map<string, T.Material>();
   const world = new T.Group();
   scene.add(world);
@@ -254,6 +256,7 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
         const surfaces=Array.isArray(o.material)?o.material:[o.material];
         surfaces.forEach(material=>{material.alphaToCoverage=!softwareRenderer&&host.clientWidth>700&&material.alphaTest>0;});
         surfaces.forEach(material=>{
+          prepareOfficeTextures(material,quality==='low'?1:textureAnisotropy);
           if(material instanceof T.MeshStandardMaterial)applyOfficeLightmap(material);
           if(material instanceof T.MeshStandardMaterial&&material.name.includes('limestone'))material.roughness=Math.max(.66,material.roughness);
         });
@@ -968,10 +971,11 @@ export function createSpatialWorld(host: HTMLElement, options: SpatialOptions) {
     setQuality(value: GraphicQuality) {
       quality = value;
       renderer.setPixelRatio(value === "low" ? (softwareRenderer ? .45 : .7) : value === "medium" ? Math.min(devicePixelRatio,1.15) : value === "high" ? Math.min(devicePixelRatio, 1.75) : softwareRenderer ? .7 : Math.min(devicePixelRatio, 1.5));
-      scene.environmentIntensity=value === "high" ? 0.28 : 0.24;
+      scene.environmentIntensity=value === "high" ? 0.46 : 0.34;
       const shadows = value !== "low" && host.clientWidth > 700 && !softwareRenderer;
       const changedShadows = renderer.shadowMap.enabled !== shadows;
       renderer.shadowMap.enabled = shadows;
+      mats.forEach(material=>prepareOfficeTextures(material,value==='low'?1:textureAnisotropy));
       renderer.setSize(host.clientWidth, host.clientHeight);
       if (changedShadows) mats.forEach(m => { m.needsUpdate = true; });
       assetDirty = true;

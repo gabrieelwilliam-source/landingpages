@@ -1,0 +1,14 @@
+{
+  "src/data/office-layout.json": "574f3aea56f50514551787f9809a2e272cacc54569252eb075762b3dbf354541",
+  "src/data/studio-actors.json": "64d7cb2c44d1c6865de0cb0b14a35d9e87161ae07aed2558e46d0b59cbe87258",
+  "public/models/gabriel-rigged.glb": "a83fad57ae403a4e3fc2bb5d7daef622cc95406e9f2cf34688254733c01534db",
+  "public/models/npc-0.glb": "97b435dba3b0064f4702d9a71f9a106352ac2d294206374f6b5b644c251dc17c",
+  "public/models/npc-1.glb": "aef2258756fbfa49676660099497cb2de5f4fd72445b4a254f82550250ae007b",
+  "public/models/npc-2.glb": "1f03a0385a46a967a456d2558297e651696986bf747ce56c6327fba412a6374c",
+  "public/models/npc-3.glb": "31f1d34441d604bb230f62f8337def200b4dc84d195c31e51c9bcc2f635df3bf",
+  "public/models/npc-4.glb": "b85a7fd82bdafd32c571d3f7f719e1c65c0810806fe30b76bf7099736488d934",
+  "public/models/npc-5.glb": "25a4503f4be60a954c6705513c7f8f8c3f12da49769b89e4738d4894c54e6cae",
+  "public/models/npc-6.glb": "1490e954c8fc4fe89e933a9a8967a5a458ca0defca4c229b786ea41b84ff5158",
+  "public/models/npc-7.glb": "be16b256316a131030eeec5639fd3d0d11c34253cca686141eedc9c2721c898a",
+  "public/models/low/gabriel-rigged.glb": "1c7f469b52d0c17a131b05c621c61f875cd50dcb71e07e032974233d8875c624"
+}

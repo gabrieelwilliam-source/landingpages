@@ -8,8 +8,8 @@
   "assets": [
     {
       "name": "environment-0.glb",
-      "bytes": 450260,
-      "sha256": "81690fa47c2ba7947d46e7ad81fdd76ca44b17fb32b28fc67e3f5a90fe484e2d",
+      "bytes": 451620,
+      "sha256": "91d46c9ee5fc516cbf99babf9166475efee146588e756c13813030836340a9a1",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -19,8 +19,8 @@
     },
     {
       "name": "environment-1.glb",
-      "bytes": 253920,
-      "sha256": "8f3540e9ab1178bd0a226fd889206e7bc046c104c3a08a11a1ac74732ae78a73",
+      "bytes": 254512,
+      "sha256": "30d540d50abefbb9df77c6aa54c91c2ae8d141cc8986f6e3ff4c76eca1022cd6",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -30,8 +30,8 @@
     },
     {
       "name": "environment-2.glb",
-      "bytes": 608276,
-      "sha256": "7e66503eafe7894881f16ab8ea8a016e95341895a98496de38f25a65f0b26679",
+      "bytes": 609176,
+      "sha256": "e39a3e33025e34c178cbf046ed22811fb1ecded171a32b4dc49c26e38396e9e3",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -41,8 +41,8 @@
     },
     {
       "name": "environment-3.glb",
-      "bytes": 213036,
-      "sha256": "fafc0713e0912a96179908a1e8e561e4ae5fe970c57600b6990dbeeaac0abcbf",
+      "bytes": 213424,
+      "sha256": "eb85196c0cd19148d6a045b6a2b4fe55e20bcdd2f5d351b52b69a84eeda5b32f",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -52,8 +52,8 @@
     },
     {
       "name": "environment-4.glb",
-      "bytes": 377368,
-      "sha256": "ed46c84a4bad3854ac7c4e566c1ea3fa164b75f3eabf3d2fcf2dfa479b5b08a7",
+      "bytes": 378008,
+      "sha256": "757d3138a78e097696887b06bbccb12efc73ebf89144a6855389743c0a5deac2",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -63,8 +63,8 @@
     },
     {
       "name": "environment-5.glb",
-      "bytes": 320100,
-      "sha256": "00596872dd0ed2ae7617e7fb56ffdce27d831482b3476313689cf46ab753bd8a",
+      "bytes": 320996,
+      "sha256": "4d73ad40e8d97b27c611c315f71e5d14422ad9a12be1fc41468656fab84b5da0",
       "meshes": 1,
       "skins": 0,
       "animations": [],
@@ -320,5 +320,5 @@
       "bones": 16
     }
   ],
-  "totalBytes": 7384288
+  "totalBytes": 7389064
 }

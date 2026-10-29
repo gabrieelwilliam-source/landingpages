@@ -3,27 +3,27 @@
     {
       "path": "404/index.html",
       "bytes": 7874,
-      "sha256": "3be993f6f1a67623c5239eb929022c9fd3cf803b0aa9870fe1c846717a01f003"
+      "sha256": "92e3fd531fe13266246cb8ae28cd9d100a47ee25220afb4940305d7de2815694"
     },
     {
       "path": "404.html",
       "bytes": 7874,
-      "sha256": "3be993f6f1a67623c5239eb929022c9fd3cf803b0aa9870fe1c846717a01f003"
+      "sha256": "92e3fd531fe13266246cb8ae28cd9d100a47ee25220afb4940305d7de2815694"
     },
     {
-      "path": "_next/static/E6HEj60_JugKVDMoNTntj/_buildManifest.js",
+      "path": "_next/static/bfsdK7ZRi2tTz-AEAXi8q/_buildManifest.js",
       "bytes": 663,
       "sha256": "5cc47b1abd0f875af88eb97061a7d0a5ec48c307e6f32ae661c73de7e6a22146"
     },
     {
-      "path": "_next/static/E6HEj60_JugKVDMoNTntj/_ssgManifest.js",
+      "path": "_next/static/bfsdK7ZRi2tTz-AEAXi8q/_ssgManifest.js",
       "bytes": 108,
       "sha256": "70f5f02f070413b1246510ad144f23ff921a923c988b4fb496f071ab00119b93"
     },
     {
-      "path": "_next/static/chunks/16.830376451d05dc95.js",
-      "bytes": 33933,
-      "sha256": "d14d79e0743e58459a85d226744f3d32c66995735f7fcd1a63b7799d6adf0142"
+      "path": "_next/static/chunks/279.ea0c3728f5195db9.js",
+      "bytes": 34318,
+      "sha256": "a32b38f15bf23f53daff94c1148350baab31cd8f004d7ecfc9866dd2df119eb5"
     },
     {
       "path": "_next/static/chunks/292-264a85f62a840e50.js",
@@ -66,14 +66,14 @@
       "sha256": "9fe54555175fc3c1ce7f7734456ef5be9734b307e8d35c55c4b50a78c904a612"
     },
     {
-      "path": "_next/static/chunks/app/layout-45f64b8d48c16004.js",
+      "path": "_next/static/chunks/app/layout-8d3f6aa8165905d4.js",
       "bytes": 195,
-      "sha256": "2562a6e474afa476bba4c124cd3539f8dc8abf253095190d1da7f0831d86009c"
+      "sha256": "bbd69a1a4b9d9d4610ad1c4cfc71dd1757850c351fad86792ea95cfd9ef7c75c"
     },
     {
-      "path": "_next/static/chunks/app/page-8160f58f5038e895.js",
-      "bytes": 61275,
-      "sha256": "fd48a20772b1bd603430a67667383c16f64f9b7de6574088c432feae9aabf9ea"
+      "path": "_next/static/chunks/app/page-c571a534b06ea91e.js",
+      "bytes": 61276,
+      "sha256": "10241a1670bac20ce030915273433b1cf8c51175a8879006a3ac60d098b33f35"
     },
     {
       "path": "_next/static/chunks/app/projetos/[slug]/page-3ee754453f36e4b3.js",
@@ -121,9 +121,9 @@
       "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683"
     },
     {
-      "path": "_next/static/chunks/webpack-14cc8c6d50258d49.js",
-      "bytes": 3586,
-      "sha256": "dedf4cf2ebcab06fd1fb8ca46829e7726b36affecabbbadbe5272007288feff0"
+      "path": "_next/static/chunks/webpack-b981109394a0224e.js",
+      "bytes": 3587,
+      "sha256": "e4de296f84b86d42c89dae9d964c998c63caaffae83002318e8c657c53a7c398"
     },
     {
       "path": "_next/static/css/16c14a2884e811ae.css",
@@ -153,12 +153,12 @@
     {
       "path": "creditos/index.html",
       "bytes": 13230,
-      "sha256": "4c10f03558b25d4805bed9f41ddf45a5e7b67807f9afe36b46f8e00f740ac47e"
+      "sha256": "981aa8723ac9be5489c6efb1886532bdbb522d376ad9839f87758bf90b598751"
     },
     {
       "path": "creditos/index.txt",
       "bytes": 7420,
-      "sha256": "9c70474853eacb1cec1ebde0a4a64243add7ae3253a33b67967ed53c98d70f0b"
+      "sha256": "5be6d158c652a2b1a264681074d87d12b29ece751dae192b8c74e866bd0ced1c"
     },
     {
       "path": "environment/city-dusk.webp",
@@ -173,42 +173,42 @@
     {
       "path": "index.html",
       "bytes": 20443,
-      "sha256": "122d147c8c7dc16bb106555b05cd18c77757b8b5d28772bbe478946763c6ab64"
+      "sha256": "507c64c20cb3adcc85cf38f35db4de623654c1e90b229eb1dfb317e91b0b767b"
     },
     {
       "path": "index.txt",
       "bytes": 3875,
-      "sha256": "5e255c59245035d018fa7f8271b171667c3ea4f12661ff1e76ec8cc43ecfe8cd"
+      "sha256": "7fb8dcb1d3004327817dad510646e6b5f5d65d848dbdc587f4959cd79fcb248f"
     },
     {
       "path": "models/environment-0.glb",
-      "bytes": 450260,
-      "sha256": "81690fa47c2ba7947d46e7ad81fdd76ca44b17fb32b28fc67e3f5a90fe484e2d"
+      "bytes": 451620,
+      "sha256": "91d46c9ee5fc516cbf99babf9166475efee146588e756c13813030836340a9a1"
     },
     {
       "path": "models/environment-1.glb",
-      "bytes": 253920,
-      "sha256": "8f3540e9ab1178bd0a226fd889206e7bc046c104c3a08a11a1ac74732ae78a73"
+      "bytes": 254512,
+      "sha256": "30d540d50abefbb9df77c6aa54c91c2ae8d141cc8986f6e3ff4c76eca1022cd6"
     },
     {
       "path": "models/environment-2.glb",
-      "bytes": 608276,
-      "sha256": "7e66503eafe7894881f16ab8ea8a016e95341895a98496de38f25a65f0b26679"
+      "bytes": 609176,
+      "sha256": "e39a3e33025e34c178cbf046ed22811fb1ecded171a32b4dc49c26e38396e9e3"
     },
     {
       "path": "models/environment-3.glb",
-      "bytes": 213036,
-      "sha256": "fafc0713e0912a96179908a1e8e561e4ae5fe970c57600b6990dbeeaac0abcbf"
+      "bytes": 213424,
+      "sha256": "eb85196c0cd19148d6a045b6a2b4fe55e20bcdd2f5d351b52b69a84eeda5b32f"
     },
     {
       "path": "models/environment-4.glb",
-      "bytes": 377368,
-      "sha256": "ed46c84a4bad3854ac7c4e566c1ea3fa164b75f3eabf3d2fcf2dfa479b5b08a7"
+      "bytes": 378008,
+      "sha256": "757d3138a78e097696887b06bbccb12efc73ebf89144a6855389743c0a5deac2"
     },
     {
       "path": "models/environment-5.glb",
-      "bytes": 320100,
-      "sha256": "00596872dd0ed2ae7617e7fb56ffdce27d831482b3476313689cf46ab753bd8a"
+      "bytes": 320996,
+      "sha256": "4d73ad40e8d97b27c611c315f71e5d14422ad9a12be1fc41468656fab84b5da0"
     },
     {
       "path": "models/furniture/lounge-bench.glb",
@@ -283,7 +283,7 @@
     {
       "path": "models/manifest.json",
       "bytes": 6971,
-      "sha256": "88e9684de13393faa15c3917374efc1b57f728a8a1027f015336610f84c649e4"
+      "sha256": "de3010b18ca3a4d148ccc212d77f67cd89c0addcac163ea0ea3bbb4af9fb8bd6"
     },
     {
       "path": "models/npc-0.glb",
@@ -328,32 +328,32 @@
     {
       "path": "projetos/conceito-landing/index.html",
       "bytes": 11409,
-      "sha256": "26e5b10b8e0f3fe4255bbd886a433669895f586898eac32722edb84b514bdd3a"
+      "sha256": "ea7943d701338e4f2639baec922654ca8b890d545772ff57c5c9af065cc8b377"
     },
     {
       "path": "projetos/conceito-landing/index.txt",
       "bytes": 6679,
-      "sha256": "33564ed40955deda89d248a30603e0c19e6509eca9c431e157444a21181f5f8c"
+      "sha256": "00231be21aef8f90e2da6d78624a07cf1e18897f2f515cd58f489ee5579cbfab"
     },
     {
       "path": "projetos/conceito-portfolio/index.html",
       "bytes": 11465,
-      "sha256": "ebd332a510fd41786faccf7f52fc7a26148faf10271c19c5e2e4b500e9c85c08"
+      "sha256": "188e6e374d0a83654534f83248d8b1d3f81f49ac1753937751cbb5d1ae476fad"
     },
     {
       "path": "projetos/conceito-portfolio/index.txt",
       "bytes": 6707,
-      "sha256": "113b1e43f477b8ba4809aeca0de8ebfc98becaf365afabc6cf2286a5bb042b37"
+      "sha256": "f2e254e40f030abcd65eee43d6cadea63301bd7c23806e0d92adbc5bfdb95199"
     },
     {
       "path": "projetos/conceito-site/index.html",
       "bytes": 11336,
-      "sha256": "a525594badc69c78da74558e976e4771a843e596695fbf8351906b6e73405015"
+      "sha256": "9728eb8b2fe448d872e567cbda1c1b02a43db15d47b8b1c7864d4d6caeed7a74"
     },
     {
       "path": "projetos/conceito-site/index.txt",
       "bytes": 6625,
-      "sha256": "4965acbb565e35cf5b5f12b0255a0121b8a641f4ed1285abcf0c67e58bde5503"
+      "sha256": "5d9a03825a714b8cfca5f5e2baa6038d98cfd4eedf23896382bb156aa551b6d3"
     },
     {
       "path": "robots.txt",

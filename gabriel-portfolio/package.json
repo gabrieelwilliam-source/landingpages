@@ -18,7 +18,8 @@
     "preview:review": "node scripts/serve-review.mjs",
     "assets:lod": "node tools/build-character-lods.mjs",
     "assets:furniture": "node tools/prepare-furniture.mjs",
-    "assets:external": "node tools/integrate-external-assets.mjs && node tools/verify-assets.mjs"
+    "assets:external": "node tools/integrate-external-assets.mjs && node tools/verify-assets.mjs",
+    "assets:lighting": "node tools/integrate-external-assets.mjs --all-sectors && node tools/verify-assets.mjs"
   },
   "dependencies": {
     "next": "^15.5.0",

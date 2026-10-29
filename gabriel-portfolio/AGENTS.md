@@ -31,3 +31,7 @@ O pacote `PROMPT_CODEX.md`/`zAIon_Polimento_Visual_Profissional_Codex.zip` estab
 ## Autorização posterior — 29/10/2026: publicar a revisão concluída
 
 O usuário instruiu na conversa: “pode publicar quando terminar”. A suspensão da etapa Polimento Visual terminou para esta revisão. Publicar a revisão final validada no GitHub Pages de testes existente, preservando backup integral, landing page FR, foto privada e produção/n8n. Não pedir novamente confirmação para essa publicação. Conferir `main`, exportação, build do Pages e versão efetiva por HTTPS. Os relatórios/ZIPs de revisão que dizem “sem publicação” são registros históricos anteriores a esta autorização. O repositório real e o prefixo permanecem `gabrieelwilliam-source/landingpages` e `/landingpages/gabriel` enquanto a renomeação não tiver sido efetivada.
+
+
+## Continuação do escritório — 29/10/2026
+A integração dos assets do escritório foi publicada em `a54f63c`. O usuário pediu continuar as melhorias, mantendo a autorização de publicação do escritório. O polimento de iluminação e filtragem deve preservar a cabeça/personagem público, câmera, planta e navegação. A revisão não aprovada da cabeça permanece local na branch `visual-polish`, com os scripts de estudo preservados. Não publicar a branch inteira: ela contém revisões do personagem ainda pendentes. Preparar a exportação a partir de main e aplicar somente o polimento autorizado do escritório.

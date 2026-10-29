@@ -1,17 +1,19 @@
 {
-  "version": "site-zaion-office-assets-20261029",
-  "sourceBase": "4242e155553dd3e946ba133ffab3c42eebb4f84b",
-  "preparedAt": "2026-10-29T13:33:21.915134-03:00",
-  "indexSha256": "122d147c8c7dc16bb106555b05cd18c77757b8b5d28772bbe478946763c6ab64",
+  "version": "site-zaion-lighting-polish-20261029",
+  "sourceBase": "a54f63cfb50957358fc0ca00e2086b567ccd0cad",
+  "preparedAt": "2026-10-29T16:57:18.214758-03:00",
+  "indexSha256": "507c64c20cb3adcc85cf38f35db4de623654c1e90b229eb1dfb317e91b0b767b",
   "heroSha256": "a83fad57ae403a4e3fc2bb5d7daef622cc95406e9f2cf34688254733c01534db",
   "lowHeroSha256": "1c7f469b52d0c17a131b05c621c61f875cd50dcb71e07e032974233d8875c624",
   "roomHashes": {
-    "0": "81690fa47c2ba7947d46e7ad81fdd76ca44b17fb32b28fc67e3f5a90fe484e2d",
-    "2": "7e66503eafe7894881f16ab8ea8a016e95341895a98496de38f25a65f0b26679"
+    "0": "91d46c9ee5fc516cbf99babf9166475efee146588e756c13813030836340a9a1",
+    "1": "30d540d50abefbb9df77c6aa54c91c2ae8d141cc8986f6e3ff4c76eca1022cd6",
+    "2": "e39a3e33025e34c178cbf046ed22811fb1ecded171a32b4dc49c26e38396e9e3",
+    "3": "eb85196c0cd19148d6a045b6a2b4fe55e20bcdd2f5d351b52b69a84eeda5b32f",
+    "4": "757d3138a78e097696887b06bbccb12efc73ebf89144a6855389743c0a5deac2",
+    "5": "4d73ad40e8d97b27c611c315f71e5d14422ad9a12be1fc41468656fab84b5da0"
   },
-  "exportManifestSha256": "bf7141a519b7cf27f423ca801ec791386fcd17edfb0176d0785ab7be894e4011",
-  "exportFiles": 73,
+  "exportManifestSha256": "b970b7d83730a23ea458a1974641bfcda2f483674183bff587d0f006b9b6f3bb",
   "siteName": "Site zAIon",
-  "repository": "gabrieelwilliam-source/landingpages",
-  "acquisitionStatus": "Declared purchased and authorized for this site by project owner; license terms not independently reviewed"
+  "repository": "gabrieelwilliam-source/landingpages"
 }

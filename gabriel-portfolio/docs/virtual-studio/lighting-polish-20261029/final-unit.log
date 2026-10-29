@@ -1,0 +1,20 @@
+
+> site-zaion@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ tests/external-assets.test.mjs (355.497344ms)
+✔ tests/hero-lod.test.mjs (101.89699ms)
+✔ tests/hero-materials.test.mjs (165.599862ms)
+✔ tests/joystick.test.mjs (103.925366ms)
+✔ tests/office-lightmaps.test.mjs (217.798522ms)
+✔ tests/office-textures.test.mjs (176.324565ms)
+✔ tests/office.test.mjs (206.505427ms)
+✔ tests/spatial-motion.test.mjs (247.240165ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 644.621299
