@@ -98,3 +98,7 @@ Cena pronta em 2.90 s; LCP DOM 904 ms. LCP não representa o canvas pronto.
 | Desempenho físico | pendente; medições de software publicadas acima, sem alegação de metas cumpridas |
 
 Pacote: `/workspace/artifacts/zAIon-Rosto-e-Barba-Revisao-20261029.zip`. Extraia inteiro e execute `node INICIAR-REVISAO.mjs`, com Node.js gratuito. A exportação não exige `npm install` para visitar. Código, modelos, fontes de reconstrução e licenças incluídos; foto/moodboards, credenciais, backups, Git e node_modules excluídos. O iniciador escuta somente em localhost.
+
+## ZIP extraído e testado
+
+O iniciador `node INICIAR-REVISAO.mjs` foi executado sobre o ZIP extraído, em localhost. Chromium com viewport/toque de 390 × 844 confirmou mapas de luz carregados, modo Caminhar inicial, movimento proporcional por analógico, parada/Idle ao soltar, troca Scroll ↔ Caminhar, contato clássico e crédito Elvaerwyn/CC BY. Nenhuma resposta HTTP de erro nem erro de execução. [Registro](evidence/zip-smoke.json) e [captura](evidence/zip-smoke.png). CRC e SHA-256 de todas as entradas verificados pelo empacotador. O commit exato consta no `VERSAO.json` do ZIP.

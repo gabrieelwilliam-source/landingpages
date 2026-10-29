@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "starter": "node INICIAR-REVISAO.mjs",
+  "bakedLightmapLoaded": true,
+  "mobileInitialMode": "walk",
+  "analogMoves": true,
+  "releaseStops": true,
+  "modeSwitch": true,
+  "classicContact": true,
+  "licensedHoodieCredit": true,
+  "errors": []
+}
